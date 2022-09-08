@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements PreGameFragment.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AppCompatButton startPreGameFragmentButton = findViewById(R.id.start_game_pregame_fragment_button);
+        AppCompatButton startPreGameFragmentButton = findViewById(R.id.start_pregame_fragment_button);
         startPreGameFragmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

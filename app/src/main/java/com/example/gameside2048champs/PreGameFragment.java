@@ -134,7 +134,7 @@ public class PreGameFragment extends Fragment {
                     sharedPreferences.edit().putInt("gameMatrixColumns", currentGameMode.getColumns()).apply();
                     sharedPreferences.edit().putInt("gameMatrixRows", currentGameMode.getRows()).apply();
 
-                    new CountDownTimer(1500, 1500) {
+                    new CountDownTimer(100, 100) {
                         @Override
                         public void onTick(long millisUntilFinished) {}
                         @Override

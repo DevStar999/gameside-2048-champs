@@ -17,7 +17,6 @@ public class PreGameManager {
 
 
     public PreGameManager(View currentFragmentLayoutView) {
-
         modeLeft = currentFragmentLayoutView.findViewById(R.id.game_mode_left_arrow_pregame_fragment_image_view);
         modeRight = currentFragmentLayoutView.findViewById(R.id.game_mode_right_arrow_pregame_fragment_image_view);
         sizeLeft = currentFragmentLayoutView.findViewById(R.id.game_size_left_arrow_pregame_fragment_image_view);
