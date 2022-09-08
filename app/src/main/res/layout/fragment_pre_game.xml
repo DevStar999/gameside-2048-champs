@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_layout_pregame_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@drawable/background1_complete"
+    tools:context=".PreGameFragment">
+
+    <FrameLayout
+        android:id="@+id/pregame_fragment_title_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner_fragment_title"
+        android:paddingVertical="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title_pregame_fragment_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scrollHorizontally="false"
+            android:text="SELECT GAME MODE"
+            android:textAlignment="center"
+            android:textColor="@color/game_primary_background_color"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/title_back_pregame_fragment_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="start|center_vertical"
+            android:padding="6dp"
+            android:layout_marginStart="16dp"
+            android:contentDescription="Back button for closing PreGameFragment"
+            android:background="@drawable/rounded_corner_button_small"
+            android:alpha="1"
+            app:srcCompat="@drawable/back_arrow" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/game_options_pregame_fragment_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/gap_vertical"
+        android:orientation="vertical"
+        android:showDividers="middle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pregame_fragment_title_frame_layout">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/start_game_pregame_fragment_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/rounded_corner_button"
+            android:contentDescription="Game mode display button"
+            android:minEms="10"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/game_mode_options_pregame_fragment_linear_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/game_mode_left_arrow_pregame_fragment_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="1.4"
+                android:scaleY="1.4"
+                android:background="@color/game_primary_background_color"
+                android:contentDescription="Game mode browse left"
+                app:srcCompat="@drawable/arrow_left" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/game_mode_pregame_fragment_text_view"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/game_primary_background_color"
+                android:contentDescription="Game mode display button"
+                android:scrollHorizontally="false"
+                android:textColor="@color/game_text_color"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textAlignment="center"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/game_mode_right_arrow_pregame_fragment_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="1.4"
+                android:scaleY="1.4"
+                android:background="@color/game_primary_background_color"
+                android:contentDescription="Game mode browse right"
+                app:srcCompat="@drawable/arrow_right" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/game_size_options_pregame_fragment_linear_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="8dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/game_size_left_arrow_pregame_fragment_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="1.4"
+                android:scaleY="1.4"
+                android:background="@color/game_primary_background_color"
+                android:contentDescription="Game size browse left"
+                app:srcCompat="@drawable/arrow_left" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/game_size_pregame_fragment_text_view"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/game_primary_background_color"
+                android:scrollHorizontally="false"
+                android:contentDescription="Game size display button"
+                android:textColor="@color/game_text_color"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textAlignment="center"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/game_size_right_arrow_pregame_fragment_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="1.4"
+                android:scaleY="1.4"
+                android:background="@color/game_primary_background_color"
+                android:contentDescription="Game size browse right"
+                app:srcCompat="@drawable/arrow_right" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
