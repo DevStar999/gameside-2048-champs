@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="game_background_grid_layout" />
+    <item type="id" name="game_grid_layout" />
+    <item type="id" name="game_cell_lottie_layout" />
+    <item type="id" name="grid_lottie_view" />
+</resources>

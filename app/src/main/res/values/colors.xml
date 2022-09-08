@@ -7,4 +7,66 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="orange_50_400">#FFA726</color>
+    <color name="orange_50_200">#FFCC80</color>
+    <color name="orange_button">#F2B179</color>
+    <color name="orange_button_dark">#F59563</color>
+
+    <color name="ic_launcher_background">#EEC22E</color>
+    <color name="game_primary_background_color">#FBF8EF</color>
+    <color name="game_primary_background_color_opacity_60_percent">#99FBF8EF</color>
+    <color name="game_primary_background_color_opacity_80_percent">#CCFBF8EF</color>
+    <color name="transparent_color">@android:color/transparent</color>
+    <color name="board_color">#BBADA0</color>
+    <color name="empty_cell">#D6CDC4</color>
+    <color name="game_text_color">#967969</color>
+    <!-- Current opacity for following color = 50% i.e. in hex = 80 -->
+    <color name="game_text_color_divider_line">#80967969</color>
+    <!-- Current opacity for following color = 20% i.e. in hex = 32 -->
+    <color name="game_text_color_translucent_bgf1">#32967969</color>
+    <!-- Current opacity for following color = 30% i.e. in hex = 4D -->
+    <color name="game_text_color_translucent_bgf2">#4D967969</color>
+    <!-- Current opacity for following color = 30% i.e. in hex = 4D -->
+    <color name="game_text_color_translucent_bgf3">#4D967969</color>
+    <color name="game_text_color_dark">#442E19</color>
+    <color name="dialog_background_color">#EADDCA</color>
+    <!-- Current opacity for following color = 40% i.e. in hex = 66 -->
+    <color name="white_dialog_background_translucent">#66FFFFFF</color>
+    <!-- Current opacity for following color = 75% i.e. in hex = BF -->
+    <color name="white_translucent_splash_screen">#BFFFFFFF</color>
+    <color name="button_background_color">@color/orange_button</color>
+    <!-- Current opacity for following color ~ 2.5% i.e. in hex = 05 -->
+    <color name="black_translucent_film">#05000000</color>
+
+    <!-- Number Colors -->
+    <color name="number_color_0002">#766D64</color>
+    <color name="number_color_0004">#766D64</color>
+    <color name="number_color_0008">#FFFFFF</color>
+    <color name="number_color_0016">#FFFFFF</color>
+    <color name="number_color_0032">#FFFFFF</color>
+    <color name="number_color_0064">#FFFFFF</color>
+    <color name="number_color_0128">#FFFFFF</color>
+    <color name="number_color_0256">#FFFFFF</color>
+    <color name="number_color_0512">#FFFFFF</color>
+    <color name="number_color_1024">#FFFFFF</color>
+    <color name="number_color_2048">#FFFFFF</color>
+    <color name="number_color_4096">#FFFFFF</color>
+    <color name="number_color_8192">#FFFFFF</color>
+    <color name="number_color_higher_order">#FFFFFF</color>
+
+    <!-- Background Colors of Numbers -->
+    <color name="background_color_0002">#EEE4DA</color>
+    <color name="background_color_0004">#EDE0C8</color>
+    <color name="background_color_0008">@color/orange_button</color>
+    <color name="background_color_0016">@color/orange_button_dark</color>
+    <color name="background_color_0032">#F57C5F</color>
+    <color name="background_color_0064">#F65D3B</color>
+    <color name="background_color_0128">#EDCE71</color>
+    <color name="background_color_0256">#EDCC61</color>
+    <color name="background_color_0512">#ECC850</color>
+    <color name="background_color_1024">#EDC53F</color>
+    <color name="background_color_2048">#EEC22E</color>
+    <color name="background_color_4096">#64B5F6</color>
+    <color name="background_color_8192">#1976D2</color>
+    <color name="background_color_higher_order">#353935</color>
 </resources>
