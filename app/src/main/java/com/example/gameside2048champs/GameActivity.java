@@ -68,7 +68,7 @@ public class GameActivity extends AppCompatActivity {
     private AppCompatTextView tutorialTextView;
 
     private void initialiseVariableAttributes() {
-        sharedPreferences = getSharedPreferences("com.example.gameside2048champs", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("com.nerdcoredevelopment.game2048champsfinal", Context.MODE_PRIVATE);
         gson = new Gson();
         currentGameMode = GameModes.getGameModeEnum(
                 getIntent().getIntExtra("gameMatrixColumns", 4),
