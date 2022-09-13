@@ -2,6 +2,7 @@ package com.example.gameside2048champs;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.view.Gravity;
 import android.view.View;
@@ -24,6 +25,8 @@ public class GameLayoutProvider {
     @SuppressLint("UseCompatLoadingForDrawables")
     public static void provideGameFrameLayout(Context context, ConstraintLayout rootGameConstraintLayout,
                                               FrameLayout gameFrameLayout, GameModes gameMode) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(
+                "com.nerdcoredevelopment.game2048champsfinal", Context.MODE_PRIVATE);
         int padding = dpToPx(gameMode.getGameLayoutProperties().getSpacing(), context);
 
         ConstraintSet constraintSet = new ConstraintSet();
@@ -41,9 +44,10 @@ public class GameLayoutProvider {
             for (int j = 0; j < gameMode.getColumns(); j++) {
                 AppCompatImageView imageView = new AppCompatImageView(context);
                 if (gameMode.getBlockCells().get(i).get(j).equals(-1)) {
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.block_cell_x));
+                    imageView.setImageResource(sharedPreferences
+                            .getInt("blockDrawableResourceId", R.drawable.block_cell_x));
                 } else {
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.cell_empty));
+                    imageView.setImageResource(R.drawable.cell_empty);
                 }
 
                 imageView.setTag("emptyCell" + i + j);
