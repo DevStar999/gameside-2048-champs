@@ -17,11 +17,14 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.example.gameside2048champs.enums.GameModes;
 
 public class GameLayoutProvider {
+    private static int dpToPx(int dp, Context context) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return Math.round((float) dp *density);
+    }
     @SuppressLint("UseCompatLoadingForDrawables")
     public static void provideGameFrameLayout(Context context, ConstraintLayout rootGameConstraintLayout,
                                               FrameLayout gameFrameLayout, GameModes gameMode) {
-        float density = context.getResources().getDisplayMetrics().density;
-        int padding = (int) (gameMode.getGameLayoutProperties().getSpacing() * density);
+        int padding = dpToPx(gameMode.getGameLayoutProperties().getSpacing(), context);
 
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(rootGameConstraintLayout);
