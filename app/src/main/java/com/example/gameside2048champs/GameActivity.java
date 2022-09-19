@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.gameside2048champs.dialogs.GameOverDialog;
 import com.example.gameside2048champs.dialogs.GamePausedDialog;
 import com.example.gameside2048champs.dialogs.GameResetDialog;
@@ -66,6 +67,7 @@ public class GameActivity extends AppCompatActivity {
     private AppCompatTextView bestScoreTextView;
     private AppCompatTextView goalTileTextView;
     private AppCompatTextView tutorialTextView;
+    private LottieAnimationView gridLottieView;
 
     private void initialiseVariableAttributes() {
         sharedPreferences = getSharedPreferences("com.nerdcoredevelopment.game2048champsfinal", Context.MODE_PRIVATE);
@@ -145,6 +147,10 @@ public class GameActivity extends AppCompatActivity {
         goalTextView.setBackground(goalScoreGradientDrawable);
     }
 
+    private void initialiseViewsPostGameLayout() {
+        gridLottieView = findViewById(R.id.grid_lottie_view);
+    }
+
     private void initialise() {
         initialiseVariableAttributes();
         initialiseLayouts();
@@ -155,6 +161,7 @@ public class GameActivity extends AppCompatActivity {
         if (!gameManager.startGameIfGameClosedCorrectly()) { // Means game was not closed correctly
             resetGameAndStartIfFlagTrue(true);
         }
+        initialiseViewsPostGameLayout();
     }
 
     private void executeMove() {
@@ -508,15 +515,25 @@ public class GameActivity extends AppCompatActivity {
 
     private void undoProcess() {
         if (!gameManager.getUndoManager().isUndoUsed()) { // Undo was not used, so using it now
-            gameManager.setCurrentGameState(GameStates.GAME_ONGOING);
-            movesQueue.clear();
-            Pair<Integer, List<List<Integer>>> previousStateInfo = gameManager.getUndoManager().undoToPreviousState();
-            // Revert the state of the board to the previous state
-            gameManager.updateGameMatrixPostUndo(previousStateInfo.second);
-            updateBoardOnUndo();
-            // Revert score to previous state score
-            gameManager.setCurrentScore(previousStateInfo.first);
-            updateScoreOnUndo(String.valueOf(gameManager.getCurrentScore()));
+            AnimationUtility.normalToolsUndo(gridLottieView, rootGameConstraintLayout);
+            new CountDownTimer(1000, 10000) {
+                @Override
+                public void onTick(long l) {
+                }
+
+                @Override
+                public void onFinish() {
+                    gameManager.setCurrentGameState(GameStates.GAME_ONGOING);
+                    movesQueue.clear();
+                    Pair<Integer, List<List<Integer>>> previousStateInfo = gameManager.getUndoManager().undoToPreviousState();
+                    // Revert the state of the board to the previous state
+                    gameManager.updateGameMatrixPostUndo(previousStateInfo.second);
+                    updateBoardOnUndo();
+                    // Revert score to previous state score
+                    gameManager.setCurrentScore(previousStateInfo.first);
+                    updateScoreOnUndo(String.valueOf(gameManager.getCurrentScore()));
+                }
+            }.start();
         } else { // Undo was used, so we need to show a message here
             String undoMessageText = (gameManager.getCurrentGameState() == GameStates.GAME_ONGOING) ?
                     "UNDO WAS USED ALREADY" : "NO MOVE HAS BEEN MADE YET";

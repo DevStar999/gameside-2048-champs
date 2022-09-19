@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.gameside2048champs.enums.Direction;
@@ -19,67 +20,6 @@ import com.example.gameside2048champs.enums.GameLayoutProperties;
 import java.util.List;
 
 public class AnimationUtility {
-    public static void gamePreviewShrinkAnimation(LottieAnimationView rotatingLightView, AppCompatImageView gameImage,
-                                                  AppCompatImageView modeLeft, AppCompatImageView modeRight,
-                                                  AppCompatImageView sizeLeft, AppCompatImageView sizeRight,
-                                                  int duration, List<Boolean> gamePreviewAnimationsDone) {
-        ObjectAnimator gameImageShrinkXAnimator =
-                ObjectAnimator.ofFloat(gameImage, View.SCALE_X, 1f, 0.5f).setDuration(duration);
-        ObjectAnimator gameImageShrinkYAnimator =
-                ObjectAnimator.ofFloat(gameImage, View.SCALE_Y, 1f, 0.5f).setDuration(duration);
-        ObjectAnimator rotatingLightViewFade =
-                ObjectAnimator.ofFloat(rotatingLightView, View.ALPHA, 1f, 0f).setDuration(duration);
-
-        AnimatorSet setupGamePreviewAnimator = new AnimatorSet();
-        setupGamePreviewAnimator.playTogether(gameImageShrinkXAnimator, gameImageShrinkYAnimator, rotatingLightViewFade);
-        setupGamePreviewAnimator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                modeLeft.setClickable(false); modeRight.setClickable(false);
-                sizeLeft.setClickable(false); sizeRight.setClickable(false);
-            }
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                gamePreviewAnimationsDone.set(0, true);
-            }
-            @Override
-            public void onAnimationCancel(Animator animation) {}
-            @Override
-            public void onAnimationRepeat(Animator animation) {}
-        });
-        setupGamePreviewAnimator.start();
-    }
-
-    public static void gamePreviewEmergeAnimation(LottieAnimationView rotatingLightView, AppCompatImageView gameImage,
-                                                  AppCompatImageView modeLeft, AppCompatImageView modeRight,
-                                                  AppCompatImageView sizeLeft, AppCompatImageView sizeRight,
-                                                  int duration, List<Boolean> gamePreviewAnimationsDone) {
-        ObjectAnimator gameImageEmergeXAnimator =
-                ObjectAnimator.ofFloat(gameImage, View.SCALE_X, 0.5f, 1f).setDuration(duration);
-        ObjectAnimator gameImageEmergeYAnimator =
-                ObjectAnimator.ofFloat(gameImage, View.SCALE_Y, 0.5f, 1f).setDuration(duration);
-        ObjectAnimator rotatingLightViewAppear =
-                ObjectAnimator.ofFloat(rotatingLightView, View.ALPHA, 0f, 1f).setDuration(duration);
-
-        AnimatorSet setupGamePreviewAnimator = new AnimatorSet();
-        setupGamePreviewAnimator.playTogether(gameImageEmergeXAnimator, gameImageEmergeYAnimator, rotatingLightViewAppear);
-        setupGamePreviewAnimator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {}
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                gamePreviewAnimationsDone.set(0, false);
-                modeLeft.setClickable(true); modeRight.setClickable(true);
-                sizeLeft.setClickable(true); sizeRight.setClickable(true);
-            }
-            @Override
-            public void onAnimationCancel(Animator animation) {}
-            @Override
-            public void onAnimationRepeat(Animator animation) {}
-        });
-        setupGamePreviewAnimator.start();
-    }
-
     private static void setTextViewAttributes(AppCompatTextView textView, int cellValue,
                                               int textColor, Drawable backgroundDrawable,
                                               GameLayoutProperties gameLayoutProperties) {
@@ -327,5 +267,36 @@ public class AnimationUtility {
         });
         scoresAnimatorSet.playTogether(currentScoreSlide, bestScoreSlide);
         scoresAnimatorSet.start();
+    }
+
+    public static void normalToolsUndo(LottieAnimationView gridLottieView, ConstraintLayout rootGameConstraintLayout) {
+        gridLottieView.setVisibility(View.VISIBLE);
+        gridLottieView.setRotationY(180f);
+        gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
+        gridLottieView.setAnimation(R.raw.normal_tools_undo);
+        gridLottieView.setSpeed(1.5f);
+        gridLottieView.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                rootGameConstraintLayout.setEnabled(false);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                gridLottieView.setVisibility(View.GONE);
+                gridLottieView.setRotationY(0f);
+                gridLottieView.setBackgroundResource(0); // To remove background drawable
+                rootGameConstraintLayout.setEnabled(true);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+            }
+        });
+        gridLottieView.playAnimation();
     }
 }
