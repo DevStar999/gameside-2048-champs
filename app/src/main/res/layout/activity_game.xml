@@ -25,9 +25,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_corner_display_base"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/normal_tools_linear_layout"
-        app:layout_constraintEnd_toEndOf="@+id/normal_tools_linear_layout"
-        app:layout_constraintStart_toStartOf="@+id/normal_tools_linear_layout"
+        app:layout_constraintBottom_toTopOf="@id/game_tools_linear_layout"
+        app:layout_constraintEnd_toEndOf="@+id/game_tools_linear_layout"
+        app:layout_constraintStart_toStartOf="@+id/game_tools_linear_layout"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_weight="1">
 
@@ -156,7 +156,7 @@
     </FrameLayout>
 
     <LinearLayout
-        android:id="@+id/normal_tools_linear_layout"
+        android:id="@+id/game_tools_linear_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -192,16 +192,11 @@
             app:srcCompat="@drawable/normal_tools_reset" />
     </LinearLayout>
 
-    <!-- TODO -> Implement all the special tool features
-                and turn on the visibility of this layout.
-                Add android:layout_marginEnd="16dp" in the
-                following LinearLayout -->
     <LinearLayout
         android:id="@+id/special_tools_linear_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/tutorial_text_view"
         app:layout_constraintEnd_toEndOf="@+id/scores_frame_layout"
         app:layout_constraintStart_toStartOf="@+id/scores_frame_layout"
@@ -214,7 +209,7 @@
             android:layout_height="48dp"
             android:layout_marginHorizontal="4dp"
             android:layout_weight="1"
-            android:background="@drawable/click_game_tools"
+            android:background="@drawable/click_normal_tools"
             android:onClick="specialToolsUndo"
             android:padding="2dp"
             android:scaleType="fitXY"
@@ -226,7 +221,7 @@
             android:layout_height="48dp"
             android:layout_marginHorizontal="4dp"
             android:layout_weight="1"
-            android:background="@drawable/click_game_tools"
+            android:background="@drawable/click_normal_tools"
             android:contentDescription="Undo Move"
             android:onClick="specialToolsChangeValue"
             android:padding="4dp"
@@ -239,27 +234,12 @@
             android:layout_height="48dp"
             android:layout_marginHorizontal="4dp"
             android:layout_weight="1"
-            android:background="@drawable/click_game_tools"
+            android:background="@drawable/click_normal_tools"
             android:onClick="specialToolsEliminate"
             android:padding="6dp"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/special_tools_eliminate" />
     </LinearLayout>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/undo_icon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@drawable/click_game_tools"
-        android:onClick="undoTool"
-        android:padding="2dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/special_tools_linear_layout"
-        app:layout_constraintEnd_toEndOf="@+id/special_tools_linear_layout"
-        app:layout_constraintStart_toStartOf="@+id/special_tools_linear_layout"
-        app:layout_constraintTop_toTopOf="@+id/special_tools_linear_layout"
-        app:layout_constraintVertical_weight="1"
-        app:srcCompat="@drawable/special_tools_undo" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tutorial_text_view"
@@ -275,7 +255,7 @@
         android:scrollHorizontally="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/undo_icon"
+        app:layout_constraintTop_toBottomOf="@+id/special_tools_linear_layout"
         app:layout_constraintBottom_toTopOf="@+id/game_frame_layout"
         app:layout_constraintVertical_weight="1"/>
 
