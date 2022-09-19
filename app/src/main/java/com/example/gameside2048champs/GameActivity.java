@@ -502,7 +502,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public void undoTool(View view) {
+    public void normalToolsUndo(View view) {
         undoProcess();
     }
 
