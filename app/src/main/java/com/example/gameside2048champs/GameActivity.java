@@ -447,18 +447,6 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
-    public void specialToolsUndo(View view) {
-        //Toast.makeText(this, "Undo Icon Clicked", Toast.LENGTH_SHORT).show();
-    }
-
-    public void specialToolsChangeValue(View view) {
-        //Toast.makeText(this, "Change Value Icon Clicked", Toast.LENGTH_SHORT).show();
-    }
-
-    public void specialToolsEliminate(View view) {
-        //Toast.makeText(this, "Eliminate Icon Clicked", Toast.LENGTH_SHORT).show();
-    }
-
     private void updateScoreOnUndo(String currentScore) {
         currentScoreTextView.setText(currentScore);
 
