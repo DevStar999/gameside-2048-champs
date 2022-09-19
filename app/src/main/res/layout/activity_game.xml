@@ -241,6 +241,8 @@
             app:srcCompat="@drawable/special_tools_eliminate" />
     </LinearLayout>
 
+    <!-- TODO -> In the later stages of development, remove this tutorial
+                 textview from layout and from code -->
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tutorial_text_view"
         android:layout_width="wrap_content"
