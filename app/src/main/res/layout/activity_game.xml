@@ -59,7 +59,7 @@
         android:id="@+id/scores_frame_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/special_tools_linear_layout"
+        app:layout_constraintBottom_toTopOf="@+id/normal_tools_linear_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_weight="1">
@@ -176,7 +176,7 @@
             android:onClick="pauseClicked"
             android:padding="2dp"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/normal_tools_pause" />
+            app:srcCompat="@drawable/game_tools_pause" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/reset_icon"
@@ -189,11 +189,11 @@
             android:onClick="resetClicked"
             android:padding="2dp"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/normal_tools_reset" />
+            app:srcCompat="@drawable/game_tools_reset" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/special_tools_linear_layout"
+        android:id="@+id/normal_tools_linear_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -204,41 +204,43 @@
         app:layout_constraintVertical_weight="1">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/special_tools_undo_icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginHorizontal="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/click_normal_tools"
-            android:onClick="normalToolsUndo"
-            android:padding="2dp"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/special_tools_undo" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/special_tools_change_value_icon"
+            android:id="@+id/normal_tools_undo_icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginHorizontal="4dp"
             android:layout_weight="1"
             android:background="@drawable/click_normal_tools"
             android:contentDescription="Undo Move"
-            android:onClick="specialToolsChangeValue"
-            android:padding="4dp"
+            android:onClick="normalToolsUndo"
+            android:padding="2dp"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/special_tools_change_value" />
+            app:srcCompat="@drawable/normal_tools_undo" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/special_tools_eliminate_icon"
+            android:id="@+id/normal_tools_eliminate_icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginHorizontal="4dp"
             android:layout_weight="1"
             android:background="@drawable/click_normal_tools"
-            android:onClick="specialToolsEliminate"
+            android:contentDescription="Eliminate One Cell"
+            android:onClick="normalToolsEliminateCell"
             android:padding="6dp"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/special_tools_eliminate" />
+            app:srcCompat="@drawable/normal_tools_eliminate" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/normal_tools_change_one_value_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/click_normal_tools"
+            android:contentDescription="Change Value Of One Cel"
+            android:onClick="normalToolsChangeOneValue"
+            android:padding="4dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/normal_tools_change_value" />
     </LinearLayout>
 
     <!-- TODO -> In the later stages of development, remove this tutorial
@@ -257,7 +259,7 @@
         android:scrollHorizontally="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/special_tools_linear_layout"
+        app:layout_constraintTop_toBottomOf="@+id/normal_tools_linear_layout"
         app:layout_constraintBottom_toTopOf="@+id/game_frame_layout"
         app:layout_constraintVertical_weight="1"/>
 
