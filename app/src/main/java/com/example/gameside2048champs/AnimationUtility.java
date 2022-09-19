@@ -269,6 +269,9 @@ public class AnimationUtility {
         scoresAnimatorSet.start();
     }
 
+    /**
+     * The following animations are for when there is a use of a tool
+     */
     public static void normalToolsUndo(LottieAnimationView gridLottieView, ConstraintLayout rootGameConstraintLayout) {
         gridLottieView.setVisibility(View.VISIBLE);
         gridLottieView.setRotationY(180f);
