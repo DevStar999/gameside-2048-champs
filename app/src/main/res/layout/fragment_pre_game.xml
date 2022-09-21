@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true"
-    android:background="@drawable/background1_complete"
+    android:background="@color/game_primary_background_color"
     tools:context=".PreGameFragment">
 
     <FrameLayout

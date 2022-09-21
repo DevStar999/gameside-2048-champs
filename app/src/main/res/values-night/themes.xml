@@ -13,7 +13,7 @@
         <item name="colorBackgroundFloating">@color/white_dialog_background_translucent</item>
         <item name="android:statusBarColor">@color/game_primary_background_color</item>
         <item name="android:navigationBarColor">@color/game_primary_background_color</item>
-        <item name="android:windowBackground">@drawable/background1_complete</item>
+        <item name="android:windowBackground">@color/game_primary_background_color</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.GameSide2048Champs">
