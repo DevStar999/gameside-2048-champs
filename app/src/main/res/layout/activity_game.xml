@@ -54,8 +54,8 @@
 
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/scores_frame_layout"
+    <LinearLayout
+        android:id="@+id/scores_linear_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/tools_frame_layout"
@@ -64,95 +64,74 @@
         app:layout_constraintVertical_weight="1">
 
         <LinearLayout
-            android:id="@+id/scores_linear_layout"
+            android:id="@+id/current_score_linear_layout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:background="@drawable/rounded_corner_display_base"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/current_score_linear_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:background="@drawable/rounded_corner_display_base"
-                android:orientation="vertical">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/current_score_title_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:background="@drawable/rounded_corner_display_top"
+                android:gravity="center_horizontal|bottom"
+                android:text="SCORE"
+                android:textAlignment="center"
+                android:textColor="@color/number_color_0002"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/current_score_title_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:background="@drawable/rounded_corner_display_top"
-                    android:gravity="center_horizontal|bottom"
-                    android:text="SCORE"
-                    android:textAlignment="center"
-                    android:textColor="@color/number_color_0002"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <!-- TODO - Handling the display of very large numbers
-                            beyond 10 digits, up-to 24 digits-->
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/current_score_value_text_view"
-                    android:layout_width="90dp"
-                    android:layout_height="36dp"
-                    android:gravity="center"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/best_score_linear_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:background="@drawable/rounded_corner_display_base"
-                android:orientation="vertical">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/best_score_title_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:background="@drawable/rounded_corner_display_top"
-                    android:gravity="center_horizontal|bottom"
-                    android:text="BEST"
-                    android:textAlignment="center"
-                    android:textColor="@color/number_color_0002"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <!-- TODO - Handling the display of very large numbers
-                            beyond 10 digits, up-to 24 digits-->
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/best_score_value_text_view"
-                    android:layout_width="90dp"
-                    android:layout_height="36dp"
-                    android:gravity="center"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
+            <!-- TODO - Handling the display of very large numbers
+                        beyond 10 digits, up-to 24 digits-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/current_score_value_text_view"
+                android:layout_width="90dp"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
-        <!-- Lottie Animation Link = https://lottiefiles.com/6650-sparkles-burst -->
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/scores_layout_lottie"
-            android:layout_width="180dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:visibility="invisible"
-            app:lottie_autoPlay="false"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/scores_merge"
-            app:lottie_repeatCount="2"
-            app:lottie_repeatMode="restart"
-            app:lottie_speed="1.25" />
+        <LinearLayout
+            android:id="@+id/best_score_linear_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:background="@drawable/rounded_corner_display_base"
+            android:orientation="vertical">
 
-    </FrameLayout>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/best_score_title_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:background="@drawable/rounded_corner_display_top"
+                android:gravity="center_horizontal|bottom"
+                android:text="BEST"
+                android:textAlignment="center"
+                android:textColor="@color/number_color_0002"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <!-- TODO - Handling the display of very large numbers
+                        beyond 10 digits, up-to 24 digits-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/best_score_value_text_view"
+                android:layout_width="90dp"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/game_tools_linear_layout"
@@ -196,9 +175,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/tutorial_text_view"
-        app:layout_constraintEnd_toEndOf="@+id/scores_frame_layout"
-        app:layout_constraintStart_toStartOf="@+id/scores_frame_layout"
-        app:layout_constraintTop_toBottomOf="@+id/scores_frame_layout"
+        app:layout_constraintEnd_toEndOf="@+id/scores_linear_layout"
+        app:layout_constraintStart_toStartOf="@+id/scores_linear_layout"
+        app:layout_constraintTop_toBottomOf="@+id/scores_linear_layout"
         app:layout_constraintVertical_weight="1">
 
         <LinearLayout

@@ -334,14 +334,10 @@ public class GameActivity extends AppCompatActivity {
                     + " " + currentGameMode.getDimensions(), bestScoreTextView.getText().toString()).apply();
             if (!isCurrentScoreTheBest) {
                 isCurrentScoreTheBest = true;
-                AnimationUtility.mergeScoreDisplays(currentScoreLinearLayout, bestScoreLinearLayout,
-                        findViewById(R.id.scores_layout_lottie),
-                        getResources().getDisplayMetrics().density, 750);
             }
         } else {
             if (isCurrentScoreTheBest) {
                 isCurrentScoreTheBest = false;
-                AnimationUtility.splitScoreDisplays(currentScoreLinearLayout, bestScoreLinearLayout, 750);
             }
         }
     }
@@ -459,7 +455,6 @@ public class GameActivity extends AppCompatActivity {
                 < Integer.parseInt(bestScoreTextView.getText().toString()))) {
             if (isCurrentScoreTheBest) {
                 isCurrentScoreTheBest = false;
-                AnimationUtility.splitScoreDisplays(currentScoreLinearLayout, bestScoreLinearLayout, 750);
             }
         }
 
