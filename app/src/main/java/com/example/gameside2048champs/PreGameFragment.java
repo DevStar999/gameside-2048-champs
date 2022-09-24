@@ -87,7 +87,7 @@ public class PreGameFragment extends Fragment {
         preGameManager = new PreGameManager(layoutView);
 
         // Initialising sharedPreferences
-        sharedPreferences = this.parentActivity.getSharedPreferences("com.example.gameside2048champs", Context.MODE_PRIVATE);
+        sharedPreferences = this.parentActivity.getSharedPreferences("com.nerdcoredevelopment.game2048champsfinal", Context.MODE_PRIVATE);
 
         // The default game mode
         currentGameMode = GameModes.getGameModeEnum(
