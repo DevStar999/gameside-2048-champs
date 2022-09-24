@@ -54,6 +54,7 @@ public class GameActivity extends AppCompatActivity {
     private SwipeUtility swipeUtility;
     private Queue<Direction> movesQueue;
     private boolean goalDone;
+    private int currentCoins;
     private int currentScore;
     private int bestScore;
     private boolean isCurrentScoreTheBest; // Flag to check if best score and current score displays have been merged
@@ -62,6 +63,7 @@ public class GameActivity extends AppCompatActivity {
     /* Layouts */
     private ConstraintLayout rootGameConstraintLayout;
     /* Views */
+    private AppCompatTextView currentCoinsTextView;
     private AppCompatTextView currentScoreTextView;
     private AppCompatTextView bestScoreTextView;
     private AppCompatTextView goalTileTextView;
@@ -83,6 +85,7 @@ public class GameActivity extends AppCompatActivity {
         movesQueue = new ArrayDeque<>();
         goalDone = sharedPreferences.getBoolean("GoalDone" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), false); // Keep default as 'false'
+        currentCoins = sharedPreferences.getInt("currentCoins", 2000);
         currentScore = sharedPreferences.getInt("CurrentScore" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), 0);
         bestScore = sharedPreferences.getInt("BestScore" + " " + currentGameMode.getMode()
@@ -95,6 +98,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void initialiseViews() {
+        currentCoinsTextView = findViewById(R.id.current_coins_game_activity_text_view);
+        currentCoinsTextView.setText(String.valueOf(currentCoins));
+
         currentScoreTextView = findViewById(R.id.current_score_value_text_view);
         currentScoreTextView.setText(String.valueOf(currentScore));
         gameManager.setCurrentScore(currentScore);

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+    <!-- Source Link -> https://www.svgrepo.com/svg/210535/plus -->
+
+    <!-- The following paths are for -> Background -->
+    <path
+        android:fillColor="#6DC82A"
+        android:pathData="M256,512C114.84,512 0,397.16 0,256S114.84,0 256,0s256,114.84 256,256S397.16,512 256,512z" />
+    <path
+        android:fillColor="#6DC82A"
+        android:pathData="M512,256C512,114.84 397.16,0 256,0v512C397.16,512 512,397.16 512,256z" />
+
+    <!-- The following paths are for -> Middle Plus Sign -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M389.59,239.3H272.7V122.41c0,-9.23 -7.47,-16.7 -16.7,-16.7c-9.23,0 -16.7,7.47 -16.7,16.7v116.89H122.41c-9.23,0 -16.7,7.47 -16.7,16.7c0,9.23 7.47,16.7 16.7,16.7h116.89v116.89c0,9.23 7.47,16.7 16.7,16.7c9.23,0 16.7,-7.47 16.7,-16.7V272.7h116.89c9.23,0 16.7,-7.47 16.7,-16.7C406.29,246.77 398.82,239.3 389.59,239.3z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M389.59,239.3H272.7V122.41c0,-9.23 -7.47,-16.7 -16.7,-16.7v133.59v33.4v133.59c9.23,0 16.7,-7.47 16.7,-16.7V272.7h116.89c9.23,0 16.7,-7.47 16.7,-16.7C406.29,246.77 398.82,239.3 389.59,239.3z" />
+</vector>
