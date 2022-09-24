@@ -431,6 +431,17 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
+     * onClick listeners for purchasing coins are as follows
+     */
+    public void currentCoinsAddCoinsLayout(View view) {
+        // Toast.makeText(this, "Purchase button clicked", Toast.LENGTH_SHORT).show();
+    }
+
+    public void currentCoinsAddCoinsButton(View view) {
+        // Toast.makeText(this, "Purchase button clicked", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
      * onClick listeners for the icons are as follows
      */
     public void pauseClicked(View view) {
