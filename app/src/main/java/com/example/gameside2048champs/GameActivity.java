@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.GridLayout;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +23,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.gameside2048champs.dialogs.ArrivingToolDialog;
 import com.example.gameside2048champs.dialogs.GameOverDialog;
 import com.example.gameside2048champs.dialogs.GamePausedDialog;
 import com.example.gameside2048champs.dialogs.GameResetDialog;
@@ -502,6 +502,14 @@ public class GameActivity extends AppCompatActivity {
 
     public void normalToolsUndo(View view) {
         undoProcess();
+    }
+
+    public void normalToolsEliminateCell(View view) {
+        new ArrivingToolDialog(this).show();
+    }
+
+    public void normalToolsChangeOneValue(View view) {
+        new ArrivingToolDialog(this).show();
     }
 
     private void undoProcess() {
