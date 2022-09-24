@@ -350,7 +350,7 @@
         android:id="@+id/game_frame_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/sound_state_image_view"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -361,21 +361,5 @@
              and then on top of that game tiles -->
 
     </FrameLayout>
-
-    <!-- TODO -> Implement game audio sound and turn on the
-                 visibility of the this icon -->
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/sound_state_image_view"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_margin="4dp"
-        android:onClick="changeSoundState"
-        android:scaleType="fitXY"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/game_frame_layout"
-        app:layout_constraintVertical_weight="1"
-        app:srcCompat="@drawable/sound_on" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

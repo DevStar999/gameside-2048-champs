@@ -57,7 +57,6 @@ public class GameActivity extends AppCompatActivity {
     private int currentScore;
     private int bestScore;
     private boolean isCurrentScoreTheBest; // Flag to check if best score and current score displays have been merged
-    private boolean isSoundOn;
 
     // UI Elements
     /* Layouts */
@@ -89,7 +88,6 @@ public class GameActivity extends AppCompatActivity {
         bestScore = sharedPreferences.getInt("BestScore" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), 0);
         isCurrentScoreTheBest = false;
-        isSoundOn = true;
     }
 
     private void initialiseLayouts() {
@@ -526,19 +524,5 @@ public class GameActivity extends AppCompatActivity {
                     "UNDO WAS USED ALREADY" : "NO MOVE HAS BEEN MADE YET";
             new GameUndoDialog(this, undoMessageText).show();
         }
-    }
-
-    public void changeSoundState(View view) {
-        /*
-        if (isSoundOn) {
-            isSoundOn = false;
-            ((AppCompatImageView) view).setImageDrawable(getDrawable(R.drawable.sound_off));
-            Toast.makeText(this, "Sound Turned OFF Clicked", Toast.LENGTH_SHORT).show();
-        } else {
-            isSoundOn = true;
-            ((AppCompatImageView) view).setImageDrawable(getDrawable(R.drawable.sound_on));
-            Toast.makeText(this, "Sound Turned ON Clicked", Toast.LENGTH_SHORT).show();
-        }
-        */
     }
 }
