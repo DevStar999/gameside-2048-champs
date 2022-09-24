@@ -79,16 +79,16 @@ public class GameActivity extends AppCompatActivity {
                 getIntent().getStringExtra("gameMode"));
         gameManager = new GameManager(GameActivity.this, currentGameMode);
         gameManager.setCurrentGameState(GameStates.values()[
-                sharedPreferences.getInt("GameStateEnumIndex" + " " + currentGameMode.getMode()
+                sharedPreferences.getInt("gameStateEnumIndex" + " " + currentGameMode.getMode()
                         + " " + currentGameMode.getDimensions(), 0)]);
         swipeUtility = new SwipeUtility(currentGameMode.getRows(), currentGameMode.getColumns());
         movesQueue = new ArrayDeque<>();
-        goalDone = sharedPreferences.getBoolean("GoalDone" + " " + currentGameMode.getMode()
+        goalDone = sharedPreferences.getBoolean("goalDone" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), false); // Keep default as 'false'
         currentCoins = sharedPreferences.getInt("currentCoins", 2000);
-        currentScore = sharedPreferences.getInt("CurrentScore" + " " + currentGameMode.getMode()
+        currentScore = sharedPreferences.getInt("currentScore" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), 0);
-        bestScore = sharedPreferences.getInt("BestScore" + " " + currentGameMode.getMode()
+        bestScore = sharedPreferences.getInt("bestScore" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), 0);
         isCurrentScoreTheBest = false;
     }
@@ -106,12 +106,12 @@ public class GameActivity extends AppCompatActivity {
         gameManager.setCurrentScore(currentScore);
         gameManager.setHasGoalBeenCompleted(goalDone);
 
-        String jsonRetrieveBoard = sharedPreferences.getString("CurrentBoard" + " " + currentGameMode.getMode()
+        String jsonRetrieveBoard = sharedPreferences.getString("currentBoard" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), gson.toJson(gameManager.getGameMatrix()));
         Type typeBoard = new TypeToken<List<List<Integer>>>(){}.getType();
         gameManager.setGameMatrix(gson.fromJson(jsonRetrieveBoard, typeBoard));
 
-        String jsonRetrieveUndoManager = sharedPreferences.getString("UndoManager" + " " + currentGameMode.getMode()
+        String jsonRetrieveUndoManager = sharedPreferences.getString("undoManager" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), gson.toJson(gameManager.getUndoManager()));
         Type typeUndoManager = new TypeToken<UndoManager>(){}.getType();
         gameManager.setUndoManager(gson.fromJson(jsonRetrieveUndoManager, typeUndoManager));
@@ -207,7 +207,7 @@ public class GameActivity extends AppCompatActivity {
                             goalTileTextView.setText(String.format("GOAL TILE %s",
                                     String.valueOf(toChars(greenTickEmojiUnicode))));
                             tutorialTextView.setText("Merge for higher tiles, SKY IS THE LIMIT");
-                            sharedPreferences.edit().putBoolean("GoalDone" + " " + currentGameMode.getMode()
+                            sharedPreferences.edit().putBoolean("goalDone" + " " + currentGameMode.getMode()
                                     + " " + currentGameMode.getDimensions(), goalDone).apply();
                             movesQueue.clear();
                             new GameWinDialog(GameActivity.this).show();
@@ -334,7 +334,7 @@ public class GameActivity extends AppCompatActivity {
         if ((currentScore >= bestScore) && currentScore > 0) {
             bestScore = currentScore;
             bestScoreTextView.setText(String.valueOf(bestScore));
-            sharedPreferences.edit().putInt("BestScore" + " " + currentGameMode.getMode()
+            sharedPreferences.edit().putInt("bestScore" + " " + currentGameMode.getMode()
                     + " " + currentGameMode.getDimensions(), bestScore).apply();
             if (!isCurrentScoreTheBest) {
                 isCurrentScoreTheBest = true;
@@ -360,19 +360,19 @@ public class GameActivity extends AppCompatActivity {
 
     private void saveGameState() {
         // Saving the current state of the game to play later
-        sharedPreferences.edit().putInt("GameStateEnumIndex" + " " + currentGameMode.getMode()
+        sharedPreferences.edit().putInt("gameStateEnumIndex" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), gameManager.getCurrentGameState().ordinal()).apply();
-        sharedPreferences.edit().putInt("CurrentScore" + " " + currentGameMode.getMode()
+        sharedPreferences.edit().putInt("currentScore" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), currentScore).apply();
-        sharedPreferences.edit().putString("UndoManager" + " " + currentGameMode.getMode()
+        sharedPreferences.edit().putString("undoManager" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), gson.toJson(gameManager.getUndoManager())).apply();
-        sharedPreferences.edit().putBoolean("GoalDone" + " " + currentGameMode.getMode()
+        sharedPreferences.edit().putBoolean("goalDone" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), goalDone).apply();
         if (gameManager.getCurrentGameState() == GameStates.GAME_START) {
-            sharedPreferences.edit().putString("CurrentBoard" + " " + currentGameMode.getMode()
+            sharedPreferences.edit().putString("currentBoard" + " " + currentGameMode.getMode()
                     + " " + currentGameMode.getDimensions(), gson.toJson(getCopyOfGivenBoard(currentGameMode.getBlockCells()))).apply();
         } else {
-            sharedPreferences.edit().putString("CurrentBoard" + " " + currentGameMode.getMode()
+            sharedPreferences.edit().putString("currentBoard" + " " + currentGameMode.getMode()
                     + " " + currentGameMode.getDimensions(), gson.toJson(gameManager.getGameMatrix())).apply();
         }
     }
@@ -474,7 +474,7 @@ public class GameActivity extends AppCompatActivity {
         goalDone = false;
         goalTileTextView.setText("GOAL TILE");
         tutorialTextView.setText("Merge the tiles to form the GOAL TILE!");
-        sharedPreferences.edit().putBoolean("GoalDone" + " " + currentGameMode.getMode()
+        sharedPreferences.edit().putBoolean("goalDone" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), goalDone).apply();
     }
 

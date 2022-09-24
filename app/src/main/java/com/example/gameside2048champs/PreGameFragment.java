@@ -108,7 +108,7 @@ public class PreGameFragment extends Fragment {
         preGameManager.updateSizeBrowseIcons(currentGameMode.getDimensions(), allCurrentGameSizes);
 
         startGameButton = layoutView.findViewById(R.id.start_game_pregame_fragment_button);
-        if (sharedPreferences.getInt("GameStateEnumIndex" + " " + currentGameMode.getMode()
+        if (sharedPreferences.getInt("gameStateEnumIndex" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), 0) == GameStates.GAME_ONGOING.ordinal()) {
             startGameButton.setText("RESUME GAME");
         } else {
@@ -180,7 +180,7 @@ public class PreGameFragment extends Fragment {
         preGameManager.updateSizeBrowseIcons(currentGameMode.getDimensions(), allCurrentGameSizes);
 
         // Update the text of the start game button
-        if (sharedPreferences.getInt("GameStateEnumIndex" + " " + currentGameMode.getMode()
+        if (sharedPreferences.getInt("gameStateEnumIndex" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), 0) == GameStates.GAME_ONGOING.ordinal()) {
             startGameButton.setText("RESUME GAME");
         } else {
@@ -224,7 +224,7 @@ public class PreGameFragment extends Fragment {
         preGameManager.updateSizeBrowseIcons(currentGameMode.getDimensions(), allCurrentGameSizes);
 
         // Update the text of the start game button
-        if (sharedPreferences.getInt("GameStateEnumIndex" + " " + currentGameMode.getMode()
+        if (sharedPreferences.getInt("gameStateEnumIndex" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), 0) == GameStates.GAME_ONGOING.ordinal()) {
             startGameButton.setText("RESUME GAME");
         } else {
