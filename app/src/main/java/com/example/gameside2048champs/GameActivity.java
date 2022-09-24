@@ -54,13 +54,13 @@ public class GameActivity extends AppCompatActivity {
     private SwipeUtility swipeUtility;
     private Queue<Direction> movesQueue;
     private boolean goalDone;
+    private int currentScore;
+    private int bestScore;
     private boolean isCurrentScoreTheBest; // Flag to check if best score and current score displays have been merged
     private boolean isSoundOn;
 
     // UI Elements
     /* Layouts */
-    private LinearLayout currentScoreLinearLayout;
-    private LinearLayout bestScoreLinearLayout;
     private ConstraintLayout rootGameConstraintLayout;
     /* Views */
     private AppCompatTextView currentScoreTextView;
@@ -84,21 +84,22 @@ public class GameActivity extends AppCompatActivity {
         movesQueue = new ArrayDeque<>();
         goalDone = sharedPreferences.getBoolean("GoalDone" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), false); // Keep default as 'false'
+        currentScore = sharedPreferences.getInt("CurrentScore" + " " + currentGameMode.getMode()
+                + " " + currentGameMode.getDimensions(), 0);
+        bestScore = sharedPreferences.getInt("BestScore" + " " + currentGameMode.getMode()
+                + " " + currentGameMode.getDimensions(), 0);
         isCurrentScoreTheBest = false;
         isSoundOn = true;
     }
 
     private void initialiseLayouts() {
-        currentScoreLinearLayout = findViewById(R.id.current_score_linear_layout);
-        bestScoreLinearLayout = findViewById(R.id.best_score_linear_layout);
         rootGameConstraintLayout = findViewById(R.id.root_game_constraint_layout);
     }
 
     private void initialiseViews() {
         currentScoreTextView = findViewById(R.id.current_score_value_text_view);
-        currentScoreTextView.setText(sharedPreferences.getString("CurrentScore" + " " + currentGameMode.getMode()
-                + " " + currentGameMode.getDimensions(), "0"));
-        gameManager.setCurrentScore(Integer.parseInt(currentScoreTextView.getText().toString()));
+        currentScoreTextView.setText(String.valueOf(currentScore));
+        gameManager.setCurrentScore(currentScore);
         gameManager.setHasGoalBeenCompleted(goalDone);
 
         String jsonRetrieveBoard = sharedPreferences.getString("CurrentBoard" + " " + currentGameMode.getMode()
@@ -112,13 +113,12 @@ public class GameActivity extends AppCompatActivity {
         gameManager.setUndoManager(gson.fromJson(jsonRetrieveUndoManager, typeUndoManager));
 
         bestScoreTextView = findViewById(R.id.best_score_value_text_view);
-        bestScoreTextView.setText(sharedPreferences.getString("BestScore" + " " + currentGameMode.getMode()
-                + " " + currentGameMode.getDimensions(), "0"));
+        bestScoreTextView.setText(String.valueOf(bestScore));
         goalTileTextView = findViewById(R.id.goal_tile_text_view);
         if (gameManager.getCurrentGameState() == GameStates.GAME_OVER) {
-            updateScore("0");
+            updateScore(0);
         } else {
-            updateScore(currentScoreTextView.getText().toString());
+            updateScore(currentScore);
         }
 
         tutorialTextView = findViewById(R.id.tutorial_text_view);
@@ -196,7 +196,7 @@ public class GameActivity extends AppCompatActivity {
                 public void onTick(long millisUntilFinished) {
                     if (gameManager.isHasMoveBeenCompleted()) {
                         gameManager.updateGameState();
-                        updateScore(String.valueOf(gameManager.getCurrentScore()));
+                        updateScore(gameManager.getCurrentScore());
                         if (gameManager.isHasGoalBeenCompleted() && !goalDone) {
                             goalDone = true;
                             int greenTickEmojiUnicode = 0x2705;
@@ -323,15 +323,15 @@ public class GameActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
-    private void updateScore(String currentScore) {
-        currentScoreTextView.setText(currentScore);
+    private void updateScore(int updatedCurrentScore) {
+        currentScore = updatedCurrentScore;
+        currentScoreTextView.setText(String.valueOf(currentScore));
 
-        if ((Integer.parseInt(currentScoreTextView.getText().toString())
-                >= Integer.parseInt(bestScoreTextView.getText().toString()))
-                && Integer.parseInt(currentScoreTextView.getText().toString()) > 0) {
-            bestScoreTextView.setText(currentScoreTextView.getText().toString());
-            sharedPreferences.edit().putString("BestScore" + " " + currentGameMode.getMode()
-                    + " " + currentGameMode.getDimensions(), bestScoreTextView.getText().toString()).apply();
+        if ((currentScore >= bestScore) && currentScore > 0) {
+            bestScore = currentScore;
+            bestScoreTextView.setText(String.valueOf(bestScore));
+            sharedPreferences.edit().putInt("BestScore" + " " + currentGameMode.getMode()
+                    + " " + currentGameMode.getDimensions(), bestScore).apply();
             if (!isCurrentScoreTheBest) {
                 isCurrentScoreTheBest = true;
             }
@@ -358,8 +358,8 @@ public class GameActivity extends AppCompatActivity {
         // Saving the current state of the game to play later
         sharedPreferences.edit().putInt("GameStateEnumIndex" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), gameManager.getCurrentGameState().ordinal()).apply();
-        sharedPreferences.edit().putString("CurrentScore" + " " + currentGameMode.getMode()
-                + " " + currentGameMode.getDimensions(), currentScoreTextView.getText().toString()).apply();
+        sharedPreferences.edit().putInt("CurrentScore" + " " + currentGameMode.getMode()
+                + " " + currentGameMode.getDimensions(), currentScore).apply();
         sharedPreferences.edit().putString("UndoManager" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), gson.toJson(gameManager.getUndoManager())).apply();
         sharedPreferences.edit().putBoolean("GoalDone" + " " + currentGameMode.getMode()
@@ -374,7 +374,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void resetGameAndStartIfFlagTrue(boolean flag) {
-        updateScore("0");
+        updateScore(0);
         gameManager = new GameManager(GameActivity.this, currentGameMode);
         goalDone = false;
         gameManager.setHasGoalBeenCompleted(false);
@@ -447,12 +447,12 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
-    private void updateScoreOnUndo(String currentScore) {
-        currentScoreTextView.setText(currentScore);
+    private void updateScoreOnUndo(int updatedCurrentScore) {
+        currentScore = updatedCurrentScore;
+        currentScoreTextView.setText(String.valueOf(currentScore));
 
         // Making a check if the current score and the best scores need to be split or not
-        if ((Integer.parseInt(currentScoreTextView.getText().toString())
-                < Integer.parseInt(bestScoreTextView.getText().toString()))) {
+        if (currentScore < bestScore) {
             if (isCurrentScoreTheBest) {
                 isCurrentScoreTheBest = false;
             }
@@ -518,7 +518,7 @@ public class GameActivity extends AppCompatActivity {
                     updateBoardOnUndo();
                     // Revert score to previous state score
                     gameManager.setCurrentScore(previousStateInfo.first);
-                    updateScoreOnUndo(String.valueOf(gameManager.getCurrentScore()));
+                    updateScoreOnUndo(gameManager.getCurrentScore());
                 }
             }.start();
         } else { // Undo was used, so we need to show a message here
