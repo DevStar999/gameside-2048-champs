@@ -2,6 +2,7 @@ package com.example.gameside2048champs.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.view.WindowManager;
