@@ -58,6 +58,7 @@ public class GameActivity extends AppCompatActivity implements
     private Queue<Direction> movesQueue;
     private boolean goalDone;
     private int currentCoins;
+    private int normalToolsUndoCost;
     private int currentScore;
     private int bestScore;
     private boolean isCurrentScoreTheBest; // Flag to check if best score and current score displays have been merged
@@ -89,6 +90,7 @@ public class GameActivity extends AppCompatActivity implements
         goalDone = sharedPreferences.getBoolean("goalDone" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), false); // Keep default as 'false'
         currentCoins = sharedPreferences.getInt("currentCoins", 2000);
+        normalToolsUndoCost = 125;
         currentScore = sharedPreferences.getInt("currentScore" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), 0);
         bestScore = sharedPreferences.getInt("bestScore" + " " + currentGameMode.getMode()
@@ -236,10 +238,9 @@ public class GameActivity extends AppCompatActivity implements
                                             undoProcess();
                                         }
                                     } else {
-                                        undoProcess();
-                                        // TODO -> Do something more neat and clean instead of a Toast message
-                                        Toast.makeText(GameActivity.this,
-                                                "Last move has been undone", Toast.LENGTH_SHORT).show();
+                                        // If the user does not respond we will start a new game
+                                        // from our side
+                                        resetGameAndStartIfFlagTrue(true);
                                     }
                                 }
                             });
@@ -545,25 +546,33 @@ public class GameActivity extends AppCompatActivity implements
 
     private void undoProcess() {
         if (!gameManager.getUndoManager().isUndoUsed()) { // Undo was not used, so using it now
-            AnimationUtility.normalToolsUndo(gridLottieView, rootGameConstraintLayout);
-            new CountDownTimer(1000, 10000) {
-                @Override
-                public void onTick(long l) {
-                }
+            if (currentCoins >= normalToolsUndoCost) {
+                AnimationUtility.normalToolsUndo(gridLottieView, rootGameConstraintLayout);
+                new CountDownTimer(1000, 10000) {
+                    @Override
+                    public void onTick(long l) {
+                    }
 
-                @Override
-                public void onFinish() {
-                    gameManager.setCurrentGameState(GameStates.GAME_ONGOING);
-                    movesQueue.clear();
-                    Pair<Integer, List<List<Integer>>> previousStateInfo = gameManager.getUndoManager().undoToPreviousState();
-                    // Revert the state of the board to the previous state
-                    gameManager.updateGameMatrixPostUndo(previousStateInfo.second);
-                    updateBoardOnUndo();
-                    // Revert score to previous state score
-                    gameManager.setCurrentScore(previousStateInfo.first);
-                    updateScoreOnUndo(gameManager.getCurrentScore());
-                }
-            }.start();
+                    @Override
+                    public void onFinish() {
+                        gameManager.setCurrentGameState(GameStates.GAME_ONGOING);
+                        movesQueue.clear();
+                        Pair<Integer, List<List<Integer>>> previousStateInfo = gameManager.getUndoManager().undoToPreviousState();
+                        // Revert the state of the board to the previous state
+                        gameManager.updateGameMatrixPostUndo(previousStateInfo.second);
+                        updateBoardOnUndo();
+                        // Revert score to previous state score
+                        gameManager.setCurrentScore(previousStateInfo.first);
+                        updateScoreOnUndo(gameManager.getCurrentScore());
+                        // Update the reduced number of coins
+                        currentCoins -= normalToolsUndoCost;
+                        sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
+                        currentCoinsTextView.setText(String.valueOf(currentCoins));
+                    }
+                }.start();
+            } else {
+                openShopFragment();
+            }
         } else { // Undo was used, so we need to show a message here
             String undoMessageText = (gameManager.getCurrentGameState() == GameStates.GAME_ONGOING) ?
                     "UNDO WAS USED ALREADY" : "NO MOVE HAS BEEN MADE YET";
@@ -574,5 +583,31 @@ public class GameActivity extends AppCompatActivity implements
     @Override
     public void onShopFragmentInteractionBackClicked() {
         onBackPressed();
+        if (gameManager.getCurrentGameState() == GameStates.GAME_OVER) {
+            GameOverDialog gameOverDialog = new GameOverDialog(GameActivity.this);
+            gameOverDialog.show();
+            gameOverDialog.setGameOverDialogListener(new GameOverDialog.GameOverDialogListener() {
+                @Override
+                public void getResponseOfOverDialog(GameOverDialogOptions optionSelected,
+                                                    boolean didUserRespond) {
+                    if (didUserRespond) {
+                        if (optionSelected == GameOverDialogOptions.MAIN_MENU) {
+                            resetGameAndStartIfFlagTrue(false);
+
+                            Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else if (optionSelected == GameOverDialogOptions.PLAY_AGAIN) {
+                            resetGameAndStartIfFlagTrue(true);
+                        } else if (optionSelected == GameOverDialogOptions.UNDO_LAST_MOVE) {
+                            undoProcess();
+                        }
+                    } else {
+                        // If the user does not respond we will start a new game from our side
+                        resetGameAndStartIfFlagTrue(true);
+                    }
+                }
+            });
+        }
     }
 }
