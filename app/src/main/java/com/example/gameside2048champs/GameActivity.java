@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.gameside2048champs.dialogs.ArrivingToolDialog;
@@ -45,7 +47,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements
+        ShopFragment.OnShopFragmentInteractionListener {
     // Variable Attributes
     private SharedPreferences sharedPreferences;
     private Gson gson;
@@ -413,7 +416,13 @@ public class GameActivity extends AppCompatActivity {
     // For when the 'Back' button on the device is pressed
     @Override
     public void onBackPressed() {
-        setupGamePausedDialog();
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            // Back button was pressed from activity
+            setupGamePausedDialog();
+        } else {
+            // Back button was pressed from fragment
+            getSupportFragmentManager().popBackStack();
+        }
     }
 
     // For when the 'Home' button on the device is pressed
@@ -434,11 +443,22 @@ public class GameActivity extends AppCompatActivity {
      * onClick listeners for purchasing coins are as follows
      */
     public void currentCoinsAddCoinsLayout(View view) {
-        // Toast.makeText(this, "Purchase button clicked", Toast.LENGTH_SHORT).show();
+        openShopFragment();
     }
 
     public void currentCoinsAddCoinsButton(View view) {
-        // Toast.makeText(this, "Purchase button clicked", Toast.LENGTH_SHORT).show();
+        openShopFragment();
+    }
+
+    private void openShopFragment() {
+        ShopFragment fragment = new ShopFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
+                R.anim.enter_from_right, R.anim.exit_to_right);
+        transaction.addToBackStack(null);
+        transaction.add(R.id.game_activity_full_screen_fragment_container,
+                fragment, "SHOP_FRAGMENT").commit();
     }
 
     /**
@@ -549,5 +569,10 @@ public class GameActivity extends AppCompatActivity {
                     "UNDO WAS USED ALREADY" : "NO MOVE HAS BEEN MADE YET";
             new GameUndoDialog(this, undoMessageText).show();
         }
+    }
+
+    @Override
+    public void onShopFragmentInteractionBackClicked() {
+        onBackPressed();
     }
 }

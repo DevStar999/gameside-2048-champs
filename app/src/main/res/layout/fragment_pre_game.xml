@@ -40,7 +40,7 @@
             android:padding="6dp"
             android:layout_marginStart="16dp"
             android:contentDescription="Back button for closing PreGameFragment"
-            android:background="@drawable/rounded_corner_button_small"
+            android:background="@drawable/click_button_small"
             android:alpha="1"
             app:srcCompat="@drawable/back_arrow" />
     </FrameLayout>
