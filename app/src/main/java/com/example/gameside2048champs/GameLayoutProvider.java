@@ -22,6 +22,7 @@ public class GameLayoutProvider {
         float density = context.getResources().getDisplayMetrics().density;
         return Math.round((float) dp *density);
     }
+
     @SuppressLint("UseCompatLoadingForDrawables")
     public static void provideGameFrameLayout(Context context, ConstraintLayout rootGameConstraintLayout,
                                               FrameLayout gameFrameLayout, GameModes gameMode) {

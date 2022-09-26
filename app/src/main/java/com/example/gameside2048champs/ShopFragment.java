@@ -1,6 +1,5 @@
 package com.example.gameside2048champs;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
