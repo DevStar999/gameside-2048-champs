@@ -4,20 +4,15 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.graphics.drawable.Drawable;
-import android.os.CountDownTimer;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.gameside2048champs.enums.Direction;
 import com.example.gameside2048champs.enums.GameLayoutProperties;
-
-import java.util.List;
 
 public class AnimationUtility {
     private static void setTextViewAttributes(AppCompatTextView textView, int cellValue,
