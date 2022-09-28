@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginHorizontal="8dp"
-            android:background="@drawable/dialog_buttons"
+            android:background="@drawable/click_dialog_buttons"
             android:letterSpacing="0.04"
             android:maxEms="10"
             android:minEms="6"
