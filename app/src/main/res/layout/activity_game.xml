@@ -207,7 +207,6 @@
             android:layout_height="48dp"
             android:layout_marginHorizontal="4dp"
             android:layout_marginTop="20dp"
-            android:layout_weight="1"
             android:background="@drawable/click_game_tools"
             android:contentDescription="Pause Game"
             android:onClick="pauseClicked"
@@ -221,7 +220,6 @@
             android:layout_height="48dp"
             android:layout_marginHorizontal="4dp"
             android:layout_marginTop="20dp"
-            android:layout_weight="1"
             android:background="@drawable/click_game_tools"
             android:contentDescription="Reset Game"
             android:onClick="resetClicked"
@@ -272,14 +270,14 @@
                         app:srcCompat="@drawable/coin_symbol" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/normal_tools_undo_cost_game_activity_text_view"
+                        android:id="@+id/normal_tools_undo_cost_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
                         android:layout_marginStart="1dp"
                         android:layout_marginEnd="1dp"
                         android:scrollHorizontally="false"
-                        android:text="125"
+                        android:text="-"
                         android:textColor="@color/game_primary_background_color"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -300,39 +298,113 @@
 
             </LinearLayout>
 
-            <!-- TODO -> Implement this tool and set
-                         android:visibility to 'visible' -->
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/normal_tools_eliminate_icon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
-                android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/click_normal_tools_temp"
-                android:contentDescription="Eliminate One Cell"
-                android:onClick="normalToolsEliminateCell"
-                android:padding="2dp"
-                android:scaleType="fitXY"
-                android:visibility="visible"
-                app:srcCompat="@drawable/question_mark_icon" />
+                android:orientation="vertical">
 
-            <!-- TODO -> Implement this tool and set
-                         android:visibility to 'visible' -->
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/normal_tools_change_one_value_icon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/rounded_corner_tool_cost"
+                    android:orientation="horizontal"
+                    android:padding="1dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginVertical="1dp"
+                        android:layout_marginHorizontal="2dp"
+                        android:scaleX="1.4"
+                        android:scaleY="1.4"
+                        app:srcCompat="@drawable/coin_symbol" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/normal_tools_smash_cost_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:scrollHorizontally="false"
+                        android:text="-"
+                        android:textColor="@color/game_primary_background_color"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/normal_tools_smash_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/click_normal_tools"
+                    android:contentDescription="Smash Tile"
+                    android:onClick="normalToolsSmashTile"
+                    android:padding="2dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/normal_tools_smash" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
-                android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/click_normal_tools_temp"
-                android:contentDescription="Change Value Of One Cell"
-                android:onClick="normalToolsChangeOneValue"
-                android:padding="2dp"
-                android:scaleType="fitXY"
-                android:visibility="visible"
-                app:srcCompat="@drawable/question_mark_icon" />
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/rounded_corner_tool_cost"
+                    android:orientation="horizontal"
+                    android:padding="1dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginVertical="1dp"
+                        android:layout_marginHorizontal="2dp"
+                        android:scaleX="1.4"
+                        android:scaleY="1.4"
+                        app:srcCompat="@drawable/coin_symbol" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/normal_tools_change_value_cost_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:scrollHorizontally="false"
+                        android:text="-"
+                        android:textColor="@color/game_primary_background_color"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/normal_tools_change_value_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/click_normal_tools"
+                    android:contentDescription="Change One Value"
+                    android:onClick="normalToolsChangeValue"
+                    android:padding="2dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/normal_tools_change_value" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -367,7 +439,7 @@
                 android:onClick="specialToolsSwapTwoCells"
                 android:padding="6dp"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/normal_tools_eliminate" />
+                app:srcCompat="@drawable/normal_tools_smash" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/special_tools_eliminate_one_value_icon"
@@ -399,7 +471,7 @@
                 android:layout_weight="1"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
-                app:lottie_rawRes="@raw/tools_transition_lottie" />
+                app:lottie_rawRes="@raw/tools_intro" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/tools_lottie_middle"
@@ -409,7 +481,7 @@
                 android:layout_weight="1"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
-                app:lottie_rawRes="@raw/tools_transition_lottie" />
+                app:lottie_rawRes="@raw/tools_intro" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/tools_lottie_right"
@@ -419,7 +491,7 @@
                 android:layout_weight="1"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
-                app:lottie_rawRes="@raw/tools_transition_lottie" />
+                app:lottie_rawRes="@raw/tools_intro" />
 
         </LinearLayout>
 

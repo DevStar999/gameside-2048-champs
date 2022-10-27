@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.GridLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -538,11 +537,11 @@ public class GameActivity extends AppCompatActivity implements
         undoProcess();
     }
 
-    public void normalToolsEliminateCell(View view) {
+    public void normalToolsSmashTile(View view) {
         new ArrivingToolDialog(this).show();
     }
 
-    public void normalToolsChangeOneValue(View view) {
+    public void normalToolsChangeValue(View view) {
         new ArrivingToolDialog(this).show();
     }
 

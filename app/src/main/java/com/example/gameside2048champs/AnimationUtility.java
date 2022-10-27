@@ -207,7 +207,7 @@ public class AnimationUtility {
         gridLottieView.setVisibility(View.VISIBLE);
         gridLottieView.setRotationY(180f);
         gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
-        gridLottieView.setAnimation(R.raw.normal_tools_undo);
+        gridLottieView.setAnimation(R.raw.normal_tools_undo_grid);
         gridLottieView.setSpeed(1.5f);
         gridLottieView.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
