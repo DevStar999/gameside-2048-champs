@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+    <!-- Source Link -> https://www.svgrepo.com/svg/292985/squares-cube -->
+
+    <!-- The following path is for -> Top Left -->
+    <path
+        android:fillColor="@color/bright_orange"
+        android:pathData="M0,0h324.62v324.62h-324.62z" />
+    <!-- The following path is for -> Bottom Right -->
+    <path
+        android:fillColor="@color/red_50_500"
+        android:pathData="M187.38,187.38h324.62v324.62h-324.62z" />
+    <!-- The following path is for -> The Joint -->
+    <path
+        android:fillColor="@color/bright_orange"
+        android:pathData="M187.38,187.38h137.28v137.28h-137.28z" />
+</vector>

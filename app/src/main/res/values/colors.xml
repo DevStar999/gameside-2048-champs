@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#808080</color>
+    <color name="bright_orange">#FFAF19</color>
     <color name="orange_50_400">#FFA726</color>
     <color name="orange_50_200">#FFCC80</color>
     <color name="orange_button">#F2B179</color>
@@ -17,6 +18,7 @@
     <color name="blue_50_800">#1565C0</color>
     <color name="blue_50_900">#0D47A1</color>
     <color name="royal_red">#AB2330</color>
+    <color name="red_50_500">#F44336</color>
 
     <color name="ic_launcher_background">#EEC22E</color>
     <color name="game_primary_background_color">#FBF8EF</color>
@@ -43,8 +45,10 @@
     <color name="button_background_color">@color/orange_button</color>
     <!-- Current opacity for following color ~ 2.5% i.e. in hex = 05 -->
     <color name="black_translucent_film">#05000000</color>
+    <!-- Current opacity for following color = 60% i.e. in hex = 99 -->
+    <color name="grid_lottie_black_translucent_film">#99000000</color>
     <!-- Current opacity for following color = 50% i.e. in hex = 80 -->
-    <color name="grid_lottie_black_translucent_film">#80000000</color>
+    <color name="black_translucent_film_game_activity_background">#80000000</color>
     <color name="normal_tools_icon_background_color">@color/blue_50_500</color>
     <color name="special_tools_icon_background_color">@color/royal_red</color>
 

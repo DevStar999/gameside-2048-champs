@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.GridLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -543,6 +544,18 @@ public class GameActivity extends AppCompatActivity implements
 
     public void normalToolsChangeValue(View view) {
         new ArrivingToolDialog(this).show();
+    }
+
+    public void specialToolsSwapTiles(View view) {
+        Toast.makeText(this, "Special Tools -> Swap Tiles Clicked", Toast.LENGTH_SHORT).show();
+    }
+
+    public void specialToolsEliminateValue(View view) {
+        Toast.makeText(this, "Special Tools -> Eliminate Value Clicked", Toast.LENGTH_SHORT).show();
+    }
+
+    public void specialToolsBomb(View view) {
+        Toast.makeText(this, "Special Tools -> Bomb Clicked", Toast.LENGTH_SHORT).show();
     }
 
     private void undoProcess() {

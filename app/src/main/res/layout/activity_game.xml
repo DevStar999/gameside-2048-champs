@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- List of things that we need to check while creating a layout are as follows:
+<?xml version="1.0" encoding="utf-8"?><!-- List of things that we need to check while creating a layout are as follows:
      1) root_game_constraint_layout
      a. padding="16dp" (Correct, Always keep this value)
      2) goal_title_text_view, current_score_title_text_view, best_score_title_text_view
@@ -16,6 +15,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GameActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/background_film_game_activity_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/game_activity_top_display"
@@ -242,7 +250,8 @@
             android:id="@+id/normal_tools_linear_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -263,8 +272,8 @@
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_gravity="start|center_vertical"
-                        android:layout_marginVertical="1dp"
                         android:layout_marginHorizontal="2dp"
+                        android:layout_marginVertical="1dp"
                         android:scaleX="1.4"
                         android:scaleY="1.4"
                         app:srcCompat="@drawable/coin_symbol" />
@@ -317,8 +326,8 @@
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_gravity="start|center_vertical"
-                        android:layout_marginVertical="1dp"
                         android:layout_marginHorizontal="2dp"
+                        android:layout_marginVertical="1dp"
                         android:scaleX="1.4"
                         android:scaleY="1.4"
                         app:srcCompat="@drawable/coin_symbol" />
@@ -346,7 +355,7 @@
                     android:background="@drawable/click_normal_tools"
                     android:contentDescription="Smash Tile"
                     android:onClick="normalToolsSmashTile"
-                    android:padding="2dp"
+                    android:padding="2.5dp"
                     android:scaleType="fitXY"
                     app:srcCompat="@drawable/normal_tools_smash" />
 
@@ -371,8 +380,8 @@
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_gravity="start|center_vertical"
-                        android:layout_marginVertical="1dp"
                         android:layout_marginHorizontal="2dp"
+                        android:layout_marginVertical="1dp"
                         android:scaleX="1.4"
                         android:scaleY="1.4"
                         app:srcCompat="@drawable/coin_symbol" />
@@ -415,44 +424,168 @@
             android:orientation="horizontal"
             android:visibility="gone">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/special_tools_bomb_icon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/click_special_tools"
-                android:contentDescription="Use Bomb"
-                android:onClick="specialToolsBombArea"
-                android:padding="2dp"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/normal_tools_undo" />
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/special_tools_swap_two_icon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginHorizontal="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/click_special_tools"
-                android:contentDescription="Swap Two Cells"
-                android:onClick="specialToolsSwapTwoCells"
-                android:padding="6dp"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/normal_tools_smash" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/rounded_corner_tool_cost"
+                    android:orientation="horizontal"
+                    android:padding="1dp">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/special_tools_eliminate_one_value_icon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginHorizontal="2dp"
+                        android:layout_marginVertical="1dp"
+                        android:scaleX="1.4"
+                        android:scaleY="1.4"
+                        app:srcCompat="@drawable/coin_symbol" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/special_tools_swap_tiles_cost_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:scrollHorizontally="false"
+                        android:text="-"
+                        android:textColor="@color/game_primary_background_color"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/special_tools_swap_tiles_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/click_special_tools"
+                    android:contentDescription="Swap Two Tiles"
+                    android:onClick="specialToolsSwapTiles"
+                    android:padding="4dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/special_tools_swap_tiles" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/click_special_tools"
-                android:contentDescription="Eliminate One Value"
-                android:onClick="specialToolsEliminateOneValue"
-                android:padding="4dp"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/normal_tools_change_value" />
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/rounded_corner_tool_cost"
+                    android:orientation="horizontal"
+                    android:padding="1dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginHorizontal="2dp"
+                        android:layout_marginVertical="1dp"
+                        android:scaleX="1.4"
+                        android:scaleY="1.4"
+                        app:srcCompat="@drawable/coin_symbol" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/special_tools_eliminate_value_cost_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:scrollHorizontally="false"
+                        android:text="-"
+                        android:textColor="@color/game_primary_background_color"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/special_tools_eliminate_value_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/click_special_tools"
+                    android:contentDescription="Eliminate All Tiles Of One Value"
+                    android:onClick="specialToolsEliminateValue"
+                    android:padding="2.5dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/special_tools_eliminate_value" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/rounded_corner_tool_cost"
+                    android:orientation="horizontal"
+                    android:padding="1dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginHorizontal="2dp"
+                        android:layout_marginVertical="1dp"
+                        android:scaleX="1.4"
+                        android:scaleY="1.4"
+                        app:srcCompat="@drawable/coin_symbol" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/special_tools_bomb_cost_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:scrollHorizontally="false"
+                        android:text="-"
+                        android:textColor="@color/game_primary_background_color"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/special_tools_bomb_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/click_special_tools"
+                    android:contentDescription="Blast Tiles In An Area"
+                    android:onClick="specialToolsBomb"
+                    android:padding="2.5dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/special_tools_bomb" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
