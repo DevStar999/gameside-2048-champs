@@ -44,7 +44,9 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 public class GameActivity extends AppCompatActivity implements
@@ -58,7 +60,7 @@ public class GameActivity extends AppCompatActivity implements
     private Queue<Direction> movesQueue;
     private boolean goalDone;
     private int currentCoins;
-    private int normalToolsUndoCost;
+    private Map<String, Integer> toolsCostMap;
     private int currentScore;
     private int bestScore;
     private boolean isCurrentScoreTheBest; // Flag to check if best score and current score displays have been merged
@@ -90,7 +92,14 @@ public class GameActivity extends AppCompatActivity implements
         goalDone = sharedPreferences.getBoolean("goalDone" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), false); // Keep default as 'false'
         currentCoins = sharedPreferences.getInt("currentCoins", 2000);
-        normalToolsUndoCost = 125;
+        toolsCostMap = new HashMap<>() {{
+            put("normalToolsUndoCost", 125);
+            put("normalToolsSmashTileCost", 150);
+            put("normalToolsChangeValueCost", 200);
+            put("specialToolsSwapTilesCost", 400);
+            put("specialToolsEliminateValueCost", 450);
+            put("specialToolsBombCost", 500);
+        }};
         currentScore = sharedPreferences.getInt("currentScore" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), 0);
         bestScore = sharedPreferences.getInt("bestScore" + " " + currentGameMode.getMode()
@@ -140,6 +149,25 @@ public class GameActivity extends AppCompatActivity implements
             goalTileTextView.setText("GOAL TILE");
             tutorialTextView.setText("Merge the tiles to form the GOAL TILE!");
         }
+
+        AppCompatTextView normalToolsUndoCostTextView =
+                findViewById(R.id.normal_tools_undo_cost_text_view);
+        normalToolsUndoCostTextView.setText(String.valueOf(toolsCostMap.get("normalToolsUndoCost")));
+        AppCompatTextView normalToolsSmashTileCostTextView =
+                findViewById(R.id.normal_tools_smash_cost_text_view);
+        normalToolsSmashTileCostTextView.setText(String.valueOf(toolsCostMap.get("normalToolsSmashTileCost")));
+        AppCompatTextView normalToolsChangeValueCostTextView =
+                findViewById(R.id.normal_tools_change_value_cost_text_view);
+        normalToolsChangeValueCostTextView.setText(String.valueOf(toolsCostMap.get("normalToolsChangeValueCost")));
+        AppCompatTextView specialToolsSwapTilesCostTextView =
+                findViewById(R.id.special_tools_swap_tiles_cost_text_view);
+        specialToolsSwapTilesCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsSwapTilesCost")));
+        AppCompatTextView specialToolsEliminateValueCostTextView =
+                findViewById(R.id.special_tools_eliminate_value_cost_text_view);
+        specialToolsEliminateValueCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsEliminateValueCost")));
+        AppCompatTextView specialToolsBombCostTextView =
+                findViewById(R.id.special_tools_bomb_cost_text_view);
+        specialToolsBombCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsBombCost")));
     }
 
     private void initialiseGoalText() {
@@ -564,7 +592,7 @@ public class GameActivity extends AppCompatActivity implements
 
     private void undoProcess() {
         if (!gameManager.getUndoManager().isUndoUsed()) { // Undo was not used, so using it now
-            if (currentCoins >= normalToolsUndoCost) {
+            if (currentCoins >= toolsCostMap.get("normalToolsUndoCost")) {
                 AnimationUtility.normalToolsUndo(gridLottieView, rootGameConstraintLayout);
                 new CountDownTimer(1000, 10000) {
                     @Override
@@ -583,7 +611,7 @@ public class GameActivity extends AppCompatActivity implements
                         gameManager.setCurrentScore(previousStateInfo.first);
                         updateScoreOnUndo(gameManager.getCurrentScore());
                         // Update the reduced number of coins
-                        currentCoins -= normalToolsUndoCost;
+                        currentCoins -= toolsCostMap.get("normalToolsUndoCost");
                         sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
                         currentCoinsTextView.setText(String.valueOf(currentCoins));
                     }
