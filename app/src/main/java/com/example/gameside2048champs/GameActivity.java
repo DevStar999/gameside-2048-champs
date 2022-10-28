@@ -591,6 +591,7 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     private void undoProcess() {
+        movesQueue.clear();
         if (!gameManager.getUndoManager().isUndoUsed()) { // Undo was not used, so using it now
             if (currentCoins >= toolsCostMap.get("normalToolsUndoCost")) {
                 AnimationUtility.normalToolsUndo(gridLottieView, rootGameConstraintLayout);
@@ -602,7 +603,6 @@ public class GameActivity extends AppCompatActivity implements
                     @Override
                     public void onFinish() {
                         gameManager.setCurrentGameState(GameStates.GAME_ONGOING);
-                        movesQueue.clear();
                         Pair<Integer, List<List<Integer>>> previousStateInfo = gameManager.getUndoManager().undoToPreviousState();
                         // Revert the state of the board to the previous state
                         gameManager.updateGameMatrixPostUndo(previousStateInfo.second);
