@@ -218,6 +218,9 @@ public class GameActivity extends AppCompatActivity implements
                             new GameWinDialog(GameActivity.this).show();
                         } else if (gameManager.getCurrentGameState() == GameStates.GAME_OVER) {
                             movesQueue.clear();
+                            //U+1F613
+                            tutorialTextView.setText(String.format("GAME OVER %s",
+                                    String.valueOf(toChars(Integer.parseInt("1F613", 16)))));
                             saveGameState();
                             GameOverDialog gameOverDialog = new GameOverDialog(GameActivity.this);
                             gameOverDialog.show();
@@ -501,6 +504,7 @@ public class GameActivity extends AppCompatActivity implements
             for (int column = 0; column < currentGameMode.getColumns(); column++) {
                 int value = gameManager.getGameMatrix().get(row).get(column);
                 if (value >= gameManager.getCurrentGameMode().getGoal()) {
+                    tutorialTextView.setText("Merge for higher tiles, SKY IS THE LIMIT");
                     return;
                 }
             }
