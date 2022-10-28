@@ -16,6 +16,10 @@ import android.view.WindowManager;
 
 import com.example.gameside2048champs.dialogs.ArrivingFeatureDialog;
 
+/* TODO -> !! Bug !! -> If we do undo exactly after the move in which we completed the goal, then goal completion is done.
+           But now if the user makes any move even a move which does not lead to goal completion the code block for goal
+           completion is being played
+*/
 public class MainActivity extends AppCompatActivity implements PreGameFragment.OnPreGameFragmentInteractionListener {
 
     @SuppressLint("SourceLockedOrientationActivity")
