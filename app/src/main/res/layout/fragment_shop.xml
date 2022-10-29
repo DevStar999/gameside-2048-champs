@@ -7,7 +7,7 @@
     android:background="@color/game_primary_background_color"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".ShopFragment">
+    tools:context=".fragments.ShopFragment">
 
     <FrameLayout
         android:id="@+id/shop_fragment_title_frame_layout"

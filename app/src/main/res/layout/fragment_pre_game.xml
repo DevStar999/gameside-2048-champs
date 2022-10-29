@@ -8,7 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     android:background="@color/game_primary_background_color"
-    tools:context=".PreGameFragment">
+    tools:context=".fragments.PreGameFragment">
 
     <FrameLayout
         android:id="@+id/pregame_fragment_title_frame_layout"

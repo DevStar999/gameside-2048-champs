@@ -1,4 +1,4 @@
-package com.example.gameside2048champs;
+package com.example.gameside2048champs.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +16,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import com.example.gameside2048champs.R;
 import com.example.gameside2048champs.enums.GameModes;
 import com.example.gameside2048champs.enums.GameStates;
 import com.example.gameside2048champs.manager.PreGameManager;
