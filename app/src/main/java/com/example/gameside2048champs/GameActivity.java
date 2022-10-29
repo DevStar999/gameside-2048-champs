@@ -2,6 +2,7 @@ package com.example.gameside2048champs;
 
 import static java.lang.Character.toChars;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,15 +66,20 @@ public class GameActivity extends AppCompatActivity implements
     private int currentScore;
     private int bestScore;
     private boolean isCurrentScoreTheBest; // Flag to check if best score and current score displays have been merged
+    private boolean isToolsChestOpen;
 
     // UI Elements
     /* Layouts */
     private ConstraintLayout rootGameConstraintLayout;
+    private LinearLayout normalToolsLinearLayout;
+    private LinearLayout specialToolsLinearLayout;
+    private LinearLayout toolsLottieLinearLayout;
     /* Views */
     private AppCompatTextView currentCoinsTextView;
     private AppCompatTextView currentScoreTextView;
     private AppCompatTextView bestScoreTextView;
     private AppCompatTextView goalTileTextView;
+    LottieAnimationView toolsChangeLottie;
     private AppCompatTextView tutorialTextView;
     private LottieAnimationView gridLottieView;
 
@@ -105,10 +112,23 @@ public class GameActivity extends AppCompatActivity implements
         bestScore = sharedPreferences.getInt("bestScore" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), 0);
         isCurrentScoreTheBest = false;
+        isToolsChestOpen = sharedPreferences.getBoolean("isToolsChestOpen" + " " + currentGameMode.getMode()
+                + " " + currentGameMode.getDimensions(), false);
     }
 
     private void initialiseLayouts() {
         rootGameConstraintLayout = findViewById(R.id.root_game_constraint_layout);
+        normalToolsLinearLayout = findViewById(R.id.normal_tools_linear_layout);
+        specialToolsLinearLayout = findViewById(R.id.special_tools_linear_layout);
+        toolsLottieLinearLayout = findViewById(R.id.tools_lottie_linear_layout);
+
+        if (!isToolsChestOpen) { // Tools chest is NOT open (This is the default condition as well)
+            normalToolsLinearLayout.setVisibility(View.VISIBLE);
+            specialToolsLinearLayout.setVisibility(View.GONE);
+        } else { // Tools chest is open
+            specialToolsLinearLayout.setVisibility(View.VISIBLE);
+            normalToolsLinearLayout.setVisibility(View.GONE);
+        }
     }
 
     private void initialiseViews() {
@@ -138,6 +158,10 @@ public class GameActivity extends AppCompatActivity implements
         } else {
             updateScore(currentScore);
         }
+
+        toolsChangeLottie = findViewById(R.id.tools_change_lottie);
+        toolsChangeLottie.setProgress((!isToolsChestOpen) ? 0f : 1f);
+        toolsChangeLottie.setOnClickListener(view -> handleToolsChangeTransition());
 
         tutorialTextView = findViewById(R.id.tutorial_text_view);
         if (goalDone) {
@@ -405,6 +429,8 @@ public class GameActivity extends AppCompatActivity implements
                 + " " + currentGameMode.getDimensions(), gson.toJson(gameManager.getUndoManager())).apply();
         sharedPreferences.edit().putBoolean("goalDone" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), goalDone).apply();
+        sharedPreferences.edit().putBoolean("isToolsChestOpen" + " " + currentGameMode.getMode()
+                + " " + currentGameMode.getDimensions(), isToolsChestOpen).apply();
         if (gameManager.getCurrentGameState() == GameStates.GAME_START) {
             sharedPreferences.edit().putString("currentBoard" + " " + currentGameMode.getMode()
                     + " " + currentGameMode.getDimensions(), gson.toJson(getCopyOfGivenBoard(currentGameMode.getBlockCells()))).apply();
@@ -564,6 +590,61 @@ public class GameActivity extends AppCompatActivity implements
                 }
             }
         }
+    }
+
+    private void handleToolsChangeTransition() {
+        if (!isToolsChestOpen) { // False i.e. the tools chest is NOT open. So, now we will open it.
+            toolsChangeLottie.setSpeed(0.7f);
+            isToolsChestOpen = true;
+        } else { // True i.e. the tools chest is open. So, now we will close it.
+            toolsChangeLottie.setSpeed(-0.7f); // Negative speed will make the animation play from end in reverse
+            isToolsChestOpen = false;
+        }
+        toolsChangeLottie.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                toolsChangeLottie.setClickable(false);
+            }
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                if (!isToolsChestOpen) {
+                    normalToolsLinearLayout.setVisibility(View.VISIBLE);
+                    specialToolsLinearLayout.setVisibility(View.GONE);
+                    toolsChangeLottie.setClickable(true);
+                } else {
+                    specialToolsLinearLayout.setVisibility(View.VISIBLE);
+                    normalToolsLinearLayout.setVisibility(View.GONE);
+
+                    LottieAnimationView leftView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_left);
+                    LottieAnimationView midView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_middle);
+                    LottieAnimationView rightView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_right);
+                    toolsLottieLinearLayout.setVisibility(View.VISIBLE);
+                    midView.addAnimatorListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {}
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            toolsChangeLottie.setClickable(true);
+                            toolsLottieLinearLayout.setVisibility(View.GONE);
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {}
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {}
+                    });
+                    midView.playAnimation();
+                    leftView.playAnimation();
+                    rightView.playAnimation();
+                }
+            }
+            @Override
+            public void onAnimationCancel(Animator animator) {}
+            @Override
+            public void onAnimationRepeat(Animator animator) {}
+        });
+        toolsChangeLottie.playAnimation();
+        sharedPreferences.edit().putBoolean("isToolsChestOpen" + " " + currentGameMode.getMode()
+                + " " + currentGameMode.getDimensions(), isToolsChestOpen).apply();
     }
 
     public void normalToolsUndo(View view) {
