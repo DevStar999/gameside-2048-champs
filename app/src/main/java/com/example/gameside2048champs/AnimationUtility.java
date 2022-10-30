@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -198,6 +199,26 @@ public class AnimationUtility {
         mergeAnimatorSet.play(settleXAnimator).with(settleYAnimator).after(mergeXAnimator);
         mergeAnimatorSet.setStartDelay(delay);
         return mergeAnimatorSet;
+    }
+
+    public static void toolsBackgroundAppearAnimation(AppCompatImageView backgroundFilmImageView, int duration) {
+        ObjectAnimator simpleAppearAnimator = ObjectAnimator.ofFloat(backgroundFilmImageView, View.ALPHA, 0f, 1f)
+                .setDuration(duration);
+        simpleAppearAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                backgroundFilmImageView.setImageResource(R.color.black_translucent_film_game_activity_background);
+            }
+            @Override
+            public void onAnimationEnd(Animator animator) {}
+            @Override
+            public void onAnimationCancel(Animator animator) {}
+            @Override
+            public void onAnimationRepeat(Animator animator) {}
+        });
+        AnimatorSet simpleAppearAnimatorSet = new AnimatorSet();
+        simpleAppearAnimatorSet.play(simpleAppearAnimator);
+        simpleAppearAnimatorSet.start();
     }
 
     /**
