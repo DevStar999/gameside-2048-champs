@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
@@ -38,6 +39,8 @@ import com.example.gameside2048champs.enums.Direction;
 import com.example.gameside2048champs.enums.GameModes;
 import com.example.gameside2048champs.enums.GameOverDialogOptions;
 import com.example.gameside2048champs.enums.GameStates;
+import com.example.gameside2048champs.fragments.ShopFragment;
+import com.example.gameside2048champs.fragments.SmashTileFragment;
 import com.example.gameside2048champs.manager.GameManager;
 import com.example.gameside2048champs.manager.UndoManager;
 import com.google.gson.Gson;
@@ -52,7 +55,8 @@ import java.util.Map;
 import java.util.Queue;
 
 public class GameActivity extends AppCompatActivity implements
-        ShopFragment.OnShopFragmentInteractionListener {
+        ShopFragment.OnShopFragmentInteractionListener,
+        SmashTileFragment.OnSmashTileFragmentInteractionListener {
     // Variable Attributes
     private SharedPreferences sharedPreferences;
     private Gson gson;
@@ -75,6 +79,7 @@ public class GameActivity extends AppCompatActivity implements
     private LinearLayout specialToolsLinearLayout;
     private LinearLayout toolsLottieLinearLayout;
     /* Views */
+    private AppCompatImageView backgroundFilmImageView;
     private AppCompatTextView currentCoinsTextView;
     private AppCompatTextView currentScoreTextView;
     private AppCompatTextView bestScoreTextView;
@@ -132,6 +137,7 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     private void initialiseViews() {
+        backgroundFilmImageView = findViewById(R.id.background_film_game_activity_image_view);
         currentCoinsTextView = findViewById(R.id.current_coins_game_activity_text_view);
         currentCoinsTextView.setText(String.valueOf(currentCoins));
 
@@ -226,7 +232,18 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     private void executeMove() {
+        // Return if some previous move was not completed
         if (!gameManager.isHasMoveBeenCompleted()) {
+            return;
+        }
+
+        // Return if currently the user is using a tool
+        if (getSupportFragmentManager().findFragmentByTag("SMASH_TILE_FRAGMENT") != null
+                || getSupportFragmentManager().findFragmentByTag("CHANGE_VALUE_FRAGMENT") != null
+                || getSupportFragmentManager().findFragmentByTag("SWAP_TILES_FRAGMENT") != null
+                || getSupportFragmentManager().findFragmentByTag("ELIMINATE_VALUE_FRAGMENT") != null
+                || getSupportFragmentManager().findFragmentByTag("BOMB_FRAGMENT") != null) {
+            movesQueue.clear();
             return;
         }
 
@@ -652,7 +669,7 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     public void normalToolsSmashTile(View view) {
-        new ArrivingToolDialog(this).show();
+        smashTileProcess();
     }
 
     public void normalToolsChangeValue(View view) {
@@ -707,6 +724,24 @@ public class GameActivity extends AppCompatActivity implements
         }
     }
 
+    private void smashTileProcess() {
+        movesQueue.clear();
+        if (currentCoins >= toolsCostMap.get("normalToolsSmashTileCost")) {
+            AnimationUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 500);
+
+            SmashTileFragment fragment = new SmashTileFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.setCustomAnimations(R.anim.tools_fragment_entry, R.anim.tools_fragment_exit,
+                    R.anim.tools_fragment_entry, R.anim.tools_fragment_exit);
+            transaction.addToBackStack(null);
+            transaction.add(R.id.tool_use_game_activity_fragment_container,
+                    fragment, "SMASH_TILE_FRAGMENT").commit();
+        } else {
+            openShopFragment();
+        }
+    }
+
     @Override
     public void onShopFragmentInteractionBackClicked() {
         onBackPressed();
@@ -736,5 +771,11 @@ public class GameActivity extends AppCompatActivity implements
                 }
             });
         }
+    }
+
+    @Override
+    public void onSmashTileFragmentInteractionBackClicked() {
+        backgroundFilmImageView.setImageResource(0); // Setting image resource to blank
+        onBackPressed();
     }
 }

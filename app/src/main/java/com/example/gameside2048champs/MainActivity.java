@@ -21,6 +21,9 @@ import com.example.gameside2048champs.fragments.PreGameFragment;
            But now if the user makes any move even a move which does not lead to goal completion the code block for goal
            completion is being played
 */
+/* TODO -> Set the scaleX and scaleY properties for the block drawables dynamically through code so as to have a good fit
+           of the block drawables in the cell space
+*/
 public class MainActivity extends AppCompatActivity implements PreGameFragment.OnPreGameFragmentInteractionListener {
 
     @SuppressLint("SourceLockedOrientationActivity")
