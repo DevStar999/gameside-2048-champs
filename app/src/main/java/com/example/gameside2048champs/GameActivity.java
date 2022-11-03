@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -528,6 +529,16 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     private void openShopFragment() {
+        // If ShopFragment was opened and is currently on top, then return
+        int countOfFragments = getSupportFragmentManager().getFragments().size();
+        if (countOfFragments > 0) {
+            Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments-1);
+            if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()
+                    && topMostFragment.getTag().equals("SHOP_FRAGMENT")) {
+                return;
+            }
+        }
+
         ShopFragment fragment = new ShopFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -727,16 +738,29 @@ public class GameActivity extends AppCompatActivity implements
     private void smashTileProcess() {
         movesQueue.clear();
         if (currentCoins >= toolsCostMap.get("normalToolsSmashTileCost")) {
-            AnimationUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 500);
+            // If SmashTileFragment was opened and is currently on top, then return
+            int countOfFragments = getSupportFragmentManager().getFragments().size();
+            if (countOfFragments > 0) {
+                Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments-1);
+                if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()
+                        && topMostFragment.getTag().equals("SMASH_TILE_FRAGMENT")) {
+                    return;
+                }
+            }
 
+            AnimationUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 500);
             SmashTileFragment fragment = new SmashTileFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.setCustomAnimations(R.anim.tools_fragment_entry, R.anim.tools_fragment_exit,
                     R.anim.tools_fragment_entry, R.anim.tools_fragment_exit);
             transaction.addToBackStack(null);
-            transaction.add(R.id.tool_use_game_activity_fragment_container,
+            transaction.replace(R.id.tool_use_game_activity_fragment_container,
                     fragment, "SMASH_TILE_FRAGMENT").commit();
+            /* TODO -> When you do implement other tools' fragment, test out if .replace() is working as desired with
+                       fast clicks on smash tile icon to trigger it then quickly trigger another tool icon to see how
+                       .replace() works
+            */
         } else {
             openShopFragment();
         }

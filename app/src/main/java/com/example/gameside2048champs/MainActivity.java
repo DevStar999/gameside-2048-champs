@@ -3,6 +3,7 @@ package com.example.gameside2048champs;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -52,6 +53,16 @@ public class MainActivity extends AppCompatActivity implements PreGameFragment.O
         startPreGameFragmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // If PreGameFragment was opened and is currently on top, then return
+                int countOfFragments = getSupportFragmentManager().getFragments().size();
+                if (countOfFragments > 0) {
+                    Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments-1);
+                    if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()
+                            && topMostFragment.getTag().equals("PREGAME_FRAGMENT")) {
+                        return;
+                    }
+                }
+
                 PreGameFragment fragment = new PreGameFragment();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
