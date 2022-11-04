@@ -748,7 +748,7 @@ public class GameActivity extends AppCompatActivity implements
                 }
             }
 
-            AnimationUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 500);
+            AnimationUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
             SmashTileFragment fragment = new SmashTileFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -757,10 +757,6 @@ public class GameActivity extends AppCompatActivity implements
             transaction.addToBackStack(null);
             transaction.replace(R.id.tool_use_game_activity_fragment_container,
                     fragment, "SMASH_TILE_FRAGMENT").commit();
-            /* TODO -> When you do implement other tools' fragment, test out if .replace() is working as desired with
-                       fast clicks on smash tile icon to trigger it then quickly trigger another tool icon to see how
-                       .replace() works
-            */
         } else {
             openShopFragment();
         }

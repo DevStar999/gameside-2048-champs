@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.example.gameside2048champs.AnimationUtility;
 import com.example.gameside2048champs.R;
 
 public class SmashTileFragment extends Fragment {
@@ -20,6 +22,7 @@ public class SmashTileFragment extends Fragment {
     private OnSmashTileFragmentInteractionListener mListener;
     private SharedPreferences sharedPreferences;
     private AppCompatImageView backButton;
+    private LottieAnimationView smashTilePreviewLottie;
 
     public SmashTileFragment() {
         // Required empty public constructor
@@ -56,17 +59,15 @@ public class SmashTileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_smash_tile, container, false);
 
         backButton = view.findViewById(R.id.back_button_smash_tile_fragment);
-        backButton.setVisibility(View.INVISIBLE);
+        smashTilePreviewLottie = view.findViewById(R.id.smash_tile_preview_lottie);
 
-        /* Set the visibility of all the views to visible after the fragment entry transition is completed
-           using the following CountDownTimer
-        */
-        new CountDownTimer(750, 10000) {
+        // Making tool lottie view emerge so that it grabs attention during the tool fragment transition
+        new CountDownTimer(300, 10000) {
             @Override
             public void onTick(long l) {}
             @Override
             public void onFinish() {
-                backButton.setVisibility(View.VISIBLE);
+                AnimationUtility.toolLottieEmergeAnimation(smashTilePreviewLottie, 700);
             }
         }.start();
 

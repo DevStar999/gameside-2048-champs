@@ -201,6 +201,9 @@ public class AnimationUtility {
         return mergeAnimatorSet;
     }
 
+    /**
+     * The following animations are for when there is a use of a tool
+     */
     public static void toolsBackgroundAppearAnimation(AppCompatImageView backgroundFilmImageView, int duration) {
         ObjectAnimator simpleAppearAnimator = ObjectAnimator.ofFloat(backgroundFilmImageView, View.ALPHA, 0f, 1f)
                 .setDuration(duration);
@@ -221,9 +224,31 @@ public class AnimationUtility {
         simpleAppearAnimatorSet.start();
     }
 
-    /**
-     * The following animations are for when there is a use of a tool
-     */
+    public static void toolLottieEmergeAnimation(LottieAnimationView toolLottieView, int duration) {
+        ObjectAnimator toolEmergeXAnimator =
+                ObjectAnimator.ofFloat(toolLottieView, View.SCALE_X, 0.4f, 1f).setDuration(duration);
+        ObjectAnimator toolEmergeYAnimator =
+                ObjectAnimator.ofFloat(toolLottieView, View.SCALE_Y, 0.4f, 1f).setDuration(duration);
+
+        AnimatorSet toolEmergeAnimatorSet = new AnimatorSet();
+        toolEmergeAnimatorSet.playTogether(toolEmergeXAnimator, toolEmergeYAnimator);
+        toolEmergeAnimatorSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {}
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                toolLottieView.setScaleX(1f);
+                toolLottieView.setScaleY(1f);
+                toolLottieView.playAnimation();
+            }
+            @Override
+            public void onAnimationCancel(Animator animator) {}
+            @Override
+            public void onAnimationRepeat(Animator animator) {}
+        });
+        toolEmergeAnimatorSet.start();
+    }
+
     public static void normalToolsUndo(LottieAnimationView gridLottieView, ConstraintLayout rootGameConstraintLayout) {
         gridLottieView.setVisibility(View.VISIBLE);
         gridLottieView.setRotationY(180f);
