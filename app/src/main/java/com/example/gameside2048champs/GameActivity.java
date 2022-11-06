@@ -42,6 +42,7 @@ import com.example.gameside2048champs.enums.Direction;
 import com.example.gameside2048champs.enums.GameModes;
 import com.example.gameside2048champs.enums.GameOverDialogOptions;
 import com.example.gameside2048champs.enums.GameStates;
+import com.example.gameside2048champs.fragments.ChangeValueFragment;
 import com.example.gameside2048champs.fragments.EliminateValueFragment;
 import com.example.gameside2048champs.fragments.ShopFragment;
 import com.example.gameside2048champs.fragments.SmashTileFragment;
@@ -61,6 +62,7 @@ import java.util.Queue;
 public class GameActivity extends AppCompatActivity implements
         ShopFragment.OnShopFragmentInteractionListener,
         SmashTileFragment.OnSmashTileFragmentInteractionListener,
+        ChangeValueFragment.OnChangeValueFragmentInteractionListener,
         EliminateValueFragment.OnEliminateValueFragmentInteractionListener {
     // Variable Attributes
     private SharedPreferences sharedPreferences;
@@ -702,7 +704,7 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     public void normalToolsChangeValue(View view) {
-        Toast.makeText(this, "Normal Tools -> Change Value Clicked", Toast.LENGTH_SHORT).show();
+        changeValueProcess();
     }
 
     public void specialToolsSwapTiles(View view) {
@@ -852,6 +854,37 @@ public class GameActivity extends AppCompatActivity implements
         }
     }
 
+    private void changeValueProcess() {
+        movesQueue.clear();
+        if (currentCoins >= toolsCostMap.get("normalToolsChangeValueCost")) {
+            // If ChangeValueFragment was opened and is currently on top, then return
+            int countOfFragments = getSupportFragmentManager().getFragments().size();
+            if (countOfFragments > 0) {
+                Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments - 1);
+                if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()
+                        && topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")) {
+                    return;
+                }
+            }
+
+            // Add a layer of individual lottie cells to the game board
+            addTempIndividualCellLottieLayer();
+
+            // Initiate the tool entry transition
+            AnimationUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
+            ChangeValueFragment fragment = new ChangeValueFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.setCustomAnimations(R.anim.tools_fragment_entry, R.anim.tools_fragment_exit,
+                    R.anim.tools_fragment_entry, R.anim.tools_fragment_exit);
+            transaction.addToBackStack(null);
+            transaction.replace(R.id.tool_use_game_activity_fragment_container,
+                    fragment, "CHANGE_VALUE_FRAGMENT").commit();
+        } else {
+            openShopFragment();
+        }
+    }
+
     private void eliminateValueProcess() {
         movesQueue.clear();
         if (currentCoins >= toolsCostMap.get("specialToolsEliminateValueCost")) {
@@ -947,6 +980,11 @@ public class GameActivity extends AppCompatActivity implements
     private void handleToolFragmentBackClicked() {
         backgroundFilmImageView.setImageResource(0); // Setting image resource to blank
         gameFrameLayout.removeView(findViewById(R.id.game_cell_lottie_layout));
+    }
+
+    @Override
+    public void onChangeValueFragmentInteractionBackClicked() {
+        onBackPressed();
     }
 
     @Override
