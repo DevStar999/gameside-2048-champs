@@ -11,10 +11,13 @@ import android.content.pm.ActivityInfo;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.util.Pair;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -29,6 +32,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieDrawable;
 import com.example.gameside2048champs.dialogs.ArrivingToolDialog;
 import com.example.gameside2048champs.dialogs.GameOverDialog;
 import com.example.gameside2048champs.dialogs.GamePausedDialog;
@@ -76,6 +80,7 @@ public class GameActivity extends AppCompatActivity implements
     // UI Elements
     /* Layouts */
     private ConstraintLayout rootGameConstraintLayout;
+    private FrameLayout gameFrameLayout;
     private LinearLayout normalToolsLinearLayout;
     private LinearLayout specialToolsLinearLayout;
     private LinearLayout toolsLottieLinearLayout;
@@ -124,6 +129,7 @@ public class GameActivity extends AppCompatActivity implements
 
     private void initialiseLayouts() {
         rootGameConstraintLayout = findViewById(R.id.root_game_constraint_layout);
+        gameFrameLayout = findViewById(R.id.game_frame_layout);
         normalToolsLinearLayout = findViewById(R.id.normal_tools_linear_layout);
         specialToolsLinearLayout = findViewById(R.id.special_tools_linear_layout);
         toolsLottieLinearLayout = findViewById(R.id.tools_lottie_linear_layout);
@@ -225,7 +231,7 @@ public class GameActivity extends AppCompatActivity implements
         initialiseViews();
         initialiseGoalText();
         GameLayoutProvider.provideGameFrameLayout(GameActivity.this, rootGameConstraintLayout,
-                findViewById(R.id.game_frame_layout), currentGameMode); // initialise tiles
+                gameFrameLayout, currentGameMode); // initialise tiles
         if (!gameManager.startGameIfGameClosedCorrectly()) { // Means game was not closed correctly
             resetGameAndStartIfFlagTrue(true);
         }
@@ -494,11 +500,26 @@ public class GameActivity extends AppCompatActivity implements
     // For when the 'Back' button on the device is pressed
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
-            // Back button was pressed from activity
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) { // Back button was pressed from activity
             setupGamePausedDialog();
-        } else {
-            // Back button was pressed from fragment
+        } else { // Back button was pressed from fragment
+            int countOfFragments = getSupportFragmentManager().getFragments().size();
+            if (countOfFragments > 0) {
+                Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments-1);
+                if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()) {
+                    if (topMostFragment.getTag().equals("SMASH_TILE_FRAGMENT")) {
+                        handleSmashTileFragmentBackClicked();
+                    } else if (topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")) {
+
+                    } else if (topMostFragment.getTag().equals("SWAP_TILES_FRAGMENT")) {
+
+                    } else if (topMostFragment.getTag().equals("ELIMINATE_VALUE_FRAGMENT")) {
+
+                    } else if (topMostFragment.getTag().equals("BOMB_FRAGMENT")) {
+
+                    }
+                }
+            }
             getSupportFragmentManager().popBackStack();
         }
     }
@@ -684,7 +705,7 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     public void normalToolsChangeValue(View view) {
-        new ArrivingToolDialog(this).show();
+        Toast.makeText(this, "Normal Tools -> Change Value Clicked", Toast.LENGTH_SHORT).show();
     }
 
     public void specialToolsSwapTiles(View view) {
@@ -735,6 +756,74 @@ public class GameActivity extends AppCompatActivity implements
         }
     }
 
+    private void addTempIndividualCellLottieLayer() {
+        float density = getResources().getDisplayMetrics().density;
+        int dp = currentGameMode.getGameLayoutProperties().getSpacing();
+        int padding = Math.round((float) dp * density);
+
+        // Adding a layer of lottie animation views for each individual game cell
+        GridLayout gameCellLottieLayout = new GridLayout(this);
+        gameCellLottieLayout.setId(R.id.game_cell_lottie_layout);
+        gameCellLottieLayout.setRowCount(currentGameMode.getRows());
+        gameCellLottieLayout.setColumnCount(currentGameMode.getColumns());
+        for (int i = 0; i < currentGameMode.getRows(); i++) {
+            for (int j = 0; j < currentGameMode.getColumns(); j++) {
+                LottieAnimationView lottieView = new LottieAnimationView(this);
+                lottieView.setTag("gameCellLottie" + i + j);
+                lottieView.setVisibility(View.VISIBLE);
+                GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+                params.height = 1;
+                params.width = 1;
+                params.topMargin = params.bottomMargin = params.leftMargin = params.rightMargin = padding;
+                params.rowSpec = GridLayout.spec(i,1f);
+                params.columnSpec = GridLayout.spec(j,1f);
+                params.setGravity(Gravity.FILL);
+                lottieView.setLayoutParams(params);
+                gameCellLottieLayout.addView(lottieView);
+            }
+        }
+        gameCellLottieLayout.setPadding(padding, padding, padding, padding);
+
+        // Adding onClick listeners
+        for (int i = 0; i < currentGameMode.getRows(); i++) {
+            for (int j = 0; j < currentGameMode.getColumns(); j++) {
+                LottieAnimationView lottieAnimationView = gameCellLottieLayout.findViewWithTag("gameCellLottie" + i + j);
+                int row = i, column = j;
+                lottieAnimationView.setOnClickListener(view -> {
+                    int countOfFragments = getSupportFragmentManager().getFragments().size();
+                    if (countOfFragments > 0) {
+                        Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments-1);
+                        if (topMostFragment != null && topMostFragment.getTag() != null &&
+                                !topMostFragment.getTag().isEmpty()) {
+                            if (topMostFragment.getTag().equals("SMASH_TILE_FRAGMENT")) {
+                                if (gameManager.getGameMatrix().get(row).get(column) != 0
+                                        && gameManager.getGameMatrix().get(row).get(column) != -1) {
+                                    SmashTileFragment smashTileFragment = ((SmashTileFragment) topMostFragment);
+                                    if (!smashTileFragment.checkToolUseState()) { // Tool use is not complete
+                                        rootGameConstraintLayout.setEnabled(false);
+                                        smashTileFragment.handleTileToBeSmashed(findViewById(R.id.game_cell_lottie_layout),
+                                                lottieAnimationView, gridLottieView, row, column);
+                                    } // else, user has clicked after choosing tile to smash, so we ignore the click
+                                }
+                            } else if (topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")) {
+                                Log.i("Custom Debugging", "game cell clicked: ChangeValueFragment is top-most page");
+                            } else if (topMostFragment.getTag().equals("SWAP_TILES_FRAGMENT")) {
+                                Log.i("Custom Debugging", "game cell clicked: SwapTilesFragment is top-most page");
+                            } else if (topMostFragment.getTag().equals("ELIMINATE_VALUE_FRAGMENT")) {
+                                Log.i("Custom Debugging", "game cell clicked: EliminateValueFragment is top-most page");
+                            } else if (topMostFragment.getTag().equals("BOMB_FRAGMENT")) {
+                                Log.i("Custom Debugging", "game cell clicked: BombFragment is top-most page");
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Adding layer to gameFrameLayout
+        gameFrameLayout.addView(gameCellLottieLayout);
+    }
+
     private void smashTileProcess() {
         movesQueue.clear();
         if (currentCoins >= toolsCostMap.get("normalToolsSmashTileCost")) {
@@ -748,6 +837,10 @@ public class GameActivity extends AppCompatActivity implements
                 }
             }
 
+            // Add a layer of individual lottie cells to the game board
+            addTempIndividualCellLottieLayer();
+
+            // Initiate the tool entry transition
             AnimationUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
             SmashTileFragment fragment = new SmashTileFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -795,7 +888,36 @@ public class GameActivity extends AppCompatActivity implements
 
     @Override
     public void onSmashTileFragmentInteractionBackClicked() {
-        backgroundFilmImageView.setImageResource(0); // Setting image resource to blank
         onBackPressed();
+    }
+
+    public void onSmashTileFragmentInteractionProcessToolUse(int row, int column) {
+        // Making a copy of the board and
+        List<List<Integer>> copyOfCurrentBoard = new ArrayList<>();
+        for (int i = 0; i < gameManager.getGameMatrix().size(); i++) {
+            List<Integer> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));
+            copyOfCurrentBoard.add(boardRow);
+        }
+        copyOfCurrentBoard.get(row).set(column, 0);
+
+        gameManager.updateGameMatrix(copyOfCurrentBoard);
+        AppCompatTextView textView = rootGameConstraintLayout.findViewWithTag("gameCell" + row + column);
+        textView.setBackgroundResource(CellValues.CELL_VALUE_EMPTY.getBackgroundDrawableResourceId());
+        textView.setVisibility(View.INVISIBLE);
+
+        // Update the reduced number of coins
+        currentCoins -= toolsCostMap.get("normalToolsSmashTileCost");
+        sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
+        currentCoinsTextView.setText(String.valueOf(currentCoins));
+
+        // Final set of actions
+        saveGameState();
+        rootGameConstraintLayout.setEnabled(true);
+        onBackPressed();
+    }
+
+    private void handleSmashTileFragmentBackClicked() {
+        backgroundFilmImageView.setImageResource(0); // Setting image resource to blank
+        gameFrameLayout.removeView(findViewById(R.id.game_cell_lottie_layout));
     }
 }

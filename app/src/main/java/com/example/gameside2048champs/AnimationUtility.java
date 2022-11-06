@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -278,5 +279,22 @@ public class AnimationUtility {
             }
         });
         gridLottieView.playAnimation();
+    }
+
+    public static void normalToolsSmashTileGridSetup(LottieAnimationView gridLottieView) {
+        gridLottieView.setVisibility(View.VISIBLE);
+        gridLottieView.setRotationY(180f);
+        gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
+        gridLottieView.setAnimation(R.raw.normal_tools_smash_grid_tile);
+        gridLottieView.setSpeed(0.7f);
+    }
+
+    public static void normalToolsSmashTileTargetTileSetup(LottieAnimationView targetTileLottie) {
+        targetTileLottie.setVisibility(View.VISIBLE);
+        targetTileLottie.setRotationY(180f);
+        targetTileLottie.setMaxFrame(15);
+        targetTileLottie.setBackgroundResource(R.drawable.rounded_corner_tile_lottie);
+        targetTileLottie.setAnimation(R.raw.normal_tools_smash_grid_tile);
+        targetTileLottie.setSpeed(0.7f);
     }
 }
