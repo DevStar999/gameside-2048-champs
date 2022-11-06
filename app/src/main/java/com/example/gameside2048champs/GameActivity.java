@@ -32,8 +32,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.airbnb.lottie.LottieDrawable;
-import com.example.gameside2048champs.dialogs.ArrivingToolDialog;
 import com.example.gameside2048champs.dialogs.GameOverDialog;
 import com.example.gameside2048champs.dialogs.GamePausedDialog;
 import com.example.gameside2048champs.dialogs.GameResetDialog;
@@ -44,6 +42,7 @@ import com.example.gameside2048champs.enums.Direction;
 import com.example.gameside2048champs.enums.GameModes;
 import com.example.gameside2048champs.enums.GameOverDialogOptions;
 import com.example.gameside2048champs.enums.GameStates;
+import com.example.gameside2048champs.fragments.EliminateValueFragment;
 import com.example.gameside2048champs.fragments.ShopFragment;
 import com.example.gameside2048champs.fragments.SmashTileFragment;
 import com.example.gameside2048champs.manager.GameManager;
@@ -61,7 +60,8 @@ import java.util.Queue;
 
 public class GameActivity extends AppCompatActivity implements
         ShopFragment.OnShopFragmentInteractionListener,
-        SmashTileFragment.OnSmashTileFragmentInteractionListener {
+        SmashTileFragment.OnSmashTileFragmentInteractionListener,
+        EliminateValueFragment.OnEliminateValueFragmentInteractionListener {
     // Variable Attributes
     private SharedPreferences sharedPreferences;
     private Gson gson;
@@ -356,10 +356,10 @@ public class GameActivity extends AppCompatActivity implements
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         rootGameConstraintLayout.setOnTouchListener(new OnSwipeTouchListener(GameActivity.this) {
             public void onSwipeLeftToRight() {
@@ -505,18 +505,14 @@ public class GameActivity extends AppCompatActivity implements
         } else { // Back button was pressed from fragment
             int countOfFragments = getSupportFragmentManager().getFragments().size();
             if (countOfFragments > 0) {
-                Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments-1);
+                Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments - 1);
                 if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()) {
-                    if (topMostFragment.getTag().equals("SMASH_TILE_FRAGMENT")) {
-                        handleSmashTileFragmentBackClicked();
-                    } else if (topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")) {
-
-                    } else if (topMostFragment.getTag().equals("SWAP_TILES_FRAGMENT")) {
-
-                    } else if (topMostFragment.getTag().equals("ELIMINATE_VALUE_FRAGMENT")) {
-
-                    } else if (topMostFragment.getTag().equals("BOMB_FRAGMENT")) {
-
+                    if (topMostFragment.getTag().equals("SMASH_TILE_FRAGMENT")
+                            || topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")
+                            || topMostFragment.getTag().equals("SWAP_TILES_FRAGMENT")
+                            || topMostFragment.getTag().equals("ELIMINATE_VALUE_FRAGMENT")
+                            || topMostFragment.getTag().equals("BOMB_FRAGMENT")) {
+                        handleToolFragmentBackClicked();
                     }
                 }
             }
@@ -553,7 +549,7 @@ public class GameActivity extends AppCompatActivity implements
         // If ShopFragment was opened and is currently on top, then return
         int countOfFragments = getSupportFragmentManager().getFragments().size();
         if (countOfFragments > 0) {
-            Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments-1);
+            Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments - 1);
             if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()
                     && topMostFragment.getTag().equals("SHOP_FRAGMENT")) {
                 return;
@@ -654,6 +650,7 @@ public class GameActivity extends AppCompatActivity implements
             public void onAnimationStart(Animator animator) {
                 toolsChangeLottie.setClickable(false);
             }
+
             @Override
             public void onAnimationEnd(Animator animator) {
                 if (!isToolsChestOpen) {
@@ -713,7 +710,7 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     public void specialToolsEliminateValue(View view) {
-        Toast.makeText(this, "Special Tools -> Eliminate Value Clicked", Toast.LENGTH_SHORT).show();
+        eliminateValueProcess();
     }
 
     public void specialToolsBomb(View view) {
@@ -775,8 +772,8 @@ public class GameActivity extends AppCompatActivity implements
                 params.height = 1;
                 params.width = 1;
                 params.topMargin = params.bottomMargin = params.leftMargin = params.rightMargin = padding;
-                params.rowSpec = GridLayout.spec(i,1f);
-                params.columnSpec = GridLayout.spec(j,1f);
+                params.rowSpec = GridLayout.spec(i, 1f);
+                params.columnSpec = GridLayout.spec(j, 1f);
                 params.setGravity(Gravity.FILL);
                 lottieView.setLayoutParams(params);
                 gameCellLottieLayout.addView(lottieView);
@@ -792,7 +789,7 @@ public class GameActivity extends AppCompatActivity implements
                 lottieAnimationView.setOnClickListener(view -> {
                     int countOfFragments = getSupportFragmentManager().getFragments().size();
                     if (countOfFragments > 0) {
-                        Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments-1);
+                        Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments - 1);
                         if (topMostFragment != null && topMostFragment.getTag() != null &&
                                 !topMostFragment.getTag().isEmpty()) {
                             if (topMostFragment.getTag().equals("SMASH_TILE_FRAGMENT")) {
@@ -830,7 +827,7 @@ public class GameActivity extends AppCompatActivity implements
             // If SmashTileFragment was opened and is currently on top, then return
             int countOfFragments = getSupportFragmentManager().getFragments().size();
             if (countOfFragments > 0) {
-                Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments-1);
+                Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments - 1);
                 if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()
                         && topMostFragment.getTag().equals("SMASH_TILE_FRAGMENT")) {
                     return;
@@ -850,6 +847,37 @@ public class GameActivity extends AppCompatActivity implements
             transaction.addToBackStack(null);
             transaction.replace(R.id.tool_use_game_activity_fragment_container,
                     fragment, "SMASH_TILE_FRAGMENT").commit();
+        } else {
+            openShopFragment();
+        }
+    }
+
+    private void eliminateValueProcess() {
+        movesQueue.clear();
+        if (currentCoins >= toolsCostMap.get("specialToolsEliminateValueCost")) {
+            // If EliminateValueFragment was opened and is currently on top, then return
+            int countOfFragments = getSupportFragmentManager().getFragments().size();
+            if (countOfFragments > 0) {
+                Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments - 1);
+                if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()
+                        && topMostFragment.getTag().equals("ELIMINATE_VALUE_FRAGMENT")) {
+                    return;
+                }
+            }
+
+            // Add a layer of individual lottie cells to the game board
+            addTempIndividualCellLottieLayer();
+
+            // Initiate the tool entry transition
+            AnimationUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
+            EliminateValueFragment fragment = new EliminateValueFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.setCustomAnimations(R.anim.tools_fragment_entry, R.anim.tools_fragment_exit,
+                    R.anim.tools_fragment_entry, R.anim.tools_fragment_exit);
+            transaction.addToBackStack(null);
+            transaction.replace(R.id.tool_use_game_activity_fragment_container,
+                    fragment, "ELIMINATE_VALUE_FRAGMENT").commit();
         } else {
             openShopFragment();
         }
@@ -916,8 +944,13 @@ public class GameActivity extends AppCompatActivity implements
         onBackPressed();
     }
 
-    private void handleSmashTileFragmentBackClicked() {
+    private void handleToolFragmentBackClicked() {
         backgroundFilmImageView.setImageResource(0); // Setting image resource to blank
         gameFrameLayout.removeView(findViewById(R.id.game_cell_lottie_layout));
+    }
+
+    @Override
+    public void onEliminateValueFragmentInteractionBackClicked() {
+        onBackPressed();
     }
 }
