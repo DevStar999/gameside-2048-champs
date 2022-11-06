@@ -20,7 +20,7 @@ import com.example.gameside2048champs.enums.GameModes;
 public class GameLayoutProvider {
     private static int dpToPx(int dp, Context context) {
         float density = context.getResources().getDisplayMetrics().density;
-        return Math.round((float) dp *density);
+        return Math.round((float) dp * density);
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -91,29 +91,6 @@ public class GameLayoutProvider {
         }
         gameGridLayout.setPadding(padding, padding, padding, padding);
 
-        // Adding a layer of lottie animation views for each individual game cell
-        GridLayout gameCellLottieLayout = new GridLayout(context);
-        gameCellLottieLayout.setId(R.id.game_cell_lottie_layout);
-        gameCellLottieLayout.setRowCount(gameMode.getRows());
-        gameCellLottieLayout.setColumnCount(gameMode.getColumns());
-        for (int i = 0; i < gameMode.getRows(); i++) {
-            for (int j = 0; j < gameMode.getColumns(); j++) {
-                LottieAnimationView lottieView = new LottieAnimationView(context);
-                lottieView.setTag("gameCellLottie" + i + j);
-                lottieView.setVisibility(View.INVISIBLE);
-                GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-                params.height = 1;
-                params.width = 1;
-                params.topMargin = params.bottomMargin = params.leftMargin = params.rightMargin = padding;
-                params.rowSpec = GridLayout.spec(i,1f);
-                params.columnSpec = GridLayout.spec(j,1f);
-                params.setGravity(Gravity.FILL);
-                lottieView.setLayoutParams(params);
-                gameCellLottieLayout.addView(lottieView);
-            }
-        }
-        gameCellLottieLayout.setPadding(padding, padding, padding, padding);
-
         // Adding a layer which consists of single full grid sized lottie animation view
         LottieAnimationView gridLottieView = new LottieAnimationView(context);
         gridLottieView.setId(R.id.grid_lottie_view);
@@ -121,7 +98,6 @@ public class GameLayoutProvider {
 
         gameFrameLayout.addView(gameBackgroundGridLayout);
         gameFrameLayout.addView(gameGridLayout);
-        gameFrameLayout.addView(gameCellLottieLayout);
         gameFrameLayout.addView(gridLottieView);
     }
 }
