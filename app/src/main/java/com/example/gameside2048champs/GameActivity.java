@@ -42,6 +42,7 @@ import com.example.gameside2048champs.enums.Direction;
 import com.example.gameside2048champs.enums.GameModes;
 import com.example.gameside2048champs.enums.GameOverDialogOptions;
 import com.example.gameside2048champs.enums.GameStates;
+import com.example.gameside2048champs.fragments.BombFragment;
 import com.example.gameside2048champs.fragments.ChangeValueFragment;
 import com.example.gameside2048champs.fragments.EliminateValueFragment;
 import com.example.gameside2048champs.fragments.ShopFragment;
@@ -65,7 +66,8 @@ public class GameActivity extends AppCompatActivity implements
         SmashTileFragment.OnSmashTileFragmentInteractionListener,
         ChangeValueFragment.OnChangeValueFragmentInteractionListener,
         SwapTilesFragment.OnSwapTilesFragmentInteractionListener,
-        EliminateValueFragment.OnEliminateValueFragmentInteractionListener {
+        EliminateValueFragment.OnEliminateValueFragmentInteractionListener,
+        BombFragment.OnBombFragmentInteractionListener {
     // Variable Attributes
     private SharedPreferences sharedPreferences;
     private Gson gson;
@@ -718,7 +720,7 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     public void specialToolsBomb(View view) {
-        Toast.makeText(this, "Special Tools -> Bomb Clicked", Toast.LENGTH_SHORT).show();
+        bombProcess();
     }
 
     private void undoProcess() {
@@ -807,13 +809,13 @@ public class GameActivity extends AppCompatActivity implements
                                     } // else, user has clicked after choosing tile to smash, so we ignore the click
                                 }
                             } else if (topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")) {
-                                Log.i("Custom Debugging", "game cell clicked: ChangeValueFragment is top-most page");
+
                             } else if (topMostFragment.getTag().equals("SWAP_TILES_FRAGMENT")) {
-                                Log.i("Custom Debugging", "game cell clicked: SwapTilesFragment is top-most page");
+
                             } else if (topMostFragment.getTag().equals("ELIMINATE_VALUE_FRAGMENT")) {
-                                Log.i("Custom Debugging", "game cell clicked: EliminateValueFragment is top-most page");
+
                             } else if (topMostFragment.getTag().equals("BOMB_FRAGMENT")) {
-                                Log.i("Custom Debugging", "game cell clicked: BombFragment is top-most page");
+
                             }
                         }
                     }
@@ -889,7 +891,7 @@ public class GameActivity extends AppCompatActivity implements
 
     private void swapTilesProcess() {
         movesQueue.clear();
-        if (currentCoins >= toolsCostMap.get("specialToolsEliminateValueCost")) {
+        if (currentCoins >= toolsCostMap.get("specialToolsSwapTilesCost")) {
             // If SwapTilesFragment was opened and is currently on top, then return
             int countOfFragments = getSupportFragmentManager().getFragments().size();
             if (countOfFragments > 0) {
@@ -944,6 +946,37 @@ public class GameActivity extends AppCompatActivity implements
             transaction.addToBackStack(null);
             transaction.replace(R.id.tool_use_game_activity_fragment_container,
                     fragment, "ELIMINATE_VALUE_FRAGMENT").commit();
+        } else {
+            openShopFragment();
+        }
+    }
+
+    private void bombProcess() {
+        movesQueue.clear();
+        if (currentCoins >= toolsCostMap.get("specialToolsBombCost")) {
+            // If BombFragment was opened and is currently on top, then return
+            int countOfFragments = getSupportFragmentManager().getFragments().size();
+            if (countOfFragments > 0) {
+                Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments - 1);
+                if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()
+                        && topMostFragment.getTag().equals("BOMB_FRAGMENT")) {
+                    return;
+                }
+            }
+
+            // Add a layer of individual lottie cells to the game board
+            addTempIndividualCellLottieLayer();
+
+            // Initiate the tool entry transition
+            AnimationUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
+            BombFragment fragment = new BombFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.setCustomAnimations(R.anim.tools_fragment_entry, R.anim.tools_fragment_exit,
+                    R.anim.tools_fragment_entry, R.anim.tools_fragment_exit);
+            transaction.addToBackStack(null);
+            transaction.replace(R.id.tool_use_game_activity_fragment_container,
+                    fragment, "BOMB_FRAGMENT").commit();
         } else {
             openShopFragment();
         }
@@ -1027,6 +1060,11 @@ public class GameActivity extends AppCompatActivity implements
 
     @Override
     public void onEliminateValueFragmentInteractionBackClicked() {
+        onBackPressed();
+    }
+
+    @Override
+    public void onBombFragmentInteractionBackClicked() {
         onBackPressed();
     }
 }
