@@ -271,7 +271,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:visibility="invisible">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -443,7 +443,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -493,7 +493,6 @@
                     android:background="@drawable/click_special_tools"
                     android:contentDescription="Swap Two Tiles"
                     android:onClick="specialToolsSwapTiles"
-                    android:padding="4dp"
                     android:scaleType="fitXY"
                     app:srcCompat="@drawable/special_tools_swap_tiles" />
 
