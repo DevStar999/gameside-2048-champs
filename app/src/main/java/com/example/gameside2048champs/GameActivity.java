@@ -11,7 +11,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
@@ -416,6 +415,26 @@ public class GameActivity extends AppCompatActivity implements
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
+
+    private void updateCoins(int currentCoins) {
+        // For GameActivity
+        this.currentCoins = currentCoins;
+        sharedPreferences.edit().putInt("currentCoins", this.currentCoins).apply();
+        currentCoinsTextView.setText(String.valueOf(this.currentCoins));
+
+        // For fragments which display coins
+        sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
+        List<Fragment> fragments = new ArrayList<>(getSupportFragmentManager().getFragments());
+        for (int index = 0; index < fragments.size(); index++) {
+            Fragment currentFragment = fragments.get(index);
+            if (currentFragment != null && currentFragment.getTag() != null
+                    && !currentFragment.getTag().isEmpty()) {
+                if (currentFragment.getTag().equals("SHOP_FRAGMENT")) {
+                    ((ShopFragment) currentFragment).updateCoinsShopFragment(currentCoins);
+                }
+            }
+        }
     }
 
     private void updateScore(int updatedCurrentScore) {
@@ -1011,6 +1030,16 @@ public class GameActivity extends AppCompatActivity implements
                 }
             });
         }
+    }
+
+    @Override
+    public void onShopFragmentInteractionRestorePurchaseClicked() {
+        Toast.makeText(this, "Restore Purchase Clicked", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onShopFragmentInteractionUpdateCoins(int currentCoins) {
+        updateCoins(currentCoins);
     }
 
     @Override
