@@ -1047,19 +1047,42 @@ public class GameActivity extends AppCompatActivity implements
         onBackPressed();
     }
 
-    public void onSmashTileFragmentInteractionProcessToolUse(int row, int column) {
-        // Making a copy of the board and updating the game matrix accordingly
+    @SuppressLint("UseCompatLoadingForDrawables")
+    public void onSmashTileFragmentInteractionProcessToolUse(int targetTileRow, int targetTileColumn) {
+        // Making a copy of the board
         List<List<Integer>> copyOfCurrentBoard = new ArrayList<>();
         for (int i = 0; i < gameManager.getGameMatrix().size(); i++) {
             List<Integer> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));
             copyOfCurrentBoard.add(boardRow);
         }
-        copyOfCurrentBoard.get(row).set(column, 0);
 
+        // Removing the chosen tile from the board
+        copyOfCurrentBoard.get(targetTileRow).set(targetTileColumn, 0);
+
+        // Checking if the board has game tiles, or do we need to insert some random values
+        if (gameManager.findGameTilesCurrentlyOnBoard(copyOfCurrentBoard) == 0) {
+            gameManager.addNewValues(2, copyOfCurrentBoard);
+            int addNewRandomCellDuration = 50;
+            for (int row = 0; row < currentGameMode.getRows(); row++) {
+                for (int column = 0; column < currentGameMode.getColumns(); column++) {
+                    if (!copyOfCurrentBoard.get(row).get(column).equals(gameManager.getGameMatrix().get(row).get(column))) {
+                        GridLayout gameGridLayout = findViewById(R.id.game_grid_layout);
+                        AppCompatTextView textView = gameGridLayout.findViewWithTag("gameCell" + row + column);
+                        CellValues cellValueEnum = CellValues.getCellValueEnum(copyOfCurrentBoard.get(row).get(column));
+                        cellValueEnum.setCellValue(copyOfCurrentBoard.get(row).get(column));
+                        AnimationUtility.executePopUpAnimation(textView, cellValueEnum.getCellValue(),
+                                getResources().getColor(cellValueEnum.getNumberColorResourceId()),
+                                getDrawable(cellValueEnum.getBackgroundDrawableResourceId()),
+                                addNewRandomCellDuration, 200, currentGameMode.getGameLayoutProperties());
+                    }
+                }
+            }
+        } else {
+            AppCompatTextView textView = rootGameConstraintLayout.findViewWithTag("gameCell" + targetTileRow + targetTileColumn);
+            textView.setBackgroundResource(CellValues.CELL_VALUE_EMPTY.getBackgroundDrawableResourceId());
+            textView.setVisibility(View.INVISIBLE);
+        }
         gameManager.updateGameMatrix(copyOfCurrentBoard);
-        AppCompatTextView textView = rootGameConstraintLayout.findViewWithTag("gameCell" + row + column);
-        textView.setBackgroundResource(CellValues.CELL_VALUE_EMPTY.getBackgroundDrawableResourceId());
-        textView.setVisibility(View.INVISIBLE);
 
         // Update the reduced number of coins
         currentCoins -= toolsCostMap.get("normalToolsSmashTileCost");
