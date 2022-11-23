@@ -281,6 +281,15 @@ public class AnimationUtility {
         gridLottieView.playAnimation();
     }
 
+    public static void normalToolsSmashTileTargetTileSelectionSetup(LottieAnimationView targetTileLottie) {
+        targetTileLottie.setPadding(16,0,0,0);
+        targetTileLottie.setScaleX(1.05f);
+        targetTileLottie.setVisibility(View.VISIBLE);
+        targetTileLottie.setMaxFrame(20);
+        targetTileLottie.setAnimation(R.raw.tile_selection);
+        targetTileLottie.setSpeed(0.7f);
+    }
+
     public static void normalToolsSmashTileGridSetup(LottieAnimationView gridLottieView) {
         gridLottieView.setVisibility(View.VISIBLE);
         gridLottieView.setRotationY(180f);

@@ -95,7 +95,7 @@ public class GameActivity extends AppCompatActivity implements
     private AppCompatTextView currentScoreTextView;
     private AppCompatTextView bestScoreTextView;
     private AppCompatTextView goalTileTextView;
-    LottieAnimationView toolsChangeLottie;
+    private LottieAnimationView toolsChangeLottie;
     private AppCompatTextView tutorialTextView;
     private LottieAnimationView gridLottieView;
 
@@ -1048,7 +1048,7 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     public void onSmashTileFragmentInteractionProcessToolUse(int row, int column) {
-        // Making a copy of the board and
+        // Making a copy of the board and updating the game matrix accordingly
         List<List<Integer>> copyOfCurrentBoard = new ArrayList<>();
         for (int i = 0; i < gameManager.getGameMatrix().size(); i++) {
             List<Integer> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));

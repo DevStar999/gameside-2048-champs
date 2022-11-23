@@ -97,13 +97,10 @@ public class SmashTileFragment extends Fragment {
         smashTilePreviewLottie.setProgress(0f);
         smashTilePreviewLottie.pauseAnimation();
 
-        // Pre-processing for the 3rd set of events is as follows
-        individualTileLottie.setVisibility(View.VISIBLE);
-        AnimationUtility.normalToolsSmashTileTargetTileSetup(individualTileLottie);
-        individualTileLottie.addAnimatorListener(new Animator.AnimatorListener() {
+        // Pre-processing for the 4th set of events is as follows
+        Animator.AnimatorListener individualTileLottieSmashAnimatorListener = new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {}
-
             @Override
             public void onAnimationEnd(Animator animator) {
                 gameCellLottieLayout.setVisibility(View.GONE);
@@ -117,32 +114,59 @@ public class SmashTileFragment extends Fragment {
             public void onAnimationCancel(Animator animator) {}
             @Override
             public void onAnimationRepeat(Animator animator) {}
-        });
+        };
 
-        // Pre-processing for the 2nd set of events is as follows
-        gameCellLottieLayout.setVisibility(View.GONE);
-        AnimationUtility.normalToolsSmashTileGridSetup(gridLottieView);
-        gridLottieView.addAnimatorListener(new Animator.AnimatorListener() {
+        // Pre-processing for the 3rd set of events is as follows
+        Animator.AnimatorListener gridLottieAnimatorListener = new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {}
             @Override
             public void onAnimationEnd(Animator animator) {
-                gridLottieView.setVisibility(View.GONE);
                 gridLottieView.setRotationY(0f);
                 gridLottieView.setBackgroundResource(0); // To remove background drawable
+                gridLottieView.setSpeed(1f);
+                gridLottieView.setVisibility(View.GONE);
+                gridLottieView.removeAllAnimatorListeners();
                 gameCellLottieLayout.setVisibility(View.VISIBLE);
 
-                // 3rd set of events is as follows
+                // 4th set of events is as follows
+                AnimationUtility.normalToolsSmashTileTargetTileSetup(individualTileLottie);
+                individualTileLottie.removeAllAnimatorListeners();
+                individualTileLottie.addAnimatorListener(individualTileLottieSmashAnimatorListener);
                 individualTileLottie.playAnimation();
             }
             @Override
             public void onAnimationCancel(Animator animator) {}
             @Override
             public void onAnimationRepeat(Animator animator) {}
-        });
+        };
+
+        // Pre-processing for the 2nd set of events is as follows
+        Animator.AnimatorListener individualTileLottieSelectionAnimatorListener = new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {}
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                individualTileLottie.setPadding(0,0,0,0); // Removing the paddings
+                individualTileLottie.setScaleX(1f);
+                individualTileLottie.setVisibility(View.INVISIBLE);
+                gameCellLottieLayout.setVisibility(View.GONE);
+
+                // 3rd set of events is as follows
+                AnimationUtility.normalToolsSmashTileGridSetup(gridLottieView);
+                gridLottieView.addAnimatorListener(gridLottieAnimatorListener);
+                gridLottieView.playAnimation();
+            }
+            @Override
+            public void onAnimationCancel(Animator animator) {}
+            @Override
+            public void onAnimationRepeat(Animator animator) {}
+        };
 
         // 2nd set of events is as follows
-        gridLottieView.playAnimation();
+        AnimationUtility.normalToolsSmashTileTargetTileSelectionSetup(individualTileLottie);
+        individualTileLottie.addAnimatorListener(individualTileLottieSelectionAnimatorListener);
+        individualTileLottie.playAnimation();
     }
 
     public interface OnSmashTileFragmentInteractionListener {
