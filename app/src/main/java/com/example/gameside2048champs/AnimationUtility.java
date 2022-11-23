@@ -264,9 +264,11 @@ public class AnimationUtility {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                gridLottieView.setVisibility(View.GONE);
                 gridLottieView.setRotationY(0f);
                 gridLottieView.setBackgroundResource(0); // To remove background drawable
+                gridLottieView.setSpeed(1);
+                gridLottieView.setVisibility(View.GONE);
+                gridLottieView.removeAllAnimatorListeners();
                 rootGameConstraintLayout.setEnabled(true);
             }
 
