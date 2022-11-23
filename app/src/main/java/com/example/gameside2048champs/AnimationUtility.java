@@ -16,6 +16,8 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.example.gameside2048champs.enums.Direction;
 import com.example.gameside2048champs.enums.GameLayoutProperties;
 
+import java.util.List;
+
 public class AnimationUtility {
     private static void setTextViewAttributes(AppCompatTextView textView, int cellValue,
                                               int textColor, Drawable backgroundDrawable,
@@ -307,5 +309,33 @@ public class AnimationUtility {
         targetTileLottie.setBackgroundResource(R.drawable.rounded_corner_tile_lottie);
         targetTileLottie.setAnimation(R.raw.normal_tools_smash_grid_tile);
         targetTileLottie.setSpeed(0.7f);
+    }
+
+    public static void specialToolsEliminateValueTargetTilesSelectionSetup(List<LottieAnimationView> targetTilesLottie) {
+        for (int index = 0; index < targetTilesLottie.size(); index++) {
+            targetTilesLottie.get(index).setPadding(16,0,0,0);
+            targetTilesLottie.get(index).setScaleX(1.05f);
+            targetTilesLottie.get(index).setVisibility(View.VISIBLE);
+            targetTilesLottie.get(index).setMaxFrame(20);
+            targetTilesLottie.get(index).setAnimation(R.raw.tile_selection);
+            targetTilesLottie.get(index).setSpeed(0.7f);
+        }
+    }
+
+    public static void specialToolsEliminateValueGridSetup(LottieAnimationView gridLottieView) {
+        gridLottieView.setVisibility(View.VISIBLE);
+        gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
+        gridLottieView.setAnimation(R.raw.special_tools_eliminate_value_grid);
+        gridLottieView.setSpeed(3f);
+    }
+
+    public static void specialToolsEliminateValueTargetTilesSetup(List<LottieAnimationView> targetTilesLottie) {
+        for (int index = 0; index < targetTilesLottie.size(); index++) {
+            targetTilesLottie.get(index).setVisibility(View.VISIBLE);
+            targetTilesLottie.get(index).setMaxFrame(100);
+            targetTilesLottie.get(index).setBackgroundResource(R.drawable.rounded_corner_tile_lottie);
+            targetTilesLottie.get(index).setAnimation(R.raw.special_tools_eliminate_value_tile);
+            targetTilesLottie.get(index).setSpeed(1.25f);
+        }
     }
 }

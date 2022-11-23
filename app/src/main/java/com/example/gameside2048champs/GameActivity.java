@@ -810,7 +810,7 @@ public class GameActivity extends AppCompatActivity implements
         for (int i = 0; i < currentGameMode.getRows(); i++) {
             for (int j = 0; j < currentGameMode.getColumns(); j++) {
                 LottieAnimationView lottieAnimationView = gameCellLottieLayout.findViewWithTag("gameCellLottie" + i + j);
-                int row = i, column = j;
+                int row = i, column = j, cellValue = gameManager.getGameMatrix().get(row).get(column);
                 lottieAnimationView.setOnClickListener(view -> {
                     int countOfFragments = getSupportFragmentManager().getFragments().size();
                     if (countOfFragments > 0) {
@@ -818,13 +818,12 @@ public class GameActivity extends AppCompatActivity implements
                         if (topMostFragment != null && topMostFragment.getTag() != null &&
                                 !topMostFragment.getTag().isEmpty()) {
                             if (topMostFragment.getTag().equals("SMASH_TILE_FRAGMENT")) {
-                                if (gameManager.getGameMatrix().get(row).get(column) != 0
-                                        && gameManager.getGameMatrix().get(row).get(column) != -1) {
+                                if (cellValue != 0 && cellValue != -1) {
                                     SmashTileFragment smashTileFragment = ((SmashTileFragment) topMostFragment);
                                     if (!smashTileFragment.checkToolUseState()) { // Tool use is not complete
                                         rootGameConstraintLayout.setEnabled(false);
                                         smashTileFragment.handleTileToBeSmashed(findViewById(R.id.game_cell_lottie_layout),
-                                                lottieAnimationView, gridLottieView, row, column);
+                                                lottieAnimationView, gridLottieView, new Pair<>(row, column));
                                     } // else, user has clicked after choosing tile to smash, so we ignore the click
                                 }
                             } else if (topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")) {
@@ -832,7 +831,21 @@ public class GameActivity extends AppCompatActivity implements
                             } else if (topMostFragment.getTag().equals("SWAP_TILES_FRAGMENT")) {
 
                             } else if (topMostFragment.getTag().equals("ELIMINATE_VALUE_FRAGMENT")) {
-
+                                if (cellValue != 0 && cellValue != -1) {
+                                    EliminateValueFragment eliminateValueFragment = ((EliminateValueFragment) topMostFragment);
+                                    if (!eliminateValueFragment.checkToolUseState()) { // Tool use is not complete
+                                        rootGameConstraintLayout.setEnabled(false);
+                                        List<Pair<Integer, Integer>> targetValueTilesPositions =
+                                                gameManager.giveAllTilesPositionsOfGivenValue(gameManager.getGameMatrix(), cellValue);
+                                        List<LottieAnimationView> targetTilesLottie = new ArrayList<>();
+                                        for (Pair<Integer, Integer> tilePosition: targetValueTilesPositions) {
+                                            targetTilesLottie.add(gameCellLottieLayout.findViewWithTag("gameCellLottie"
+                                                    + tilePosition.first + tilePosition.second));
+                                        }
+                                        eliminateValueFragment.handleValueToBeEliminated(findViewById(R.id.game_cell_lottie_layout),
+                                                targetTilesLottie, gridLottieView, targetValueTilesPositions);
+                                    } // else, user has clicked after choosing tile value to eliminate, so we ignore the click
+                                }
                             } else if (topMostFragment.getTag().equals("BOMB_FRAGMENT")) {
 
                             }
@@ -1048,7 +1061,7 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    public void onSmashTileFragmentInteractionProcessToolUse(int targetTileRow, int targetTileColumn) {
+    public void onSmashTileFragmentInteractionProcessToolUse(Pair<Integer, Integer> targetTilePosition) {
         // Making a copy of the board
         List<List<Integer>> copyOfCurrentBoard = new ArrayList<>();
         for (int i = 0; i < gameManager.getGameMatrix().size(); i++) {
@@ -1057,7 +1070,11 @@ public class GameActivity extends AppCompatActivity implements
         }
 
         // Removing the chosen tile from the board
-        copyOfCurrentBoard.get(targetTileRow).set(targetTileColumn, 0);
+        copyOfCurrentBoard.get(targetTilePosition.first).set(targetTilePosition.second, 0);
+        AppCompatTextView targetTextView = rootGameConstraintLayout.findViewWithTag("gameCell" +
+                targetTilePosition.first + targetTilePosition.second);
+        targetTextView.setVisibility(View.INVISIBLE);
+        gameManager.updateGameMatrix(copyOfCurrentBoard);
 
         // Checking if the board has game tiles, or do we need to insert some random values
         if (gameManager.findGameTilesCurrentlyOnBoard(copyOfCurrentBoard) == 0) {
@@ -1066,23 +1083,18 @@ public class GameActivity extends AppCompatActivity implements
             for (int row = 0; row < currentGameMode.getRows(); row++) {
                 for (int column = 0; column < currentGameMode.getColumns(); column++) {
                     if (!copyOfCurrentBoard.get(row).get(column).equals(gameManager.getGameMatrix().get(row).get(column))) {
-                        GridLayout gameGridLayout = findViewById(R.id.game_grid_layout);
-                        AppCompatTextView textView = gameGridLayout.findViewWithTag("gameCell" + row + column);
+                        AppCompatTextView textView = rootGameConstraintLayout.findViewWithTag("gameCell" + row + column);
                         CellValues cellValueEnum = CellValues.getCellValueEnum(copyOfCurrentBoard.get(row).get(column));
                         cellValueEnum.setCellValue(copyOfCurrentBoard.get(row).get(column));
                         AnimationUtility.executePopUpAnimation(textView, cellValueEnum.getCellValue(),
                                 getResources().getColor(cellValueEnum.getNumberColorResourceId()),
                                 getDrawable(cellValueEnum.getBackgroundDrawableResourceId()),
-                                addNewRandomCellDuration, 200, currentGameMode.getGameLayoutProperties());
+                                addNewRandomCellDuration, 500, currentGameMode.getGameLayoutProperties());
                     }
                 }
             }
-        } else {
-            AppCompatTextView textView = rootGameConstraintLayout.findViewWithTag("gameCell" + targetTileRow + targetTileColumn);
-            textView.setBackgroundResource(CellValues.CELL_VALUE_EMPTY.getBackgroundDrawableResourceId());
-            textView.setVisibility(View.INVISIBLE);
+            gameManager.updateGameMatrix(copyOfCurrentBoard);
         }
-        gameManager.updateGameMatrix(copyOfCurrentBoard);
 
         // Update the reduced number of coins
         currentCoins -= toolsCostMap.get("normalToolsSmashTileCost");
@@ -1093,11 +1105,6 @@ public class GameActivity extends AppCompatActivity implements
         saveGameState();
         rootGameConstraintLayout.setEnabled(true);
         onBackPressed();
-    }
-
-    private void handleToolFragmentBackClicked() {
-        backgroundFilmImageView.setImageResource(0); // Setting image resource to blank
-        gameFrameLayout.removeView(findViewById(R.id.game_cell_lottie_layout));
     }
 
     @Override
@@ -1115,8 +1122,65 @@ public class GameActivity extends AppCompatActivity implements
         onBackPressed();
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
+    @Override
+    public void onEliminateValueFragmentInteractionProcessToolUse(List<Pair<Integer, Integer>> targetTilesPositions) {
+        // Making a copy of the board
+        List<List<Integer>> copyOfCurrentBoard = new ArrayList<>();
+        for (int i = 0; i < gameManager.getGameMatrix().size(); i++) {
+            List<Integer> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));
+            copyOfCurrentBoard.add(boardRow);
+        }
+
+        // Removing the chosen tile from the board
+        for (int index = 0; index < targetTilesPositions.size(); index++) {
+            copyOfCurrentBoard.get(targetTilesPositions.get(index).first)
+                    .set(targetTilesPositions.get(index).second, 0);
+            AppCompatTextView textView = rootGameConstraintLayout.findViewWithTag("gameCell" +
+                    targetTilesPositions.get(index).first + targetTilesPositions.get(index).second);
+            textView.setVisibility(View.INVISIBLE);
+        }
+        gameManager.updateGameMatrix(copyOfCurrentBoard);
+
+        // Checking if the board has game tiles, or do we need to insert some random values
+        if (gameManager.findGameTilesCurrentlyOnBoard(copyOfCurrentBoard) == 0) {
+            gameManager.addNewValues(2, copyOfCurrentBoard);
+            int addNewRandomCellDuration = 50;
+            for (int row = 0; row < currentGameMode.getRows(); row++) {
+                for (int column = 0; column < currentGameMode.getColumns(); column++) {
+                    if (!copyOfCurrentBoard.get(row).get(column).equals(gameManager.getGameMatrix().get(row).get(column))) {
+                        GridLayout gameGridLayout = findViewById(R.id.game_grid_layout);
+                        AppCompatTextView textView = gameGridLayout.findViewWithTag("gameCell" + row + column);
+                        CellValues cellValueEnum = CellValues.getCellValueEnum(copyOfCurrentBoard.get(row).get(column));
+                        cellValueEnum.setCellValue(copyOfCurrentBoard.get(row).get(column));
+                        AnimationUtility.executePopUpAnimation(textView, cellValueEnum.getCellValue(),
+                                getResources().getColor(cellValueEnum.getNumberColorResourceId()),
+                                getDrawable(cellValueEnum.getBackgroundDrawableResourceId()),
+                                addNewRandomCellDuration, 500, currentGameMode.getGameLayoutProperties());
+                    }
+                }
+            }
+            gameManager.updateGameMatrix(copyOfCurrentBoard);
+        }
+
+        // Update the reduced number of coins
+        currentCoins -= toolsCostMap.get("specialToolsEliminateValueCost");
+        sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
+        currentCoinsTextView.setText(String.valueOf(currentCoins));
+
+        // Final set of actions
+        saveGameState();
+        rootGameConstraintLayout.setEnabled(true);
+        onBackPressed();
+    }
+
     @Override
     public void onBombFragmentInteractionBackClicked() {
         onBackPressed();
+    }
+
+    private void handleToolFragmentBackClicked() {
+        backgroundFilmImageView.setImageResource(0); // Setting image resource to blank
+        gameFrameLayout.removeView(findViewById(R.id.game_cell_lottie_layout));
     }
 }

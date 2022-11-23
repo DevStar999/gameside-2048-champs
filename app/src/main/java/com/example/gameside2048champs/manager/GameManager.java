@@ -7,6 +7,7 @@ import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.CountDownTimer;
+import android.util.Pair;
 import android.view.View;
 import android.widget.GridLayout;
 
@@ -151,6 +152,18 @@ public class GameManager {
             }
         }
         return gameTilesCount;
+    }
+
+    public List<Pair<Integer, Integer>> giveAllTilesPositionsOfGivenValue(List<List<Integer>> givenBoard, int targetValue) {
+        List<Pair<Integer, Integer>> targetValueTilesPositions = new ArrayList<>();
+        for (int row = 0; row < givenBoard.size(); row++) {
+            for (int column = 0; column < givenBoard.get(row).size(); column++) {
+                if (givenBoard.get(row).get(column).equals(targetValue)) {
+                    targetValueTilesPositions.add(new Pair<>(row, column));
+                }
+            }
+        }
+        return targetValueTilesPositions;
     }
 
     public void updateGameMatrixPostUndo(List<List<Integer>> previousGameState) {

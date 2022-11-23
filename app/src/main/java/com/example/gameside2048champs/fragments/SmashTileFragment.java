@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +89,7 @@ public class SmashTileFragment extends Fragment {
     }
 
     public void handleTileToBeSmashed(GridLayout gameCellLottieLayout, LottieAnimationView individualTileLottie,
-                                      LottieAnimationView gridLottieView, int row, int column) {
+                                      LottieAnimationView gridLottieView, Pair<Integer, Integer> targetTilePosition) {
         // 1st set of events is as follows
         isToolUseComplete = true;
         toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
@@ -107,7 +108,7 @@ public class SmashTileFragment extends Fragment {
                 isToolUseComplete = false;
                 rootLayoutOfFragment.setClickable(true);
                 if (mListener != null) {
-                    mListener.onSmashTileFragmentInteractionProcessToolUse(row, column);
+                    mListener.onSmashTileFragmentInteractionProcessToolUse(targetTilePosition);
                 }
             }
             @Override
@@ -171,7 +172,7 @@ public class SmashTileFragment extends Fragment {
 
     public interface OnSmashTileFragmentInteractionListener {
         void onSmashTileFragmentInteractionBackClicked();
-        void onSmashTileFragmentInteractionProcessToolUse(int row, int column);
+        void onSmashTileFragmentInteractionProcessToolUse(Pair<Integer, Integer> targetTilePosition);
     }
 
     @Override

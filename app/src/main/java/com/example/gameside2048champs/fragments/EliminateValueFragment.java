@@ -1,11 +1,15 @@
 package com.example.gameside2048champs.fragments;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +21,8 @@ import androidx.fragment.app.Fragment;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.gameside2048champs.AnimationUtility;
 import com.example.gameside2048champs.R;
+
+import java.util.List;
 
 public class EliminateValueFragment extends Fragment {
     private OnEliminateValueFragmentInteractionListener mListener;
@@ -85,8 +91,115 @@ public class EliminateValueFragment extends Fragment {
         return isToolUseComplete;
     }
 
+    private Animator.AnimatorListener getIndividualTargetTileSelectionAnimatorListener(boolean isCurrentTargetTileFinal,
+        LottieAnimationView targetTileLottie, GridLayout gameCellLottieLayout, LottieAnimationView gridLottieView,
+        Animator.AnimatorListener gridLottieAnimatorListener) {
+        // Pre-processing for the 2nd set of events is as follows
+        return new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {}
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                targetTileLottie.setPadding(0,0,0,0); // Removing the paddings
+                targetTileLottie.setScaleX(1f);
+                targetTileLottie.setVisibility(View.INVISIBLE);
+
+                // 3rd set of events is as follows
+                if (isCurrentTargetTileFinal) {
+                    gameCellLottieLayout.setVisibility(View.GONE);
+                    AnimationUtility.specialToolsEliminateValueGridSetup(gridLottieView);
+                    gridLottieView.addAnimatorListener(gridLottieAnimatorListener);
+                    gridLottieView.playAnimation();
+                }
+            }
+            @Override
+            public void onAnimationCancel(Animator animator) {}
+            @Override
+            public void onAnimationRepeat(Animator animator) {}
+        };
+    }
+
+    private Animator.AnimatorListener getIndividualTargetTileEliminateAnimatorListener(boolean isCurrentTargetTileFinal,
+        GridLayout gameCellLottieLayout, List<Pair<Integer, Integer>> targetTilesPositions) {
+        // Pre-processing for the 4th set of events is as follows
+        return new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {}
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                if (isCurrentTargetTileFinal) {
+                    gameCellLottieLayout.setVisibility(View.GONE);
+                    isToolUseComplete = false;
+                    rootLayoutOfFragment.setClickable(true);
+                    if (mListener != null) {
+                        mListener.onEliminateValueFragmentInteractionProcessToolUse(targetTilesPositions);
+                    }
+                }
+            }
+            @Override
+            public void onAnimationCancel(Animator animator) {}
+            @Override
+            public void onAnimationRepeat(Animator animator) {}
+        };
+    }
+
+    public void handleValueToBeEliminated(GridLayout gameCellLottieLayout, List<LottieAnimationView> targetTilesLottie,
+                                          LottieAnimationView gridLottieView, List<Pair<Integer, Integer>> targetTilesPositions) {
+        // 1st set of events is as follows
+        isToolUseComplete = true;
+        toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
+        toolDescriptionTextView.setVisibility(View.INVISIBLE);
+        rootLayoutOfFragment.setClickable(false);
+        eliminateValuePreviewLottie.setProgress(0f);
+        eliminateValuePreviewLottie.pauseAnimation();
+
+        // Pre-processing for the 3rd set of events is as follows
+        Animator.AnimatorListener gridLottieAnimatorListener = new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {}
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                gridLottieView.setRotationY(0f);
+                gridLottieView.setBackgroundResource(0); // To remove background drawable
+                gridLottieView.setSpeed(1f);
+                gridLottieView.setVisibility(View.GONE);
+                gridLottieView.removeAllAnimatorListeners();
+                gameCellLottieLayout.setVisibility(View.VISIBLE);
+
+                // 4th set of events is as follows
+                AnimationUtility.specialToolsEliminateValueTargetTilesSetup(targetTilesLottie);
+                for (int index = 0; index < targetTilesLottie.size(); index++) {
+                    boolean isCurrentTargetTileFinal = (index == targetTilesLottie.size() - 1);
+                    targetTilesLottie.get(index).removeAllAnimatorListeners();
+                    targetTilesLottie.get(index).addAnimatorListener(getIndividualTargetTileEliminateAnimatorListener(
+                            isCurrentTargetTileFinal, gameCellLottieLayout, targetTilesPositions));
+                }
+                for (int index = 0; index < targetTilesLottie.size(); index++) {
+                    targetTilesLottie.get(index).playAnimation();
+                }
+            }
+            @Override
+            public void onAnimationCancel(Animator animator) {}
+            @Override
+            public void onAnimationRepeat(Animator animator) {}
+        };
+
+        // 2nd set of events is as follows
+        AnimationUtility.specialToolsEliminateValueTargetTilesSelectionSetup(targetTilesLottie);
+        for (int index = 0; index < targetTilesLottie.size(); index++) {
+            boolean isCurrentTargetTileFinal = (index == targetTilesLottie.size() - 1);
+            targetTilesLottie.get(index).addAnimatorListener(getIndividualTargetTileSelectionAnimatorListener(
+                    isCurrentTargetTileFinal, targetTilesLottie.get(index), gameCellLottieLayout,
+                    gridLottieView, gridLottieAnimatorListener));
+        }
+        for (int index = 0; index < targetTilesLottie.size(); index++) {
+            targetTilesLottie.get(index).playAnimation();
+        }
+    }
+
     public interface OnEliminateValueFragmentInteractionListener {
         void onEliminateValueFragmentInteractionBackClicked();
+        void onEliminateValueFragmentInteractionProcessToolUse(List<Pair<Integer, Integer>> targetTilesPositions);
     }
 
     @Override
