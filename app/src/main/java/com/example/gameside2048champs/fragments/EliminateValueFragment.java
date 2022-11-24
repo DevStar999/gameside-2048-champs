@@ -157,7 +157,7 @@ public class EliminateValueFragment extends Fragment {
         // 1st set of events is as follows
         isToolUseComplete = true;
         toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
-        toolDescriptionTextView.setVisibility(View.INVISIBLE);
+        toolDescriptionTextView.setVisibility(View.GONE);
         rootLayoutOfFragment.setClickable(false);
         eliminateValuePreviewLottie.setProgress(0f);
         eliminateValuePreviewLottie.pauseAnimation();

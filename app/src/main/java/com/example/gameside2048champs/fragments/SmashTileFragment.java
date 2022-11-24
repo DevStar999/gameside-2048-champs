@@ -102,7 +102,7 @@ public class SmashTileFragment extends Fragment {
         // 1st set of events is as follows
         isToolUseComplete = true;
         toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
-        toolDescriptionTextView.setVisibility(View.INVISIBLE);
+        toolDescriptionTextView.setVisibility(View.GONE);
         rootLayoutOfFragment.setClickable(false);
         smashTilePreviewLottie.setProgress(0f);
         smashTilePreviewLottie.pauseAnimation();
