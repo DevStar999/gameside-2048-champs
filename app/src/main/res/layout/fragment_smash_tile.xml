@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.35" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/back_button_smash_tile_fragment"
@@ -34,7 +34,7 @@
         android:id="@+id/tool_preview_frame_layout_smash_tile_fragment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/vertical_guide_left_1_smash_tile_fragment"
         app:layout_constraintStart_toStartOf="parent"
