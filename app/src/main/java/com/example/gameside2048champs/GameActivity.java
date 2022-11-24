@@ -34,7 +34,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.example.gameside2048champs.dialogs.GameOverDialog;
 import com.example.gameside2048champs.dialogs.GamePausedDialog;
 import com.example.gameside2048champs.dialogs.GameResetDialog;
-import com.example.gameside2048champs.dialogs.GameUndoDialog;
+import com.example.gameside2048champs.dialogs.ToolUseProhibitedDialog;
 import com.example.gameside2048champs.dialogs.GameWinDialog;
 import com.example.gameside2048champs.enums.CellValues;
 import com.example.gameside2048champs.enums.Direction;
@@ -774,7 +774,7 @@ public class GameActivity extends AppCompatActivity implements
         } else { // Undo was used, so we need to show a message here
             String undoMessageText = (gameManager.getCurrentGameState() == GameStates.GAME_ONGOING) ?
                     "UNDO WAS USED ALREADY" : "NO MOVE HAS BEEN MADE YET";
-            new GameUndoDialog(this, undoMessageText).show();
+            new ToolUseProhibitedDialog(this, undoMessageText).show();
         }
     }
 

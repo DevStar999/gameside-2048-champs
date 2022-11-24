@@ -10,22 +10,22 @@
 
     <!-- Lottie Animation Link = https://lottiefiles.com/10286-cancel -->
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/game_undo_lottie"
+        android:id="@+id/tool_use_prohibited_lottie"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/game_undo_text"
+        app:layout_constraintBottom_toTopOf="@id/tool_use_prohibited_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/game_undo"
+        app:lottie_rawRes="@raw/tool_use_prohibited"
         app:lottie_repeatCount="4"
         app:lottie_repeatMode="restart" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/game_undo_text"
+        android:id="@+id/tool_use_prohibited_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="24dp"
@@ -35,13 +35,13 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/game_undo_buttons_linear_layout"
+        app:layout_constraintBottom_toTopOf="@id/tool_use_prohibited_buttons_linear_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/game_undo_lottie" />
+        app:layout_constraintTop_toBottomOf="@id/tool_use_prohibited_lottie" />
 
     <LinearLayout
-        android:id="@+id/game_undo_buttons_linear_layout"
+        android:id="@+id/tool_use_prohibited_buttons_linear_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -49,10 +49,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/game_undo_text">
+        app:layout_constraintTop_toBottomOf="@id/tool_use_prohibited_text">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/game_undo_continue"
+            android:id="@+id/tool_use_prohibited_continue"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginHorizontal="8dp"

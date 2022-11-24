@@ -14,33 +14,33 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.gameside2048champs.R;
 
-public class GameUndoDialog extends Dialog {
-    private LottieAnimationView gameUndoLottie;
-    private AppCompatTextView gameUndoText;
-    private LinearLayout gameUndoButtonsLinearLayout;
-    private AppCompatButton gameUndoContinue;
+public class ToolUseProhibitedDialog extends Dialog {
+    private LottieAnimationView toolUseProhibitedLottie;
+    private AppCompatTextView toolUseProhibitedText;
+    private LinearLayout toolUseProhibitedButtonsLinearLayout;
+    private AppCompatButton toolUseProhibitedContinue;
 
     private void initialise() {
-        gameUndoLottie = findViewById(R.id.game_undo_lottie);
-        gameUndoText = findViewById(R.id.game_undo_text);
-        gameUndoButtonsLinearLayout = findViewById(R.id.game_undo_buttons_linear_layout);
-        gameUndoContinue = findViewById(R.id.game_undo_continue);
+        toolUseProhibitedLottie = findViewById(R.id.tool_use_prohibited_lottie);
+        toolUseProhibitedText = findViewById(R.id.tool_use_prohibited_text);
+        toolUseProhibitedButtonsLinearLayout = findViewById(R.id.tool_use_prohibited_buttons_linear_layout);
+        toolUseProhibitedContinue = findViewById(R.id.tool_use_prohibited_continue);
     }
 
     private void setVisibilityOfViews(int visibility) {
-        gameUndoLottie.setVisibility(visibility);
-        gameUndoText.setVisibility(visibility);
-        gameUndoButtonsLinearLayout.setVisibility(visibility);
+        toolUseProhibitedLottie.setVisibility(visibility);
+        toolUseProhibitedText.setVisibility(visibility);
+        toolUseProhibitedButtonsLinearLayout.setVisibility(visibility);
     }
 
-    public GameUndoDialog(@NonNull Context context, String undoMessageText) {
+    public ToolUseProhibitedDialog(@NonNull Context context, String undoMessageText) {
         super(context, R.style.CustomDialogTheme);
-        setContentView(R.layout.dialog_game_undo);
+        setContentView(R.layout.dialog_tool_use_prohibited);
 
         initialise();
 
-        gameUndoText.setText(undoMessageText);
-        gameUndoContinue.setOnClickListener(new View.OnClickListener() {
+        toolUseProhibitedText.setText(undoMessageText);
+        toolUseProhibitedContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // First, the views will disappear, then the dialog box will close
