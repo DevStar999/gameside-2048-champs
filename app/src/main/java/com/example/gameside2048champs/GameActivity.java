@@ -861,6 +861,12 @@ public class GameActivity extends AppCompatActivity implements
 
     private void smashTileProcess() {
         movesQueue.clear();
+        if (gameManager.findGameTilesCurrentlyOnBoard(gameManager.getGameMatrix()) < 1) {
+            String smashTileMessage = "ATLEAST 1 GAME TILE IS REQUIRED TO USE THE \"SMASH TILE\" TOOL";
+            new ToolUseProhibitedDialog(this, smashTileMessage).show();
+            return;
+        }
+
         if (currentCoins >= toolsCostMap.get("normalToolsSmashTileCost")) {
             // If SmashTileFragment was opened and is currently on top, then return
             int countOfFragments = getSupportFragmentManager().getFragments().size();
@@ -923,6 +929,12 @@ public class GameActivity extends AppCompatActivity implements
 
     private void swapTilesProcess() {
         movesQueue.clear();
+        if (gameManager.findGameTilesCurrentlyOnBoard(gameManager.getGameMatrix()) < 2) {
+            String swapTilesMessage = "ATLEAST 2 GAME TILES ARE REQUIRED TO USE THE \"SWAP TILES\" TOOL";
+            new ToolUseProhibitedDialog(this, swapTilesMessage).show();
+            return;
+        }
+
         if (currentCoins >= toolsCostMap.get("specialToolsSwapTilesCost")) {
             // If SwapTilesFragment was opened and is currently on top, then return
             int countOfFragments = getSupportFragmentManager().getFragments().size();
@@ -954,6 +966,12 @@ public class GameActivity extends AppCompatActivity implements
 
     private void eliminateValueProcess() {
         movesQueue.clear();
+        if (gameManager.findGameTilesCurrentlyOnBoard(gameManager.getGameMatrix()) < 1) {
+            String eliminateValueMessage = "ATLEAST 1 GAME TILE IS REQUIRED TO USE THE \"ELIMINATE VALUE\" TOOL";
+            new ToolUseProhibitedDialog(this, eliminateValueMessage).show();
+            return;
+        }
+
         if (currentCoins >= toolsCostMap.get("specialToolsEliminateValueCost")) {
             // If EliminateValueFragment was opened and is currently on top, then return
             int countOfFragments = getSupportFragmentManager().getFragments().size();
