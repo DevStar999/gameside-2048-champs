@@ -159,7 +159,7 @@ public class SmashTileFragment extends Fragment {
             public void onAnimationEnd(Animator animator) {
                 individualTileLottie.setPadding(0,0,0,0); // Removing the paddings
                 individualTileLottie.setScaleX(1f);
-                individualTileLottie.setVisibility(View.INVISIBLE);
+                individualTileLottie.pauseAnimation();
                 gameCellLottieLayout.setVisibility(View.GONE);
 
                 // 3rd set of events is as follows

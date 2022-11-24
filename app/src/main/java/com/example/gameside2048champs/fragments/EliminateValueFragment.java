@@ -111,7 +111,7 @@ public class EliminateValueFragment extends Fragment {
             public void onAnimationEnd(Animator animator) {
                 targetTileLottie.setPadding(0,0,0,0); // Removing the paddings
                 targetTileLottie.setScaleX(1f);
-                targetTileLottie.setVisibility(View.INVISIBLE);
+                targetTileLottie.pauseAnimation();
 
                 // 3rd set of events is as follows
                 if (isCurrentTargetTileFinal) {
