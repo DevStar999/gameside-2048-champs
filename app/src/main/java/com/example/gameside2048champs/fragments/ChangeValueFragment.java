@@ -64,15 +64,24 @@ public class ChangeValueFragment extends Fragment {
         changeValuePreviewLottie = view.findViewById(R.id.change_value_preview_lottie);
         toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_change_value_fragment);
         toolDescriptionTextView = view.findViewById(R.id.tool_description_text_view_change_value_fragment);
-        isToolUseComplete = false;
+        isToolUseComplete = true;
 
         // Making tool lottie view emerge so that it grabs attention during the tool fragment transition
+        CountDownTimer postFragmentSetupTimer = new CountDownTimer(650, 10000) {
+            @Override
+            public void onTick(long l) {}
+            @Override
+            public void onFinish() {
+                isToolUseComplete = false;
+            }
+        };
         new CountDownTimer(300, 10000) {
             @Override
             public void onTick(long l) {}
             @Override
             public void onFinish() {
-                AnimationUtility.toolLottieEmergeAnimation(changeValuePreviewLottie, 700);
+                AnimationUtility.toolLottieEmergeAnimation(changeValuePreviewLottie, 575);
+                postFragmentSetupTimer.start();
             }
         }.start();
 

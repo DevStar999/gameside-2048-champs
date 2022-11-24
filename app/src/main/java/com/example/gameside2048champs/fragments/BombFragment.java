@@ -65,15 +65,24 @@ public class BombFragment extends Fragment {
         bombPreviewLottie.setMaxFrame(50);
         toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_bomb_fragment);
         toolDescriptionTextView = view.findViewById(R.id.tool_description_text_view_bomb_fragment);
-        isToolUseComplete = false;
+        isToolUseComplete = true;
 
         // Making tool lottie view emerge so that it grabs attention during the tool fragment transition
+        CountDownTimer postFragmentSetupTimer = new CountDownTimer(650, 10000) {
+            @Override
+            public void onTick(long l) {}
+            @Override
+            public void onFinish() {
+                isToolUseComplete = false;
+            }
+        };
         new CountDownTimer(300, 10000) {
             @Override
             public void onTick(long l) {}
             @Override
             public void onFinish() {
-                AnimationUtility.toolLottieEmergeAnimation(bombPreviewLottie, 700);
+                AnimationUtility.toolLottieEmergeAnimation(bombPreviewLottie, 575);
+                postFragmentSetupTimer.start();
             }
         }.start();
 

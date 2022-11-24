@@ -64,15 +64,24 @@ public class SwapTilesFragment extends Fragment {
         swapTilesPreviewLottie = view.findViewById(R.id.swap_tiles_preview_lottie);
         toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_swap_tiles_fragment);
         toolDescriptionTextView = view.findViewById(R.id.tool_description_text_view_swap_tiles_fragment);
-        isToolUseComplete = false;
+        isToolUseComplete = true;
 
         // Making tool lottie view emerge so that it grabs attention during the tool fragment transition
+        CountDownTimer postFragmentSetupTimer = new CountDownTimer(650, 10000) {
+            @Override
+            public void onTick(long l) {}
+            @Override
+            public void onFinish() {
+                isToolUseComplete = false;
+            }
+        };
         new CountDownTimer(300, 10000) {
             @Override
             public void onTick(long l) {}
             @Override
             public void onFinish() {
-                AnimationUtility.toolLottieEmergeAnimation(swapTilesPreviewLottie, 700);
+                AnimationUtility.toolLottieEmergeAnimation(swapTilesPreviewLottie, 575);
+                postFragmentSetupTimer.start();
             }
         }.start();
 
