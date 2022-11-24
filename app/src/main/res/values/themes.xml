@@ -33,4 +33,9 @@
         <item name="android:windowEnterAnimation">@anim/open_dialog</item>
         <item name="android:windowExitAnimation">@anim/close_dialog</item>
     </style>
+
+    <style name="CustomCheckBox">
+        <item name="colorControlActivated">@color/game_text_color</item>
+        <item name="colorControlHighlight">@color/game_primary_background_color</item>
+    </style>
 </resources>
