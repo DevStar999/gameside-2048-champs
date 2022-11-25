@@ -1,5 +1,6 @@
 package com.example.gameside2048champs.fragments;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -7,6 +8,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +34,8 @@ public class SwapTilesFragment extends Fragment {
     private boolean isSecondClickDone;
     private Pair<Integer, Integer> firstSwapTilePosition;
     private Pair<Integer, Integer> secondSwapTilePosition;
+    private LottieAnimationView firstSwapTileLottie;
+    private LottieAnimationView secondSwapTileLottie;
 
     public SwapTilesFragment() {
         // Required empty public constructor
@@ -118,18 +122,131 @@ public class SwapTilesFragment extends Fragment {
 
         // 2nd set of events is as follows - Setting the selection animation for the first swap tile
         this.firstSwapTilePosition = new Pair<>(firstSwapTilePosition.first, firstSwapTilePosition.second);
-        AnimationUtility.specialToolsSwapTilesFirstTileSelectionSetup(firstSwapTileLottie);
-        firstSwapTileLottie.playAnimation();
+        this.firstSwapTileLottie = firstSwapTileLottie;
+        AnimationUtility.specialToolsSwapTilesFirstClickSelectionSetup(this.firstSwapTileLottie);
+        this.firstSwapTileLottie.playAnimation();
     }
 
-    public void handleSwapTilesToolSecondClick() {
-        /*
+    public void handleSwapTilesToolSecondClick(GridLayout gameCellLottieLayout, LottieAnimationView secondSwapTileLottie,
+                                               LottieAnimationView gridLottieView, Pair<Integer, Integer> secondSwapTilePosition) {
         // 1st set of events is as follows
         isSecondClickDone = true;
         toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
         toolDescriptionTextView.setVisibility(View.GONE);
         secondClickCheckBox.setChecked(true);
-        */
+
+        // Pre-processing for the 5th set of events is as follows
+        Animator.AnimatorListener swapTilesLottieSwapAnimatorListener = new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {}
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                gameCellLottieLayout.setVisibility(View.GONE);
+                isFirstClickDone = false; isSecondClickDone = false;
+                if (mListener != null) {
+                    mListener.onSwapTilesFragmentInteractionProcessToolUse(SwapTilesFragment.this.firstSwapTilePosition,
+                            SwapTilesFragment.this.secondSwapTilePosition);
+                }
+            }
+            @Override
+            public void onAnimationCancel(Animator animator) {}
+            @Override
+            public void onAnimationRepeat(Animator animator) {}
+        };
+
+        // Pre-processing for the 4th set of events is as follows
+        Animator.AnimatorListener gridLottieAnimatorListener = new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {}
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                gridLottieView.setBackgroundResource(0); // To remove background drawable
+                gridLottieView.setSpeed(1f);
+                gridLottieView.setVisibility(View.GONE);
+                gridLottieView.removeAllAnimatorListeners();
+                gameCellLottieLayout.setVisibility(View.VISIBLE);
+
+                // 5th set of events is as follows
+                AnimationUtility.specialToolsSwapTilesSwapTileSetup(SwapTilesFragment.this.firstSwapTileLottie);
+                AnimationUtility.specialToolsSwapTilesSwapTileSetup(SwapTilesFragment.this.secondSwapTileLottie);
+                SwapTilesFragment.this.secondSwapTileLottie.removeAllAnimatorListeners();
+                SwapTilesFragment.this.secondSwapTileLottie.addAnimatorListener(swapTilesLottieSwapAnimatorListener);
+                SwapTilesFragment.this.firstSwapTileLottie.playAnimation();
+                SwapTilesFragment.this.secondSwapTileLottie.playAnimation();
+            }
+            @Override
+            public void onAnimationCancel(Animator animator) {}
+            @Override
+            public void onAnimationRepeat(Animator animator) {}
+        };
+
+        // Pre-processing for the 3rd set of events is as follows
+        Animator.AnimatorListener swapTilesLottieSecondSelectionAnimatorListener = new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {}
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                gameCellLottieLayout.setVisibility(View.GONE);
+
+                // 4th set of events is as follows
+                AnimationUtility.specialToolsSwapTilesGridSetup(gridLottieView);
+                gridLottieView.addAnimatorListener(gridLottieAnimatorListener);
+                gridLottieView.playAnimation();
+
+                //  Taking care of some trivial work after starting the animation
+                SwapTilesFragment.this.firstSwapTileLottie.setPadding(0,0,0,0);
+                SwapTilesFragment.this.firstSwapTileLottie.setScaleX(1f);
+                SwapTilesFragment.this.firstSwapTileLottie.setSpeed(1f);
+                SwapTilesFragment.this.firstSwapTileLottie.pauseAnimation();
+                SwapTilesFragment.this.secondSwapTileLottie.setPadding(0,0,0,0);
+                SwapTilesFragment.this.secondSwapTileLottie.setScaleX(1f);
+                SwapTilesFragment.this.secondSwapTileLottie.setSpeed(1f);
+                SwapTilesFragment.this.secondSwapTileLottie.pauseAnimation();
+            }
+            @Override
+            public void onAnimationCancel(Animator animator) {}
+            @Override
+            public void onAnimationRepeat(Animator animator) {}
+        };
+
+        // Pre-processing for the 2nd set of events is as follows
+        Animator.AnimatorListener swapTilesLottieFirstSelectionAnimatorListener = new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {}
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                SwapTilesFragment.this.firstSwapTileLottie.setProgress(0f);
+                SwapTilesFragment.this.firstSwapTileLottie.setPadding(0,0,0,0);
+                SwapTilesFragment.this.firstSwapTileLottie.setSpeed(1f);
+                SwapTilesFragment.this.firstSwapTileLottie.pauseAnimation();
+                SwapTilesFragment.this.secondSwapTileLottie.setProgress(0f);
+                SwapTilesFragment.this.secondSwapTileLottie.setPadding(0,0,0,0);
+                SwapTilesFragment.this.secondSwapTileLottie.setSpeed(1f);
+                SwapTilesFragment.this.secondSwapTileLottie.pauseAnimation();
+
+                // 3rd set of events is as follows
+                AnimationUtility.specialToolsSwapTilesSecondClickSecondSelectionSetup(SwapTilesFragment.this.firstSwapTileLottie);
+                AnimationUtility.specialToolsSwapTilesSecondClickSecondSelectionSetup(SwapTilesFragment.this.secondSwapTileLottie);
+                SwapTilesFragment.this.secondSwapTileLottie.removeAllAnimatorListeners();
+                SwapTilesFragment.this.secondSwapTileLottie.addAnimatorListener(swapTilesLottieSecondSelectionAnimatorListener);
+                SwapTilesFragment.this.firstSwapTileLottie.playAnimation();
+                SwapTilesFragment.this.secondSwapTileLottie.playAnimation();
+            }
+            @Override
+            public void onAnimationCancel(Animator animator) {}
+            @Override
+            public void onAnimationRepeat(Animator animator) {}
+        };
+
+        // 2nd set of events is as follows
+        this.firstSwapTileLottie.setProgress(0);
+        this.firstSwapTileLottie.pauseAnimation();
+        this.secondSwapTilePosition = new Pair<>(secondSwapTilePosition.first, secondSwapTilePosition.second);
+        this.secondSwapTileLottie = secondSwapTileLottie;
+        AnimationUtility.specialToolsSwapTilesSecondClickFirstSelectionSetup(this.firstSwapTileLottie);
+        AnimationUtility.specialToolsSwapTilesSecondClickFirstSelectionSetup(this.secondSwapTileLottie);
+        this.secondSwapTileLottie.addAnimatorListener(swapTilesLottieFirstSelectionAnimatorListener);
+        this.firstSwapTileLottie.playAnimation(); this.secondSwapTileLottie.playAnimation();
     }
 
     public interface OnSwapTilesFragmentInteractionListener {

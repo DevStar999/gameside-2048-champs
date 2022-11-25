@@ -859,7 +859,9 @@ public class GameActivity extends AppCompatActivity implements
                                             swapTilesFragment.handleSwapTilesToolFirstClick(lottieAnimationView,
                                                     new Pair<>(row, column));
                                         } else { // Time to execute the 2nd click as follows
-                                            swapTilesFragment.handleSwapTilesToolSecondClick();
+                                            swapTilesFragment.handleSwapTilesToolSecondClick(
+                                                    findViewById(R.id.game_cell_lottie_layout), lottieAnimationView,
+                                                    gridLottieView, new Pair<>(row, column));
                                         }
                                     }
                                 }
@@ -1196,7 +1198,7 @@ public class GameActivity extends AppCompatActivity implements
         int secondValue = gameManager.getGameMatrix().get(secondSwapTilePosition.first).get(secondSwapTilePosition.second);
         copyOfCurrentBoard.get(firstSwapTilePosition.first).set(firstSwapTilePosition.second, secondValue);
         copyOfCurrentBoard.get(secondSwapTilePosition.first).set(secondSwapTilePosition.second, firstValue);
-        int popUpAnimationDuration = 100; // 100 Milli-seconds
+        int popUpAnimationDuration = 250; // 100 Milli-seconds
             // Giving new look to first swap position
         AppCompatTextView firstPositionTextView = rootGameConstraintLayout.findViewWithTag("gameCell" +
                 firstSwapTilePosition.first + firstSwapTilePosition.second);
