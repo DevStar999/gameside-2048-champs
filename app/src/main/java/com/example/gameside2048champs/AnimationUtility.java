@@ -13,6 +13,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieDrawable;
 import com.example.gameside2048champs.enums.Direction;
 import com.example.gameside2048champs.enums.GameLayoutProperties;
 
@@ -309,6 +310,14 @@ public class AnimationUtility {
         targetTileLottie.setBackgroundResource(R.drawable.rounded_corner_tile_lottie);
         targetTileLottie.setAnimation(R.raw.normal_tools_smash_grid_tile);
         targetTileLottie.setSpeed(0.7f);
+    }
+
+    public static void specialToolsSwapTilesFirstTileSelectionSetup(LottieAnimationView firstSwapTileLottie) {
+        firstSwapTileLottie.setPadding(2,2,2,2);
+        firstSwapTileLottie.setVisibility(View.VISIBLE);
+        firstSwapTileLottie.setRepeatMode(LottieDrawable.RESTART);
+        firstSwapTileLottie.setRepeatCount(LottieDrawable.INFINITE);
+        firstSwapTileLottie.setAnimation(R.raw.special_tools_swap_tiles_tile_selection);
     }
 
     public static void specialToolsEliminateValueTargetTilesSelectionSetup(List<LottieAnimationView> targetTilesLottie) {

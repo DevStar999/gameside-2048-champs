@@ -3,12 +3,14 @@ package com.example.gameside2048champs.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -22,10 +24,16 @@ public class SwapTilesFragment extends Fragment {
     private OnSwapTilesFragmentInteractionListener mListener;
     private ConstraintLayout rootLayoutOfFragment;
     private AppCompatImageView backButton;
+    private LottieAnimationView rotatingLightLottie;
     private LottieAnimationView swapTilesPreviewLottie;
     private AppCompatImageView toolUseCompletedImageView;
     private AppCompatTextView toolDescriptionTextView;
-    private boolean isToolUseComplete;
+    private AppCompatCheckBox firstClickCheckBox;
+    private AppCompatCheckBox secondClickCheckBox;
+    private boolean isFirstClickDone;
+    private boolean isSecondClickDone;
+    private Pair<Integer, Integer> firstSwapTilePosition;
+    private Pair<Integer, Integer> secondSwapTilePosition;
 
     public SwapTilesFragment() {
         // Required empty public constructor
@@ -45,6 +53,8 @@ public class SwapTilesFragment extends Fragment {
                 }
             }
         });
+        firstClickCheckBox.setEnabled(false);
+        secondClickCheckBox.setEnabled(false);
     }
 
     @Nullable
@@ -61,19 +71,21 @@ public class SwapTilesFragment extends Fragment {
 
         rootLayoutOfFragment = view.findViewById(R.id.swap_tiles_fragment_root_layout);
         backButton = view.findViewById(R.id.back_button_swap_tiles_fragment);
+        rotatingLightLottie = view.findViewById(R.id.rotating_light_swap_tiles_fragment);
         swapTilesPreviewLottie = view.findViewById(R.id.swap_tiles_preview_lottie);
         toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_swap_tiles_fragment);
         toolDescriptionTextView = view.findViewById(R.id.tool_description_text_view_swap_tiles_fragment);
-        isToolUseComplete = true;
+        firstClickCheckBox = view.findViewById(R.id.first_click_swap_tiles_fragment_check_box);
+        secondClickCheckBox = view.findViewById(R.id.second_click_swap_tiles_fragment_check_box);
+        isFirstClickDone = true;
+        isSecondClickDone = true;
 
         // Making tool lottie view emerge so that it grabs attention during the tool fragment transition
         CountDownTimer postFragmentSetupTimer = new CountDownTimer(650, 10000) {
             @Override
             public void onTick(long l) {}
             @Override
-            public void onFinish() {
-                isToolUseComplete = false;
-            }
+            public void onFinish() { isFirstClickDone = false; isSecondClickDone = false; }
         };
         new CountDownTimer(300, 10000) {
             @Override
@@ -90,12 +102,43 @@ public class SwapTilesFragment extends Fragment {
         return view;
     }
 
-    public boolean checkToolUseState() {
-        return isToolUseComplete;
+    public boolean checkFirstClickStatus() {
+        return isFirstClickDone;
+    }
+
+    public boolean checkSecondClickStatus() {
+        return isSecondClickDone;
+    }
+
+    public void handleSwapTilesToolFirstClick(LottieAnimationView firstSwapTileLottie,
+                                              Pair<Integer, Integer> firstSwapTilePosition) {
+        // 1st set of events is as follows
+        isFirstClickDone = true;
+        firstClickCheckBox.setChecked(true);
+        rotatingLightLottie.pauseAnimation();
+        swapTilesPreviewLottie.setProgress(0.1077f); // Jump to 7th frame out of 65 frames
+        swapTilesPreviewLottie.pauseAnimation();
+
+        // 2nd set of events is as follows - Setting the selection animation for the first swap tile
+        this.firstSwapTilePosition = new Pair<>(firstSwapTilePosition.first, firstSwapTilePosition.second);
+        AnimationUtility.specialToolsSwapTilesFirstTileSelectionSetup(firstSwapTileLottie);
+        firstSwapTileLottie.playAnimation();
+    }
+
+    public void handleSwapTilesToolSecondClick() {
+        /*
+        // 1st set of events is as follows
+        isSecondClickDone = true;
+        toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
+        toolDescriptionTextView.setVisibility(View.GONE);
+        secondClickCheckBox.setChecked(true);
+        */
     }
 
     public interface OnSwapTilesFragmentInteractionListener {
         void onSwapTilesFragmentInteractionBackClicked();
+        void onSwapTilesFragmentInteractionProcessToolUse(Pair<Integer, Integer> firstSwapTilePosition,
+                                                          Pair<Integer, Integer> secondSwapTilePosition);
     }
 
     @Override

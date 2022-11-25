@@ -243,6 +243,40 @@ public class GameActivity extends AppCompatActivity implements
         initialiseViewsPostGameLayout();
     }
 
+    private void handleGameOverProcess() {
+        if (movesQueue.size() > 0) {
+            movesQueue.clear();
+        }
+        tutorialTextView.setText(String.format("GAME OVER %s",
+                String.valueOf(toChars(Integer.parseInt("1F613", 16)))));
+        saveGameState();
+        GameOverDialog gameOverDialog = new GameOverDialog(GameActivity.this);
+        gameOverDialog.show();
+        gameOverDialog.setGameOverDialogListener(new GameOverDialog.GameOverDialogListener() {
+            @Override
+            public void getResponseOfOverDialog(GameOverDialogOptions optionSelected,
+                                                boolean didUserRespond) {
+                if (didUserRespond) {
+                    if (optionSelected == GameOverDialogOptions.MAIN_MENU) {
+                        resetGameAndStartIfFlagTrue(false);
+
+                        Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (optionSelected == GameOverDialogOptions.PLAY_AGAIN) {
+                        resetGameAndStartIfFlagTrue(true);
+                    } else if (optionSelected == GameOverDialogOptions.UNDO_LAST_MOVE) {
+                        undoProcess();
+                    }
+                } else {
+                    // If the user does not respond we will start a new game
+                    // from our side
+                    resetGameAndStartIfFlagTrue(true);
+                }
+            }
+        });
+    }
+
     private void executeMove() {
         // Return if some previous move was not completed
         if (!gameManager.isHasMoveBeenCompleted()) {
@@ -298,36 +332,7 @@ public class GameActivity extends AppCompatActivity implements
                             movesQueue.clear();
                             new GameWinDialog(GameActivity.this).show();
                         } else if (gameManager.getCurrentGameState() == GameStates.GAME_OVER) {
-                            movesQueue.clear();
-                            //U+1F613
-                            tutorialTextView.setText(String.format("GAME OVER %s",
-                                    String.valueOf(toChars(Integer.parseInt("1F613", 16)))));
-                            saveGameState();
-                            GameOverDialog gameOverDialog = new GameOverDialog(GameActivity.this);
-                            gameOverDialog.show();
-                            gameOverDialog.setGameOverDialogListener(new GameOverDialog.GameOverDialogListener() {
-                                @Override
-                                public void getResponseOfOverDialog(GameOverDialogOptions optionSelected,
-                                                                    boolean didUserRespond) {
-                                    if (didUserRespond) {
-                                        if (optionSelected == GameOverDialogOptions.MAIN_MENU) {
-                                            resetGameAndStartIfFlagTrue(false);
-
-                                            Intent intent = new Intent(GameActivity.this, MainActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        } else if (optionSelected == GameOverDialogOptions.PLAY_AGAIN) {
-                                            resetGameAndStartIfFlagTrue(true);
-                                        } else if (optionSelected == GameOverDialogOptions.UNDO_LAST_MOVE) {
-                                            undoProcess();
-                                        }
-                                    } else {
-                                        // If the user does not respond we will start a new game
-                                        // from our side
-                                        resetGameAndStartIfFlagTrue(true);
-                                    }
-                                }
-                            });
+                            handleGameOverProcess();
                         }
                         cancel();
                         // If there are still moves to execute then go on and execute them
@@ -528,6 +533,7 @@ public class GameActivity extends AppCompatActivity implements
         if (getSupportFragmentManager().getBackStackEntryCount() == 0) { // Back button was pressed from activity
             setupGamePausedDialog();
         } else { // Back button was pressed from fragment
+            boolean isGameOverCheckRequired = false;
             int countOfFragments = getSupportFragmentManager().getFragments().size();
             if (countOfFragments > 0) {
                 Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments - 1);
@@ -538,10 +544,23 @@ public class GameActivity extends AppCompatActivity implements
                             || topMostFragment.getTag().equals("ELIMINATE_VALUE_FRAGMENT")
                             || topMostFragment.getTag().equals("BOMB_FRAGMENT")) {
                         handleToolFragmentBackClicked();
+                        // For some of the tool fragments some more processing maybe required, which is as follows
+                        if (topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")
+                                || topMostFragment.getTag().equals("SMASH_TILE_FRAGMENT")) {
+                            // Need to check if after the swap move is game going on OR is it game over
+                            isGameOverCheckRequired = true; // Game over check will be performed later using this flag
+                        }
                     }
                 }
             }
             getSupportFragmentManager().popBackStack();
+
+            if (isGameOverCheckRequired) {
+                gameManager.updateGameState();
+                if (gameManager.getCurrentGameState() == GameStates.GAME_OVER) {
+                    handleGameOverProcess();
+                }
+            }
         }
     }
 
@@ -829,7 +848,21 @@ public class GameActivity extends AppCompatActivity implements
                             } else if (topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")) {
 
                             } else if (topMostFragment.getTag().equals("SWAP_TILES_FRAGMENT")) {
-
+                                if (cellValue != 0 && cellValue != -1) {
+                                    SwapTilesFragment swapTilesFragment = ((SwapTilesFragment) topMostFragment);
+                                    if (swapTilesFragment.checkFirstClickStatus()
+                                            && swapTilesFragment.checkSecondClickStatus()) {
+                                        // User has clicked at some time else which is not valid for this tool use
+                                    } else { // Tool use is not complete
+                                        if (!swapTilesFragment.checkFirstClickStatus()) { // First click is yet to be done
+                                            rootGameConstraintLayout.setEnabled(false);
+                                            swapTilesFragment.handleSwapTilesToolFirstClick(lottieAnimationView,
+                                                    new Pair<>(row, column));
+                                        } else { // Time to execute the 2nd click as follows
+                                            swapTilesFragment.handleSwapTilesToolSecondClick();
+                                        }
+                                    }
+                                }
                             } else if (topMostFragment.getTag().equals("ELIMINATE_VALUE_FRAGMENT")) {
                                 if (cellValue != 0 && cellValue != -1) {
                                     EliminateValueFragment eliminateValueFragment = ((EliminateValueFragment) topMostFragment);
@@ -898,6 +931,12 @@ public class GameActivity extends AppCompatActivity implements
 
     private void changeValueProcess() {
         movesQueue.clear();
+        if (gameManager.findGameTilesCurrentlyOnBoard(gameManager.getGameMatrix()) < 1) {
+            String changeValueMessage = "ATLEAST 1 GAME TILE IS REQUIRED TO USE THE \"CHANGE VALUE\" TOOL";
+            new ToolUseProhibitedDialog(this, changeValueMessage).show();
+            return;
+        }
+
         if (currentCoins >= toolsCostMap.get("normalToolsChangeValueCost")) {
             // If ChangeValueFragment was opened and is currently on top, then return
             int countOfFragments = getSupportFragmentManager().getFragments().size();
@@ -1003,6 +1042,12 @@ public class GameActivity extends AppCompatActivity implements
 
     private void bombProcess() {
         movesQueue.clear();
+        if (gameManager.findGameTilesCurrentlyOnBoard(gameManager.getGameMatrix()) < 1) {
+            String bombMessage = "ATLEAST 2 GAME TILES ARE REQUIRED TO USE THE \"DESTROY AREA\" TOOL";
+            new ToolUseProhibitedDialog(this, bombMessage).show();
+            return;
+        }
+
         if (currentCoins >= toolsCostMap.get("specialToolsBombCost")) {
             // If BombFragment was opened and is currently on top, then return
             int countOfFragments = getSupportFragmentManager().getFragments().size();
@@ -1121,7 +1166,6 @@ public class GameActivity extends AppCompatActivity implements
 
         // Final set of actions
         saveGameState();
-        rootGameConstraintLayout.setEnabled(true);
         onBackPressed();
     }
 
@@ -1132,6 +1176,56 @@ public class GameActivity extends AppCompatActivity implements
 
     @Override
     public void onSwapTilesFragmentInteractionBackClicked() {
+        onBackPressed();
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    @Override
+    public void onSwapTilesFragmentInteractionProcessToolUse(Pair<Integer, Integer> firstSwapTilePosition,
+        Pair<Integer, Integer> secondSwapTilePosition) {
+        // Making a copy of the board
+        List<List<Integer>> copyOfCurrentBoard = new ArrayList<>();
+        for (int i = 0; i < gameManager.getGameMatrix().size(); i++) {
+            List<Integer> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));
+            copyOfCurrentBoard.add(boardRow);
+        }
+
+        /* Removing the chosen tile from the board */
+            // Settings values in copyOfCurrentBoard
+        int firstValue = gameManager.getGameMatrix().get(firstSwapTilePosition.first).get(firstSwapTilePosition.second);
+        int secondValue = gameManager.getGameMatrix().get(secondSwapTilePosition.first).get(secondSwapTilePosition.second);
+        copyOfCurrentBoard.get(firstSwapTilePosition.first).set(firstSwapTilePosition.second, secondValue);
+        copyOfCurrentBoard.get(secondSwapTilePosition.first).set(secondSwapTilePosition.second, firstValue);
+        int popUpAnimationDuration = 100; // 100 Milli-seconds
+            // Giving new look to first swap position
+        AppCompatTextView firstPositionTextView = rootGameConstraintLayout.findViewWithTag("gameCell" +
+                firstSwapTilePosition.first + firstSwapTilePosition.second);
+        CellValues cellValueEnumFirstPosition = CellValues.getCellValueEnum(secondValue);
+        cellValueEnumFirstPosition.setCellValue(secondValue);
+            // Giving new look to second swap position
+        AppCompatTextView secondPositionTextView = rootGameConstraintLayout.findViewWithTag("gameCell" +
+                secondSwapTilePosition.first + secondSwapTilePosition.second);
+        CellValues cellValueEnumSecondPosition = CellValues.getCellValueEnum(firstValue);
+        cellValueEnumSecondPosition.setCellValue(firstValue);
+            // Executing the pop up animation for both cell one after the other
+        AnimationUtility.executePopUpAnimation(firstPositionTextView, cellValueEnumFirstPosition.getCellValue(),
+                getResources().getColor(cellValueEnumFirstPosition.getNumberColorResourceId()),
+                getDrawable(cellValueEnumFirstPosition.getBackgroundDrawableResourceId()),
+                popUpAnimationDuration, 0, currentGameMode.getGameLayoutProperties());
+        AnimationUtility.executePopUpAnimation(secondPositionTextView, cellValueEnumSecondPosition.getCellValue(),
+                getResources().getColor(cellValueEnumSecondPosition.getNumberColorResourceId()),
+                getDrawable(cellValueEnumSecondPosition.getBackgroundDrawableResourceId()),
+                popUpAnimationDuration, 0, currentGameMode.getGameLayoutProperties());
+            // Updating the game matrix
+        gameManager.updateGameMatrix(copyOfCurrentBoard);
+
+        // Update the reduced number of coins
+        currentCoins -= toolsCostMap.get("specialToolsSwapTilesCost");
+        sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
+        currentCoinsTextView.setText(String.valueOf(currentCoins));
+
+        // Final set of actions
+        saveGameState();
         onBackPressed();
     }
 
@@ -1188,7 +1282,6 @@ public class GameActivity extends AppCompatActivity implements
 
         // Final set of actions
         saveGameState();
-        rootGameConstraintLayout.setEnabled(true);
         onBackPressed();
     }
 
@@ -1199,6 +1292,7 @@ public class GameActivity extends AppCompatActivity implements
 
     private void handleToolFragmentBackClicked() {
         backgroundFilmImageView.setImageResource(0); // Setting image resource to blank
+        rootGameConstraintLayout.setEnabled(true);
         gameFrameLayout.removeView(findViewById(R.id.game_cell_lottie_layout));
     }
 }
