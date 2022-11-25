@@ -27,6 +27,7 @@ import java.util.List;
 public class EliminateValueFragment extends Fragment {
     private OnEliminateValueFragmentInteractionListener mListener;
     private AppCompatImageView backButton;
+    private LottieAnimationView rotatingLightLottie;
     private LottieAnimationView eliminateValuePreviewLottie;
     private AppCompatImageView toolUseCompletedImageView;
     private AppCompatTextView toolDescriptionTextView;
@@ -65,6 +66,7 @@ public class EliminateValueFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_eliminate_value, container, false);
 
         backButton = view.findViewById(R.id.back_button_eliminate_value_fragment);
+        rotatingLightLottie = view.findViewById(R.id.rotating_light_eliminate_value_fragment);
         eliminateValuePreviewLottie = view.findViewById(R.id.eliminate_value_preview_lottie);
         toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_eliminate_value_fragment);
         toolDescriptionTextView = view.findViewById(R.id.tool_description_text_view_eliminate_value_fragment);
@@ -155,6 +157,7 @@ public class EliminateValueFragment extends Fragment {
         isToolUseComplete = true;
         toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
         toolDescriptionTextView.setVisibility(View.GONE);
+        rotatingLightLottie.pauseAnimation();
         eliminateValuePreviewLottie.setProgress(0f);
         eliminateValuePreviewLottie.pauseAnimation();
 

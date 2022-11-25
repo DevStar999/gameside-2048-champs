@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -22,7 +21,6 @@ import com.example.gameside2048champs.R;
 
 public class SwapTilesFragment extends Fragment {
     private OnSwapTilesFragmentInteractionListener mListener;
-    private ConstraintLayout rootLayoutOfFragment;
     private AppCompatImageView backButton;
     private LottieAnimationView rotatingLightLottie;
     private LottieAnimationView swapTilesPreviewLottie;
@@ -69,7 +67,6 @@ public class SwapTilesFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_swap_tiles, container, false);
 
-        rootLayoutOfFragment = view.findViewById(R.id.swap_tiles_fragment_root_layout);
         backButton = view.findViewById(R.id.back_button_swap_tiles_fragment);
         rotatingLightLottie = view.findViewById(R.id.rotating_light_swap_tiles_fragment);
         swapTilesPreviewLottie = view.findViewById(R.id.swap_tiles_preview_lottie);

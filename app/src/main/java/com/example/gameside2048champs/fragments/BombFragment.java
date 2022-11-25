@@ -21,6 +21,7 @@ import com.example.gameside2048champs.R;
 public class BombFragment extends Fragment {
     private OnBombFragmentInteractionListener mListener;
     private AppCompatImageView backButton;
+    private LottieAnimationView rotatingLightLottie;
     private LottieAnimationView bombPreviewLottie;
     private AppCompatImageView toolUseCompletedImageView;
     private AppCompatTextView toolDescriptionTextView;
@@ -59,6 +60,7 @@ public class BombFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bomb, container, false);
 
         backButton = view.findViewById(R.id.back_button_bomb_fragment);
+        rotatingLightLottie = view.findViewById(R.id.rotating_light_bomb_fragment);
         bombPreviewLottie = view.findViewById(R.id.bomb_preview_lottie);
         bombPreviewLottie.setMaxFrame(50);
         toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_bomb_fragment);
