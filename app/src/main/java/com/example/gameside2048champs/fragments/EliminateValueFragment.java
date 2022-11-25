@@ -26,7 +26,6 @@ import java.util.List;
 
 public class EliminateValueFragment extends Fragment {
     private OnEliminateValueFragmentInteractionListener mListener;
-    private ConstraintLayout rootLayoutOfFragment;
     private AppCompatImageView backButton;
     private LottieAnimationView eliminateValuePreviewLottie;
     private AppCompatImageView toolUseCompletedImageView;
@@ -65,7 +64,6 @@ public class EliminateValueFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_eliminate_value, container, false);
 
-        rootLayoutOfFragment = view.findViewById(R.id.eliminate_value_fragment_root_layout);
         backButton = view.findViewById(R.id.back_button_eliminate_value_fragment);
         eliminateValuePreviewLottie = view.findViewById(R.id.eliminate_value_preview_lottie);
         toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_eliminate_value_fragment);
@@ -139,7 +137,6 @@ public class EliminateValueFragment extends Fragment {
                 if (isCurrentTargetTileFinal) {
                     gameCellLottieLayout.setVisibility(View.GONE);
                     isToolUseComplete = false;
-                    rootLayoutOfFragment.setClickable(true);
                     if (mListener != null) {
                         mListener.onEliminateValueFragmentInteractionProcessToolUse(targetTilesPositions);
                     }
@@ -158,7 +155,6 @@ public class EliminateValueFragment extends Fragment {
         isToolUseComplete = true;
         toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
         toolDescriptionTextView.setVisibility(View.GONE);
-        rootLayoutOfFragment.setClickable(false);
         eliminateValuePreviewLottie.setProgress(0f);
         eliminateValuePreviewLottie.pauseAnimation();
 

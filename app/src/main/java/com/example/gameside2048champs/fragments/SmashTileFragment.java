@@ -23,7 +23,6 @@ import com.example.gameside2048champs.R;
 
 public class SmashTileFragment extends Fragment {
     private OnSmashTileFragmentInteractionListener mListener;
-    private ConstraintLayout rootLayoutOfFragment;
     private AppCompatImageView backButton;
     private LottieAnimationView smashTilePreviewLottie;
     private AppCompatImageView toolUseCompletedImageView;
@@ -62,7 +61,6 @@ public class SmashTileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_smash_tile, container, false);
 
-        rootLayoutOfFragment = view.findViewById(R.id.smash_tile_fragment_root_layout);
         backButton = view.findViewById(R.id.back_button_smash_tile_fragment);
         smashTilePreviewLottie = view.findViewById(R.id.smash_tile_preview_lottie);
         toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_smash_tile_fragment);
@@ -103,7 +101,6 @@ public class SmashTileFragment extends Fragment {
         isToolUseComplete = true;
         toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
         toolDescriptionTextView.setVisibility(View.GONE);
-        rootLayoutOfFragment.setClickable(false);
         smashTilePreviewLottie.setProgress(0f);
         smashTilePreviewLottie.pauseAnimation();
 
@@ -115,7 +112,6 @@ public class SmashTileFragment extends Fragment {
             public void onAnimationEnd(Animator animator) {
                 gameCellLottieLayout.setVisibility(View.GONE);
                 isToolUseComplete = false;
-                rootLayoutOfFragment.setClickable(true);
                 if (mListener != null) {
                     mListener.onSmashTileFragmentInteractionProcessToolUse(targetTilePosition);
                 }

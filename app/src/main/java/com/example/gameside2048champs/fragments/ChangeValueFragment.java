@@ -20,7 +20,6 @@ import com.example.gameside2048champs.R;
 
 public class ChangeValueFragment extends Fragment {
     private OnChangeValueFragmentInteractionListener mListener;
-    private ConstraintLayout rootLayoutOfFragment;
     private AppCompatImageView backButton;
     private LottieAnimationView changeValuePreviewLottie;
     private AppCompatImageView toolUseCompletedImageView;
@@ -59,7 +58,6 @@ public class ChangeValueFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_change_value, container, false);
 
-        rootLayoutOfFragment = view.findViewById(R.id.change_value_fragment_root_layout);
         backButton = view.findViewById(R.id.back_button_change_value_fragment);
         changeValuePreviewLottie = view.findViewById(R.id.change_value_preview_lottie);
         toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_change_value_fragment);
