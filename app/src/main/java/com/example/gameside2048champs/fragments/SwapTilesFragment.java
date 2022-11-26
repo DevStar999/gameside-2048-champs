@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -27,7 +26,6 @@ public class SwapTilesFragment extends Fragment {
     private LottieAnimationView rotatingLightLottie;
     private LottieAnimationView swapTilesPreviewLottie;
     private AppCompatImageView toolUseCompletedImageView;
-    private AppCompatTextView toolDescriptionTextView;
     private AppCompatCheckBox firstClickCheckBox;
     private AppCompatCheckBox secondClickCheckBox;
     private boolean isFirstClickDone;
@@ -75,7 +73,6 @@ public class SwapTilesFragment extends Fragment {
         rotatingLightLottie = view.findViewById(R.id.rotating_light_swap_tiles_fragment);
         swapTilesPreviewLottie = view.findViewById(R.id.swap_tiles_preview_lottie);
         toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_swap_tiles_fragment);
-        toolDescriptionTextView = view.findViewById(R.id.tool_description_text_view_swap_tiles_fragment);
         firstClickCheckBox = view.findViewById(R.id.first_click_swap_tiles_fragment_check_box);
         secondClickCheckBox = view.findViewById(R.id.second_click_swap_tiles_fragment_check_box);
         isFirstClickDone = true;
@@ -132,7 +129,6 @@ public class SwapTilesFragment extends Fragment {
         // 1st set of events is as follows
         isSecondClickDone = true;
         toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
-        toolDescriptionTextView.setVisibility(View.GONE);
         secondClickCheckBox.setChecked(true);
 
         // Pre-processing for the 5th set of events is as follows
