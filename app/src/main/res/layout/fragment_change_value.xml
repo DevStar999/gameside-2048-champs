@@ -109,15 +109,53 @@
             android:id="@+id/tool_description_text_view_change_value_fragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:scrollHorizontally="false"
             android:text="Select a tile to change it's value from given options"
             android:textAlignment="viewStart"
             android:textColor="@color/game_primary_background_color"
             android:textSize="16sp"
             android:textStyle="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/first_click_change_value_fragment_check_box"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tool_title_linear_layout_change_value_fragment" />
+
+        <!-- android:button attribute is for actual CheckBox looks and
+             app:theme is highlight colors when clicked -->
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/first_click_change_value_fragment_check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:paddingStart="8dp"
+            android:checked="false"
+            android:text="Select a tile for value change"
+            android:textColor="@color/game_primary_background_color"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            android:button="@drawable/check_box_selector"
+            app:theme="@style/CustomCheckBox"
+            app:layout_constraintBottom_toTopOf="@id/second_click_change_value_fragment_check_box"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tool_description_text_view_change_value_fragment" />
+
+        <!-- android:button attribute is for actual CheckBox looks and
+             app:theme is highlight colors when clicked -->
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/second_click_change_value_fragment_check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:checked="false"
+            android:text="Choose a value from given options"
+            android:textColor="@color/game_primary_background_color"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            android:button="@drawable/check_box_selector"
+            app:theme="@style/CustomCheckBox"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/first_click_change_value_fragment_check_box" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

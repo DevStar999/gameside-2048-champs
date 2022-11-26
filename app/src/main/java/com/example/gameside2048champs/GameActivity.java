@@ -846,7 +846,21 @@ public class GameActivity extends AppCompatActivity implements
                                     } // else, user has clicked after choosing tile to smash, so we ignore the click
                                 }
                             } else if (topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")) {
-
+                                if (cellValue != 0 && cellValue != -1) {
+                                    ChangeValueFragment changeValueFragment = ((ChangeValueFragment) topMostFragment);
+                                    if (changeValueFragment.checkFirstClickStatus()
+                                            && changeValueFragment.checkSecondClickStatus()) {
+                                        // User has clicked at some time else which is not valid for this tool use
+                                    } else { // Tool use is not complete
+                                        if (!changeValueFragment.checkFirstClickStatus()) { // First click is yet to be done
+                                            rootGameConstraintLayout.setEnabled(false);
+                                            changeValueFragment.handleChangeValueToolFirstClick(lottieAnimationView,
+                                                    new Pair<>(row, column));
+                                        } else { // Time to execute the 2nd click as follows
+                                            changeValueFragment.handleChangeValueToolSecondClick();
+                                        }
+                                    }
+                                }
                             } else if (topMostFragment.getTag().equals("SWAP_TILES_FRAGMENT")) {
                                 if (cellValue != 0 && cellValue != -1) {
                                     SwapTilesFragment swapTilesFragment = ((SwapTilesFragment) topMostFragment);
@@ -1176,6 +1190,44 @@ public class GameActivity extends AppCompatActivity implements
         onBackPressed();
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
+    @Override
+    public void onChangeValueFragmentInteractionProcessToolUse(Pair<Integer, Integer> changeValueTilePosition,
+        int newValue) {
+        // Making a copy of the board
+        List<List<Integer>> copyOfCurrentBoard = new ArrayList<>();
+        for (int i = 0; i < gameManager.getGameMatrix().size(); i++) {
+            List<Integer> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));
+            copyOfCurrentBoard.add(boardRow);
+        }
+
+        /* Changing the value of the chosen tile */
+            // Settings new value for chosen tile in copyOfCurrentBoard
+        copyOfCurrentBoard.get(changeValueTilePosition.first).set(changeValueTilePosition.second, newValue);
+        int popUpAnimationDuration = 250; // In Milli-seconds
+            // Giving new look to first swap position
+        AppCompatTextView changeValueTilePositionTextView = rootGameConstraintLayout.findViewWithTag("gameCell" +
+                changeValueTilePosition.first + changeValueTilePosition.second);
+        CellValues cellValueEnumFirstPosition = CellValues.getCellValueEnum(newValue);
+        cellValueEnumFirstPosition.setCellValue(newValue);
+            // Executing the pop up animation for the chosen tile to change value
+        AnimationUtility.executePopUpAnimation(changeValueTilePositionTextView, cellValueEnumFirstPosition.getCellValue(),
+                getResources().getColor(cellValueEnumFirstPosition.getNumberColorResourceId()),
+                getDrawable(cellValueEnumFirstPosition.getBackgroundDrawableResourceId()),
+                popUpAnimationDuration, 0, currentGameMode.getGameLayoutProperties());
+            // Updating the game matrix
+        gameManager.updateGameMatrix(copyOfCurrentBoard);
+
+        // Update the reduced number of coins
+        currentCoins -= toolsCostMap.get("specialToolsSwapTilesCost");
+        sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
+        currentCoinsTextView.setText(String.valueOf(currentCoins));
+
+        // Final set of actions
+        saveGameState();
+        onBackPressed();
+    }
+
     @Override
     public void onSwapTilesFragmentInteractionBackClicked() {
         onBackPressed();
@@ -1192,13 +1244,13 @@ public class GameActivity extends AppCompatActivity implements
             copyOfCurrentBoard.add(boardRow);
         }
 
-        /* Removing the chosen tile from the board */
+        /* Swapping the chosen tiles on the board */
             // Settings values in copyOfCurrentBoard
         int firstValue = gameManager.getGameMatrix().get(firstSwapTilePosition.first).get(firstSwapTilePosition.second);
         int secondValue = gameManager.getGameMatrix().get(secondSwapTilePosition.first).get(secondSwapTilePosition.second);
         copyOfCurrentBoard.get(firstSwapTilePosition.first).set(firstSwapTilePosition.second, secondValue);
         copyOfCurrentBoard.get(secondSwapTilePosition.first).set(secondSwapTilePosition.second, firstValue);
-        int popUpAnimationDuration = 250; // 100 Milli-seconds
+        int popUpAnimationDuration = 250; // In Milli-seconds
             // Giving new look to first swap position
         AppCompatTextView firstPositionTextView = rootGameConstraintLayout.findViewWithTag("gameCell" +
                 firstSwapTilePosition.first + firstSwapTilePosition.second);

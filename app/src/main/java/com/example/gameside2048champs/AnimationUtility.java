@@ -311,6 +311,14 @@ public class AnimationUtility {
         targetTileLottie.setSpeed(0.7f);
     }
 
+    public static void normalToolsChangeValueFirstClickSelectionSetup(LottieAnimationView changeValueTileLottie) {
+        changeValueTileLottie.setPadding(2,2,2,2);
+        changeValueTileLottie.setVisibility(View.VISIBLE);
+        changeValueTileLottie.setRepeatMode(LottieDrawable.RESTART);
+        changeValueTileLottie.setRepeatCount(LottieDrawable.INFINITE);
+        changeValueTileLottie.setAnimation(R.raw.tile_selection_continuous);
+    }
+
     public static void specialToolsSwapTilesFirstClickSelectionSetup(LottieAnimationView swapTileLottie) {
         swapTileLottie.setPadding(2,2,2,2);
         swapTileLottie.setVisibility(View.VISIBLE);

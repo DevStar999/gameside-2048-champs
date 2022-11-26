@@ -3,12 +3,15 @@ package com.example.gameside2048champs.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -25,7 +28,12 @@ public class ChangeValueFragment extends Fragment {
     private LottieAnimationView changeValuePreviewLottie;
     private AppCompatImageView toolUseCompletedImageView;
     private AppCompatTextView toolDescriptionTextView;
-    private boolean isToolUseComplete;
+    private AppCompatCheckBox firstClickCheckBox;
+    private AppCompatCheckBox secondClickCheckBox;
+    private boolean isFirstClickDone;
+    private boolean isSecondClickDone;
+    private Pair<Integer, Integer> changeValueTilePosition;
+    private LottieAnimationView changeValueTileLottie;
 
     public ChangeValueFragment() {
         // Required empty public constructor
@@ -45,6 +53,8 @@ public class ChangeValueFragment extends Fragment {
                 }
             }
         });
+        firstClickCheckBox.setEnabled(false);
+        secondClickCheckBox.setEnabled(false);
     }
 
     @Nullable
@@ -64,16 +74,17 @@ public class ChangeValueFragment extends Fragment {
         changeValuePreviewLottie = view.findViewById(R.id.change_value_preview_lottie);
         toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_change_value_fragment);
         toolDescriptionTextView = view.findViewById(R.id.tool_description_text_view_change_value_fragment);
-        isToolUseComplete = true;
+        firstClickCheckBox = view.findViewById(R.id.first_click_change_value_fragment_check_box);
+        secondClickCheckBox = view.findViewById(R.id.second_click_change_value_fragment_check_box);
+        isFirstClickDone = true;
+        isSecondClickDone = true;
 
         // Making tool lottie view emerge so that it grabs attention during the tool fragment transition
         CountDownTimer postFragmentSetupTimer = new CountDownTimer(650, 10000) {
             @Override
             public void onTick(long l) {}
             @Override
-            public void onFinish() {
-                isToolUseComplete = false;
-            }
+            public void onFinish() { isFirstClickDone = false; isSecondClickDone = false; }
         };
         new CountDownTimer(300, 10000) {
             @Override
@@ -90,12 +101,37 @@ public class ChangeValueFragment extends Fragment {
         return view;
     }
 
-    public boolean checkToolUseState() {
-        return isToolUseComplete;
+    public boolean checkFirstClickStatus() {
+        return isFirstClickDone;
+    }
+
+    public boolean checkSecondClickStatus() {
+        return isSecondClickDone;
+    }
+
+    public void handleChangeValueToolFirstClick(LottieAnimationView changeValueTileLottie,
+                                                Pair<Integer, Integer> changeValueTilePosition) {
+        // 1st set of events is as follows
+        isFirstClickDone = true;
+        firstClickCheckBox.setChecked(true);
+        rotatingLightLottie.pauseAnimation();
+        changeValuePreviewLottie.setProgress(0f);
+        changeValuePreviewLottie.pauseAnimation();
+
+        // 2nd set of events is as follows - Setting the selection animation for the change value tile
+        this.changeValueTilePosition = new Pair<>(changeValueTilePosition.first, changeValueTilePosition.second);
+        this.changeValueTileLottie = changeValueTileLottie;
+        AnimationUtility.normalToolsChangeValueFirstClickSelectionSetup(this.changeValueTileLottie);
+        this.changeValueTileLottie.playAnimation();
+    }
+
+    public void handleChangeValueToolSecondClick() {
+
     }
 
     public interface OnChangeValueFragmentInteractionListener {
         void onChangeValueFragmentInteractionBackClicked();
+        void onChangeValueFragmentInteractionProcessToolUse(Pair<Integer, Integer> changeValueTilePosition, int newValue);
     }
 
     @Override

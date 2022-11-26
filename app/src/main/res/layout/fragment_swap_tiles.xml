@@ -145,7 +145,6 @@
             android:id="@+id/second_click_swap_tiles_fragment_check_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:paddingStart="8dp"
             android:checked="false"
             android:text="Select 2nd tile for swap"
