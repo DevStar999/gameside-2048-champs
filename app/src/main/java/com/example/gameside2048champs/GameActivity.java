@@ -796,7 +796,7 @@ public class GameActivity extends AppCompatActivity implements
             }
         } else { // Undo was used, so we need to show a message here
             String undoMessageText = (gameManager.getCurrentGameState() == GameStates.GAME_ONGOING) ?
-                    "UNDO WAS USED ALREADY" : "NO MOVE HAS BEEN MADE YET";
+                    "'UNDO' tool was already used" : "No move has been made yet";
             new ToolUseProhibitedDialog(this, undoMessageText).show();
         }
     }
@@ -915,7 +915,7 @@ public class GameActivity extends AppCompatActivity implements
     private void smashTileProcess() {
         movesQueue.clear();
         if (gameManager.findGameTilesCurrentlyOnBoard(gameManager.getGameMatrix()) < 1) {
-            String smashTileMessage = "ATLEAST 1 GAME TILE IS REQUIRED TO USE THE \"SMASH TILE\" TOOL";
+            String smashTileMessage = "Atleast 1 game tile is required to use the \"SMASH TILE\" tool";
             new ToolUseProhibitedDialog(this, smashTileMessage).show();
             return;
         }
@@ -952,7 +952,7 @@ public class GameActivity extends AppCompatActivity implements
     private void changeValueProcess() {
         movesQueue.clear();
         if (gameManager.findGameTilesCurrentlyOnBoard(gameManager.getGameMatrix()) < 1) {
-            String changeValueMessage = "ATLEAST 1 GAME TILE IS REQUIRED TO USE THE \"CHANGE VALUE\" TOOL";
+            String changeValueMessage = "Atleast 1 game tile is required to use the \"CHANGE VALUE\" tool";
             new ToolUseProhibitedDialog(this, changeValueMessage).show();
             return;
         }
@@ -989,7 +989,7 @@ public class GameActivity extends AppCompatActivity implements
     private void swapTilesProcess() {
         movesQueue.clear();
         if (gameManager.findGameTilesCurrentlyOnBoard(gameManager.getGameMatrix()) < 2) {
-            String swapTilesMessage = "ATLEAST 2 GAME TILES ARE REQUIRED TO USE THE \"SWAP TILES\" TOOL";
+            String swapTilesMessage = "Atleast 2 game tiles are required to use the \"SWAP TILES\" tool";
             new ToolUseProhibitedDialog(this, swapTilesMessage).show();
             return;
         }
@@ -1026,7 +1026,7 @@ public class GameActivity extends AppCompatActivity implements
     private void eliminateValueProcess() {
         movesQueue.clear();
         if (gameManager.findGameTilesCurrentlyOnBoard(gameManager.getGameMatrix()) < 1) {
-            String eliminateValueMessage = "ATLEAST 1 GAME TILE IS REQUIRED TO USE THE \"ELIMINATE VALUE\" TOOL";
+            String eliminateValueMessage = "Atleast 1 game tile is required to use the \"ELIMINATE VALUE\" tool";
             new ToolUseProhibitedDialog(this, eliminateValueMessage).show();
             return;
         }
@@ -1063,7 +1063,7 @@ public class GameActivity extends AppCompatActivity implements
     private void bombProcess() {
         movesQueue.clear();
         if (gameManager.findGameTilesCurrentlyOnBoard(gameManager.getGameMatrix()) < 1) {
-            String bombMessage = "ATLEAST 2 GAME TILES ARE REQUIRED TO USE THE \"DESTROY AREA\" TOOL";
+            String bombMessage = "Atleast 1 game tile is required to use the \"DESTROY AREA\" tool";
             new ToolUseProhibitedDialog(this, bombMessage).show();
             return;
         }

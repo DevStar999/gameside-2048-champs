@@ -25,6 +25,9 @@ import com.example.gameside2048champs.fragments.PreGameFragment;
 /* TODO -> Set the scaleX and scaleY properties for the block drawables dynamically through code so as to have a good fit
            of the block drawables in the cell space
 */
+/* TODO -> Dialog text should have same case i.e. it should be uppercase or lowercase etc. uniform in all the dialogs
+           throughout the whole project
+*/
 public class MainActivity extends AppCompatActivity implements PreGameFragment.OnPreGameFragmentInteractionListener {
 
     @SuppressLint("SourceLockedOrientationActivity")
