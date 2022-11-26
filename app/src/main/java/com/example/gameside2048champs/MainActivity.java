@@ -20,13 +20,16 @@ import com.example.gameside2048champs.fragments.PreGameFragment;
 
 /* TODO -> !! Bug !! -> If we do undo exactly after the move in which we completed the goal, then goal completion is done.
            But now if the user makes any move even a move which does not lead to goal completion the code block for goal
-           completion is being played
+           completion is being played. This happens also when Change Value tool reverses the goal completion status
 */
 /* TODO -> Set the scaleX and scaleY properties for the block drawables dynamically through code so as to have a good fit
            of the block drawables in the cell space
 */
 /* TODO -> Dialog text should have same case i.e. it should be uppercase or lowercase etc. uniform in all the dialogs
            throughout the whole project
+*/
+/* TODO -> Implement the Game Over Dialog is such a way that it accommodates the use of the newly implemented tools to
+           revive the game, if game state is game over
 */
 public class MainActivity extends AppCompatActivity implements PreGameFragment.OnPreGameFragmentInteractionListener {
 
