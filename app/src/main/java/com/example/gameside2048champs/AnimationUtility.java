@@ -319,6 +319,34 @@ public class AnimationUtility {
         changeValueTileLottie.setAnimation(R.raw.tile_selection_continuous);
     }
 
+    public static void normalToolsChangeValueSecondClickSelectionSetup(LottieAnimationView changeValueTileLottie) {
+        // Removing old properties
+        changeValueTileLottie.setPadding(0,0,0,0);
+        changeValueTileLottie.setRepeatCount(0);
+
+        // Setting new properties
+        changeValueTileLottie.setPadding(16,0,0,0);
+        changeValueTileLottie.setScaleX(1.05f);
+        changeValueTileLottie.setVisibility(View.VISIBLE);
+        changeValueTileLottie.setMaxFrame(20);
+        changeValueTileLottie.setAnimation(R.raw.tile_selection);
+        changeValueTileLottie.setSpeed(1f);
+    }
+
+    public static void normalToolsChangeValueGridSetup(LottieAnimationView gridLottieView) {
+        gridLottieView.setVisibility(View.VISIBLE);
+        gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
+        gridLottieView.setAnimation(R.raw.normal_tools_change_value_grid);
+        gridLottieView.setSpeed(2f);
+    }
+
+    public static void normalToolsChangeValueTargetTileSetup(LottieAnimationView changeValueTileLottie) {
+        changeValueTileLottie.setVisibility(View.VISIBLE);
+        changeValueTileLottie.setBackgroundResource(R.drawable.rounded_corner_tile_lottie);
+        changeValueTileLottie.setAnimation(R.raw.normal_tools_change_value_tile);
+        changeValueTileLottie.setSpeed(1.5f);
+    }
+
     public static void specialToolsSwapTilesFirstClickSelectionSetup(LottieAnimationView swapTileLottie) {
         swapTileLottie.setPadding(2,2,2,2);
         swapTileLottie.setVisibility(View.VISIBLE);
