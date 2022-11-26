@@ -31,6 +31,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.gameside2048champs.dialogs.ArrivingFeatureDialog;
+import com.example.gameside2048champs.dialogs.ArrivingToolDialog;
 import com.example.gameside2048champs.dialogs.GameOverDialog;
 import com.example.gameside2048champs.dialogs.GamePausedDialog;
 import com.example.gameside2048champs.dialogs.GameResetDialog;
@@ -758,7 +760,9 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     public void specialToolsBomb(View view) {
-        bombProcess();
+        new ArrivingToolDialog(this).show();
+        /* TODO -> Implement the Bomb tool and uncomment the following line */
+        //bombProcess();
     }
 
     private void undoProcess() {
