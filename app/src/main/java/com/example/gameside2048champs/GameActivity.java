@@ -31,13 +31,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.gameside2048champs.dialogs.ArrivingFeatureDialog;
 import com.example.gameside2048champs.dialogs.ArrivingToolDialog;
 import com.example.gameside2048champs.dialogs.GameOverDialog;
 import com.example.gameside2048champs.dialogs.GamePausedDialog;
 import com.example.gameside2048champs.dialogs.GameResetDialog;
-import com.example.gameside2048champs.dialogs.ToolUseProhibitedDialog;
 import com.example.gameside2048champs.dialogs.GameWinDialog;
+import com.example.gameside2048champs.dialogs.ToolUseProhibitedDialog;
 import com.example.gameside2048champs.enums.CellValues;
 import com.example.gameside2048champs.enums.Direction;
 import com.example.gameside2048champs.enums.GameModes;
@@ -548,7 +547,7 @@ public class GameActivity extends AppCompatActivity implements
                         handleToolFragmentBackClicked();
                         // For some of the tool fragments some more processing maybe required, which is as follows
                         if (topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")
-                                || topMostFragment.getTag().equals("SMASH_TILE_FRAGMENT")) {
+                                || topMostFragment.getTag().equals("SWAP_TILES_FRAGMENT")) {
                             // Need to check if after the swap move is game going on OR is it game over
                             isGameOverCheckRequired = true; // Game over check will be performed later using this flag
                         }
@@ -633,6 +632,33 @@ public class GameActivity extends AppCompatActivity implements
         });
     }
 
+    private boolean checkIfGoalCompletionIsIntact() {
+        for (int row = 0; row < currentGameMode.getRows(); row++) {
+            for (int column = 0; column < currentGameMode.getColumns(); column++) {
+                int value = gameManager.getGameMatrix().get(row).get(column);
+                if (value >= gameManager.getCurrentGameMode().getGoal()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void handleGoalCompletionStatus() {
+        // Making a check if the goal completion is still intact or not
+        if (checkIfGoalCompletionIsIntact()) {
+            int greenTickEmojiUnicode = 0x2705;
+            goalTileTextView.setText(String.format("GOAL TILE %s", String.valueOf(toChars(greenTickEmojiUnicode))));
+            tutorialTextView.setText("Merge for higher tiles, SKY IS THE LIMIT");
+        } else {
+            goalDone = false;
+            goalTileTextView.setText("GOAL TILE");
+            tutorialTextView.setText("Merge the tiles to form the GOAL TILE!");
+            sharedPreferences.edit().putBoolean("goalDone" + " " + currentGameMode.getMode()
+                    + " " + currentGameMode.getDimensions(), goalDone).apply();
+        }
+    }
+
     private void updateScoreOnUndo(int updatedCurrentScore) {
         currentScore = updatedCurrentScore;
         currentScoreTextView.setText(String.valueOf(currentScore));
@@ -644,21 +670,7 @@ public class GameActivity extends AppCompatActivity implements
             }
         }
 
-        // Making a check if the goal completion is still intact or not
-        for (int row = 0; row < currentGameMode.getRows(); row++) {
-            for (int column = 0; column < currentGameMode.getColumns(); column++) {
-                int value = gameManager.getGameMatrix().get(row).get(column);
-                if (value >= gameManager.getCurrentGameMode().getGoal()) {
-                    tutorialTextView.setText("Merge for higher tiles, SKY IS THE LIMIT");
-                    return;
-                }
-            }
-        }
-        goalDone = false;
-        goalTileTextView.setText("GOAL TILE");
-        tutorialTextView.setText("Merge the tiles to form the GOAL TILE!");
-        sharedPreferences.edit().putBoolean("goalDone" + " " + currentGameMode.getMode()
-                + " " + currentGameMode.getDimensions(), goalDone).apply();
+        handleGoalCompletionStatus();
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -859,9 +871,8 @@ public class GameActivity extends AppCompatActivity implements
                                         if (!changeValueFragment.checkFirstClickStatus()) { // First click is yet to be done
                                             rootGameConstraintLayout.setEnabled(false);
                                             changeValueFragment.handleChangeValueToolFirstClick(lottieAnimationView,
+                                                    findViewById(R.id.game_cell_lottie_layout), gridLottieView,
                                                     new Pair<>(row, column));
-                                        } else { // Time to execute the 2nd click as follows
-                                            changeValueFragment.handleChangeValueToolSecondClick();
                                         }
                                     }
                                 }
@@ -1196,8 +1207,7 @@ public class GameActivity extends AppCompatActivity implements
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
-    public void onChangeValueFragmentInteractionProcessToolUse(Pair<Integer, Integer> changeValueTilePosition,
-        int newValue) {
+    public void onChangeValueFragmentInteractionProcessToolUse(Pair<Integer, Integer> changeValueTilePosition, int newValue) {
         // Making a copy of the board
         List<List<Integer>> copyOfCurrentBoard = new ArrayList<>();
         for (int i = 0; i < gameManager.getGameMatrix().size(); i++) {
@@ -1223,12 +1233,13 @@ public class GameActivity extends AppCompatActivity implements
         gameManager.updateGameMatrix(copyOfCurrentBoard);
 
         // Update the reduced number of coins
-        currentCoins -= toolsCostMap.get("specialToolsSwapTilesCost");
+        currentCoins -= toolsCostMap.get("normalToolsChangeValueCost");
         sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
         currentCoinsTextView.setText(String.valueOf(currentCoins));
 
         // Final set of actions
         saveGameState();
+        handleGoalCompletionStatus();
         onBackPressed();
     }
 
