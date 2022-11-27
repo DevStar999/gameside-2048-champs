@@ -267,7 +267,7 @@
         app:layout_constraintVertical_weight="1">
 
         <LinearLayout
-            android:id="@+id/normal_tools_linear_layout"
+            android:id="@+id/standard_tools_linear_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -299,7 +299,7 @@
                         app:srcCompat="@drawable/coin_symbol" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/normal_tools_undo_cost_text_view"
+                        android:id="@+id/standard_tools_undo_cost_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
@@ -314,13 +314,13 @@
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/normal_tools_undo_icon"
+                    android:id="@+id/standard_tools_undo_icon"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/click_standard_tools"
                     android:contentDescription="Undo Move"
-                    android:onClick="normalToolsUndo"
+                    android:onClick="standardToolsUndo"
                     android:padding="2dp"
                     android:scaleType="fitXY"
                     app:srcCompat="@drawable/standard_tools_undo" />
@@ -353,7 +353,7 @@
                         app:srcCompat="@drawable/coin_symbol" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/normal_tools_smash_cost_text_view"
+                        android:id="@+id/standard_tools_smash_cost_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
@@ -368,13 +368,13 @@
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/normal_tools_smash_icon"
+                    android:id="@+id/standard_tools_smash_icon"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/click_standard_tools"
                     android:contentDescription="Smash Tile"
-                    android:onClick="normalToolsSmashTile"
+                    android:onClick="standardToolsSmashTile"
                     android:padding="2.5dp"
                     android:scaleType="fitXY"
                     android:rotationY="180"
@@ -408,7 +408,7 @@
                         app:srcCompat="@drawable/coin_symbol" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/normal_tools_change_value_cost_text_view"
+                        android:id="@+id/standard_tools_change_value_cost_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
@@ -423,13 +423,13 @@
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/normal_tools_change_value_icon"
+                    android:id="@+id/standard_tools_change_value_icon"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/click_standard_tools"
                     android:contentDescription="Change One Value"
-                    android:onClick="normalToolsChangeValue"
+                    android:onClick="standardToolsChangeValue"
                     android:padding="2dp"
                     android:scaleType="fitXY"
                     app:srcCompat="@drawable/standard_tools_change_value" />

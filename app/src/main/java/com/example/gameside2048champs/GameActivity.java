@@ -87,7 +87,7 @@ public class GameActivity extends AppCompatActivity implements
     /* Layouts */
     private ConstraintLayout rootGameConstraintLayout;
     private FrameLayout gameFrameLayout;
-    private LinearLayout normalToolsLinearLayout;
+    private LinearLayout standardToolsLinearLayout;
     private LinearLayout specialToolsLinearLayout;
     private LinearLayout toolsLottieLinearLayout;
     /* Views */
@@ -117,9 +117,9 @@ public class GameActivity extends AppCompatActivity implements
                 + " " + currentGameMode.getDimensions(), false); // Keep default as 'false'
         currentCoins = sharedPreferences.getInt("currentCoins", 2000);
         toolsCostMap = new HashMap<>() {{
-            put("normalToolsUndoCost", 125);
-            put("normalToolsSmashTileCost", 150);
-            put("normalToolsChangeValueCost", 200);
+            put("standardToolsUndoCost", 125);
+            put("standardToolsSmashTileCost", 150);
+            put("standardToolsChangeValueCost", 200);
             put("specialToolsSwapTilesCost", 400);
             put("specialToolsEliminateValueCost", 450);
             put("specialToolsDestroyAreaCost", 500);
@@ -136,16 +136,16 @@ public class GameActivity extends AppCompatActivity implements
     private void initialiseLayouts() {
         rootGameConstraintLayout = findViewById(R.id.root_game_constraint_layout);
         gameFrameLayout = findViewById(R.id.game_frame_layout);
-        normalToolsLinearLayout = findViewById(R.id.normal_tools_linear_layout);
+        standardToolsLinearLayout = findViewById(R.id.standard_tools_linear_layout);
         specialToolsLinearLayout = findViewById(R.id.special_tools_linear_layout);
         toolsLottieLinearLayout = findViewById(R.id.tools_lottie_linear_layout);
 
         if (!isToolsChestOpen) { // Tools chest is NOT open (This is the default condition as well)
-            normalToolsLinearLayout.setVisibility(View.VISIBLE);
+            standardToolsLinearLayout.setVisibility(View.VISIBLE);
             specialToolsLinearLayout.setVisibility(View.GONE);
         } else { // Tools chest is open
             specialToolsLinearLayout.setVisibility(View.VISIBLE);
-            normalToolsLinearLayout.setVisibility(View.GONE);
+            standardToolsLinearLayout.setVisibility(View.GONE);
         }
     }
 
@@ -193,15 +193,15 @@ public class GameActivity extends AppCompatActivity implements
             tutorialTextView.setText("Merge the tiles to form the GOAL TILE!");
         }
 
-        AppCompatTextView normalToolsUndoCostTextView =
-                findViewById(R.id.normal_tools_undo_cost_text_view);
-        normalToolsUndoCostTextView.setText(String.valueOf(toolsCostMap.get("normalToolsUndoCost")));
-        AppCompatTextView normalToolsSmashTileCostTextView =
-                findViewById(R.id.normal_tools_smash_cost_text_view);
-        normalToolsSmashTileCostTextView.setText(String.valueOf(toolsCostMap.get("normalToolsSmashTileCost")));
-        AppCompatTextView normalToolsChangeValueCostTextView =
-                findViewById(R.id.normal_tools_change_value_cost_text_view);
-        normalToolsChangeValueCostTextView.setText(String.valueOf(toolsCostMap.get("normalToolsChangeValueCost")));
+        AppCompatTextView standardToolsUndoCostTextView =
+                findViewById(R.id.standard_tools_undo_cost_text_view);
+        standardToolsUndoCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsUndoCost")));
+        AppCompatTextView standardToolsSmashTileCostTextView =
+                findViewById(R.id.standard_tools_smash_cost_text_view);
+        standardToolsSmashTileCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsSmashTileCost")));
+        AppCompatTextView standardToolsChangeValueCostTextView =
+                findViewById(R.id.standard_tools_change_value_cost_text_view);
+        standardToolsChangeValueCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsChangeValueCost")));
         AppCompatTextView specialToolsSwapTilesCostTextView =
                 findViewById(R.id.special_tools_swap_tiles_cost_text_view);
         specialToolsSwapTilesCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsSwapTilesCost")));
@@ -712,12 +712,12 @@ public class GameActivity extends AppCompatActivity implements
             @Override
             public void onAnimationEnd(Animator animator) {
                 if (!isToolsChestOpen) {
-                    normalToolsLinearLayout.setVisibility(View.VISIBLE);
+                    standardToolsLinearLayout.setVisibility(View.VISIBLE);
                     specialToolsLinearLayout.setVisibility(View.GONE);
                     toolsChangeLottie.setClickable(true);
                 } else {
                     specialToolsLinearLayout.setVisibility(View.VISIBLE);
-                    normalToolsLinearLayout.setVisibility(View.GONE);
+                    standardToolsLinearLayout.setVisibility(View.GONE);
 
                     LottieAnimationView leftView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_left);
                     LottieAnimationView midView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_middle);
@@ -751,15 +751,15 @@ public class GameActivity extends AppCompatActivity implements
                 + " " + currentGameMode.getDimensions(), isToolsChestOpen).apply();
     }
 
-    public void normalToolsUndo(View view) {
+    public void standardToolsUndo(View view) {
         undoProcess();
     }
 
-    public void normalToolsSmashTile(View view) {
+    public void standardToolsSmashTile(View view) {
         smashTileProcess();
     }
 
-    public void normalToolsChangeValue(View view) {
+    public void standardToolsChangeValue(View view) {
         changeValueProcess();
     }
 
@@ -780,8 +780,8 @@ public class GameActivity extends AppCompatActivity implements
     private void undoProcess() {
         movesQueue.clear();
         if (!gameManager.getUndoManager().isUndoUsed()) { // Undo was not used, so using it now
-            if (currentCoins >= toolsCostMap.get("normalToolsUndoCost")) {
-                AnimationUtility.normalToolsUndo(gridLottieView, rootGameConstraintLayout);
+            if (currentCoins >= toolsCostMap.get("standardToolsUndoCost")) {
+                AnimationUtility.standardToolsUndo(gridLottieView, rootGameConstraintLayout);
                 new CountDownTimer(1000, 10000) {
                     @Override
                     public void onTick(long l) {
@@ -798,7 +798,7 @@ public class GameActivity extends AppCompatActivity implements
                         gameManager.setCurrentScore(previousStateInfo.first);
                         updateScoreOnUndo(gameManager.getCurrentScore());
                         // Update the reduced number of coins
-                        currentCoins -= toolsCostMap.get("normalToolsUndoCost");
+                        currentCoins -= toolsCostMap.get("standardToolsUndoCost");
                         sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
                         currentCoinsTextView.setText(String.valueOf(currentCoins));
                     }
@@ -931,7 +931,7 @@ public class GameActivity extends AppCompatActivity implements
             return;
         }
 
-        if (currentCoins >= toolsCostMap.get("normalToolsSmashTileCost")) {
+        if (currentCoins >= toolsCostMap.get("standardToolsSmashTileCost")) {
             // If SmashTileFragment was opened and is currently on top, then return
             int countOfFragments = getSupportFragmentManager().getFragments().size();
             if (countOfFragments > 0) {
@@ -968,7 +968,7 @@ public class GameActivity extends AppCompatActivity implements
             return;
         }
 
-        if (currentCoins >= toolsCostMap.get("normalToolsChangeValueCost")) {
+        if (currentCoins >= toolsCostMap.get("standardToolsChangeValueCost")) {
             // If ChangeValueFragment was opened and is currently on top, then return
             int countOfFragments = getSupportFragmentManager().getFragments().size();
             if (countOfFragments > 0) {
@@ -1191,7 +1191,7 @@ public class GameActivity extends AppCompatActivity implements
         }
 
         // Update the reduced number of coins
-        currentCoins -= toolsCostMap.get("normalToolsSmashTileCost");
+        currentCoins -= toolsCostMap.get("standardToolsSmashTileCost");
         sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
         currentCoinsTextView.setText(String.valueOf(currentCoins));
 
@@ -1233,7 +1233,7 @@ public class GameActivity extends AppCompatActivity implements
         gameManager.updateGameMatrix(copyOfCurrentBoard);
 
         // Update the reduced number of coins
-        currentCoins -= toolsCostMap.get("normalToolsChangeValueCost");
+        currentCoins -= toolsCostMap.get("standardToolsChangeValueCost");
         sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
         currentCoinsTextView.setText(String.valueOf(currentCoins));
 

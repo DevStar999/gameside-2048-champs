@@ -51,7 +51,7 @@
     <color name="black_translucent_film_game_activity_background">#99000000</color>
     <!-- Current opacity for following color = 50% i.e. in hex = 80 -->
     <color name="black_translucent_film_dark">#80000000</color>
-    <color name="normal_tools_icon_background_color">@color/blue_50_500</color>
+    <color name="standard_tools_icon_background_color">@color/blue_50_500</color>
     <color name="special_tools_icon_background_color">@color/royal_red</color>
     <color name="swap_tiles_orange_color">@color/bright_orange</color>
     <color name="swap_tiles_red_color">@color/red_50_500</color>

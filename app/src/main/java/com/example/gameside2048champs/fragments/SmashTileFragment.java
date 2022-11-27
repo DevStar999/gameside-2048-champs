@@ -139,7 +139,7 @@ public class SmashTileFragment extends Fragment {
                 gameCellLottieLayout.setVisibility(View.VISIBLE);
 
                 // 4th set of events is as follows
-                AnimationUtility.normalToolsSmashTileTargetTileSetup(individualTileLottie);
+                AnimationUtility.standardToolsSmashTileTargetTileSetup(individualTileLottie);
                 individualTileLottie.removeAllAnimatorListeners();
                 individualTileLottie.addAnimatorListener(individualTileLottieSmashAnimatorListener);
                 individualTileLottie.playAnimation();
@@ -162,7 +162,7 @@ public class SmashTileFragment extends Fragment {
                 gameCellLottieLayout.setVisibility(View.GONE);
 
                 // 3rd set of events is as follows
-                AnimationUtility.normalToolsSmashTileGridSetup(gridLottieView);
+                AnimationUtility.standardToolsSmashTileGridSetup(gridLottieView);
                 gridLottieView.addAnimatorListener(gridLottieAnimatorListener);
                 gridLottieView.playAnimation();
             }
@@ -173,7 +173,7 @@ public class SmashTileFragment extends Fragment {
         };
 
         // 2nd set of events is as follows
-        AnimationUtility.normalToolsSmashTileTargetTileSelectionSetup(individualTileLottie);
+        AnimationUtility.standardToolsSmashTileTargetTileSelectionSetup(individualTileLottie);
         individualTileLottie.addAnimatorListener(individualTileLottieSelectionAnimatorListener);
         individualTileLottie.playAnimation();
     }
