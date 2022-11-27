@@ -318,12 +318,12 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/click_normal_tools"
+                    android:background="@drawable/click_standard_tools"
                     android:contentDescription="Undo Move"
                     android:onClick="normalToolsUndo"
                     android:padding="2dp"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/normal_tools_undo" />
+                    app:srcCompat="@drawable/standard_tools_undo" />
 
             </LinearLayout>
 
@@ -372,13 +372,13 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/click_normal_tools"
+                    android:background="@drawable/click_standard_tools"
                     android:contentDescription="Smash Tile"
                     android:onClick="normalToolsSmashTile"
                     android:padding="2.5dp"
                     android:scaleType="fitXY"
                     android:rotationY="180"
-                    app:srcCompat="@drawable/normal_tools_smash" />
+                    app:srcCompat="@drawable/standard_tools_smash" />
 
             </LinearLayout>
 
@@ -427,12 +427,12 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/click_normal_tools"
+                    android:background="@drawable/click_standard_tools"
                     android:contentDescription="Change One Value"
                     android:onClick="normalToolsChangeValue"
                     android:padding="2dp"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/normal_tools_change_value" />
+                    app:srcCompat="@drawable/standard_tools_change_value" />
 
             </LinearLayout>
 

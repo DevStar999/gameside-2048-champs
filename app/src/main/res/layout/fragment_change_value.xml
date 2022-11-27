@@ -62,7 +62,7 @@
             android:scaleY="0.4"
             app:lottie_autoPlay="false"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/normal_tools_change_value_grid"
+            app:lottie_rawRes="@raw/standard_tools_change_value_grid"
             app:lottie_repeatMode="restart"
             app:lottie_speed="1" />
 

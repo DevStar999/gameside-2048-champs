@@ -256,7 +256,7 @@ public class AnimationUtility {
         gridLottieView.setVisibility(View.VISIBLE);
         gridLottieView.setRotationY(180f);
         gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
-        gridLottieView.setAnimation(R.raw.normal_tools_undo_grid);
+        gridLottieView.setAnimation(R.raw.standard_tools_undo_grid);
         gridLottieView.setSpeed(1.5f);
         gridLottieView.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
@@ -298,7 +298,7 @@ public class AnimationUtility {
         gridLottieView.setVisibility(View.VISIBLE);
         gridLottieView.setRotationY(180f);
         gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
-        gridLottieView.setAnimation(R.raw.normal_tools_smash_grid_tile);
+        gridLottieView.setAnimation(R.raw.standard_tools_smash_grid_tile);
         gridLottieView.setSpeed(0.7f);
     }
 
@@ -307,7 +307,7 @@ public class AnimationUtility {
         targetTileLottie.setRotationY(180f);
         targetTileLottie.setMaxFrame(15);
         targetTileLottie.setBackgroundResource(R.drawable.rounded_corner_tile_lottie);
-        targetTileLottie.setAnimation(R.raw.normal_tools_smash_grid_tile);
+        targetTileLottie.setAnimation(R.raw.standard_tools_smash_grid_tile);
         targetTileLottie.setSpeed(0.7f);
     }
 
@@ -336,14 +336,14 @@ public class AnimationUtility {
     public static void normalToolsChangeValueGridSetup(LottieAnimationView gridLottieView) {
         gridLottieView.setVisibility(View.VISIBLE);
         gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
-        gridLottieView.setAnimation(R.raw.normal_tools_change_value_grid);
+        gridLottieView.setAnimation(R.raw.standard_tools_change_value_grid);
         gridLottieView.setSpeed(2f);
     }
 
     public static void normalToolsChangeValueTargetTileSetup(LottieAnimationView changeValueTileLottie) {
         changeValueTileLottie.setVisibility(View.VISIBLE);
         changeValueTileLottie.setBackgroundResource(R.drawable.rounded_corner_tile_lottie);
-        changeValueTileLottie.setAnimation(R.raw.normal_tools_change_value_tile);
+        changeValueTileLottie.setAnimation(R.raw.standard_tools_change_value_tile);
         changeValueTileLottie.setSpeed(1.5f);
     }
 

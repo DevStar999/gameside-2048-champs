@@ -63,7 +63,7 @@
             android:rotationY="180"
             app:lottie_autoPlay="false"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/normal_tools_smash_grid_tile"
+            app:lottie_rawRes="@raw/standard_tools_smash_grid_tile"
             app:lottie_repeatMode="restart"
             app:lottie_speed="0.7" />
 
