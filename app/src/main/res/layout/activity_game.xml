@@ -579,7 +579,7 @@
                         app:srcCompat="@drawable/coin_symbol" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/special_tools_bomb_cost_text_view"
+                        android:id="@+id/special_tools_destroy_area_cost_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
@@ -594,16 +594,16 @@
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/special_tools_bomb_icon"
+                    android:id="@+id/special_tools_destroy_area_icon"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/click_special_tools"
-                    android:contentDescription="Blast Tiles In An Area"
-                    android:onClick="specialToolsBomb"
+                    android:contentDescription="Destroy Tiles In An Area"
+                    android:onClick="specialToolsDestroyArea"
                     android:padding="2.5dp"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/special_tools_bomb" />
+                    app:srcCompat="@drawable/special_tools_destroy_area" />
 
             </LinearLayout>
 

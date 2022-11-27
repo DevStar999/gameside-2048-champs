@@ -11,23 +11,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.gameside2048champs.AnimationUtility;
 import com.example.gameside2048champs.R;
 
-public class BombFragment extends Fragment {
-    private OnBombFragmentInteractionListener mListener;
+public class DestroyAreaFragment extends Fragment {
+    private OnDestroyAreaFragmentInteractionListener mListener;
     private AppCompatImageView backButton;
     private LottieAnimationView rotatingLightLottie;
-    private LottieAnimationView bombPreviewLottie;
+    private LottieAnimationView destroyAreaPreviewLottie;
     private AppCompatImageView toolUseCompletedImageView;
     private AppCompatTextView toolDescriptionTextView;
     private boolean isToolUseComplete;
 
-    public BombFragment() {
+    public DestroyAreaFragment() {
         // Required empty public constructor
     }
 
@@ -41,7 +40,7 @@ public class BombFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (mListener != null) {
-                    mListener.onBombFragmentInteractionBackClicked();
+                    mListener.onDestroyAreaFragmentInteractionBackClicked();
                 }
             }
         });
@@ -57,14 +56,14 @@ public class BombFragment extends Fragment {
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
-        View view = inflater.inflate(R.layout.fragment_bomb, container, false);
+        View view = inflater.inflate(R.layout.fragment_destroy_area, container, false);
 
-        backButton = view.findViewById(R.id.back_button_bomb_fragment);
-        rotatingLightLottie = view.findViewById(R.id.rotating_light_bomb_fragment);
-        bombPreviewLottie = view.findViewById(R.id.bomb_preview_lottie);
-        bombPreviewLottie.setMaxFrame(50);
-        toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_bomb_fragment);
-        toolDescriptionTextView = view.findViewById(R.id.tool_description_text_view_bomb_fragment);
+        backButton = view.findViewById(R.id.back_button_destroy_area_fragment);
+        rotatingLightLottie = view.findViewById(R.id.rotating_light_destroy_area_fragment);
+        destroyAreaPreviewLottie = view.findViewById(R.id.destroy_area_preview_lottie);
+        destroyAreaPreviewLottie.setMaxFrame(50);
+        toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_destroy_area_fragment);
+        toolDescriptionTextView = view.findViewById(R.id.tool_description_text_view_destroy_area_fragment);
         isToolUseComplete = true;
 
         // Making tool lottie view emerge so that it grabs attention during the tool fragment transition
@@ -81,7 +80,7 @@ public class BombFragment extends Fragment {
             public void onTick(long l) {}
             @Override
             public void onFinish() {
-                AnimationUtility.toolLottieEmergeAnimation(bombPreviewLottie, 575);
+                AnimationUtility.toolLottieEmergeAnimation(destroyAreaPreviewLottie, 575);
                 postFragmentSetupTimer.start();
             }
         }.start();
@@ -95,18 +94,18 @@ public class BombFragment extends Fragment {
         return isToolUseComplete;
     }
 
-    public interface OnBombFragmentInteractionListener {
-        void onBombFragmentInteractionBackClicked();
+    public interface OnDestroyAreaFragmentInteractionListener {
+        void onDestroyAreaFragmentInteractionBackClicked();
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof OnBombFragmentInteractionListener) {
-            mListener = (OnBombFragmentInteractionListener) context;
+        if (context instanceof OnDestroyAreaFragmentInteractionListener) {
+            mListener = (OnDestroyAreaFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnBombFragmentInteractionListener");
+                    + " must implement OnDestroyAreaFragmentInteractionListener");
         }
     }
 

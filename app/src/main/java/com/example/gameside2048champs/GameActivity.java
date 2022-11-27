@@ -42,7 +42,7 @@ import com.example.gameside2048champs.enums.Direction;
 import com.example.gameside2048champs.enums.GameModes;
 import com.example.gameside2048champs.enums.GameOverDialogOptions;
 import com.example.gameside2048champs.enums.GameStates;
-import com.example.gameside2048champs.fragments.BombFragment;
+import com.example.gameside2048champs.fragments.DestroyAreaFragment;
 import com.example.gameside2048champs.fragments.ChangeValueFragment;
 import com.example.gameside2048champs.fragments.EliminateValueFragment;
 import com.example.gameside2048champs.fragments.ShopFragment;
@@ -67,7 +67,7 @@ public class GameActivity extends AppCompatActivity implements
         ChangeValueFragment.OnChangeValueFragmentInteractionListener,
         SwapTilesFragment.OnSwapTilesFragmentInteractionListener,
         EliminateValueFragment.OnEliminateValueFragmentInteractionListener,
-        BombFragment.OnBombFragmentInteractionListener {
+        DestroyAreaFragment.OnDestroyAreaFragmentInteractionListener {
     // Variable Attributes
     private SharedPreferences sharedPreferences;
     private Gson gson;
@@ -122,7 +122,7 @@ public class GameActivity extends AppCompatActivity implements
             put("normalToolsChangeValueCost", 200);
             put("specialToolsSwapTilesCost", 400);
             put("specialToolsEliminateValueCost", 450);
-            put("specialToolsBombCost", 500);
+            put("specialToolsDestroyAreaCost", 500);
         }};
         currentScore = sharedPreferences.getInt("currentScore" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), 0);
@@ -208,9 +208,9 @@ public class GameActivity extends AppCompatActivity implements
         AppCompatTextView specialToolsEliminateValueCostTextView =
                 findViewById(R.id.special_tools_eliminate_value_cost_text_view);
         specialToolsEliminateValueCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsEliminateValueCost")));
-        AppCompatTextView specialToolsBombCostTextView =
-                findViewById(R.id.special_tools_bomb_cost_text_view);
-        specialToolsBombCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsBombCost")));
+        AppCompatTextView specialToolsDestroyAreaCostTextView =
+                findViewById(R.id.special_tools_destroy_area_cost_text_view);
+        specialToolsDestroyAreaCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsDestroyAreaCost")));
     }
 
     private void initialiseGoalText() {
@@ -289,7 +289,7 @@ public class GameActivity extends AppCompatActivity implements
                 || getSupportFragmentManager().findFragmentByTag("CHANGE_VALUE_FRAGMENT") != null
                 || getSupportFragmentManager().findFragmentByTag("SWAP_TILES_FRAGMENT") != null
                 || getSupportFragmentManager().findFragmentByTag("ELIMINATE_VALUE_FRAGMENT") != null
-                || getSupportFragmentManager().findFragmentByTag("BOMB_FRAGMENT") != null) {
+                || getSupportFragmentManager().findFragmentByTag("DESTROY_AREA_FRAGMENT") != null) {
             movesQueue.clear();
             return;
         }
@@ -543,7 +543,7 @@ public class GameActivity extends AppCompatActivity implements
                             || topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")
                             || topMostFragment.getTag().equals("SWAP_TILES_FRAGMENT")
                             || topMostFragment.getTag().equals("ELIMINATE_VALUE_FRAGMENT")
-                            || topMostFragment.getTag().equals("BOMB_FRAGMENT")) {
+                            || topMostFragment.getTag().equals("DESTROY_AREA_FRAGMENT")) {
                         handleToolFragmentBackClicked();
                         // For some of the tool fragments some more processing maybe required, which is as follows
                         if (topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")
@@ -771,10 +771,10 @@ public class GameActivity extends AppCompatActivity implements
         eliminateValueProcess();
     }
 
-    public void specialToolsBomb(View view) {
+    public void specialToolsDestroyArea(View view) {
         new ArrivingToolDialog(this).show();
-        /* TODO -> Implement the Bomb tool and uncomment the following line */
-        //bombProcess();
+        /* TODO -> Implement the Destroy Area tool and uncomment the following line */
+        //destroyAreaProcess();
     }
 
     private void undoProcess() {
@@ -910,7 +910,7 @@ public class GameActivity extends AppCompatActivity implements
                                                 targetTilesLottie, gridLottieView, targetValueTilesPositions);
                                     } // else, user has clicked after choosing tile value to eliminate, so we ignore the click
                                 }
-                            } else if (topMostFragment.getTag().equals("BOMB_FRAGMENT")) {
+                            } else if (topMostFragment.getTag().equals("DESTROY_AREA_FRAGMENT")) {
 
                             }
                         }
@@ -1071,21 +1071,21 @@ public class GameActivity extends AppCompatActivity implements
         }
     }
 
-    private void bombProcess() {
+    private void destroyAreaProcess() {
         movesQueue.clear();
         if (gameManager.findGameTilesCurrentlyOnBoard(gameManager.getGameMatrix()) < 1) {
-            String bombMessage = "Atleast 1 game tile is required to use the \"DESTROY AREA\" tool";
-            new ToolUseProhibitedDialog(this, bombMessage).show();
+            String destroyAreaMessage = "Atleast 1 game tile is required to use the \"DESTROY AREA\" tool";
+            new ToolUseProhibitedDialog(this, destroyAreaMessage).show();
             return;
         }
 
-        if (currentCoins >= toolsCostMap.get("specialToolsBombCost")) {
-            // If BombFragment was opened and is currently on top, then return
+        if (currentCoins >= toolsCostMap.get("specialToolsDestroyAreaCost")) {
+            // If DestroyAreaFragment was opened and is currently on top, then return
             int countOfFragments = getSupportFragmentManager().getFragments().size();
             if (countOfFragments > 0) {
                 Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments - 1);
                 if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()
-                        && topMostFragment.getTag().equals("BOMB_FRAGMENT")) {
+                        && topMostFragment.getTag().equals("DESTROY_AREA_FRAGMENT")) {
                     return;
                 }
             }
@@ -1095,14 +1095,14 @@ public class GameActivity extends AppCompatActivity implements
 
             // Initiate the tool entry transition
             AnimationUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
-            BombFragment fragment = new BombFragment();
+            DestroyAreaFragment fragment = new DestroyAreaFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.setCustomAnimations(R.anim.tools_fragment_entry, R.anim.tools_fragment_exit,
                     R.anim.tools_fragment_entry, R.anim.tools_fragment_exit);
             transaction.addToBackStack(null);
             transaction.replace(R.id.tool_use_game_activity_fragment_container,
-                    fragment, "BOMB_FRAGMENT").commit();
+                    fragment, "DESTROY_AREA_FRAGMENT").commit();
         } else {
             openShopFragment();
         }
@@ -1355,7 +1355,7 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onBombFragmentInteractionBackClicked() {
+    public void onDestroyAreaFragmentInteractionBackClicked() {
         onBackPressed();
     }
 
