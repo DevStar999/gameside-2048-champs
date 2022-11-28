@@ -88,7 +88,7 @@ public class ShopFragment extends Fragment {
             }
             @Override
             public void onError(@NotNull QonversionError error) {
-                // TODO -> Create a purchase failed dialog
+                // TODO -> Create a purchase failed dialog (Noted in Main Project)
             }
         });
     }

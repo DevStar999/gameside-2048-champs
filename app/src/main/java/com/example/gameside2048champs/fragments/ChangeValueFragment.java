@@ -33,6 +33,7 @@ import java.util.List;
 
 /* TODO -> Implement code to adjust layout of this fragment for showing game tile options which could be different from the
            current fixed 5 options of 2, 4, 8, 16 & 32 (After implementing a progression system in the game)
+           (Noted in Main Project)
 */
 public class ChangeValueFragment extends Fragment {
     private Context context;

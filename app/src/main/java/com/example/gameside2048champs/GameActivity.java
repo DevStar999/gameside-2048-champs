@@ -773,7 +773,7 @@ public class GameActivity extends AppCompatActivity implements
 
     public void specialToolsDestroyArea(View view) {
         new ArrivingToolDialog(this).show();
-        /* TODO -> Implement the Destroy Area tool and uncomment the following line */
+        /* TODO -> Implement the Destroy Area tool and uncomment the following line (Noted in Main Project) */
         //destroyAreaProcess();
     }
 

@@ -27,7 +27,7 @@
     <!-- TODO -> Change the text to "This tool is arriving soon," +
                  " so stay tuned for updates !!" after implementing
                  the 'Destroy Area' tool, so that this dialog can again
-                 be have a generalised use -->
+                 be have a generalised use (Noted in Main Project) -->
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/arriving_tool_text"
         android:layout_width="wrap_content"

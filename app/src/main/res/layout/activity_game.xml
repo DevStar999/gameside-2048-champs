@@ -657,7 +657,7 @@
     </FrameLayout>
 
     <!-- TODO -> In the later stages of development, remove this tutorial
-                 textview from layout and from code -->
+                 textview from layout and from code (Noted in Main Project) -->
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tutorial_text_view"
         android:layout_width="wrap_content"
