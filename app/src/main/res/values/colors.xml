@@ -1,33 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="grey">#808080</color>
-    <color name="orange_50_400">#FFA726</color>
-    <color name="orange_50_200">#FFCC80</color>
-    <color name="bright_orange">#FFAF19</color>
-    <color name="orange_button">#F2B179</color>
-    <color name="orange_button_dark">#F59563</color>
     <color name="blue_50_500">#2196F3</color>
     <color name="blue_50_700">#1976D2</color>
     <color name="blue_50_800">#1565C0</color>
     <color name="blue_50_900">#0D47A1</color>
+    <color name="bright_orange">#FFAF19</color>
+    <color name="grey">#808080</color>
+    <color name="orange_50_400">#FFA726</color>
+    <color name="orange_50_200">#FFCC80</color>
+    <color name="orange_button">#F2B179</color>
+    <color name="orange_button_dark">#F59563</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
     <color name="red_50_500">#F44336</color>
     <color name="royal_red">#AB2330</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="white">#FFFFFFFF</color>
 
-    <color name="ic_launcher_background">#EEC22E</color>
+    <!-- Current opacity for following color ~ 2.5% i.e. in hex = 05 -->
+    <color name="black_translucent_film">#05000000</color>
+    <!-- Current opacity for following color = 50% i.e. in hex = 80 -->
+    <color name="black_translucent_film_dark">#80000000</color>
+    <!-- Current opacity for following color = 60% i.e. in hex = 99 -->
+    <color name="black_translucent_film_game_activity_background">#99000000</color>
+    <color name="board_color">#BBADA0</color>
+    <color name="button_background_color">@color/orange_button</color>
+    <color name="dialog_background_color">#EADDCA</color>
+    <color name="empty_cell">#D6CDC4</color>
     <color name="game_primary_background_color">#FBF8EF</color>
     <color name="game_primary_background_color_opacity_60_percent">#99FBF8EF</color>
     <color name="game_primary_background_color_opacity_80_percent">#CCFBF8EF</color>
-    <color name="transparent_color">@android:color/transparent</color>
-    <color name="board_color">#BBADA0</color>
-    <color name="empty_cell">#D6CDC4</color>
     <color name="game_text_color">#967969</color>
+    <color name="game_text_color_dark">#442E19</color>
     <!-- Current opacity for following color = 50% i.e. in hex = 80 -->
     <color name="game_text_color_divider_line">#80967969</color>
     <!-- Current opacity for following color = 20% i.e. in hex = 32 -->
@@ -36,25 +43,18 @@
     <color name="game_text_color_translucent_bgf2">#4D967969</color>
     <!-- Current opacity for following color = 30% i.e. in hex = 4D -->
     <color name="game_text_color_translucent_bgf3">#4D967969</color>
-    <color name="game_text_color_dark">#442E19</color>
-    <color name="dialog_background_color">#EADDCA</color>
+    <!-- Current opacity for following color = 70% i.e. in hex = B3 -->
+    <color name="grid_lottie_black_translucent_film">#B3000000</color>
+    <color name="ic_launcher_background">#EEC22E</color>
+    <color name="special_tools_icon_background_color">@color/royal_red</color>
+    <color name="standard_tools_icon_background_color">@color/blue_50_500</color>
+    <color name="swap_tiles_orange_color">@color/bright_orange</color>
+    <color name="swap_tiles_red_color">@color/red_50_500</color>
+    <color name="transparent_color">@android:color/transparent</color>
     <!-- Current opacity for following color = 40% i.e. in hex = 66 -->
     <color name="white_dialog_background_translucent">#66FFFFFF</color>
     <!-- Current opacity for following color = 75% i.e. in hex = BF -->
     <color name="white_translucent_splash_screen">#BFFFFFFF</color>
-    <color name="button_background_color">@color/orange_button</color>
-    <!-- Current opacity for following color ~ 2.5% i.e. in hex = 05 -->
-    <color name="black_translucent_film">#05000000</color>
-    <!-- Current opacity for following color = 70% i.e. in hex = B3 -->
-    <color name="grid_lottie_black_translucent_film">#B3000000</color>
-    <!-- Current opacity for following color = 60% i.e. in hex = 99 -->
-    <color name="black_translucent_film_game_activity_background">#99000000</color>
-    <!-- Current opacity for following color = 50% i.e. in hex = 80 -->
-    <color name="black_translucent_film_dark">#80000000</color>
-    <color name="standard_tools_icon_background_color">@color/blue_50_500</color>
-    <color name="special_tools_icon_background_color">@color/royal_red</color>
-    <color name="swap_tiles_orange_color">@color/bright_orange</color>
-    <color name="swap_tiles_red_color">@color/red_50_500</color>
 
     <!-- Number Colors -->
     <color name="number_color_0002">#766D64</color>
