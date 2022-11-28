@@ -34,6 +34,7 @@ import com.example.gameside2048champs.fragments.PreGameFragment;
 /* TODO -> Implement the Game Over Dialog is such a way that it accommodates the use of the newly implemented tools to
            revive the game, if game state is game over
 */
+// TODO -> Goal completion & game state status should be checked for (a) Smash Tile Tool (b) Eliminate Value Tool
 public class MainActivity extends AppCompatActivity implements PreGameFragment.OnPreGameFragmentInteractionListener {
 
     @SuppressLint("SourceLockedOrientationActivity")
