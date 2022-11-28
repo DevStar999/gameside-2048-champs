@@ -46,9 +46,7 @@ public class ArrivingToolDialog extends Dialog {
                 setVisibilityOfViews(View.INVISIBLE);
                 new CountDownTimer(100, 100) {
                     @Override
-                    public void onTick(long millisUntilFinished) {
-                    }
-
+                    public void onTick(long millisUntilFinished) {}
                     @Override
                     public void onFinish() {
                         dismiss();
@@ -80,9 +78,7 @@ public class ArrivingToolDialog extends Dialog {
         // First, the dialog box will open, then the views will show
         new CountDownTimer(400, 400) {
             @Override
-            public void onTick(long millisUntilFinished) {
-            }
-
+            public void onTick(long millisUntilFinished) {}
             @Override
             public void onFinish() {
                 setVisibilityOfViews(View.VISIBLE);
