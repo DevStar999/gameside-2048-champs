@@ -88,7 +88,7 @@ public class ShopFragment extends Fragment {
             }
             @Override
             public void onError(@NotNull QonversionError error) {
-                // TODO -> Create a purchase failed dialog (Noted in Main Project)
+                // TODO -> Create a purchase failed dialog
             }
         });
     }
@@ -190,8 +190,7 @@ public class ShopFragment extends Fragment {
         if (context instanceof OnShopFragmentInteractionListener) {
             mListener = (OnShopFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnShopFragmentInteractionListener");
+            throw new RuntimeException(context + " must implement OnShopFragmentInteractionListener");
         }
         this.context = context;
     }

@@ -24,8 +24,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.gameside2048champs.AnimationUtility;
 import com.example.gameside2048champs.R;
+import com.example.gameside2048champs.animations.ToolAnimationsUtility;
 import com.example.gameside2048champs.enums.CellValues;
 
 import java.util.ArrayList;
@@ -33,7 +33,6 @@ import java.util.List;
 
 /* TODO -> Implement code to adjust layout of this fragment for showing game tile options which could be different from the
            current fixed 5 options of 2, 4, 8, 16 & 32 (After implementing a progression system in the game)
-           (Noted in Main Project)
 */
 public class ChangeValueFragment extends Fragment {
     private Context context;
@@ -89,7 +88,6 @@ public class ChangeValueFragment extends Fragment {
 
         int currentOptionValue = optionValues.get(optionNumber);
         CellValues cellValueCurrentOption = CellValues.getCellValueEnum(currentOptionValue);
-        cellValueCurrentOption.setCellValue(currentOptionValue);
         valueOptionTextView.setText(String.valueOf(currentOptionValue));
         valueOptionTextView.setTextColor(ContextCompat.getColor(context, cellValueCurrentOption.getNumberColorResourceId()));
         valueOptionTextView.setBackgroundResource(cellValueCurrentOption.getBackgroundDrawableResourceId());
@@ -101,6 +99,7 @@ public class ChangeValueFragment extends Fragment {
         valueOptionSelectionImageView.setVisibility(View.VISIBLE);
         valueOptionSelectionImageView.setBackgroundResource(R.drawable.change_value_fragment_selection_background);
         valueOptionSelectionImageView.setImageResource(R.drawable.change_value_options_locked);
+        valueOptionSelectionImageView.setClickable(true); // To avoid click from going through this image view on the option
 
         optionFrameLayout.addView(valueOptionTextView);
         valueOptionTextViews.add(valueOptionTextView);
@@ -183,7 +182,7 @@ public class ChangeValueFragment extends Fragment {
             public void onTick(long l) {}
             @Override
             public void onFinish() {
-                AnimationUtility.toolLottieEmergeAnimation(changeValuePreviewLottie, 575);
+                ToolAnimationsUtility.toolLottieEmergeAnimation(changeValuePreviewLottie, 575);
                 postFragmentSetupTimer.start();
             }
         }.start();
@@ -204,7 +203,7 @@ public class ChangeValueFragment extends Fragment {
     }
 
     public void handleChangeValueToolFirstClick(LottieAnimationView changeValueTileLottie, GridLayout gameCellLottieLayout,
-        LottieAnimationView gridLottieView, Pair<Integer, Integer> changeValueTilePosition) {
+                                                LottieAnimationView gridLottieView, Pair<Integer, Integer> changeValueTilePosition) {
         // 1st set of events is as follows
         isFirstClickDone = true;
         firstClickCheckBox.setChecked(true);
@@ -222,7 +221,7 @@ public class ChangeValueFragment extends Fragment {
         this.gridLottieView = gridLottieView;
 
         // 3rd set of events is as follows - Setting the selection animation for the change value tile
-        AnimationUtility.standardToolsChangeValueFirstClickSelectionSetup(this.changeValueTileLottie);
+        ToolAnimationsUtility.standardToolsChangeValueFirstClickSelectionSetup(this.changeValueTileLottie);
         this.changeValueTileLottie.playAnimation();
     }
 
@@ -232,7 +231,6 @@ public class ChangeValueFragment extends Fragment {
         toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
         secondClickCheckBox.setChecked(true);
         CellValues cellValuesSelectedOption = CellValues.getCellValueEnum(optionValues.get(optionNumber));
-        cellValuesSelectedOption.setCellValue(optionValues.get(optionNumber));
         selectedOptionValueTextView.setText(String.valueOf(cellValuesSelectedOption.getCellValue()));
         selectedOptionValueTextView.setTextColor(ContextCompat.getColor(context,
                 cellValuesSelectedOption.getNumberColorResourceId()));
@@ -271,7 +269,7 @@ public class ChangeValueFragment extends Fragment {
                 ChangeValueFragment.this.gameCellLottieLayout.setVisibility(View.VISIBLE);
 
                 // 4th set of events is as follows
-                AnimationUtility.standardToolsChangeValueTargetTileSetup(ChangeValueFragment.this.changeValueTileLottie);
+                ToolAnimationsUtility.standardToolsChangeValueTargetTileSetup(ChangeValueFragment.this.changeValueTileLottie);
                 ChangeValueFragment.this.changeValueTileLottie.removeAllAnimatorListeners();
                 ChangeValueFragment.this.changeValueTileLottie.addAnimatorListener(individualTileLottieSmashAnimatorListener);
                 ChangeValueFragment.this.changeValueTileLottie.playAnimation();
@@ -294,7 +292,7 @@ public class ChangeValueFragment extends Fragment {
                 ChangeValueFragment.this.gameCellLottieLayout.setVisibility(View.GONE);
 
                 // 3rd set of events is as follows
-                AnimationUtility.standardToolsChangeValueGridSetup(ChangeValueFragment.this.gridLottieView);
+                ToolAnimationsUtility.standardToolsChangeValueGridSetup(ChangeValueFragment.this.gridLottieView);
                 ChangeValueFragment.this.gridLottieView.addAnimatorListener(gridLottieAnimatorListener);
                 ChangeValueFragment.this.gridLottieView.playAnimation();
             }
@@ -306,7 +304,7 @@ public class ChangeValueFragment extends Fragment {
 
         // 2nd set of events is as follows
         this.changeValueTileLottie.pauseAnimation();
-        AnimationUtility.standardToolsChangeValueSecondClickSelectionSetup(this.changeValueTileLottie);
+        ToolAnimationsUtility.standardToolsChangeValueSecondClickSelectionSetup(this.changeValueTileLottie);
         this.changeValueTileLottie.addAnimatorListener(changeValueTileLottieSelectionAnimatorListener);
         this.changeValueTileLottie.playAnimation();
     }
@@ -322,8 +320,7 @@ public class ChangeValueFragment extends Fragment {
         if (context instanceof OnChangeValueFragmentInteractionListener) {
             mListener = (OnChangeValueFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnChangeValueFragmentInteractionListener");
+            throw new RuntimeException(context + " must implement OnChangeValueFragmentInteractionListener");
         }
         this.context = context;
     }

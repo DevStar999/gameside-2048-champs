@@ -7,6 +7,7 @@
     <color name="blue_50_900">#0D47A1</color>
     <color name="bright_orange">#FFAF19</color>
     <color name="grey">#808080</color>
+    <color name="malachite_green">#0BDA51</color>
     <color name="orange_50_400">#FFA726</color>
     <color name="orange_50_200">#FFCC80</color>
     <color name="orange_button">#F2B179</color>
@@ -16,6 +17,7 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="red_50_500">#F44336</color>
     <color name="royal_red">#AB2330</color>
+    <color name="spotify_green">#1DB954</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="white">#FFFFFFFF</color>
@@ -31,8 +33,10 @@
     <color name="dialog_background_color">#EADDCA</color>
     <color name="empty_cell">#D6CDC4</color>
     <color name="game_primary_background_color">#FBF8EF</color>
-    <color name="game_primary_background_color_opacity_60_percent">#99FBF8EF</color>
-    <color name="game_primary_background_color_opacity_80_percent">#CCFBF8EF</color>
+    <!-- Current opacity for following color = 60% i.e. in hex = 99 -->
+    <color name="game_primary_background_color_translucent1">#99FBF8EF</color>
+    <!-- Current opacity for following color = 80% i.e. in hex = CC -->
+    <color name="game_primary_background_color_translucent2">#CCFBF8EF</color>
     <color name="game_text_color">#967969</color>
     <color name="game_text_color_dark">#442E19</color>
     <!-- Current opacity for following color = 50% i.e. in hex = 80 -->

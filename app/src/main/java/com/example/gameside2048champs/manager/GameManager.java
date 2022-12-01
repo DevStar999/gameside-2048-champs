@@ -14,7 +14,7 @@ import android.widget.GridLayout;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.example.gameside2048champs.R;
-import com.example.gameside2048champs.AnimationUtility;
+import com.example.gameside2048champs.animations.AnimationsUtility;
 import com.example.gameside2048champs.dataclasses.CellTransitionInfoMatrix;
 import com.example.gameside2048champs.enums.CellValues;
 import com.example.gameside2048champs.enums.Direction;
@@ -116,10 +116,9 @@ public class GameManager {
                     textView.setVisibility(View.INVISIBLE);
                 } else {
                     CellValues cellValueEnum = CellValues.getCellValueEnum(currentCellValue);
-                    cellValueEnum.setCellValue(currentCellValue);
 
-                    AnimationUtility.executePopUpAnimation(textView, cellValueEnum.getCellValue(),
-                            parentActivity.getResources().getColor(cellValueEnum.getNumberColorResourceId()),
+                    AnimationsUtility.executePopUpAnimation(textView, cellValueEnum.getCellValue(),
+                            parentActivity.getColor(cellValueEnum.getNumberColorResourceId()),
                             parentActivity.getDrawable(cellValueEnum.getBackgroundDrawableResourceId()),
                             300, 200, currentGameMode.getGameLayoutProperties());
                 }
@@ -190,9 +189,8 @@ public class GameManager {
                     GridLayout gameGridLayout = parentActivity.findViewById(R.id.game_grid_layout);
                     AppCompatTextView textView = gameGridLayout.findViewWithTag("gameCell" + row + column);
                     CellValues cellValueEnum = CellValues.getCellValueEnum(gameMatrix.get(row).get(column));
-                    cellValueEnum.setCellValue(gameMatrix.get(row).get(column));
-                    AnimationUtility.executePopUpAnimation(textView, cellValueEnum.getCellValue(),
-                            parentActivity.getResources().getColor(cellValueEnum.getNumberColorResourceId()),
+                    AnimationsUtility.executePopUpAnimation(textView, cellValueEnum.getCellValue(),
+                            parentActivity.getColor(cellValueEnum.getNumberColorResourceId()),
                             parentActivity.getDrawable(cellValueEnum.getBackgroundDrawableResourceId()),
                             addNewRandomCellDuration, 0, currentGameMode.getGameLayoutProperties());
                 }
@@ -241,7 +239,6 @@ public class GameManager {
                 GridLayout gameGridLayout = parentActivity.findViewById(R.id.game_grid_layout);
                 AppCompatTextView textView = gameGridLayout.findViewWithTag("gameCell" + row + column);
                 CellValues cellValueEnum = CellValues.getCellValueEnum(gameMatrix.get(row).get(column));
-                cellValueEnum.setCellValue(gameMatrix.get(row).get(column));
 
                 AnimatorSet moveAnimation; // Either Empty Animation OR Some Move Animation
                 AnimatorSet endPartAnimation; // Either Empty Animation OR Simply Appear Animation OR Merge Animation
@@ -250,13 +247,13 @@ public class GameManager {
                 int moveAnimationDuration = 125;
                 if (ctiMatrix.get(row).get(column).getInitialValue() == 0
                         || ctiMatrix.get(row).get(column).getInitialValue() == -1) { // Initially un-filled
-                    moveAnimation = AnimationUtility.getEmptyAnimation(textView, moveAnimationDuration, 0, View.INVISIBLE);
+                    moveAnimation = AnimationsUtility.getEmptyAnimation(textView, moveAnimationDuration, 0, View.INVISIBLE);
                 } else { // Initially filled
                     if (row == ctiMatrix.get(row).get(column).getFinalLocationRow()
                             && column == ctiMatrix.get(row).get(column).getFinalLocationColumn()) { // No move was made
-                        moveAnimation = AnimationUtility.getEmptyAnimation(textView, moveAnimationDuration, 0, View.VISIBLE);
+                        moveAnimation = AnimationsUtility.getEmptyAnimation(textView, moveAnimationDuration, 0, View.VISIBLE);
                     } else { // Move was made
-                        moveAnimation = AnimationUtility.getSlideAnimation(row, column,
+                        moveAnimation = AnimationsUtility.getSlideAnimation(row, column,
                                 ctiMatrix.get(row).get(column).getFinalLocationRow(),
                                 ctiMatrix.get(row).get(column).getFinalLocationColumn(),
                                 currentGameMode.getRows(), currentGameMode.getColumns(),
@@ -268,17 +265,17 @@ public class GameManager {
                 /* Now taking care of the endPartAnimation -> Duration = 75 ms */
                 int endPartAnimationDuration = 75;
                 if (gameMatrix.get(row).get(column) == 0 || gameMatrix.get(row).get(column) == -1) { // Finally un-filled
-                    endPartAnimation = AnimationUtility.getEmptyAnimation(textView, endPartAnimationDuration, 0, View.INVISIBLE);
+                    endPartAnimation = AnimationsUtility.getEmptyAnimation(textView, endPartAnimationDuration, 0, View.INVISIBLE);
                 } else { // Finally filled
                     if (ctiMatrix.get(row).get(column).isDidMerge()) { // Merge happened here
                         moveScore += gameMatrix.get(row).get(column);
-                        endPartAnimation = AnimationUtility.getMergeAnimation(textView, cellValueEnum.getCellValue(),
-                                parentActivity.getResources().getColor(cellValueEnum.getNumberColorResourceId()),
+                        endPartAnimation = AnimationsUtility.getMergeAnimation(textView, cellValueEnum.getCellValue(),
+                                parentActivity.getColor(cellValueEnum.getNumberColorResourceId()),
                                 parentActivity.getDrawable(cellValueEnum.getBackgroundDrawableResourceId()),
                                 endPartAnimationDuration, 0, currentGameMode.getGameLayoutProperties());
                     } else { // Simply appear here
-                        endPartAnimation = AnimationUtility.getSimplyAppearAnimation(textView, cellValueEnum.getCellValue(),
-                                parentActivity.getResources().getColor(cellValueEnum.getNumberColorResourceId()),
+                        endPartAnimation = AnimationsUtility.getSimplyAppearAnimation(textView, cellValueEnum.getCellValue(),
+                                parentActivity.getColor(cellValueEnum.getNumberColorResourceId()),
                                 parentActivity.getDrawable(cellValueEnum.getBackgroundDrawableResourceId()),
                                 endPartAnimationDuration, 0, currentGameMode.getGameLayoutProperties());
                     }

@@ -36,11 +36,6 @@ public enum CellValues {
         this.backgroundDrawableResourceId = backgroundDrawableResourceId;
     }
 
-    // Backup for time when we are dealing with a higher order number
-    public void setCellValue(int cellValue) {
-        this.cellValue = cellValue;
-    }
-
     public static CellValues getCellValueEnum(int cellValue) {
         switch (cellValue) {
             case 0: return valueOf("CELL_VALUE_EMPTY");

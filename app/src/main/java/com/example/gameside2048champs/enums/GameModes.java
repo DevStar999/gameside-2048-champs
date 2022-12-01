@@ -7,132 +7,132 @@ import lombok.Getter;
 
 /* TODO -> ## Bug ## : The sizes are all traversed using 'dimensions' string for a question mark
            string like '? X ?' so when call to getGameModeEnum() method is made this mode better be
-           covered in the last else block, or else the app will crash (Noted in Main Project)
+           covered in the last else block, or else the app will crash
 */
 @Getter
 public enum GameModes {
-    SQUARE_3X3(3, 3, "3 X 3", "SQUARE", 256, true, new ArrayList<ArrayList<Integer>>() {{
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
+    SQUARE_3X3(3, 3, "3 X 3", "SQUARE", 256, true, new ArrayList<>() {{
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
     }}, "square_3x3.png"), // Total 9 cells.
 
-    SQUARE_4X4(4, 4, "4 X 4", "SQUARE", 2048, true, new ArrayList<ArrayList<Integer>>() {{
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
+    SQUARE_4X4(4, 4, "4 X 4", "SQUARE", 2048, true, new ArrayList<>() {{
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
     }}, "square_4x4.png"), // Total 16 cells.
 
-    SQUARE_5X5(5,5,"5 X 5","SQUARE",4096, true, new ArrayList<ArrayList<Integer>>() {{
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0);}});
+    SQUARE_5X5(5,5,"5 X 5","SQUARE",4096, true, new ArrayList<>() {{
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0);}});
     }}, "square_5x5.png"), // Total 25 cells.
 
-    SQUARE_6X6(6,6,"? X ?","SQUARE",8192, false, new ArrayList<ArrayList<Integer>>() {{
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
+    SQUARE_6X6(6,6,"? X ?","SQUARE",8192, false, new ArrayList<>() {{
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
     }}, "arriving_game_mode.jpg"), // Total 36 cells.
 
-    RECTANGLE_3X4(3,4,"3 X 4","RECTANGLE",512, true, new ArrayList<ArrayList<Integer>>() {{
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
+    RECTANGLE_3X4(3,4,"3 X 4","RECTANGLE",512, true, new ArrayList<>() {{
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
     }}, "rectangle_3x4.png"), // Total 12 cells.
 
-    RECTANGLE_3X5(3,5,"3 X 5","RECTANGLE",1024, true, new ArrayList<ArrayList<Integer>>() {{
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
+    RECTANGLE_3X5(3,5,"3 X 5","RECTANGLE",1024, true, new ArrayList<>() {{
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
     }}, "rectangle_3x5.png"), // Total 15 cells.
 
-    RECTANGLE_4X5(4,5,"4 X 5","RECTANGLE",2048, true, new ArrayList<ArrayList<Integer>>() {{
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
+    RECTANGLE_4X5(4,5,"4 X 5","RECTANGLE",2048, true, new ArrayList<>() {{
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
     }}, "rectangle_4x5.png"), // Total 20 cells.
 
-    RECTANGLE_4X6(4,6,"? X ?","RECTANGLE",4096, false, new ArrayList<ArrayList<Integer>>() {{
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
+    RECTANGLE_4X6(4,6,"? X ?","RECTANGLE",4096, false, new ArrayList<>() {{
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
     }}, "arriving_game_mode.jpg"), // Total 24 cells.
 
-    BLOCK_MIDDLE_SQUARE_5X5(5, 5, "5 X 5", "BLOCK MIDDLE, SQ", 2048, true, new ArrayList<ArrayList<Integer>>() {{
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(-1); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0);}});
+    BLOCK_MIDDLE_SQUARE_5X5(5, 5, "5 X 5", "BLOCK MIDDLE, SQ", 2048, true, new ArrayList<>() {{
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(-1); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0);}});
     }}, "block_middle_square_5x5.png"), // Total 25 cells.
 
-    BLOCK_MIDDLE_SQUARE_6X6(6,6,"? X ?","BLOCK MIDDLE, SQ",4096, false, new ArrayList<ArrayList<Integer>>() {{
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(-1); add(-1); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(-1); add(-1); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
+    BLOCK_MIDDLE_SQUARE_6X6(6,6,"? X ?","BLOCK MIDDLE, SQ",4096, false, new ArrayList<>() {{
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(-1); add(-1); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(-1); add(-1); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0); add(0);}});
     }}, "arriving_game_mode.jpg"), // Total 36 cells.
 
-    BLOCK_MIDDLE_RECTANGLE_3X4(3, 4, "3 X 4", "BLOCK MIDDLE, REC", 256, true, new ArrayList<ArrayList<Integer>>() {{
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(-1); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(-1); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
+    BLOCK_MIDDLE_RECTANGLE_3X4(3, 4, "3 X 4", "BLOCK MIDDLE, REC", 256, true, new ArrayList<>() {{
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(-1); add(0);}});
+        add(new ArrayList<>() {{add(0); add(-1); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
     }}, "block_middle_rectangle_3x4.png"), // Total 12 cells.
 
-    BLOCK_MIDDLE_RECTANGLE_3X5(3,5,"? X ?","BLOCK MIDDLE, REC",512, false, new ArrayList<ArrayList<Integer>>() {{
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(-1); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
+    BLOCK_MIDDLE_RECTANGLE_3X5(3,5,"? X ?","BLOCK MIDDLE, REC",512, false, new ArrayList<>() {{
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(-1); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
     }}, "arriving_game_mode.jpg"), // Total 15 cells.
 
-    BLOCK_2_CORNERS_SQUARE_4X4(4, 4, "4 X 4", "BLOCK 2 CORNERS, SQ", 2048, true, new ArrayList<ArrayList<Integer>>() {{
-        add(new ArrayList<Integer>() {{add(-1); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(-1);}});
+    BLOCK_2_CORNERS_SQUARE_4X4(4, 4, "4 X 4", "BLOCK 2 CORNERS, SQ", 2048, true, new ArrayList<>() {{
+        add(new ArrayList<>() {{add(-1); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(-1);}});
     }}, "block_2_corners_square_4x4.png"), // Total 16 cells.
 
-    BLOCK_2_CORNERS_SQUARE_5X5(5, 5, "? X ?", "BLOCK 2 CORNERS, SQ", 4096, false, new ArrayList<ArrayList<Integer>>() {{
-        add(new ArrayList<Integer>() {{add(-1); add(-1); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(-1); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(0); add(-1);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0); add(-1); add(-1);}});
+    BLOCK_2_CORNERS_SQUARE_5X5(5, 5, "? X ?", "BLOCK 2 CORNERS, SQ", 4096, false, new ArrayList<>() {{
+        add(new ArrayList<>() {{add(-1); add(-1); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(-1); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(0); add(-1);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0); add(-1); add(-1);}});
     }}, "arriving_game_mode.jpg"), // Total 25 cells.
 
-    BLOCK_2_CORNERS_RECTANGLE_3X4(3, 4, "3 X 4", "BLOCK 2 CORNERS, REC", 128, true, new ArrayList<ArrayList<Integer>>() {{
-        add(new ArrayList<Integer>() {{add(-1); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(-1);}});
+    BLOCK_2_CORNERS_RECTANGLE_3X4(3, 4, "3 X 4", "BLOCK 2 CORNERS, REC", 128, true, new ArrayList<>() {{
+        add(new ArrayList<>() {{add(-1); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(-1);}});
     }}, "block_2_corners_rectangle_3x4.png"), // Total 12 cells.
 
-    BLOCK_2_CORNERS_RECTANGLE_3X5(3,5,"? X ?","BLOCK 2 CORNERS, REC",256, false, new ArrayList<ArrayList<Integer>>() {{
-        add(new ArrayList<Integer>() {{add(-1); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(-1); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(0);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(-1);}});
-        add(new ArrayList<Integer>() {{add(0); add(0); add(-1);}});
+    BLOCK_2_CORNERS_RECTANGLE_3X5(3,5,"? X ?","BLOCK 2 CORNERS, REC",256, false, new ArrayList<>() {{
+        add(new ArrayList<>() {{add(-1); add(0); add(0);}});
+        add(new ArrayList<>() {{add(-1); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(0);}});
+        add(new ArrayList<>() {{add(0); add(0); add(-1);}});
+        add(new ArrayList<>() {{add(0); add(0); add(-1);}});
     }}, "arriving_game_mode.jpg"); // Total 15 cells.
 
     private final int columns;

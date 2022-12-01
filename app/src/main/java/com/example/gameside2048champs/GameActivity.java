@@ -31,6 +31,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.gameside2048champs.animations.AnimationsUtility;
+import com.example.gameside2048champs.animations.ToolAnimationsUtility;
 import com.example.gameside2048champs.dialogs.ArrivingToolDialog;
 import com.example.gameside2048champs.dialogs.GameOverDialog;
 import com.example.gameside2048champs.dialogs.GamePausedDialog;
@@ -42,8 +44,8 @@ import com.example.gameside2048champs.enums.Direction;
 import com.example.gameside2048champs.enums.GameModes;
 import com.example.gameside2048champs.enums.GameOverDialogOptions;
 import com.example.gameside2048champs.enums.GameStates;
-import com.example.gameside2048champs.fragments.DestroyAreaFragment;
 import com.example.gameside2048champs.fragments.ChangeValueFragment;
+import com.example.gameside2048champs.fragments.DestroyAreaFragment;
 import com.example.gameside2048champs.fragments.EliminateValueFragment;
 import com.example.gameside2048champs.fragments.ShopFragment;
 import com.example.gameside2048champs.fragments.SmashTileFragment;
@@ -215,12 +217,11 @@ public class GameActivity extends AppCompatActivity implements
 
     private void initialiseGoalText() {
         CellValues goalCellValue = CellValues.getCellValueEnum(currentGameMode.getGoal());
-        goalCellValue.setCellValue(currentGameMode.getGoal());
         AppCompatTextView goalTextView = findViewById(R.id.goal_value_text_view);
         goalTextView.setText(String.valueOf(goalCellValue.getCellValue()));
-        goalTextView.setTextColor(getResources().getColor(goalCellValue.getNumberColorResourceId()));
+        goalTextView.setTextColor(getColor(goalCellValue.getNumberColorResourceId()));
         GradientDrawable goalScoreGradientDrawable = new GradientDrawable();
-        goalScoreGradientDrawable.setColor(getResources().getColor(goalCellValue.getBackgroundColorResourceId()));
+        goalScoreGradientDrawable.setColor(getColor(goalCellValue.getBackgroundColorResourceId()));
         float density = getResources().getDisplayMetrics().density;
         int radius = (int) (5 * density); // The corner radius is 5 dp
         goalScoreGradientDrawable.setCornerRadii(new float[]{0, 0, 0, 0, radius, radius, radius, radius});
@@ -354,7 +355,6 @@ public class GameActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.Theme_GameSide2048Champs);
 
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -684,10 +684,8 @@ public class GameActivity extends AppCompatActivity implements
                     textView.setVisibility(View.INVISIBLE);
                 } else {
                     CellValues cellValueEnum = CellValues.getCellValueEnum(value);
-                    cellValueEnum.setCellValue(value);
-
-                    AnimationUtility.undoResetState(textView, cellValueEnum.getCellValue(),
-                            getResources().getColor(cellValueEnum.getNumberColorResourceId()),
+                    ToolAnimationsUtility.standardToolsUndoResetState(textView, cellValueEnum.getCellValue(),
+                            getColor(cellValueEnum.getNumberColorResourceId()),
                             getDrawable(cellValueEnum.getBackgroundDrawableResourceId()),
                             currentGameMode.getGameLayoutProperties());
                 }
@@ -773,7 +771,7 @@ public class GameActivity extends AppCompatActivity implements
 
     public void specialToolsDestroyArea(View view) {
         new ArrivingToolDialog(this).show();
-        /* TODO -> Implement the Destroy Area tool and uncomment the following line (Noted in Main Project) */
+        /* TODO -> Implement the Destroy Area tool and uncomment the following line */
         //destroyAreaProcess();
     }
 
@@ -781,7 +779,7 @@ public class GameActivity extends AppCompatActivity implements
         movesQueue.clear();
         if (!gameManager.getUndoManager().isUndoUsed()) { // Undo was not used, so using it now
             if (currentCoins >= toolsCostMap.get("standardToolsUndoCost")) {
-                AnimationUtility.standardToolsUndo(gridLottieView, rootGameConstraintLayout);
+                ToolAnimationsUtility.standardToolsUndo(gridLottieView, rootGameConstraintLayout);
                 new CountDownTimer(1000, 10000) {
                     @Override
                     public void onTick(long l) {
@@ -946,7 +944,7 @@ public class GameActivity extends AppCompatActivity implements
             addTempIndividualCellLottieLayer();
 
             // Initiate the tool entry transition
-            AnimationUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
+            ToolAnimationsUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
             SmashTileFragment fragment = new SmashTileFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -983,7 +981,7 @@ public class GameActivity extends AppCompatActivity implements
             addTempIndividualCellLottieLayer();
 
             // Initiate the tool entry transition
-            AnimationUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
+            ToolAnimationsUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
             ChangeValueFragment fragment = new ChangeValueFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -1020,7 +1018,7 @@ public class GameActivity extends AppCompatActivity implements
             addTempIndividualCellLottieLayer();
 
             // Initiate the tool entry transition
-            AnimationUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
+            ToolAnimationsUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
             SwapTilesFragment fragment = new SwapTilesFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -1057,7 +1055,7 @@ public class GameActivity extends AppCompatActivity implements
             addTempIndividualCellLottieLayer();
 
             // Initiate the tool entry transition
-            AnimationUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
+            ToolAnimationsUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
             EliminateValueFragment fragment = new EliminateValueFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -1094,7 +1092,7 @@ public class GameActivity extends AppCompatActivity implements
             addTempIndividualCellLottieLayer();
 
             // Initiate the tool entry transition
-            AnimationUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
+            ToolAnimationsUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
             DestroyAreaFragment fragment = new DestroyAreaFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -1179,9 +1177,8 @@ public class GameActivity extends AppCompatActivity implements
                     if (!copyOfCurrentBoard.get(row).get(column).equals(gameManager.getGameMatrix().get(row).get(column))) {
                         AppCompatTextView textView = rootGameConstraintLayout.findViewWithTag("gameCell" + row + column);
                         CellValues cellValueEnum = CellValues.getCellValueEnum(copyOfCurrentBoard.get(row).get(column));
-                        cellValueEnum.setCellValue(copyOfCurrentBoard.get(row).get(column));
-                        AnimationUtility.executePopUpAnimation(textView, cellValueEnum.getCellValue(),
-                                getResources().getColor(cellValueEnum.getNumberColorResourceId()),
+                        AnimationsUtility.executePopUpAnimation(textView, cellValueEnum.getCellValue(),
+                                getColor(cellValueEnum.getNumberColorResourceId()),
                                 getDrawable(cellValueEnum.getBackgroundDrawableResourceId()),
                                 addNewRandomCellDuration, 500, currentGameMode.getGameLayoutProperties());
                     }
@@ -1216,20 +1213,19 @@ public class GameActivity extends AppCompatActivity implements
         }
 
         /* Changing the value of the chosen tile */
-            // Settings new value for chosen tile in copyOfCurrentBoard
+        // Settings new value for chosen tile in copyOfCurrentBoard
         copyOfCurrentBoard.get(changeValueTilePosition.first).set(changeValueTilePosition.second, newValue);
         int popUpAnimationDuration = 250; // In Milli-seconds
-            // Giving new look to first swap position
+        // Giving new look to first swap position
         AppCompatTextView changeValueTilePositionTextView = rootGameConstraintLayout.findViewWithTag("gameCell" +
                 changeValueTilePosition.first + changeValueTilePosition.second);
         CellValues cellValueEnumFirstPosition = CellValues.getCellValueEnum(newValue);
-        cellValueEnumFirstPosition.setCellValue(newValue);
-            // Executing the pop up animation for the chosen tile to change value
-        AnimationUtility.executePopUpAnimation(changeValueTilePositionTextView, cellValueEnumFirstPosition.getCellValue(),
-                getResources().getColor(cellValueEnumFirstPosition.getNumberColorResourceId()),
+        // Executing the pop up animation for the chosen tile to change value
+        AnimationsUtility.executePopUpAnimation(changeValueTilePositionTextView, cellValueEnumFirstPosition.getCellValue(),
+                getColor(cellValueEnumFirstPosition.getNumberColorResourceId()),
                 getDrawable(cellValueEnumFirstPosition.getBackgroundDrawableResourceId()),
                 popUpAnimationDuration, 0, currentGameMode.getGameLayoutProperties());
-            // Updating the game matrix
+        // Updating the game matrix
         gameManager.updateGameMatrix(copyOfCurrentBoard);
 
         // Update the reduced number of coins
@@ -1251,7 +1247,7 @@ public class GameActivity extends AppCompatActivity implements
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onSwapTilesFragmentInteractionProcessToolUse(Pair<Integer, Integer> firstSwapTilePosition,
-        Pair<Integer, Integer> secondSwapTilePosition) {
+                                                             Pair<Integer, Integer> secondSwapTilePosition) {
         // Making a copy of the board
         List<List<Integer>> copyOfCurrentBoard = new ArrayList<>();
         for (int i = 0; i < gameManager.getGameMatrix().size(); i++) {
@@ -1260,32 +1256,30 @@ public class GameActivity extends AppCompatActivity implements
         }
 
         /* Swapping the chosen tiles on the board */
-            // Settings values in copyOfCurrentBoard
+        // Settings values in copyOfCurrentBoard
         int firstValue = gameManager.getGameMatrix().get(firstSwapTilePosition.first).get(firstSwapTilePosition.second);
         int secondValue = gameManager.getGameMatrix().get(secondSwapTilePosition.first).get(secondSwapTilePosition.second);
         copyOfCurrentBoard.get(firstSwapTilePosition.first).set(firstSwapTilePosition.second, secondValue);
         copyOfCurrentBoard.get(secondSwapTilePosition.first).set(secondSwapTilePosition.second, firstValue);
         int popUpAnimationDuration = 250; // In Milli-seconds
-            // Giving new look to first swap position
+        // Giving new look to first swap position
         AppCompatTextView firstPositionTextView = rootGameConstraintLayout.findViewWithTag("gameCell" +
                 firstSwapTilePosition.first + firstSwapTilePosition.second);
         CellValues cellValueEnumFirstPosition = CellValues.getCellValueEnum(secondValue);
-        cellValueEnumFirstPosition.setCellValue(secondValue);
-            // Giving new look to second swap position
+        // Giving new look to second swap position
         AppCompatTextView secondPositionTextView = rootGameConstraintLayout.findViewWithTag("gameCell" +
                 secondSwapTilePosition.first + secondSwapTilePosition.second);
         CellValues cellValueEnumSecondPosition = CellValues.getCellValueEnum(firstValue);
-        cellValueEnumSecondPosition.setCellValue(firstValue);
-            // Executing the pop up animation for both cell one after the other
-        AnimationUtility.executePopUpAnimation(firstPositionTextView, cellValueEnumFirstPosition.getCellValue(),
-                getResources().getColor(cellValueEnumFirstPosition.getNumberColorResourceId()),
+        // Executing the pop up animation for both cell one after the other
+        AnimationsUtility.executePopUpAnimation(firstPositionTextView, cellValueEnumFirstPosition.getCellValue(),
+                getColor(cellValueEnumFirstPosition.getNumberColorResourceId()),
                 getDrawable(cellValueEnumFirstPosition.getBackgroundDrawableResourceId()),
                 popUpAnimationDuration, 0, currentGameMode.getGameLayoutProperties());
-        AnimationUtility.executePopUpAnimation(secondPositionTextView, cellValueEnumSecondPosition.getCellValue(),
-                getResources().getColor(cellValueEnumSecondPosition.getNumberColorResourceId()),
+        AnimationsUtility.executePopUpAnimation(secondPositionTextView, cellValueEnumSecondPosition.getCellValue(),
+                getColor(cellValueEnumSecondPosition.getNumberColorResourceId()),
                 getDrawable(cellValueEnumSecondPosition.getBackgroundDrawableResourceId()),
                 popUpAnimationDuration, 0, currentGameMode.getGameLayoutProperties());
-            // Updating the game matrix
+        // Updating the game matrix
         gameManager.updateGameMatrix(copyOfCurrentBoard);
 
         // Update the reduced number of coins
@@ -1333,9 +1327,8 @@ public class GameActivity extends AppCompatActivity implements
                         GridLayout gameGridLayout = findViewById(R.id.game_grid_layout);
                         AppCompatTextView textView = gameGridLayout.findViewWithTag("gameCell" + row + column);
                         CellValues cellValueEnum = CellValues.getCellValueEnum(copyOfCurrentBoard.get(row).get(column));
-                        cellValueEnum.setCellValue(copyOfCurrentBoard.get(row).get(column));
-                        AnimationUtility.executePopUpAnimation(textView, cellValueEnum.getCellValue(),
-                                getResources().getColor(cellValueEnum.getNumberColorResourceId()),
+                        AnimationsUtility.executePopUpAnimation(textView, cellValueEnum.getCellValue(),
+                                getColor(cellValueEnum.getNumberColorResourceId()),
                                 getDrawable(cellValueEnum.getBackgroundDrawableResourceId()),
                                 addNewRandomCellDuration, 500, currentGameMode.getGameLayoutProperties());
                     }

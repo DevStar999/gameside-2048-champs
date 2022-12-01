@@ -14,7 +14,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.gameside2048champs.AnimationUtility;
+import com.example.gameside2048champs.animations.ToolAnimationsUtility;
 import com.example.gameside2048champs.R;
 
 public class DestroyAreaFragment extends Fragment {
@@ -80,7 +80,7 @@ public class DestroyAreaFragment extends Fragment {
             public void onTick(long l) {}
             @Override
             public void onFinish() {
-                AnimationUtility.toolLottieEmergeAnimation(destroyAreaPreviewLottie, 575);
+                ToolAnimationsUtility.toolLottieEmergeAnimation(destroyAreaPreviewLottie, 575);
                 postFragmentSetupTimer.start();
             }
         }.start();
@@ -104,8 +104,7 @@ public class DestroyAreaFragment extends Fragment {
         if (context instanceof OnDestroyAreaFragmentInteractionListener) {
             mListener = (OnDestroyAreaFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnDestroyAreaFragmentInteractionListener");
+            throw new RuntimeException(context + " must implement OnDestroyAreaFragmentInteractionListener");
         }
     }
 

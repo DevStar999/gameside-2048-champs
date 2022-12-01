@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.gameside2048champs.AnimationUtility;
+import com.example.gameside2048champs.animations.ToolAnimationsUtility;
 import com.example.gameside2048champs.R;
 
 import java.util.List;
@@ -86,7 +84,7 @@ public class EliminateValueFragment extends Fragment {
             public void onTick(long l) {}
             @Override
             public void onFinish() {
-                AnimationUtility.toolLottieEmergeAnimation(eliminateValuePreviewLottie, 575);
+                ToolAnimationsUtility.toolLottieEmergeAnimation(eliminateValuePreviewLottie, 575);
                 postFragmentSetupTimer.start();
             }
         }.start();
@@ -101,8 +99,8 @@ public class EliminateValueFragment extends Fragment {
     }
 
     private Animator.AnimatorListener getIndividualTargetTileSelectionAnimatorListener(boolean isCurrentTargetTileFinal,
-        LottieAnimationView targetTileLottie, GridLayout gameCellLottieLayout, LottieAnimationView gridLottieView,
-        Animator.AnimatorListener gridLottieAnimatorListener) {
+                                                                                       LottieAnimationView targetTileLottie, GridLayout gameCellLottieLayout, LottieAnimationView gridLottieView,
+                                                                                       Animator.AnimatorListener gridLottieAnimatorListener) {
         // Pre-processing for the 2nd set of events is as follows
         return new Animator.AnimatorListener() {
             @Override
@@ -116,7 +114,7 @@ public class EliminateValueFragment extends Fragment {
                 // 3rd set of events is as follows
                 if (isCurrentTargetTileFinal) {
                     gameCellLottieLayout.setVisibility(View.GONE);
-                    AnimationUtility.specialToolsEliminateValueGridSetup(gridLottieView);
+                    ToolAnimationsUtility.specialToolsEliminateValueGridSetup(gridLottieView);
                     gridLottieView.addAnimatorListener(gridLottieAnimatorListener);
                     gridLottieView.playAnimation();
                 }
@@ -129,7 +127,7 @@ public class EliminateValueFragment extends Fragment {
     }
 
     private Animator.AnimatorListener getIndividualTargetTileEliminateAnimatorListener(boolean isCurrentTargetTileFinal,
-        GridLayout gameCellLottieLayout, List<Pair<Integer, Integer>> targetTilesPositions) {
+                                                                                       GridLayout gameCellLottieLayout, List<Pair<Integer, Integer>> targetTilesPositions) {
         // Pre-processing for the 4th set of events is as follows
         return new Animator.AnimatorListener() {
             @Override
@@ -175,7 +173,7 @@ public class EliminateValueFragment extends Fragment {
                 gameCellLottieLayout.setVisibility(View.VISIBLE);
 
                 // 4th set of events is as follows
-                AnimationUtility.specialToolsEliminateValueTargetTilesSetup(targetTilesLottie);
+                ToolAnimationsUtility.specialToolsEliminateValueTargetTilesSetup(targetTilesLottie);
                 for (int index = 0; index < targetTilesLottie.size(); index++) {
                     boolean isCurrentTargetTileFinal = (index == targetTilesLottie.size() - 1);
                     targetTilesLottie.get(index).removeAllAnimatorListeners();
@@ -193,7 +191,7 @@ public class EliminateValueFragment extends Fragment {
         };
 
         // 2nd set of events is as follows
-        AnimationUtility.specialToolsEliminateValueTargetTilesSelectionSetup(targetTilesLottie);
+        ToolAnimationsUtility.specialToolsEliminateValueTargetTilesSelectionSetup(targetTilesLottie);
         for (int index = 0; index < targetTilesLottie.size(); index++) {
             boolean isCurrentTargetTileFinal = (index == targetTilesLottie.size() - 1);
             targetTilesLottie.get(index).addAnimatorListener(getIndividualTargetTileSelectionAnimatorListener(
@@ -216,8 +214,7 @@ public class EliminateValueFragment extends Fragment {
         if (context instanceof OnEliminateValueFragmentInteractionListener) {
             mListener = (OnEliminateValueFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnEliminateValueFragmentInteractionListener");
+            throw new RuntimeException(context + " must implement OnEliminateValueFragmentInteractionListener");
         }
     }
 

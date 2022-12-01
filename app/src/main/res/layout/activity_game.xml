@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!-- List of things that we need to check while creating a layout are as follows:
+<?xml version="1.0" encoding="utf-8"?>
+<!-- List of things that we need to check while creating a layout are as follows:
      1) root_game_constraint_layout
      a. padding="16dp" (Correct, Always keep this value)
      2) goal_title_text_view, current_score_title_text_view, best_score_title_text_view
@@ -657,7 +658,7 @@
     </FrameLayout>
 
     <!-- TODO -> In the later stages of development, remove this tutorial
-                 textview from layout and from code (Noted in Main Project) -->
+                 textview from layout and from code -->
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tutorial_text_view"
         android:layout_width="wrap_content"

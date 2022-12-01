@@ -40,7 +40,7 @@ public class GameLayoutProvider {
         gameBackgroundGridLayout.setId(R.id.game_background_grid_layout);
         gameBackgroundGridLayout.setRowCount(gameMode.getRows());
         gameBackgroundGridLayout.setColumnCount(gameMode.getRows());
-        gameBackgroundGridLayout.setBackground(context.getResources().getDrawable(R.drawable.rounded_corner_board));
+        gameBackgroundGridLayout.setBackground(context.getDrawable(R.drawable.rounded_corner_board));
         for (int i = 0; i < gameMode.getRows(); i++) {
             for (int j = 0; j < gameMode.getColumns(); j++) {
                 AppCompatImageView imageView = new AppCompatImageView(context);
@@ -77,7 +77,7 @@ public class GameLayoutProvider {
                 textView.setTag("gameCell" + i + j);
                 textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
-                textView.setBackground(context.getResources().getDrawable(R.drawable.cell_empty));
+                textView.setBackground(context.getDrawable(R.drawable.cell_empty));
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
                 params.height = 1;
                 params.width = 1;

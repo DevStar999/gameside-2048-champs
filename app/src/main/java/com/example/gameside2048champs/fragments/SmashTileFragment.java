@@ -14,11 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.gameside2048champs.AnimationUtility;
+import com.example.gameside2048champs.animations.ToolAnimationsUtility;
 import com.example.gameside2048champs.R;
 
 public class SmashTileFragment extends Fragment {
@@ -83,7 +82,7 @@ public class SmashTileFragment extends Fragment {
             public void onTick(long l) {}
             @Override
             public void onFinish() {
-                AnimationUtility.toolLottieEmergeAnimation(smashTilePreviewLottie, 575);
+                ToolAnimationsUtility.toolLottieEmergeAnimation(smashTilePreviewLottie, 575);
                 postFragmentSetupTimer.start();
             }
         }.start();
@@ -139,7 +138,7 @@ public class SmashTileFragment extends Fragment {
                 gameCellLottieLayout.setVisibility(View.VISIBLE);
 
                 // 4th set of events is as follows
-                AnimationUtility.standardToolsSmashTileTargetTileSetup(individualTileLottie);
+                ToolAnimationsUtility.standardToolsSmashTileTargetTileSetup(individualTileLottie);
                 individualTileLottie.removeAllAnimatorListeners();
                 individualTileLottie.addAnimatorListener(individualTileLottieSmashAnimatorListener);
                 individualTileLottie.playAnimation();
@@ -162,7 +161,7 @@ public class SmashTileFragment extends Fragment {
                 gameCellLottieLayout.setVisibility(View.GONE);
 
                 // 3rd set of events is as follows
-                AnimationUtility.standardToolsSmashTileGridSetup(gridLottieView);
+                ToolAnimationsUtility.standardToolsSmashTileGridSetup(gridLottieView);
                 gridLottieView.addAnimatorListener(gridLottieAnimatorListener);
                 gridLottieView.playAnimation();
             }
@@ -173,7 +172,7 @@ public class SmashTileFragment extends Fragment {
         };
 
         // 2nd set of events is as follows
-        AnimationUtility.standardToolsSmashTileTargetTileSelectionSetup(individualTileLottie);
+        ToolAnimationsUtility.standardToolsSmashTileTargetTileSelectionSetup(individualTileLottie);
         individualTileLottie.addAnimatorListener(individualTileLottieSelectionAnimatorListener);
         individualTileLottie.playAnimation();
     }
@@ -189,8 +188,7 @@ public class SmashTileFragment extends Fragment {
         if (context instanceof OnSmashTileFragmentInteractionListener) {
             mListener = (OnSmashTileFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnSmashTileFragmentInteractionListener");
+            throw new RuntimeException(context + " must implement OnSmashTileFragmentInteractionListener");
         }
     }
 
