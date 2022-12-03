@@ -41,7 +41,6 @@ public class ShopFragment extends Fragment {
     /* Views related to this fragment */
     private AppCompatTextView currentCoinsTextView;
     private AppCompatImageView backButton;
-    private AppCompatButton restorePurchase;
     private List<ConstraintLayout> shopCoinsConstraintLayouts;
     private List<AppCompatButton> shopCoinsPurchaseButtons;
 
@@ -64,14 +63,6 @@ public class ShopFragment extends Fragment {
             public void onClick(View view) {
                 if (mListener != null) {
                     mListener.onShopFragmentInteractionBackClicked();
-                }
-            }
-        });
-        restorePurchase.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mListener != null) {
-                    mListener.onShopFragmentInteractionRestorePurchaseClicked();
                 }
             }
         });
@@ -140,7 +131,6 @@ public class ShopFragment extends Fragment {
 
         currentCoinsTextView = view.findViewById(R.id.current_coins_shop_fragment_text_view);
         backButton = view.findViewById(R.id.title_back_shop_fragment_button);
-        restorePurchase = view.findViewById(R.id.restore_purchases_shop_fragment_button);
 
         shopCoinsConstraintLayouts = new ArrayList<>();
         for (int level = 1; level <= 7; level++) {
@@ -180,7 +170,6 @@ public class ShopFragment extends Fragment {
 
     public interface OnShopFragmentInteractionListener {
         void onShopFragmentInteractionBackClicked();
-        void onShopFragmentInteractionRestorePurchaseClicked();
         void onShopFragmentInteractionUpdateCoins(int currentCoins);
     }
 

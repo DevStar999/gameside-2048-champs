@@ -1138,11 +1138,6 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onShopFragmentInteractionRestorePurchaseClicked() {
-        Toast.makeText(this, "Restore Purchase Clicked", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void onShopFragmentInteractionUpdateCoins(int currentCoins) {
         updateCoins(currentCoins);
     }
