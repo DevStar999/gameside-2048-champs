@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -193,10 +194,12 @@ public class SwapTilesFragment extends Fragment {
                 SwapTilesFragment.this.firstSwapTileLottie.setPadding(0,0,0,0);
                 SwapTilesFragment.this.firstSwapTileLottie.setScaleX(1f);
                 SwapTilesFragment.this.firstSwapTileLottie.setSpeed(1f);
+                SwapTilesFragment.this.firstSwapTileLottie.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 SwapTilesFragment.this.firstSwapTileLottie.pauseAnimation();
                 SwapTilesFragment.this.secondSwapTileLottie.setPadding(0,0,0,0);
                 SwapTilesFragment.this.secondSwapTileLottie.setScaleX(1f);
                 SwapTilesFragment.this.secondSwapTileLottie.setSpeed(1f);
+                SwapTilesFragment.this.secondSwapTileLottie.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 SwapTilesFragment.this.secondSwapTileLottie.pauseAnimation();
             }
             @Override
@@ -214,10 +217,12 @@ public class SwapTilesFragment extends Fragment {
                 SwapTilesFragment.this.firstSwapTileLottie.setProgress(0f);
                 SwapTilesFragment.this.firstSwapTileLottie.setPadding(0,0,0,0);
                 SwapTilesFragment.this.firstSwapTileLottie.setSpeed(1f);
+                SwapTilesFragment.this.firstSwapTileLottie.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 SwapTilesFragment.this.firstSwapTileLottie.pauseAnimation();
                 SwapTilesFragment.this.secondSwapTileLottie.setProgress(0f);
                 SwapTilesFragment.this.secondSwapTileLottie.setPadding(0,0,0,0);
                 SwapTilesFragment.this.secondSwapTileLottie.setSpeed(1f);
+                SwapTilesFragment.this.secondSwapTileLottie.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 SwapTilesFragment.this.secondSwapTileLottie.pauseAnimation();
 
                 // 3rd set of events is as follows

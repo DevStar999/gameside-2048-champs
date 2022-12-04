@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -136,6 +137,7 @@ public class ToolAnimationsUtility {
         changeValueTileLottie.setVisibility(View.VISIBLE);
         changeValueTileLottie.setRepeatMode(LottieDrawable.RESTART);
         changeValueTileLottie.setRepeatCount(LottieDrawable.INFINITE);
+        changeValueTileLottie.setScaleType(ImageView.ScaleType.FIT_XY);
         changeValueTileLottie.setAnimation(R.raw.tile_selection_continuous);
     }
 
@@ -143,6 +145,7 @@ public class ToolAnimationsUtility {
         // Removing old properties
         changeValueTileLottie.setPadding(0,0,0,0);
         changeValueTileLottie.setRepeatCount(0);
+        changeValueTileLottie.setScaleType(ImageView.ScaleType.FIT_CENTER); // Setting back to the default ScaleType
 
         // Setting new properties
         changeValueTileLottie.setPadding(16,0,0,0);
@@ -172,6 +175,7 @@ public class ToolAnimationsUtility {
         swapTileLottie.setVisibility(View.VISIBLE);
         swapTileLottie.setRepeatMode(LottieDrawable.RESTART);
         swapTileLottie.setRepeatCount(LottieDrawable.INFINITE);
+        swapTileLottie.setScaleType(ImageView.ScaleType.FIT_XY);
         swapTileLottie.setAnimation(R.raw.special_tools_swap_tiles_tile_selection);
     }
 
@@ -179,6 +183,7 @@ public class ToolAnimationsUtility {
         swapTileLottie.setPadding(2,2,2,2);
         swapTileLottie.setVisibility(View.VISIBLE);
         swapTileLottie.setRepeatCount(0);
+        swapTileLottie.setScaleType(ImageView.ScaleType.FIT_XY);
         swapTileLottie.setAnimation(R.raw.special_tools_swap_tiles_tile_selection);
         swapTileLottie.setSpeed(2);
     }
