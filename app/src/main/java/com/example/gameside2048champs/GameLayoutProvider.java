@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.gameside2048champs.enums.BlockDesigns;
 import com.example.gameside2048champs.enums.GameModes;
 
 public class GameLayoutProvider {
@@ -45,8 +46,11 @@ public class GameLayoutProvider {
             for (int j = 0; j < gameMode.getColumns(); j++) {
                 AppCompatImageView imageView = new AppCompatImageView(context);
                 if (gameMode.getBlockCells().get(i).get(j).equals(-1)) {
-                    imageView.setImageResource(sharedPreferences
-                            .getInt("blockDrawableResourceId", R.drawable.block_cell_x));
+                    BlockDesigns selectedBlockDesign = BlockDesigns.valueOf(sharedPreferences
+                            .getString("selectedBlockDrawableEnumName", BlockDesigns.BLOCK_CELL_X.name()));
+                    imageView.setImageResource(selectedBlockDesign.getBlockDrawableResourceId());
+                    imageView.setScaleX(selectedBlockDesign.getBlockDrawableScaleX());
+                    imageView.setScaleY(selectedBlockDesign.getBlockDrawableScaleY());
                 } else {
                     imageView.setImageResource(R.drawable.cell_empty);
                 }
