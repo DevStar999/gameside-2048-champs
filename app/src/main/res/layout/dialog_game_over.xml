@@ -25,6 +25,9 @@
         app:lottie_repeatCount="4"
         app:lottie_repeatMode="restart" />
 
+    <!-- GameOverDialog is the only dialog where we are keeping the text
+         of the dialog in uppercase (as the text is short & should be in
+         caps based on it's significance) -->
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/game_over_text"
         android:layout_width="wrap_content"
