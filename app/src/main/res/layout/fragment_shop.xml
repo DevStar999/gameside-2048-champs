@@ -46,13 +46,14 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/coins_display_linear_layout_shop_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/add_coins_button_shop_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/shop_fragment_title_frame_layout">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/current_coins_title"
@@ -79,5 +80,15 @@
             android:textStyle="bold" />
 
     </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_coins_button_shop_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add +1000 Coins"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/coins_display_linear_layout_shop_fragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
