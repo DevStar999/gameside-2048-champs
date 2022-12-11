@@ -157,7 +157,7 @@ public class ShopFragment extends Fragment {
             shopCoinsPurchaseButtons.add(view.findViewById(layoutResId));
         }
 
-        currentCoins = sharedPreferences.getInt("currentCoins", 2000);
+        currentCoins = sharedPreferences.getInt("currentCoins", 3000);
         currentCoinsTextView.setText(String.valueOf(currentCoins));
         coinsReward = new HashMap<>() {{
             put("coins_level1", 1000); put("coins_level2", 3000); put("coins_level3", 5000);

@@ -117,7 +117,7 @@ public class GameActivity extends AppCompatActivity implements
         movesQueue = new ArrayDeque<>();
         goalDone = sharedPreferences.getBoolean("goalDone" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), false); // Keep default as 'false'
-        currentCoins = sharedPreferences.getInt("currentCoins", 2000);
+        currentCoins = sharedPreferences.getInt("currentCoins", 3000);
         toolsCostMap = new HashMap<>() {{
             put("standardToolsUndoCost", 125);
             put("standardToolsSmashTileCost", 150);
