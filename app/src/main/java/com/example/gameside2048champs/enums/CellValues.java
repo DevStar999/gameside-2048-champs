@@ -36,6 +36,10 @@ public enum CellValues {
         this.backgroundDrawableResourceId = backgroundDrawableResourceId;
     }
 
+    private void setCellValue(int givenCellValue) {
+        this.cellValue = givenCellValue;
+    }
+
     public static CellValues getCellValueEnum(int cellValue) {
         switch (cellValue) {
             case 0: return valueOf("CELL_VALUE_EMPTY");
@@ -52,7 +56,11 @@ public enum CellValues {
             case 2048: return valueOf("CELL_VALUE_2048");
             case 4096: return valueOf("CELL_VALUE_4096");
             case 8192: return valueOf("CELL_VALUE_8192");
-            default: return valueOf("CELL_VALUE_HIGHER_ORDER");
+            default: {
+                CellValues cellValueEnum = valueOf("CELL_VALUE_HIGHER_ORDER");
+                cellValueEnum.setCellValue(cellValue);
+                return cellValueEnum;
+            }
         }
     }
 }
