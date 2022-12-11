@@ -37,6 +37,7 @@ import com.example.gameside2048champs.fragments.PreGameFragment;
 /* TODO -> Goal completion & game state status should be checked for (a) Smash Tile Tool (b) Eliminate Value Tool
            (Noted in Main Project)
 */
+// TODO -> Add option in ShopFragment to earn coins for free by watching Ad when ad has loaded
 public class MainActivity extends AppCompatActivity implements PreGameFragment.OnPreGameFragmentInteractionListener {
 
     @SuppressLint("SourceLockedOrientationActivity")
