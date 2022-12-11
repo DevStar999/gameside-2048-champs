@@ -535,26 +535,46 @@ public class GameActivity extends AppCompatActivity implements
             setupGamePausedDialog();
         } else { // Back button was pressed from fragment
             boolean isGameOverCheckRequired = false;
+            boolean forToolFragmentsIsToolInProgress = false;
             int countOfFragments = getSupportFragmentManager().getFragments().size();
             if (countOfFragments > 0) {
                 Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments - 1);
                 if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()) {
-                    if (topMostFragment.getTag().equals("SMASH_TILE_FRAGMENT")
-                            || topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")
-                            || topMostFragment.getTag().equals("SWAP_TILES_FRAGMENT")
-                            || topMostFragment.getTag().equals("ELIMINATE_VALUE_FRAGMENT")
-                            || topMostFragment.getTag().equals("DESTROY_AREA_FRAGMENT")) {
-                        handleToolFragmentBackClicked();
+                    String fragmentTag = topMostFragment.getTag();
+                    if (fragmentTag.equals("SMASH_TILE_FRAGMENT") || fragmentTag.equals("CHANGE_VALUE_FRAGMENT")
+                            || fragmentTag.equals("SWAP_TILES_FRAGMENT") || fragmentTag.equals("ELIMINATE_VALUE_FRAGMENT")
+                            || fragmentTag.equals("DESTROY_AREA_FRAGMENT")) {
+                        if (fragmentTag.equals("SMASH_TILE_FRAGMENT")) {
+                            forToolFragmentsIsToolInProgress = ((SmashTileFragment) topMostFragment).checkToolUseState();
+                            handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
+                        } else if (fragmentTag.equals("CHANGE_VALUE_FRAGMENT")) {
+                            forToolFragmentsIsToolInProgress = ((ChangeValueFragment) topMostFragment).checkSecondClickStatus();
+                            handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
+                        } else if (fragmentTag.equals("SWAP_TILES_FRAGMENT")) {
+                            forToolFragmentsIsToolInProgress = ((SwapTilesFragment) topMostFragment).checkSecondClickStatus();
+                            handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
+                        } else if (fragmentTag.equals("ELIMINATE_VALUE_FRAGMENT")) {
+                            forToolFragmentsIsToolInProgress = ((EliminateValueFragment) topMostFragment).checkToolUseState();
+                            handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
+                        } else { // For DestroyAreaFragment
+                            // TODO -> Add the handleToolFragmentBackClicked() method for this code block as well
+                        }
+
                         // For some of the tool fragments some more processing maybe required, which is as follows
-                        if (topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")
-                                || topMostFragment.getTag().equals("SWAP_TILES_FRAGMENT")) {
+                        if (fragmentTag.equals("CHANGE_VALUE_FRAGMENT")
+                                || fragmentTag.equals("SWAP_TILES_FRAGMENT")) {
                             // Need to check if after the swap move is game going on OR is it game over
                             isGameOverCheckRequired = true; // Game over check will be performed later using this flag
                         }
                     }
                 }
             }
-            getSupportFragmentManager().popBackStack();
+
+            if (!forToolFragmentsIsToolInProgress) {
+                getSupportFragmentManager().popBackStack();
+            } else { // If tool use is in progress we want to ignore the back clicked and return
+                return;
+            }
 
             if (isGameOverCheckRequired) {
                 gameManager.updateGameState();
@@ -1347,7 +1367,11 @@ public class GameActivity extends AppCompatActivity implements
         onBackPressed();
     }
 
-    private void handleToolFragmentBackClicked() {
+    private void handleToolFragmentBackClicked(boolean isToolUseInProgress) {
+        if (isToolUseInProgress) { // If tool use is in progress then we want to ignore the back button click
+            return;
+        }
+
         backgroundFilmImageView.setImageResource(0); // Setting image resource to blank
         rootGameConstraintLayout.setEnabled(true);
         gameFrameLayout.removeView(findViewById(R.id.game_cell_lottie_layout));

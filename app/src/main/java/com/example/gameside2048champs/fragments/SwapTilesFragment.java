@@ -129,6 +129,7 @@ public class SwapTilesFragment extends Fragment {
                                                LottieAnimationView gridLottieView, Pair<Integer, Integer> secondSwapTilePosition) {
         // 1st set of events is as follows
         isSecondClickDone = true;
+        backButton.setVisibility(View.GONE);
         toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
         secondClickCheckBox.setChecked(true);
 

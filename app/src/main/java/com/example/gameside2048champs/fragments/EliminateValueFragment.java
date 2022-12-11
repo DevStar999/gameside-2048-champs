@@ -153,6 +153,7 @@ public class EliminateValueFragment extends Fragment {
                                           LottieAnimationView gridLottieView, List<Pair<Integer, Integer>> targetTilesPositions) {
         // 1st set of events is as follows
         isToolUseComplete = true;
+        backButton.setVisibility(View.GONE);
         toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
         toolDescriptionTextView.setVisibility(View.GONE);
         rotatingLightLottie.pauseAnimation();

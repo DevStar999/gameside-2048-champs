@@ -100,6 +100,7 @@ public class SmashTileFragment extends Fragment {
                                       LottieAnimationView gridLottieView, Pair<Integer, Integer> targetTilePosition) {
         // 1st set of events is as follows
         isToolUseComplete = true;
+        backButton.setVisibility(View.GONE);
         toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
         toolDescriptionTextView.setVisibility(View.GONE);
         rotatingLightLottie.pauseAnimation();

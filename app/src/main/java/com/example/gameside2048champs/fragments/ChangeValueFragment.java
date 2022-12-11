@@ -228,6 +228,7 @@ public class ChangeValueFragment extends Fragment {
     private void handleChangeValueToolSecondClick(int newValue, int optionNumber) {
         // 1st set of events is as follows
         isSecondClickDone = true;
+        backButton.setVisibility(View.GONE);
         toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
         secondClickCheckBox.setChecked(true);
         CellValues cellValuesSelectedOption = CellValues.getCellValueEnum(optionValues.get(optionNumber));
