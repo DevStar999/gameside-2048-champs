@@ -19,7 +19,6 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -42,6 +41,7 @@ import com.example.gameside2048champs.dialogs.ToolUseProhibitedDialog;
 import com.example.gameside2048champs.enums.CellValues;
 import com.example.gameside2048champs.enums.Direction;
 import com.example.gameside2048champs.enums.GameModes;
+import com.example.gameside2048champs.enums.GameOverDialogActivePage;
 import com.example.gameside2048champs.enums.GameOverDialogOptions;
 import com.example.gameside2048champs.enums.GameStates;
 import com.example.gameside2048champs.fragments.ChangeValueFragment;
@@ -195,23 +195,17 @@ public class GameActivity extends AppCompatActivity implements
             tutorialTextView.setText("Merge the tiles to form the GOAL TILE!");
         }
 
-        AppCompatTextView standardToolsUndoCostTextView =
-                findViewById(R.id.standard_tools_undo_cost_text_view);
+        AppCompatTextView standardToolsUndoCostTextView = findViewById(R.id.standard_tools_undo_cost_text_view);
         standardToolsUndoCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsUndoCost")));
-        AppCompatTextView standardToolsSmashTileCostTextView =
-                findViewById(R.id.standard_tools_smash_cost_text_view);
+        AppCompatTextView standardToolsSmashTileCostTextView = findViewById(R.id.standard_tools_smash_cost_text_view);
         standardToolsSmashTileCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsSmashTileCost")));
-        AppCompatTextView standardToolsChangeValueCostTextView =
-                findViewById(R.id.standard_tools_change_value_cost_text_view);
+        AppCompatTextView standardToolsChangeValueCostTextView = findViewById(R.id.standard_tools_change_value_cost_text_view);
         standardToolsChangeValueCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsChangeValueCost")));
-        AppCompatTextView specialToolsSwapTilesCostTextView =
-                findViewById(R.id.special_tools_swap_tiles_cost_text_view);
+        AppCompatTextView specialToolsSwapTilesCostTextView = findViewById(R.id.special_tools_swap_tiles_cost_text_view);
         specialToolsSwapTilesCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsSwapTilesCost")));
-        AppCompatTextView specialToolsEliminateValueCostTextView =
-                findViewById(R.id.special_tools_eliminate_value_cost_text_view);
+        AppCompatTextView specialToolsEliminateValueCostTextView = findViewById(R.id.special_tools_eliminate_value_cost_text_view);
         specialToolsEliminateValueCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsEliminateValueCost")));
-        AppCompatTextView specialToolsDestroyAreaCostTextView =
-                findViewById(R.id.special_tools_destroy_area_cost_text_view);
+        AppCompatTextView specialToolsDestroyAreaCostTextView = findViewById(R.id.special_tools_destroy_area_cost_text_view);
         specialToolsDestroyAreaCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsDestroyAreaCost")));
     }
 
@@ -252,27 +246,44 @@ public class GameActivity extends AppCompatActivity implements
         tutorialTextView.setText(String.format("GAME OVER %s",
                 String.valueOf(toChars(Integer.parseInt("1F613", 16)))));
         saveGameState();
-        GameOverDialog gameOverDialog = new GameOverDialog(GameActivity.this);
+        GameOverDialog gameOverDialog = new GameOverDialog(GameActivity.this, currentScore, bestScore);
         gameOverDialog.show();
         gameOverDialog.setGameOverDialogListener(new GameOverDialog.GameOverDialogListener() {
             @Override
-            public void getResponseOfOverDialog(GameOverDialogOptions optionSelected,
-                                                boolean didUserRespond) {
+            public void getResponseOfOverDialog(boolean didUserRespond, GameOverDialogActivePage activePage,
+                                                GameOverDialogOptions optionSelected) {
                 if (didUserRespond) {
-                    if (optionSelected == GameOverDialogOptions.MAIN_MENU) {
-                        resetGameAndStartIfFlagTrue(false);
+                    if (activePage == GameOverDialogActivePage.REVIVE_TOOLS_PAGE) {
+                        if (optionSelected == GameOverDialogOptions.SHOP_COINS) {
+                            openShopFragment();
+                        } else if (optionSelected == GameOverDialogOptions.STANDARD_TOOL_UNDO) {
+                            undoProcess();
+                        } else if (optionSelected == GameOverDialogOptions.STANDARD_TOOL_SMASH_TILE) {
+                            smashTileProcess();
+                        } else if (optionSelected == GameOverDialogOptions.STANDARD_TOOL_CHANGE_VALUE) {
+                            changeValueProcess();
+                        } else if (optionSelected == GameOverDialogOptions.SPECIAL_TOOL_SWAP_TILES) {
+                            swapTilesProcess();
+                        } else if (optionSelected == GameOverDialogOptions.SPECIAL_TOOL_ELIMINATE_VALUE) {
+                            eliminateValueProcess();
+                        } else if (optionSelected == GameOverDialogOptions.SPECIAL_TOOL_DESTROY_AREA) {
+                            new ArrivingToolDialog(GameActivity.this).show();
+                            /* TODO -> Implement the Destroy Area tool and uncomment the following line */
+                            //destroyAreaProcess();
+                        }
+                    } else if (activePage == GameOverDialogActivePage.GAME_SUMMARY_PAGE) {
+                        if (optionSelected == GameOverDialogOptions.MAIN_MENU) {
+                            resetGameAndStartIfFlagTrue(false);
 
-                        Intent intent = new Intent(GameActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else if (optionSelected == GameOverDialogOptions.PLAY_AGAIN) {
-                        resetGameAndStartIfFlagTrue(true);
-                    } else if (optionSelected == GameOverDialogOptions.UNDO_LAST_MOVE) {
-                        undoProcess();
+                            Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else if (optionSelected == GameOverDialogOptions.PLAY_AGAIN) {
+                            resetGameAndStartIfFlagTrue(true);
+                        }
                     }
                 } else {
-                    // If the user does not respond we will start a new game
-                    // from our side
+                    // If the user does not respond we will start a new game from our side
                     resetGameAndStartIfFlagTrue(true);
                 }
             }
@@ -1130,30 +1141,7 @@ public class GameActivity extends AppCompatActivity implements
     public void onShopFragmentInteractionBackClicked() {
         onBackPressed();
         if (gameManager.getCurrentGameState() == GameStates.GAME_OVER) {
-            GameOverDialog gameOverDialog = new GameOverDialog(GameActivity.this);
-            gameOverDialog.show();
-            gameOverDialog.setGameOverDialogListener(new GameOverDialog.GameOverDialogListener() {
-                @Override
-                public void getResponseOfOverDialog(GameOverDialogOptions optionSelected,
-                                                    boolean didUserRespond) {
-                    if (didUserRespond) {
-                        if (optionSelected == GameOverDialogOptions.MAIN_MENU) {
-                            resetGameAndStartIfFlagTrue(false);
-
-                            Intent intent = new Intent(GameActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else if (optionSelected == GameOverDialogOptions.PLAY_AGAIN) {
-                            resetGameAndStartIfFlagTrue(true);
-                        } else if (optionSelected == GameOverDialogOptions.UNDO_LAST_MOVE) {
-                            undoProcess();
-                        }
-                    } else {
-                        // If the user does not respond we will start a new game from our side
-                        resetGameAndStartIfFlagTrue(true);
-                    }
-                }
-            });
+            handleGameOverProcess();
         }
     }
 
