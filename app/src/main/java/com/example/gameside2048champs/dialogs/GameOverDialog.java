@@ -1,5 +1,6 @@
 package com.example.gameside2048champs.dialogs;
 
+import android.animation.Animator;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.CountDownTimer;
@@ -9,96 +10,422 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieDrawable;
 import com.example.gameside2048champs.R;
+import com.example.gameside2048champs.enums.GameOverDialogActivePage;
 import com.example.gameside2048champs.enums.GameOverDialogOptions;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameOverDialog extends Dialog {
     private boolean didUserGiveResponse;
+    private GameOverDialogActivePage activePage;
     private GameOverDialogOptions optionSelected;
-    private LottieAnimationView gameOverLottie;
-    private AppCompatTextView gameOverText;
-    private LinearLayout gameOverAllButtonsLinearLayout;
-    private AppCompatButton gameOverMainMenu;
-    private AppCompatButton gameOverPlayAgain;
-    private AppCompatButton gameOverUndoLastMove;
     private GameOverDialogListener gameOverDialogListener;
+    private LinearLayout rootLinearLayoutFirstPage; // REVIVE_TOOLS_PAGE
+    private LinearLayout rootLinearLayoutSecondPage; // GAME_SUMMARY_PAGE
 
-    private void initialise() {
+    /* Attributes of the GameOverDialog related to the REVIVE_TOOLS_PAGE */
+    private boolean isToolsChestOpen;
+    private LottieAnimationView toolsChangeLottie;
+    private Map<String, Integer> toolsCostMap;
+    private LinearLayout standardToolsLinearLayout;
+    private LinearLayout specialToolsLinearLayout;
+    private LinearLayout toolsLottieLinearLayout;
+    private AppCompatImageView standardToolsUndoImageView;
+    private AppCompatImageView standardToolsSmashTileImageView;
+    private AppCompatImageView standardToolsChangeValueImageView;
+    private AppCompatImageView specialToolsSwapTilesImageView;
+    private AppCompatImageView specialToolsEliminateValueImageView;
+    private AppCompatImageView specialToolsDestroyAreaImageView;
+    private AppCompatButton shopCoinsButton;
+    private AppCompatButton continueButton;
+
+    /* Attributes of the GameOverDialog related to the GAME_SUMMARY_PAGE */
+    private int currentScore;
+    private int bestScore;
+    private LottieAnimationView gameOverLottie;
+    private LinearLayout newHighScoreSummaryLinearLayout;
+    private AppCompatTextView newHighScoreTextView;
+    private ConstraintLayout scoresSummaryConstraintLayout;
+    private AppCompatTextView currentScoreTextView;
+    private AppCompatTextView bestScoreTextView;
+    private AppCompatButton mainMenuButton;
+    private AppCompatButton playAgainButton;
+    private AppCompatButton backButton;
+
+    /* TODO -> Later, use SharedPreferences to decide which tools to keep open based on the state of the tools
+               chest in the game.
+    */
+    private void initialise(int currentScore, int bestScore) {
         didUserGiveResponse = false;
-        optionSelected = GameOverDialogOptions.UNDO_LAST_MOVE;
-        gameOverLottie = findViewById(R.id.game_over_lottie);
-        gameOverText = findViewById(R.id.game_over_text);
-        gameOverAllButtonsLinearLayout = findViewById(R.id.game_over_all_buttons_linear_layout);
-        gameOverMainMenu = findViewById(R.id.game_over_main_menu);
-        gameOverPlayAgain = findViewById(R.id.game_over_play_again);
-        gameOverUndoLastMove = findViewById(R.id.game_over_undo_last_move);
+        activePage = GameOverDialogActivePage.REVIVE_TOOLS_PAGE; // Since by default we open this page
+        optionSelected = GameOverDialogOptions.PLAY_AGAIN; // As we want to start the game again if the user does not choose
+        rootLinearLayoutFirstPage = findViewById(R.id.root_linear_layout_first_page_game_over_dialog);
+        rootLinearLayoutSecondPage = findViewById(R.id.root_linear_layout_second_page_game_over_dialog);
+
+        isToolsChestOpen = false;
+        toolsChangeLottie = findViewById(R.id.tools_change_lottie_game_over_dialog);
+        toolsCostMap = new HashMap<>() {{
+            put("standardToolsUndoCost", 125);
+            put("standardToolsSmashTileCost", 150);
+            put("standardToolsChangeValueCost", 200);
+            put("specialToolsSwapTilesCost", 400);
+            put("specialToolsEliminateValueCost", 450);
+            put("specialToolsDestroyAreaCost", 500);
+        }};
+        standardToolsLinearLayout = findViewById(R.id.standard_tools_linear_layout_game_over_dialog);
+        specialToolsLinearLayout = findViewById(R.id.special_tools_linear_layout_game_over_dialog);
+        toolsLottieLinearLayout = findViewById(R.id.tools_lottie_linear_layout_game_over_dialog);
+        standardToolsUndoImageView = findViewById(R.id.standard_tools_undo_icon_game_over_dialog);
+        standardToolsSmashTileImageView = findViewById(R.id.standard_tools_smash_icon_game_over_dialog);
+        standardToolsChangeValueImageView = findViewById(R.id.standard_tools_change_value_icon_game_over_dialog);
+        specialToolsSwapTilesImageView = findViewById(R.id.special_tools_swap_tiles_icon_game_over_dialog);
+        specialToolsEliminateValueImageView = findViewById(R.id.special_tools_eliminate_value_icon_game_over_dialog);
+        specialToolsDestroyAreaImageView = findViewById(R.id.special_tools_destroy_area_icon_game_over_dialog);
+        AppCompatTextView standardToolsUndoCostTextView =
+                findViewById(R.id.standard_tools_undo_cost_text_view_game_over_dialog);
+        standardToolsUndoCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsUndoCost")));
+        AppCompatTextView standardToolsSmashTileCostTextView =
+                findViewById(R.id.standard_tools_smash_cost_text_view_game_over_dialog);
+        standardToolsSmashTileCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsSmashTileCost")));
+        AppCompatTextView standardToolsChangeValueCostTextView =
+                findViewById(R.id.standard_tools_change_value_cost_text_view_game_over_dialog);
+        standardToolsChangeValueCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsChangeValueCost")));
+        AppCompatTextView specialToolsSwapTilesCostTextView =
+                findViewById(R.id.special_tools_swap_tiles_cost_text_view_game_over_dialog);
+        specialToolsSwapTilesCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsSwapTilesCost")));
+        AppCompatTextView specialToolsEliminateValueCostTextView =
+                findViewById(R.id.special_tools_eliminate_value_cost_text_view_game_over_dialog);
+        specialToolsEliminateValueCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsEliminateValueCost")));
+        AppCompatTextView specialToolsDestroyAreaCostTextView =
+                findViewById(R.id.special_tools_destroy_area_cost_text_view_game_over_dialog);
+        specialToolsDestroyAreaCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsDestroyAreaCost")));
+        shopCoinsButton = findViewById(R.id.first_page_shop_coins_game_over_dialog);
+        continueButton = findViewById(R.id.first_page_continue_game_over_dialog);
+
+        this.currentScore = currentScore;
+        this.bestScore = bestScore;
+        gameOverLottie = findViewById(R.id.lottie_game_over_dialog);
+        newHighScoreSummaryLinearLayout = findViewById(R.id.new_high_score_summary_linear_layout_game_over_dialog);
+        newHighScoreTextView = findViewById(R.id.new_high_score_text_game_over_dialog);
+        scoresSummaryConstraintLayout = findViewById(R.id.scores_summary_constraint_layout_game_over_dialog);
+        currentScoreTextView = findViewById(R.id.score_text_game_over_dialog);
+        bestScoreTextView = findViewById(R.id.high_score_text_game_over_dialog);
+        if (currentScore == bestScore) {
+            newHighScoreSummaryLinearLayout.setVisibility(View.VISIBLE);
+            scoresSummaryConstraintLayout.setVisibility(View.GONE);
+            newHighScoreTextView.setText(String.valueOf(this.bestScore));
+        } else {
+            newHighScoreSummaryLinearLayout.setVisibility(View.GONE);
+            scoresSummaryConstraintLayout.setVisibility(View.VISIBLE);
+            currentScoreTextView.setText(String.valueOf(this.currentScore));
+            bestScoreTextView.setText(String.valueOf(this.bestScore));
+        }
+        mainMenuButton = findViewById(R.id.second_page_main_menu_game_over_dialog);
+        playAgainButton = findViewById(R.id.second_page_play_again_game_over_dialog);
+        backButton = findViewById(R.id.second_page_back_game_over_dialog);
     }
 
-    private void setVisibilityOfViews(int visibility) {
-        gameOverLottie.setVisibility(visibility);
-        gameOverText.setVisibility(visibility);
-        gameOverAllButtonsLinearLayout.setVisibility(visibility);
+    private void setVisibilityOfDialogPage(GameOverDialogActivePage currentActivePage, int visibility) {
+        if (visibility == View.VISIBLE) {
+            if (currentActivePage == GameOverDialogActivePage.REVIVE_TOOLS_PAGE) {
+                rootLinearLayoutFirstPage.setVisibility(View.VISIBLE);
+                rootLinearLayoutSecondPage.setVisibility(View.GONE);
+            } else if (currentActivePage == GameOverDialogActivePage.GAME_SUMMARY_PAGE) {
+                rootLinearLayoutFirstPage.setVisibility(View.GONE);
+                rootLinearLayoutSecondPage.setVisibility(View.VISIBLE);
+            }
+            activePage = currentActivePage;
+        } else if (visibility == View.INVISIBLE) {
+            rootLinearLayoutFirstPage.setVisibility(visibility);
+            rootLinearLayoutSecondPage.setVisibility(visibility);
+        }
     }
 
-    public GameOverDialog(@NonNull Context context) {
+    private void handleToolsChangeTransition() {
+        if (!isToolsChestOpen) { // False i.e. the tools chest is NOT open. So, now we will open it.
+            toolsChangeLottie.setSpeed(0.7f);
+            isToolsChestOpen = true;
+        } else { // True i.e. the tools chest is open. So, now we will close it.
+            toolsChangeLottie.setSpeed(-0.7f); // Negative speed will make the animation play from end in reverse
+            isToolsChestOpen = false;
+        }
+        toolsChangeLottie.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                toolsChangeLottie.setClickable(false);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                if (!isToolsChestOpen) {
+                    standardToolsLinearLayout.setVisibility(View.VISIBLE);
+                    specialToolsLinearLayout.setVisibility(View.GONE);
+                    toolsChangeLottie.setClickable(true);
+                } else {
+                    specialToolsLinearLayout.setVisibility(View.VISIBLE);
+                    standardToolsLinearLayout.setVisibility(View.GONE);
+
+                    LottieAnimationView leftView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_left_game_over_dialog);
+                    LottieAnimationView midView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_middle_game_over_dialog);
+                    LottieAnimationView rightView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_right_game_over_dialog);
+                    toolsLottieLinearLayout.setVisibility(View.VISIBLE);
+                    midView.addAnimatorListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {}
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            toolsChangeLottie.setClickable(true);
+                            toolsLottieLinearLayout.setVisibility(View.GONE);
+                        }
+                        @Override
+                        public void onAnimationCancel(Animator animator) {}
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {}
+                    });
+                    midView.playAnimation();
+                    leftView.playAnimation();
+                    rightView.playAnimation();
+                }
+            }
+            @Override
+            public void onAnimationCancel(Animator animator) {}
+            @Override
+            public void onAnimationRepeat(Animator animator) {}
+        });
+        toolsChangeLottie.playAnimation();
+    }
+
+    private void handlePageTransitionFromFirstToSecond() {
+        rootLinearLayoutFirstPage.animate().scaleY(0f).setDuration(200).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                rootLinearLayoutFirstPage.setVisibility(View.INVISIBLE);
+            }
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                rootLinearLayoutFirstPage.setScaleY(0f);
+                rootLinearLayoutSecondPage.setScaleY(0f);
+                rootLinearLayoutSecondPage.setVisibility(View.VISIBLE);
+                rootLinearLayoutSecondPage.animate().scaleY(1f).setDuration(200).setListener(new Animator.AnimatorListener() {
+                    @Override public void onAnimationStart(Animator animator) {}
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        rootLinearLayoutFirstPage.setVisibility(View.GONE);
+                        rootLinearLayoutFirstPage.setScaleY(1f);
+                        rootLinearLayoutSecondPage.setVisibility(View.VISIBLE);
+                        rootLinearLayoutSecondPage.setScaleY(1f);
+
+                        // Initialise the game over lottie animation
+                        gameOverLottie.setRepeatMode(LottieDrawable.RESTART);
+                        gameOverLottie.setRepeatCount(4);
+                        gameOverLottie.playAnimation();
+                    }
+                    @Override public void onAnimationCancel(Animator animator) {}
+                    @Override public void onAnimationRepeat(Animator animator) {}
+                }).start();
+            }
+            @Override public void onAnimationCancel(Animator animator) {}
+            @Override public void onAnimationRepeat(Animator animator) {}
+        }).start();
+    }
+
+    private void settingFirstPageClickListeners() {
+        toolsChangeLottie.setOnClickListener(view -> {
+            handleToolsChangeTransition();
+        });
+        standardToolsUndoImageView.setOnClickListener(view -> {
+            // First, the views will disappear, then the dialog box will close
+            setVisibilityOfDialogPage(activePage, View.INVISIBLE);
+            new CountDownTimer(100, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {}
+                @Override
+                public void onFinish() {
+                    didUserGiveResponse = true;
+                    activePage = GameOverDialogActivePage.REVIVE_TOOLS_PAGE;
+                    optionSelected = GameOverDialogOptions.STANDARD_TOOL_UNDO;
+                    dismiss();
+                }
+            }.start();
+        });
+        standardToolsSmashTileImageView.setOnClickListener(view -> {
+            // First, the views will disappear, then the dialog box will close
+            setVisibilityOfDialogPage(activePage, View.INVISIBLE);
+            new CountDownTimer(100, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {}
+                @Override
+                public void onFinish() {
+                    didUserGiveResponse = true;
+                    activePage = GameOverDialogActivePage.REVIVE_TOOLS_PAGE;
+                    optionSelected = GameOverDialogOptions.STANDARD_TOOL_SMASH_TILE;
+                    dismiss();
+                }
+            }.start();
+        });
+        standardToolsChangeValueImageView.setOnClickListener(view -> {
+            // First, the views will disappear, then the dialog box will close
+            setVisibilityOfDialogPage(activePage, View.INVISIBLE);
+            new CountDownTimer(100, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {}
+                @Override
+                public void onFinish() {
+                    didUserGiveResponse = true;
+                    activePage = GameOverDialogActivePage.REVIVE_TOOLS_PAGE;
+                    optionSelected = GameOverDialogOptions.STANDARD_TOOL_CHANGE_VALUE;
+                    dismiss();
+                }
+            }.start();
+        });
+        specialToolsSwapTilesImageView.setOnClickListener(view -> {
+            // First, the views will disappear, then the dialog box will close
+            setVisibilityOfDialogPage(activePage, View.INVISIBLE);
+            new CountDownTimer(100, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {}
+                @Override
+                public void onFinish() {
+                    didUserGiveResponse = true;
+                    activePage = GameOverDialogActivePage.REVIVE_TOOLS_PAGE;
+                    optionSelected = GameOverDialogOptions.SPECIAL_TOOL_SWAP_TILES;
+                    dismiss();
+                }
+            }.start();
+        });
+        specialToolsEliminateValueImageView.setOnClickListener(view -> {
+            // First, the views will disappear, then the dialog box will close
+            setVisibilityOfDialogPage(activePage, View.INVISIBLE);
+            new CountDownTimer(100, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {}
+                @Override
+                public void onFinish() {
+                    didUserGiveResponse = true;
+                    activePage = GameOverDialogActivePage.REVIVE_TOOLS_PAGE;
+                    optionSelected = GameOverDialogOptions.SPECIAL_TOOL_ELIMINATE_VALUE;
+                    dismiss();
+                }
+            }.start();
+        });
+        specialToolsDestroyAreaImageView.setOnClickListener(view -> {
+            // First, the views will disappear, then the dialog box will close
+            setVisibilityOfDialogPage(activePage, View.INVISIBLE);
+            new CountDownTimer(100, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {}
+                @Override
+                public void onFinish() {
+                    didUserGiveResponse = true;
+                    activePage = GameOverDialogActivePage.REVIVE_TOOLS_PAGE;
+                    optionSelected = GameOverDialogOptions.SPECIAL_TOOL_DESTROY_AREA;
+                    dismiss();
+                }
+            }.start();
+        });
+        shopCoinsButton.setOnClickListener(view -> {
+            // First, the views will disappear, then the dialog box will close
+            setVisibilityOfDialogPage(activePage, View.INVISIBLE);
+            new CountDownTimer(100, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {}
+                @Override
+                public void onFinish() {
+                    didUserGiveResponse = true;
+                    activePage = GameOverDialogActivePage.REVIVE_TOOLS_PAGE;
+                    optionSelected = GameOverDialogOptions.SHOP_COINS;
+                    dismiss();
+                }
+            }.start();
+        });
+        continueButton.setOnClickListener(view -> {
+            handlePageTransitionFromFirstToSecond();
+        });
+    }
+
+    private void handlePageTransitionFromSecondToFirst() {
+        gameOverLottie.pauseAnimation();
+        rootLinearLayoutSecondPage.animate().scaleY(0f).setDuration(200).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                rootLinearLayoutSecondPage.setVisibility(View.INVISIBLE);
+            }
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                rootLinearLayoutSecondPage.setScaleY(0f);
+                rootLinearLayoutFirstPage.setScaleY(0f);
+                rootLinearLayoutFirstPage.setVisibility(View.VISIBLE);
+                rootLinearLayoutFirstPage.animate().scaleY(1f).setDuration(200).setListener(new Animator.AnimatorListener() {
+                    @Override public void onAnimationStart(Animator animator) {}
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        rootLinearLayoutSecondPage.setVisibility(View.GONE);
+                        rootLinearLayoutSecondPage.setScaleY(1f);
+                        rootLinearLayoutFirstPage.setVisibility(View.VISIBLE);
+                        rootLinearLayoutFirstPage.setScaleY(1f);
+                    }
+                    @Override public void onAnimationCancel(Animator animator) {}
+                    @Override public void onAnimationRepeat(Animator animator) {}
+                }).start();
+            }
+            @Override public void onAnimationCancel(Animator animator) {}
+            @Override public void onAnimationRepeat(Animator animator) {}
+        }).start();
+    }
+
+    private void settingSecondPageClickListeners() {
+        mainMenuButton.setOnClickListener(view -> {
+            // First, the views will disappear, then the dialog box will close
+            setVisibilityOfDialogPage(activePage, View.INVISIBLE);
+            new CountDownTimer(100, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {}
+                @Override
+                public void onFinish() {
+                    didUserGiveResponse = true;
+                    activePage = GameOverDialogActivePage.GAME_SUMMARY_PAGE;
+                    optionSelected = GameOverDialogOptions.MAIN_MENU;
+                    dismiss();
+                }
+            }.start();
+        });
+        playAgainButton.setOnClickListener(view -> {
+            // First, the views will disappear, then the dialog box will close
+            setVisibilityOfDialogPage(activePage, View.INVISIBLE);
+            new CountDownTimer(100, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {}
+                @Override
+                public void onFinish() {
+                    didUserGiveResponse = true;
+                    activePage = GameOverDialogActivePage.GAME_SUMMARY_PAGE;
+                    optionSelected = GameOverDialogOptions.PLAY_AGAIN;
+                    dismiss();
+                }
+            }.start();
+        });
+        backButton.setOnClickListener(view -> {
+            handlePageTransitionFromSecondToFirst();
+        });
+    }
+
+    public GameOverDialog(@NonNull Context context, int currentScore, int bestScore) {
         super(context, R.style.CustomDialogTheme);
         setContentView(R.layout.dialog_game_over);
 
-        initialise();
+        initialise(currentScore, bestScore);
 
-        gameOverMainMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // First, the views will disappear, then the dialog box will close
-                setVisibilityOfViews(View.INVISIBLE);
-                new CountDownTimer(100, 100) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {}
-                    @Override
-                    public void onFinish() {
-                        optionSelected = GameOverDialogOptions.MAIN_MENU;
-                        didUserGiveResponse = true;
-                        dismiss();
-                    }
-                }.start();
-            }
-        });
-        gameOverPlayAgain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // First, the views will disappear, then the dialog box will close
-                setVisibilityOfViews(View.INVISIBLE);
-                new CountDownTimer(100, 100) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {}
-                    @Override
-                    public void onFinish() {
-                        optionSelected = GameOverDialogOptions.PLAY_AGAIN;
-                        didUserGiveResponse = true;
-                        dismiss();
-                    }
-                }.start();
-            }
-        });
-        gameOverUndoLastMove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // First, the views will disappear, then the dialog box will close
-                setVisibilityOfViews(View.INVISIBLE);
-                new CountDownTimer(100, 100) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {}
-                    @Override
-                    public void onFinish() {
-                        didUserGiveResponse = true;
-                        dismiss();
-                    }
-                }.start();
-            }
-        });
+        settingFirstPageClickListeners();
+
+        settingSecondPageClickListeners();
     }
 
     @Override
@@ -126,7 +453,7 @@ public class GameOverDialog extends Dialog {
             public void onTick(long millisUntilFinished) {}
             @Override
             public void onFinish() {
-                setVisibilityOfViews(View.VISIBLE);
+                setVisibilityOfDialogPage(GameOverDialogActivePage.REVIVE_TOOLS_PAGE, View.VISIBLE);
             }
         }.start();
     }
@@ -134,7 +461,7 @@ public class GameOverDialog extends Dialog {
     @Override
     public void dismiss() {
         super.dismiss();
-        gameOverDialogListener.getResponseOfOverDialog(optionSelected, didUserGiveResponse);
+        gameOverDialogListener.getResponseOfOverDialog(didUserGiveResponse, activePage, optionSelected);
     }
 
     public void setGameOverDialogListener(GameOverDialogListener gameOverDialogListener) {
@@ -142,6 +469,7 @@ public class GameOverDialog extends Dialog {
     }
 
     public interface GameOverDialogListener {
-        void getResponseOfOverDialog(GameOverDialogOptions optionSelected, boolean didUserRespond);
+        void getResponseOfOverDialog(boolean didUserRespond, GameOverDialogActivePage activePage,
+                                     GameOverDialogOptions optionSelected);
     }
 }
