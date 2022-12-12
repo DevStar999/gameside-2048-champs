@@ -245,6 +245,7 @@
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="bold" />
+
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -264,6 +265,7 @@
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold" />
+
             </LinearLayout>
 
             <LinearLayout
