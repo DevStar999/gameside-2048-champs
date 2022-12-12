@@ -207,7 +207,6 @@
         android:scaleY="5"
         android:paddingBottom="14dp"
         android:paddingStart="7dp"
-        android:onClick="toolsChangeTransition"
         app:lottie_autoPlay="false"
         app:lottie_loop="false"
         app:lottie_rawRes="@raw/tools_chest_transition"
