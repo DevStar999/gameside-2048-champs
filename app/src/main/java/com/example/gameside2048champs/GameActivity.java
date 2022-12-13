@@ -545,7 +545,6 @@ public class GameActivity extends AppCompatActivity implements
         if (getSupportFragmentManager().getBackStackEntryCount() == 0) { // Back button was pressed from activity
             setupGamePausedDialog();
         } else { // Back button was pressed from fragment
-            boolean isGameOverCheckRequired = false;
             boolean forToolFragmentsIsToolInProgress = false;
             int countOfFragments = getSupportFragmentManager().getFragments().size();
             if (countOfFragments > 0) {
@@ -570,13 +569,6 @@ public class GameActivity extends AppCompatActivity implements
                         } else { // For DestroyAreaFragment
                             // TODO -> Add the handleToolFragmentBackClicked() method for this code block as well
                         }
-
-                        // For some of the tool fragments some more processing maybe required, which is as follows
-                        if (fragmentTag.equals("CHANGE_VALUE_FRAGMENT")
-                                || fragmentTag.equals("SWAP_TILES_FRAGMENT")) {
-                            // Need to check if after the swap move is game going on OR is it game over
-                            isGameOverCheckRequired = true; // Game over check will be performed later using this flag
-                        }
                     }
                 }
             }
@@ -587,11 +579,12 @@ public class GameActivity extends AppCompatActivity implements
                 return;
             }
 
-            if (isGameOverCheckRequired) {
-                gameManager.updateGameState();
-                if (gameManager.getCurrentGameState() == GameStates.GAME_OVER) {
-                    handleGameOverProcess();
-                }
+            // We will perform a game state check after every tool use as follows
+            gameManager.updateGameState();
+            if (gameManager.getCurrentGameState() == GameStates.GAME_OVER) {
+                handleGameOverProcess();
+            } else {
+                restoreTutorialTextViewMessage();
             }
         }
     }
@@ -675,16 +668,22 @@ public class GameActivity extends AppCompatActivity implements
         return false;
     }
 
+    private void restoreTutorialTextViewMessage() {
+        if (goalDone) {
+            tutorialTextView.setText("Merge for higher tiles, SKY IS THE LIMIT");
+        } else {
+            tutorialTextView.setText("Merge the tiles to form the GOAL TILE!");
+        }
+    }
+
     private void handleGoalCompletionStatus() {
         // Making a check if the goal completion is still intact or not
         if (checkIfGoalCompletionIsIntact()) {
             int greenTickEmojiUnicode = 0x2705;
             goalTileTextView.setText(String.format("GOAL TILE %s", String.valueOf(toChars(greenTickEmojiUnicode))));
-            tutorialTextView.setText("Merge for higher tiles, SKY IS THE LIMIT");
         } else {
             goalDone = false;
             goalTileTextView.setText("GOAL TILE");
-            tutorialTextView.setText("Merge the tiles to form the GOAL TILE!");
             sharedPreferences.edit().putBoolean("goalDone" + " " + currentGameMode.getMode()
                     + " " + currentGameMode.getDimensions(), goalDone).apply();
         }
@@ -826,6 +825,8 @@ public class GameActivity extends AppCompatActivity implements
                         // Revert score to previous state score
                         gameManager.setCurrentScore(previousStateInfo.first);
                         updateScoreOnUndo(gameManager.getCurrentScore());
+                        // Restore the tutorial text view message
+                        restoreTutorialTextViewMessage();
                         // Update the reduced number of coins
                         currentCoins -= toolsCostMap.get("standardToolsUndoCost");
                         sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
@@ -1197,6 +1198,7 @@ public class GameActivity extends AppCompatActivity implements
 
         // Final set of actions
         saveGameState();
+        handleGoalCompletionStatus();
         onBackPressed();
     }
 
@@ -1347,6 +1349,7 @@ public class GameActivity extends AppCompatActivity implements
 
         // Final set of actions
         saveGameState();
+        handleGoalCompletionStatus();
         onBackPressed();
     }
 
