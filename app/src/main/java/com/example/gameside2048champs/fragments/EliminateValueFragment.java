@@ -71,7 +71,7 @@ public class EliminateValueFragment extends Fragment {
         isToolUseComplete = true;
 
         // Making tool lottie view emerge so that it grabs attention during the tool fragment transition
-        CountDownTimer postFragmentSetupTimer = new CountDownTimer(650, 10000) {
+        CountDownTimer postFragmentSetupTimer = new CountDownTimer(225, 10000) {
             @Override
             public void onTick(long l) {}
             @Override
@@ -79,12 +79,12 @@ public class EliminateValueFragment extends Fragment {
                 isToolUseComplete = false;
             }
         };
-        new CountDownTimer(300, 10000) {
+        new CountDownTimer(150, 10000) {
             @Override
             public void onTick(long l) {}
             @Override
             public void onFinish() {
-                ToolAnimationsUtility.toolLottieEmergeAnimation(eliminateValuePreviewLottie, 575);
+                ToolAnimationsUtility.toolLottieEmergeAnimation(eliminateValuePreviewLottie, 200);
                 postFragmentSetupTimer.start();
             }
         }.start();
