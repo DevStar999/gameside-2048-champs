@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/tool_description_text_view_eliminate_value_fragment"
+            app:layout_constraintBottom_toTopOf="@id/user_action_eliminate_value_fragment_check_box"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -106,19 +106,24 @@
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tool_description_text_view_eliminate_value_fragment"
+        <!-- android:button attribute is for actual CheckBox looks and
+             app:theme is highlight colors when clicked -->
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/user_action_eliminate_value_fragment_check_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scrollHorizontally="false"
-            android:text="Select a tile to remove all the tiles having same value"
-            android:textAlignment="viewStart"
+            android:layout_marginTop="4dp"
+            android:button="@drawable/check_box_selector"
+            android:checked="false"
+            android:paddingStart="8dp"
+            android:text="Select a tile to remove all the tiles having the same value"
             android:textColor="@color/game_primary_background_color"
             android:textSize="16sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tool_title_linear_layout_eliminate_value_fragment" />
+            app:layout_constraintTop_toBottomOf="@id/tool_title_linear_layout_eliminate_value_fragment"
+            app:theme="@style/CustomCheckBox" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

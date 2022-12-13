@@ -12,6 +12,7 @@ import android.widget.GridLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
@@ -26,7 +27,7 @@ public class SmashTileFragment extends Fragment {
     private LottieAnimationView rotatingLightLottie;
     private LottieAnimationView smashTilePreviewLottie;
     private AppCompatImageView toolUseCompletedImageView;
-    private AppCompatTextView toolDescriptionTextView;
+    private AppCompatCheckBox userActionCheckBox;
     private boolean isToolUseComplete;
 
     public SmashTileFragment() {
@@ -65,7 +66,7 @@ public class SmashTileFragment extends Fragment {
         rotatingLightLottie = view.findViewById(R.id.rotating_light_smash_tile_fragment);
         smashTilePreviewLottie = view.findViewById(R.id.smash_tile_preview_lottie);
         toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_smash_tile_fragment);
-        toolDescriptionTextView = view.findViewById(R.id.tool_description_text_view_smash_tile_fragment);
+        userActionCheckBox = view.findViewById(R.id.user_action_smash_tile_fragment_check_box);
         isToolUseComplete = true;
 
         // Making tool lottie view emerge so that it grabs attention during the tool fragment transition
@@ -102,7 +103,7 @@ public class SmashTileFragment extends Fragment {
         isToolUseComplete = true;
         backButton.setVisibility(View.GONE);
         toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
-        toolDescriptionTextView.setVisibility(View.GONE);
+        userActionCheckBox.setChecked(true);
         rotatingLightLottie.pauseAnimation();
         smashTilePreviewLottie.setProgress(0f);
         smashTilePreviewLottie.pauseAnimation();
