@@ -191,7 +191,7 @@ public enum GameModes {
                 }
             }
             // For BLOCK MIDDLE SQUARE board
-            case "BLOCK MIDDLE, SQ": {
+            case "BLOCK MIDDLE SQ.": {
                 if (rows == 5) {
                     return valueOf("BLOCK_MIDDLE_SQUARE_5X5");
                 } else {
@@ -199,7 +199,7 @@ public enum GameModes {
                 }
             }
             // For BLOCK MIDDLE RECTANGLE board
-            case "BLOCK MIDDLE, REC": {
+            case "BLOCK MIDDLE REC.": {
                 if (rows == 4) {
                     return valueOf("BLOCK_MIDDLE_RECTANGLE_3X4");
                 } else {
@@ -207,7 +207,7 @@ public enum GameModes {
                 }
             }
             // For BLOCK 2 CORNERS board
-            case "BLOCK 2 CORNERS, SQ": {
+            case "BLOCK 2 CORNERS SQ.": {
                 if (rows == 4) {
                     return valueOf("BLOCK_2_CORNERS_SQUARE_4X4");
                 } else if (rows == 6) {
@@ -217,7 +217,7 @@ public enum GameModes {
                 }
             }
             // For BLOCK 2 CORNERS RECTANGLE board
-            case "BLOCK 2 CORNERS, REC": {
+            case "BLOCK 2 CORNERS REC.": {
                 if (rows == 4) {
                     return valueOf("BLOCK_2_CORNERS_RECTANGLE_3X4");
                 } else {
