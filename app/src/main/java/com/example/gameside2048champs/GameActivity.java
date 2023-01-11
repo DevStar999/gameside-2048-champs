@@ -36,7 +36,7 @@ import com.example.gameside2048champs.dialogs.ArrivingToolDialog;
 import com.example.gameside2048champs.dialogs.GameOverDialog;
 import com.example.gameside2048champs.dialogs.GamePausedDialog;
 import com.example.gameside2048champs.dialogs.GameResetDialog;
-import com.example.gameside2048champs.dialogs.GameWinDialog;
+import com.example.gameside2048champs.dialogs.GoalCompletionDialog;
 import com.example.gameside2048champs.dialogs.ToolUseProhibitedDialog;
 import com.example.gameside2048champs.enums.CellValues;
 import com.example.gameside2048champs.enums.Direction;
@@ -343,7 +343,7 @@ public class GameActivity extends AppCompatActivity implements
                             sharedPreferences.edit().putBoolean("goalDone" + " " + currentGameMode.getMode()
                                     + " " + currentGameMode.getDimensions(), goalDone).apply();
                             movesQueue.clear();
-                            new GameWinDialog(GameActivity.this).show();
+                            new GoalCompletionDialog(GameActivity.this).show();
                         } else if (gameManager.getCurrentGameState() == GameStates.GAME_OVER) {
                             handleGameOverProcess();
                         }

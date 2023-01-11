@@ -14,32 +14,32 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.gameside2048champs.R;
 
-public class GameWinDialog extends Dialog {
-    private LottieAnimationView gameWinLottie;
-    private AppCompatTextView gameWinText;
-    private LinearLayout gameWinButtonsLinearLayout;
-    private AppCompatButton gameWinContinue;
+public class GoalCompletionDialog extends Dialog {
+    private LottieAnimationView goalCompletionLottie;
+    private AppCompatTextView goalCompletionText;
+    private LinearLayout goalCompletionButtonsLinearLayout;
+    private AppCompatButton goalCompletionContinue;
 
     private void initialise() {
-        gameWinLottie = findViewById(R.id.game_win_lottie);
-        gameWinText = findViewById(R.id.game_win_text);
-        gameWinButtonsLinearLayout = findViewById(R.id.game_win_buttons_linear_layout);
-        gameWinContinue = findViewById(R.id.game_win_continue);
+        goalCompletionLottie = findViewById(R.id.goal_completion_lottie);
+        goalCompletionText = findViewById(R.id.goal_completion_text);
+        goalCompletionButtonsLinearLayout = findViewById(R.id.goal_completion_buttons_linear_layout);
+        goalCompletionContinue = findViewById(R.id.goal_completion_continue);
     }
 
     private void setVisibilityOfViews(int visibility) {
-        gameWinLottie.setVisibility(visibility);
-        gameWinText.setVisibility(visibility);
-        gameWinButtonsLinearLayout.setVisibility(visibility);
+        goalCompletionLottie.setVisibility(visibility);
+        goalCompletionText.setVisibility(visibility);
+        goalCompletionButtonsLinearLayout.setVisibility(visibility);
     }
 
-    public GameWinDialog(@NonNull Context context) {
+    public GoalCompletionDialog(@NonNull Context context) {
         super(context, R.style.CustomDialogTheme);
-        setContentView(R.layout.dialog_game_win);
+        setContentView(R.layout.dialog_goal_completion);
 
         initialise();
 
-        gameWinContinue.setOnClickListener(new View.OnClickListener() {
+        goalCompletionContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // First, the views will disappear, then the dialog box will close

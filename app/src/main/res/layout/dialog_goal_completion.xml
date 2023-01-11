@@ -10,39 +10,40 @@
 
     <!-- Lottie Animation Link = https://lottiefiles.com/12389-happy-holidays -->
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/game_win_lottie"
+        android:id="@+id/goal_completion_lottie"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/game_win_text"
+        app:layout_constraintBottom_toTopOf="@id/goal_completion_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/game_win"
+        app:lottie_rawRes="@raw/goal_completion"
         app:lottie_repeatCount="4"
         app:lottie_repeatMode="restart" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/game_win_text"
+        android:id="@+id/goal_completion_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="24dp"
         android:letterSpacing="0.04"
-        android:text="You have WON!"
+        android:paddingHorizontal="16dp"
+        android:text="Congratulations! GOAL completed 😎"
         android:textAlignment="center"
         android:textColor="@color/game_text_color"
         android:textSize="16sp"
         android:textStyle="bold"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/game_win_buttons_linear_layout"
+        app:layout_constraintBottom_toTopOf="@id/goal_completion_buttons_linear_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/game_win_lottie" />
+        app:layout_constraintTop_toBottomOf="@id/goal_completion_lottie" />
 
     <LinearLayout
-        android:id="@+id/game_win_buttons_linear_layout"
+        android:id="@+id/goal_completion_buttons_linear_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -50,10 +51,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/game_win_text">
+        app:layout_constraintTop_toBottomOf="@id/goal_completion_text">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/game_win_continue"
+            android:id="@+id/goal_completion_continue"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginHorizontal="8dp"
