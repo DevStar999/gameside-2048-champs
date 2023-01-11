@@ -40,8 +40,8 @@ public class GameOverDialog extends Dialog {
     private LinearLayout toolsLottieLinearLayout;
     private AppCompatImageView standardToolsUndoImageView;
     private AppCompatImageView standardToolsSmashTileImageView;
-    private AppCompatImageView standardToolsChangeValueImageView;
-    private AppCompatImageView specialToolsSwapTilesImageView;
+    private AppCompatImageView standardToolsSwapTilesImageView;
+    private AppCompatImageView specialToolsChangeValueImageView;
     private AppCompatImageView specialToolsEliminateValueImageView;
     private AppCompatImageView specialToolsDestroyAreaImageView;
     private AppCompatButton shopCoinsButton;
@@ -75,8 +75,8 @@ public class GameOverDialog extends Dialog {
         toolsCostMap = new HashMap<>() {{
             put("standardToolsUndoCost", 125);
             put("standardToolsSmashTileCost", 150);
-            put("standardToolsChangeValueCost", 200);
-            put("specialToolsSwapTilesCost", 400);
+            put("standardToolsSwapTilesCost", 200);
+            put("specialToolsChangeValueCost", 400);
             put("specialToolsEliminateValueCost", 450);
             put("specialToolsDestroyAreaCost", 500);
         }};
@@ -85,8 +85,8 @@ public class GameOverDialog extends Dialog {
         toolsLottieLinearLayout = findViewById(R.id.tools_lottie_linear_layout_game_over_dialog);
         standardToolsUndoImageView = findViewById(R.id.standard_tools_undo_icon_game_over_dialog);
         standardToolsSmashTileImageView = findViewById(R.id.standard_tools_smash_icon_game_over_dialog);
-        standardToolsChangeValueImageView = findViewById(R.id.standard_tools_change_value_icon_game_over_dialog);
-        specialToolsSwapTilesImageView = findViewById(R.id.special_tools_swap_tiles_icon_game_over_dialog);
+        standardToolsSwapTilesImageView = findViewById(R.id.standard_tools_swap_tiles_icon_game_over_dialog);
+        specialToolsChangeValueImageView = findViewById(R.id.special_tools_change_value_icon_game_over_dialog);
         specialToolsEliminateValueImageView = findViewById(R.id.special_tools_eliminate_value_icon_game_over_dialog);
         specialToolsDestroyAreaImageView = findViewById(R.id.special_tools_destroy_area_icon_game_over_dialog);
         AppCompatTextView standardToolsUndoCostTextView =
@@ -95,12 +95,12 @@ public class GameOverDialog extends Dialog {
         AppCompatTextView standardToolsSmashTileCostTextView =
                 findViewById(R.id.standard_tools_smash_cost_text_view_game_over_dialog);
         standardToolsSmashTileCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsSmashTileCost")));
-        AppCompatTextView standardToolsChangeValueCostTextView =
-                findViewById(R.id.standard_tools_change_value_cost_text_view_game_over_dialog);
-        standardToolsChangeValueCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsChangeValueCost")));
-        AppCompatTextView specialToolsSwapTilesCostTextView =
-                findViewById(R.id.special_tools_swap_tiles_cost_text_view_game_over_dialog);
-        specialToolsSwapTilesCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsSwapTilesCost")));
+        AppCompatTextView standardToolsSwapTilesCostTextView =
+                findViewById(R.id.standard_tools_swap_tiles_cost_text_view_game_over_dialog);
+        standardToolsSwapTilesCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsSwapTilesCost")));
+        AppCompatTextView specialToolsChangeValueCostTextView =
+                findViewById(R.id.special_tools_change_value_cost_text_view_game_over_dialog);
+        specialToolsChangeValueCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsChangeValueCost")));
         AppCompatTextView specialToolsEliminateValueCostTextView =
                 findViewById(R.id.special_tools_eliminate_value_cost_text_view_game_over_dialog);
         specialToolsEliminateValueCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsEliminateValueCost")));
@@ -271,7 +271,7 @@ public class GameOverDialog extends Dialog {
                 }
             }.start();
         });
-        standardToolsChangeValueImageView.setOnClickListener(view -> {
+        standardToolsSwapTilesImageView.setOnClickListener(view -> {
             // First, the views will disappear, then the dialog box will close
             setVisibilityOfDialogPage(activePage, View.INVISIBLE);
             new CountDownTimer(100, 1000) {
@@ -281,12 +281,12 @@ public class GameOverDialog extends Dialog {
                 public void onFinish() {
                     didUserGiveResponse = true;
                     activePage = GameOverDialogActivePage.REVIVE_TOOLS_PAGE;
-                    optionSelected = GameOverDialogOptions.STANDARD_TOOL_CHANGE_VALUE;
+                    optionSelected = GameOverDialogOptions.STANDARD_TOOL_SWAP_TILES;
                     dismiss();
                 }
             }.start();
         });
-        specialToolsSwapTilesImageView.setOnClickListener(view -> {
+        specialToolsChangeValueImageView.setOnClickListener(view -> {
             // First, the views will disappear, then the dialog box will close
             setVisibilityOfDialogPage(activePage, View.INVISIBLE);
             new CountDownTimer(100, 1000) {
@@ -296,7 +296,7 @@ public class GameOverDialog extends Dialog {
                 public void onFinish() {
                     didUserGiveResponse = true;
                     activePage = GameOverDialogActivePage.REVIVE_TOOLS_PAGE;
-                    optionSelected = GameOverDialogOptions.SPECIAL_TOOL_SWAP_TILES;
+                    optionSelected = GameOverDialogOptions.SPECIAL_TOOL_CHANGE_VALUE;
                     dismiss();
                 }
             }.start();

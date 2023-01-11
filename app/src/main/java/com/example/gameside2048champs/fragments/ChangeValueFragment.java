@@ -221,7 +221,7 @@ public class ChangeValueFragment extends Fragment {
         this.gridLottieView = gridLottieView;
 
         // 3rd set of events is as follows - Setting the selection animation for the change value tile
-        ToolAnimationsUtility.standardToolsChangeValueFirstClickSelectionSetup(this.changeValueTileLottie);
+        ToolAnimationsUtility.specialToolsChangeValueFirstClickSelectionSetup(this.changeValueTileLottie);
         this.changeValueTileLottie.playAnimation();
     }
 
@@ -270,7 +270,7 @@ public class ChangeValueFragment extends Fragment {
                 ChangeValueFragment.this.gameCellLottieLayout.setVisibility(View.VISIBLE);
 
                 // 4th set of events is as follows
-                ToolAnimationsUtility.standardToolsChangeValueTargetTileSetup(ChangeValueFragment.this.changeValueTileLottie);
+                ToolAnimationsUtility.specialToolsChangeValueTargetTileSetup(ChangeValueFragment.this.changeValueTileLottie);
                 ChangeValueFragment.this.changeValueTileLottie.removeAllAnimatorListeners();
                 ChangeValueFragment.this.changeValueTileLottie.addAnimatorListener(individualTileLottieSmashAnimatorListener);
                 ChangeValueFragment.this.changeValueTileLottie.playAnimation();
@@ -293,7 +293,7 @@ public class ChangeValueFragment extends Fragment {
                 ChangeValueFragment.this.gameCellLottieLayout.setVisibility(View.GONE);
 
                 // 3rd set of events is as follows
-                ToolAnimationsUtility.standardToolsChangeValueGridSetup(ChangeValueFragment.this.gridLottieView);
+                ToolAnimationsUtility.specialToolsChangeValueGridSetup(ChangeValueFragment.this.gridLottieView);
                 ChangeValueFragment.this.gridLottieView.addAnimatorListener(gridLottieAnimatorListener);
                 ChangeValueFragment.this.gridLottieView.playAnimation();
             }
@@ -305,7 +305,7 @@ public class ChangeValueFragment extends Fragment {
 
         // 2nd set of events is as follows
         this.changeValueTileLottie.pauseAnimation();
-        ToolAnimationsUtility.standardToolsChangeValueSecondClickSelectionSetup(this.changeValueTileLottie);
+        ToolAnimationsUtility.specialToolsChangeValueSecondClickSelectionSetup(this.changeValueTileLottie);
         this.changeValueTileLottie.addAnimatorListener(changeValueTileLottieSelectionAnimatorListener);
         this.changeValueTileLottie.playAnimation();
     }

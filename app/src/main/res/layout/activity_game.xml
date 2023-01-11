@@ -253,6 +253,7 @@
             android:padding="2dp"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/game_tools_reset" />
+
     </LinearLayout>
 
     <FrameLayout
@@ -271,7 +272,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="invisible">
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -408,7 +409,7 @@
                         app:srcCompat="@drawable/coin_symbol" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/standard_tools_change_value_cost_text_view"
+                        android:id="@+id/standard_tools_swap_tiles_cost_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
@@ -423,16 +424,15 @@
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/standard_tools_change_value_icon"
+                    android:id="@+id/standard_tools_swap_tiles_icon"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/click_standard_tools"
-                    android:contentDescription="Change One Value"
-                    android:onClick="standardToolsChangeValue"
-                    android:padding="2dp"
+                    android:contentDescription="Swap Two Tiles"
+                    android:onClick="standardToolsSwapTiles"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/standard_tools_change_value" />
+                    app:srcCompat="@drawable/standard_tools_swap_tiles" />
 
             </LinearLayout>
 
@@ -443,7 +443,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:visibility="invisible">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -471,7 +471,7 @@
                         app:srcCompat="@drawable/coin_symbol" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/special_tools_swap_tiles_cost_text_view"
+                        android:id="@+id/special_tools_change_value_cost_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
@@ -486,15 +486,16 @@
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/special_tools_swap_tiles_icon"
+                    android:id="@+id/special_tools_change_value_icon"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/click_special_tools"
-                    android:contentDescription="Swap Two Tiles"
-                    android:onClick="specialToolsSwapTiles"
+                    android:contentDescription="Change One Value"
+                    android:onClick="specialToolsChangeValue"
+                    android:padding="2dp"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/special_tools_swap_tiles" />
+                    app:srcCompat="@drawable/special_tools_change_value" />
 
             </LinearLayout>
 

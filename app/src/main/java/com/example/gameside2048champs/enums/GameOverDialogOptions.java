@@ -10,10 +10,10 @@ public enum GameOverDialogOptions {
     STANDARD_TOOL_UNDO,
     /* If the user chose to use the Standard Tool Smash Tile (First Page) */
     STANDARD_TOOL_SMASH_TILE,
-    /* If the user chose to use the Standard Tool Change Value (First Page) */
-    STANDARD_TOOL_CHANGE_VALUE,
     /* If the user chose to use the Special Tool Swap Tiles (First Page) */
-    SPECIAL_TOOL_SWAP_TILES,
+    STANDARD_TOOL_SWAP_TILES,
+    /* If the user chose to use the Special Tool Change Value (First Page) */
+    SPECIAL_TOOL_CHANGE_VALUE,
     /* If the user chose to use the Special Tool Eliminate Value (First Page) */
     SPECIAL_TOOL_ELIMINATE_VALUE,
     /* If the user chose to use the Special Tool Destroy Area (First Page) */

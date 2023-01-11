@@ -119,7 +119,7 @@ public class ToolAnimationsUtility {
         gridLottieView.setVisibility(View.VISIBLE);
         gridLottieView.setRotationY(180f);
         gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
-        gridLottieView.setAnimation(R.raw.standard_tools_smash_grid_tile);
+        gridLottieView.setAnimation(R.raw.standard_tools_smash_tile_grid_tile);
         gridLottieView.setSpeed(0.7f);
     }
 
@@ -128,11 +128,52 @@ public class ToolAnimationsUtility {
         targetTileLottie.setRotationY(180f);
         targetTileLottie.setMaxFrame(15);
         targetTileLottie.setBackgroundResource(R.drawable.rounded_corner_tile_lottie);
-        targetTileLottie.setAnimation(R.raw.standard_tools_smash_grid_tile);
+        targetTileLottie.setAnimation(R.raw.standard_tools_smash_tile_grid_tile);
         targetTileLottie.setSpeed(0.7f);
     }
 
-    public static void standardToolsChangeValueFirstClickSelectionSetup(LottieAnimationView changeValueTileLottie) {
+    public static void standardToolsSwapTilesFirstClickSelectionSetup(LottieAnimationView swapTileLottie) {
+        swapTileLottie.setPadding(2,2,2,2);
+        swapTileLottie.setVisibility(View.VISIBLE);
+        swapTileLottie.setRepeatMode(LottieDrawable.RESTART);
+        swapTileLottie.setRepeatCount(LottieDrawable.INFINITE);
+        swapTileLottie.setScaleType(ImageView.ScaleType.FIT_XY);
+        swapTileLottie.setAnimation(R.raw.standard_tools_swap_tiles_tile_selection);
+    }
+
+    public static void standardToolsSwapTilesSecondClickFirstSelectionSetup(LottieAnimationView swapTileLottie) {
+        swapTileLottie.setPadding(2,2,2,2);
+        swapTileLottie.setVisibility(View.VISIBLE);
+        swapTileLottie.setRepeatCount(0);
+        swapTileLottie.setScaleType(ImageView.ScaleType.FIT_XY);
+        swapTileLottie.setAnimation(R.raw.standard_tools_swap_tiles_tile_selection);
+        swapTileLottie.setSpeed(2);
+    }
+
+    public static void standardToolsSwapTilesSecondClickSecondSelectionSetup(LottieAnimationView swapTileLottie) {
+        swapTileLottie.setPadding(16,0,0,0);
+        swapTileLottie.setScaleX(1.05f);
+        swapTileLottie.setVisibility(View.VISIBLE);
+        swapTileLottie.setMaxFrame(20);
+        swapTileLottie.setAnimation(R.raw.tile_selection);
+        swapTileLottie.setSpeed(1f);
+    }
+
+    public static void standardToolsSwapTilesGridSetup(LottieAnimationView gridLottieView) {
+        gridLottieView.setVisibility(View.VISIBLE);
+        gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
+        gridLottieView.setAnimation(R.raw.standard_tools_swap_tiles_grid);
+        gridLottieView.setSpeed(1.25f);
+    }
+
+    public static void standardToolsSwapTilesSwapTileSetup(LottieAnimationView swapTileLottie) {
+        swapTileLottie.setVisibility(View.VISIBLE);
+        swapTileLottie.setBackgroundResource(R.drawable.rounded_corner_tile_lottie);
+        swapTileLottie.setAnimation(R.raw.standard_tools_swap_tiles_tile);
+        swapTileLottie.setSpeed(1.5f);
+    }
+
+    public static void specialToolsChangeValueFirstClickSelectionSetup(LottieAnimationView changeValueTileLottie) {
         changeValueTileLottie.setPadding(2,2,2,2);
         changeValueTileLottie.setVisibility(View.VISIBLE);
         changeValueTileLottie.setRepeatMode(LottieDrawable.RESTART);
@@ -141,7 +182,7 @@ public class ToolAnimationsUtility {
         changeValueTileLottie.setAnimation(R.raw.tile_selection_continuous);
     }
 
-    public static void standardToolsChangeValueSecondClickSelectionSetup(LottieAnimationView changeValueTileLottie) {
+    public static void specialToolsChangeValueSecondClickSelectionSetup(LottieAnimationView changeValueTileLottie) {
         // Removing old properties
         changeValueTileLottie.setPadding(0,0,0,0);
         changeValueTileLottie.setRepeatCount(0);
@@ -156,59 +197,18 @@ public class ToolAnimationsUtility {
         changeValueTileLottie.setSpeed(1f);
     }
 
-    public static void standardToolsChangeValueGridSetup(LottieAnimationView gridLottieView) {
+    public static void specialToolsChangeValueGridSetup(LottieAnimationView gridLottieView) {
         gridLottieView.setVisibility(View.VISIBLE);
         gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
-        gridLottieView.setAnimation(R.raw.standard_tools_change_value_grid);
+        gridLottieView.setAnimation(R.raw.special_tools_change_value_grid);
         gridLottieView.setSpeed(2f);
     }
 
-    public static void standardToolsChangeValueTargetTileSetup(LottieAnimationView changeValueTileLottie) {
+    public static void specialToolsChangeValueTargetTileSetup(LottieAnimationView changeValueTileLottie) {
         changeValueTileLottie.setVisibility(View.VISIBLE);
         changeValueTileLottie.setBackgroundResource(R.drawable.rounded_corner_tile_lottie);
-        changeValueTileLottie.setAnimation(R.raw.standard_tools_change_value_tile);
+        changeValueTileLottie.setAnimation(R.raw.special_tools_change_value_tile);
         changeValueTileLottie.setSpeed(1.5f);
-    }
-
-    public static void specialToolsSwapTilesFirstClickSelectionSetup(LottieAnimationView swapTileLottie) {
-        swapTileLottie.setPadding(2,2,2,2);
-        swapTileLottie.setVisibility(View.VISIBLE);
-        swapTileLottie.setRepeatMode(LottieDrawable.RESTART);
-        swapTileLottie.setRepeatCount(LottieDrawable.INFINITE);
-        swapTileLottie.setScaleType(ImageView.ScaleType.FIT_XY);
-        swapTileLottie.setAnimation(R.raw.special_tools_swap_tiles_tile_selection);
-    }
-
-    public static void specialToolsSwapTilesSecondClickFirstSelectionSetup(LottieAnimationView swapTileLottie) {
-        swapTileLottie.setPadding(2,2,2,2);
-        swapTileLottie.setVisibility(View.VISIBLE);
-        swapTileLottie.setRepeatCount(0);
-        swapTileLottie.setScaleType(ImageView.ScaleType.FIT_XY);
-        swapTileLottie.setAnimation(R.raw.special_tools_swap_tiles_tile_selection);
-        swapTileLottie.setSpeed(2);
-    }
-
-    public static void specialToolsSwapTilesSecondClickSecondSelectionSetup(LottieAnimationView swapTileLottie) {
-        swapTileLottie.setPadding(16,0,0,0);
-        swapTileLottie.setScaleX(1.05f);
-        swapTileLottie.setVisibility(View.VISIBLE);
-        swapTileLottie.setMaxFrame(20);
-        swapTileLottie.setAnimation(R.raw.tile_selection);
-        swapTileLottie.setSpeed(1f);
-    }
-
-    public static void specialToolsSwapTilesGridSetup(LottieAnimationView gridLottieView) {
-        gridLottieView.setVisibility(View.VISIBLE);
-        gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
-        gridLottieView.setAnimation(R.raw.special_tools_swap_tiles_grid);
-        gridLottieView.setSpeed(1.25f);
-    }
-
-    public static void specialToolsSwapTilesSwapTileSetup(LottieAnimationView swapTileLottie) {
-        swapTileLottie.setVisibility(View.VISIBLE);
-        swapTileLottie.setBackgroundResource(R.drawable.rounded_corner_tile_lottie);
-        swapTileLottie.setAnimation(R.raw.special_tools_swap_tiles_tile);
-        swapTileLottie.setSpeed(1.5f);
     }
 
     public static void specialToolsEliminateValueTargetTilesSelectionSetup(List<LottieAnimationView> targetTilesLottie) {

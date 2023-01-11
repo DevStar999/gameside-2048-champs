@@ -201,7 +201,7 @@
                                 app:srcCompat="@drawable/coin_symbol" />
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/standard_tools_change_value_cost_text_view_game_over_dialog"
+                                android:id="@+id/standard_tools_swap_tiles_cost_text_view_game_over_dialog"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="end|center_vertical"
@@ -216,15 +216,14 @@
                         </LinearLayout>
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/standard_tools_change_value_icon_game_over_dialog"
+                            android:id="@+id/standard_tools_swap_tiles_icon_game_over_dialog"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/click_standard_tools"
-                            android:contentDescription="Change One Value"
-                            android:padding="2dp"
+                            android:contentDescription="Swap Two Tiles"
                             android:scaleType="fitXY"
-                            app:srcCompat="@drawable/standard_tools_change_value" />
+                            app:srcCompat="@drawable/standard_tools_swap_tiles" />
 
                     </LinearLayout>
 
@@ -263,7 +262,7 @@
                                 app:srcCompat="@drawable/coin_symbol" />
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/special_tools_swap_tiles_cost_text_view_game_over_dialog"
+                                android:id="@+id/special_tools_change_value_cost_text_view_game_over_dialog"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="end|center_vertical"
@@ -278,14 +277,15 @@
                         </LinearLayout>
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/special_tools_swap_tiles_icon_game_over_dialog"
+                            android:id="@+id/special_tools_change_value_icon_game_over_dialog"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/click_special_tools"
-                            android:contentDescription="Swap Two Tiles"
+                            android:contentDescription="Change One Value"
+                            android:padding="2dp"
                             android:scaleType="fitXY"
-                            app:srcCompat="@drawable/special_tools_swap_tiles" />
+                            app:srcCompat="@drawable/special_tools_change_value" />
 
                     </LinearLayout>
 
@@ -328,7 +328,6 @@
                                 android:textStyle="bold" />
 
                         </LinearLayout>
-
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/special_tools_eliminate_value_icon_game_over_dialog"

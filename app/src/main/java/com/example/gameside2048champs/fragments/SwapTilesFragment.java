@@ -121,7 +121,7 @@ public class SwapTilesFragment extends Fragment {
         // 2nd set of events is as follows - Setting the selection animation for the first swap tile
         this.firstSwapTilePosition = new Pair<>(firstSwapTilePosition.first, firstSwapTilePosition.second);
         this.firstSwapTileLottie = firstSwapTileLottie;
-        ToolAnimationsUtility.specialToolsSwapTilesFirstClickSelectionSetup(this.firstSwapTileLottie);
+        ToolAnimationsUtility.standardToolsSwapTilesFirstClickSelectionSetup(this.firstSwapTileLottie);
         this.firstSwapTileLottie.playAnimation();
     }
 
@@ -165,8 +165,8 @@ public class SwapTilesFragment extends Fragment {
                 gameCellLottieLayout.setVisibility(View.VISIBLE);
 
                 // 5th set of events is as follows
-                ToolAnimationsUtility.specialToolsSwapTilesSwapTileSetup(SwapTilesFragment.this.firstSwapTileLottie);
-                ToolAnimationsUtility.specialToolsSwapTilesSwapTileSetup(SwapTilesFragment.this.secondSwapTileLottie);
+                ToolAnimationsUtility.standardToolsSwapTilesSwapTileSetup(SwapTilesFragment.this.firstSwapTileLottie);
+                ToolAnimationsUtility.standardToolsSwapTilesSwapTileSetup(SwapTilesFragment.this.secondSwapTileLottie);
                 SwapTilesFragment.this.secondSwapTileLottie.removeAllAnimatorListeners();
                 SwapTilesFragment.this.secondSwapTileLottie.addAnimatorListener(swapTilesLottieSwapAnimatorListener);
                 SwapTilesFragment.this.firstSwapTileLottie.playAnimation();
@@ -187,7 +187,7 @@ public class SwapTilesFragment extends Fragment {
                 gameCellLottieLayout.setVisibility(View.GONE);
 
                 // 4th set of events is as follows
-                ToolAnimationsUtility.specialToolsSwapTilesGridSetup(gridLottieView);
+                ToolAnimationsUtility.standardToolsSwapTilesGridSetup(gridLottieView);
                 gridLottieView.addAnimatorListener(gridLottieAnimatorListener);
                 gridLottieView.playAnimation();
 
@@ -227,8 +227,8 @@ public class SwapTilesFragment extends Fragment {
                 SwapTilesFragment.this.secondSwapTileLottie.pauseAnimation();
 
                 // 3rd set of events is as follows
-                ToolAnimationsUtility.specialToolsSwapTilesSecondClickSecondSelectionSetup(SwapTilesFragment.this.firstSwapTileLottie);
-                ToolAnimationsUtility.specialToolsSwapTilesSecondClickSecondSelectionSetup(SwapTilesFragment.this.secondSwapTileLottie);
+                ToolAnimationsUtility.standardToolsSwapTilesSecondClickSecondSelectionSetup(SwapTilesFragment.this.firstSwapTileLottie);
+                ToolAnimationsUtility.standardToolsSwapTilesSecondClickSecondSelectionSetup(SwapTilesFragment.this.secondSwapTileLottie);
                 SwapTilesFragment.this.secondSwapTileLottie.removeAllAnimatorListeners();
                 SwapTilesFragment.this.secondSwapTileLottie.addAnimatorListener(swapTilesLottieSecondSelectionAnimatorListener);
                 SwapTilesFragment.this.firstSwapTileLottie.playAnimation();
@@ -245,8 +245,8 @@ public class SwapTilesFragment extends Fragment {
         this.firstSwapTileLottie.pauseAnimation();
         this.secondSwapTilePosition = new Pair<>(secondSwapTilePosition.first, secondSwapTilePosition.second);
         this.secondSwapTileLottie = secondSwapTileLottie;
-        ToolAnimationsUtility.specialToolsSwapTilesSecondClickFirstSelectionSetup(this.firstSwapTileLottie);
-        ToolAnimationsUtility.specialToolsSwapTilesSecondClickFirstSelectionSetup(this.secondSwapTileLottie);
+        ToolAnimationsUtility.standardToolsSwapTilesSecondClickFirstSelectionSetup(this.firstSwapTileLottie);
+        ToolAnimationsUtility.standardToolsSwapTilesSecondClickFirstSelectionSetup(this.secondSwapTileLottie);
         this.secondSwapTileLottie.addAnimatorListener(swapTilesLottieFirstSelectionAnimatorListener);
         this.firstSwapTileLottie.playAnimation(); this.secondSwapTileLottie.playAnimation();
     }

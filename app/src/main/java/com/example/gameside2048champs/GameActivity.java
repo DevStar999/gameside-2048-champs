@@ -66,8 +66,8 @@ import java.util.Queue;
 public class GameActivity extends AppCompatActivity implements
         ShopFragment.OnShopFragmentInteractionListener,
         SmashTileFragment.OnSmashTileFragmentInteractionListener,
-        ChangeValueFragment.OnChangeValueFragmentInteractionListener,
         SwapTilesFragment.OnSwapTilesFragmentInteractionListener,
+        ChangeValueFragment.OnChangeValueFragmentInteractionListener,
         EliminateValueFragment.OnEliminateValueFragmentInteractionListener,
         DestroyAreaFragment.OnDestroyAreaFragmentInteractionListener {
     // Variable Attributes
@@ -121,8 +121,8 @@ public class GameActivity extends AppCompatActivity implements
         toolsCostMap = new HashMap<>() {{
             put("standardToolsUndoCost", 125);
             put("standardToolsSmashTileCost", 150);
-            put("standardToolsChangeValueCost", 200);
-            put("specialToolsSwapTilesCost", 400);
+            put("standardToolsSwapTilesCost", 200);
+            put("specialToolsChangeValueCost", 400);
             put("specialToolsEliminateValueCost", 450);
             put("specialToolsDestroyAreaCost", 500);
         }};
@@ -199,10 +199,10 @@ public class GameActivity extends AppCompatActivity implements
         standardToolsUndoCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsUndoCost")));
         AppCompatTextView standardToolsSmashTileCostTextView = findViewById(R.id.standard_tools_smash_cost_text_view);
         standardToolsSmashTileCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsSmashTileCost")));
-        AppCompatTextView standardToolsChangeValueCostTextView = findViewById(R.id.standard_tools_change_value_cost_text_view);
-        standardToolsChangeValueCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsChangeValueCost")));
-        AppCompatTextView specialToolsSwapTilesCostTextView = findViewById(R.id.special_tools_swap_tiles_cost_text_view);
-        specialToolsSwapTilesCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsSwapTilesCost")));
+        AppCompatTextView standardToolsSwapTilesCostTextView = findViewById(R.id.standard_tools_swap_tiles_cost_text_view);
+        standardToolsSwapTilesCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsSwapTilesCost")));
+        AppCompatTextView specialToolsChangeValueCostTextView = findViewById(R.id.special_tools_change_value_cost_text_view);
+        specialToolsChangeValueCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsChangeValueCost")));
         AppCompatTextView specialToolsEliminateValueCostTextView = findViewById(R.id.special_tools_eliminate_value_cost_text_view);
         specialToolsEliminateValueCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsEliminateValueCost")));
         AppCompatTextView specialToolsDestroyAreaCostTextView = findViewById(R.id.special_tools_destroy_area_cost_text_view);
@@ -260,10 +260,10 @@ public class GameActivity extends AppCompatActivity implements
                             undoProcess();
                         } else if (optionSelected == GameOverDialogOptions.STANDARD_TOOL_SMASH_TILE) {
                             smashTileProcess();
-                        } else if (optionSelected == GameOverDialogOptions.STANDARD_TOOL_CHANGE_VALUE) {
-                            changeValueProcess();
-                        } else if (optionSelected == GameOverDialogOptions.SPECIAL_TOOL_SWAP_TILES) {
+                        } else if (optionSelected == GameOverDialogOptions.STANDARD_TOOL_SWAP_TILES) {
                             swapTilesProcess();
+                        } else if (optionSelected == GameOverDialogOptions.SPECIAL_TOOL_CHANGE_VALUE) {
+                            changeValueProcess();
                         } else if (optionSelected == GameOverDialogOptions.SPECIAL_TOOL_ELIMINATE_VALUE) {
                             eliminateValueProcess();
                         } else if (optionSelected == GameOverDialogOptions.SPECIAL_TOOL_DESTROY_AREA) {
@@ -298,8 +298,8 @@ public class GameActivity extends AppCompatActivity implements
 
         // Return if currently the user is using a tool
         if (getSupportFragmentManager().findFragmentByTag("SMASH_TILE_FRAGMENT") != null
-                || getSupportFragmentManager().findFragmentByTag("CHANGE_VALUE_FRAGMENT") != null
                 || getSupportFragmentManager().findFragmentByTag("SWAP_TILES_FRAGMENT") != null
+                || getSupportFragmentManager().findFragmentByTag("CHANGE_VALUE_FRAGMENT") != null
                 || getSupportFragmentManager().findFragmentByTag("ELIMINATE_VALUE_FRAGMENT") != null
                 || getSupportFragmentManager().findFragmentByTag("DESTROY_AREA_FRAGMENT") != null) {
             movesQueue.clear();
@@ -551,17 +551,17 @@ public class GameActivity extends AppCompatActivity implements
                 Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments - 1);
                 if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()) {
                     String fragmentTag = topMostFragment.getTag();
-                    if (fragmentTag.equals("SMASH_TILE_FRAGMENT") || fragmentTag.equals("CHANGE_VALUE_FRAGMENT")
-                            || fragmentTag.equals("SWAP_TILES_FRAGMENT") || fragmentTag.equals("ELIMINATE_VALUE_FRAGMENT")
+                    if (fragmentTag.equals("SMASH_TILE_FRAGMENT") || fragmentTag.equals("SWAP_TILES_FRAGMENT")
+                            || fragmentTag.equals("CHANGE_VALUE_FRAGMENT") || fragmentTag.equals("ELIMINATE_VALUE_FRAGMENT")
                             || fragmentTag.equals("DESTROY_AREA_FRAGMENT")) {
                         if (fragmentTag.equals("SMASH_TILE_FRAGMENT")) {
                             forToolFragmentsIsToolInProgress = ((SmashTileFragment) topMostFragment).checkToolUseState();
                             handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
-                        } else if (fragmentTag.equals("CHANGE_VALUE_FRAGMENT")) {
-                            forToolFragmentsIsToolInProgress = ((ChangeValueFragment) topMostFragment).checkSecondClickStatus();
-                            handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
                         } else if (fragmentTag.equals("SWAP_TILES_FRAGMENT")) {
                             forToolFragmentsIsToolInProgress = ((SwapTilesFragment) topMostFragment).checkSecondClickStatus();
+                            handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
+                        } else if (fragmentTag.equals("CHANGE_VALUE_FRAGMENT")) {
+                            forToolFragmentsIsToolInProgress = ((ChangeValueFragment) topMostFragment).checkSecondClickStatus();
                             handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
                         } else if (fragmentTag.equals("ELIMINATE_VALUE_FRAGMENT")) {
                             forToolFragmentsIsToolInProgress = ((EliminateValueFragment) topMostFragment).checkToolUseState();
@@ -787,12 +787,12 @@ public class GameActivity extends AppCompatActivity implements
         smashTileProcess();
     }
 
-    public void standardToolsChangeValue(View view) {
-        changeValueProcess();
+    public void standardToolsSwapTiles(View view) {
+        swapTilesProcess();
     }
 
-    public void specialToolsSwapTiles(View view) {
-        swapTilesProcess();
+    public void specialToolsChangeValue(View view) {
+        changeValueProcess();
     }
 
     public void specialToolsEliminateValue(View view) {
@@ -891,21 +891,6 @@ public class GameActivity extends AppCompatActivity implements
                                                 lottieAnimationView, gridLottieView, new Pair<>(row, column));
                                     } // else, user has clicked after choosing tile to smash, so we ignore the click
                                 }
-                            } else if (topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")) {
-                                if (cellValue != 0 && cellValue != -1) {
-                                    ChangeValueFragment changeValueFragment = ((ChangeValueFragment) topMostFragment);
-                                    if (changeValueFragment.checkFirstClickStatus()
-                                            && changeValueFragment.checkSecondClickStatus()) {
-                                        // User has clicked at some time else which is not valid for this tool use
-                                    } else { // Tool use is not complete
-                                        if (!changeValueFragment.checkFirstClickStatus()) { // First click is yet to be done
-                                            rootGameConstraintLayout.setEnabled(false);
-                                            changeValueFragment.handleChangeValueToolFirstClick(lottieAnimationView,
-                                                    findViewById(R.id.game_cell_lottie_layout), gridLottieView,
-                                                    new Pair<>(row, column));
-                                        }
-                                    }
-                                }
                             } else if (topMostFragment.getTag().equals("SWAP_TILES_FRAGMENT")) {
                                 if (cellValue != 0 && cellValue != -1) {
                                     SwapTilesFragment swapTilesFragment = ((SwapTilesFragment) topMostFragment);
@@ -921,6 +906,21 @@ public class GameActivity extends AppCompatActivity implements
                                             swapTilesFragment.handleSwapTilesToolSecondClick(
                                                     findViewById(R.id.game_cell_lottie_layout), lottieAnimationView,
                                                     gridLottieView, new Pair<>(row, column));
+                                        }
+                                    }
+                                }
+                            } else if (topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")) {
+                                if (cellValue != 0 && cellValue != -1) {
+                                    ChangeValueFragment changeValueFragment = ((ChangeValueFragment) topMostFragment);
+                                    if (changeValueFragment.checkFirstClickStatus()
+                                            && changeValueFragment.checkSecondClickStatus()) {
+                                        // User has clicked at some time else which is not valid for this tool use
+                                    } else { // Tool use is not complete
+                                        if (!changeValueFragment.checkFirstClickStatus()) { // First click is yet to be done
+                                            rootGameConstraintLayout.setEnabled(false);
+                                            changeValueFragment.handleChangeValueToolFirstClick(lottieAnimationView,
+                                                    findViewById(R.id.game_cell_lottie_layout), gridLottieView,
+                                                    new Pair<>(row, column));
                                         }
                                     }
                                 }
@@ -990,43 +990,6 @@ public class GameActivity extends AppCompatActivity implements
         }
     }
 
-    private void changeValueProcess() {
-        movesQueue.clear();
-        if (gameManager.findGameTilesCurrentlyOnBoard(gameManager.getGameMatrix()) < 1) {
-            String changeValueMessage = "Atleast 1 game tile is required to use the \"CHANGE VALUE\" tool";
-            new ToolUseProhibitedDialog(this, changeValueMessage).show();
-            return;
-        }
-
-        if (currentCoins >= toolsCostMap.get("standardToolsChangeValueCost")) {
-            // If ChangeValueFragment was opened and is currently on top, then return
-            int countOfFragments = getSupportFragmentManager().getFragments().size();
-            if (countOfFragments > 0) {
-                Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments - 1);
-                if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()
-                        && topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")) {
-                    return;
-                }
-            }
-
-            // Add a layer of individual lottie cells to the game board
-            addTempIndividualCellLottieLayer();
-
-            // Initiate the tool entry transition
-            ToolAnimationsUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
-            ChangeValueFragment fragment = new ChangeValueFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.setCustomAnimations(R.anim.tools_fragment_entry, R.anim.tools_fragment_exit,
-                    R.anim.tools_fragment_entry, R.anim.tools_fragment_exit);
-            transaction.addToBackStack(null);
-            transaction.replace(R.id.tool_use_game_activity_fragment_container,
-                    fragment, "CHANGE_VALUE_FRAGMENT").commit();
-        } else {
-            openShopFragment();
-        }
-    }
-
     private void swapTilesProcess() {
         movesQueue.clear();
         if (gameManager.findGameTilesCurrentlyOnBoard(gameManager.getGameMatrix()) < 2) {
@@ -1035,7 +998,7 @@ public class GameActivity extends AppCompatActivity implements
             return;
         }
 
-        if (currentCoins >= toolsCostMap.get("specialToolsSwapTilesCost")) {
+        if (currentCoins >= toolsCostMap.get("standardToolsSwapTilesCost")) {
             // If SwapTilesFragment was opened and is currently on top, then return
             int countOfFragments = getSupportFragmentManager().getFragments().size();
             if (countOfFragments > 0) {
@@ -1059,6 +1022,43 @@ public class GameActivity extends AppCompatActivity implements
             transaction.addToBackStack(null);
             transaction.replace(R.id.tool_use_game_activity_fragment_container,
                     fragment, "SWAP_TILES_FRAGMENT").commit();
+        } else {
+            openShopFragment();
+        }
+    }
+
+    private void changeValueProcess() {
+        movesQueue.clear();
+        if (gameManager.findGameTilesCurrentlyOnBoard(gameManager.getGameMatrix()) < 1) {
+            String changeValueMessage = "Atleast 1 game tile is required to use the \"CHANGE VALUE\" tool";
+            new ToolUseProhibitedDialog(this, changeValueMessage).show();
+            return;
+        }
+
+        if (currentCoins >= toolsCostMap.get("specialToolsChangeValueCost")) {
+            // If ChangeValueFragment was opened and is currently on top, then return
+            int countOfFragments = getSupportFragmentManager().getFragments().size();
+            if (countOfFragments > 0) {
+                Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments - 1);
+                if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()
+                        && topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")) {
+                    return;
+                }
+            }
+
+            // Add a layer of individual lottie cells to the game board
+            addTempIndividualCellLottieLayer();
+
+            // Initiate the tool entry transition
+            ToolAnimationsUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
+            ChangeValueFragment fragment = new ChangeValueFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.setCustomAnimations(R.anim.tools_fragment_entry, R.anim.tools_fragment_exit,
+                    R.anim.tools_fragment_entry, R.anim.tools_fragment_exit);
+            transaction.addToBackStack(null);
+            transaction.replace(R.id.tool_use_game_activity_fragment_container,
+                    fragment, "CHANGE_VALUE_FRAGMENT").commit();
         } else {
             openShopFragment();
         }
@@ -1203,48 +1203,6 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onChangeValueFragmentInteractionBackClicked() {
-        onBackPressed();
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    @Override
-    public void onChangeValueFragmentInteractionProcessToolUse(Pair<Integer, Integer> changeValueTilePosition, int newValue) {
-        // Making a copy of the board
-        List<List<Integer>> copyOfCurrentBoard = new ArrayList<>();
-        for (int i = 0; i < gameManager.getGameMatrix().size(); i++) {
-            List<Integer> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));
-            copyOfCurrentBoard.add(boardRow);
-        }
-
-        /* Changing the value of the chosen tile */
-        // Settings new value for chosen tile in copyOfCurrentBoard
-        copyOfCurrentBoard.get(changeValueTilePosition.first).set(changeValueTilePosition.second, newValue);
-        int popUpAnimationDuration = 250; // In Milli-seconds
-        // Giving new look to first swap position
-        AppCompatTextView changeValueTilePositionTextView = rootGameConstraintLayout.findViewWithTag("gameCell" +
-                changeValueTilePosition.first + changeValueTilePosition.second);
-        CellValues cellValueEnumFirstPosition = CellValues.getCellValueEnum(newValue);
-        // Executing the pop up animation for the chosen tile to change value
-        AnimationsUtility.executePopUpAnimation(changeValueTilePositionTextView, cellValueEnumFirstPosition.getCellValue(),
-                getColor(cellValueEnumFirstPosition.getNumberColorResourceId()),
-                getDrawable(cellValueEnumFirstPosition.getBackgroundDrawableResourceId()),
-                popUpAnimationDuration, 0, currentGameMode.getGameLayoutProperties());
-        // Updating the game matrix
-        gameManager.updateGameMatrix(copyOfCurrentBoard);
-
-        // Update the reduced number of coins
-        currentCoins -= toolsCostMap.get("standardToolsChangeValueCost");
-        sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
-        currentCoinsTextView.setText(String.valueOf(currentCoins));
-
-        // Final set of actions
-        saveGameState();
-        handleGoalCompletionStatus();
-        onBackPressed();
-    }
-
-    @Override
     public void onSwapTilesFragmentInteractionBackClicked() {
         onBackPressed();
     }
@@ -1288,12 +1246,54 @@ public class GameActivity extends AppCompatActivity implements
         gameManager.updateGameMatrix(copyOfCurrentBoard);
 
         // Update the reduced number of coins
-        currentCoins -= toolsCostMap.get("specialToolsSwapTilesCost");
+        currentCoins -= toolsCostMap.get("standardToolsSwapTilesCost");
         sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
         currentCoinsTextView.setText(String.valueOf(currentCoins));
 
         // Final set of actions
         saveGameState();
+        onBackPressed();
+    }
+
+    @Override
+    public void onChangeValueFragmentInteractionBackClicked() {
+        onBackPressed();
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    @Override
+    public void onChangeValueFragmentInteractionProcessToolUse(Pair<Integer, Integer> changeValueTilePosition, int newValue) {
+        // Making a copy of the board
+        List<List<Integer>> copyOfCurrentBoard = new ArrayList<>();
+        for (int i = 0; i < gameManager.getGameMatrix().size(); i++) {
+            List<Integer> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));
+            copyOfCurrentBoard.add(boardRow);
+        }
+
+        /* Changing the value of the chosen tile */
+        // Settings new value for chosen tile in copyOfCurrentBoard
+        copyOfCurrentBoard.get(changeValueTilePosition.first).set(changeValueTilePosition.second, newValue);
+        int popUpAnimationDuration = 250; // In Milli-seconds
+        // Giving new look to first swap position
+        AppCompatTextView changeValueTilePositionTextView = rootGameConstraintLayout.findViewWithTag("gameCell" +
+                changeValueTilePosition.first + changeValueTilePosition.second);
+        CellValues cellValueEnumFirstPosition = CellValues.getCellValueEnum(newValue);
+        // Executing the pop up animation for the chosen tile to change value
+        AnimationsUtility.executePopUpAnimation(changeValueTilePositionTextView, cellValueEnumFirstPosition.getCellValue(),
+                getColor(cellValueEnumFirstPosition.getNumberColorResourceId()),
+                getDrawable(cellValueEnumFirstPosition.getBackgroundDrawableResourceId()),
+                popUpAnimationDuration, 0, currentGameMode.getGameLayoutProperties());
+        // Updating the game matrix
+        gameManager.updateGameMatrix(copyOfCurrentBoard);
+
+        // Update the reduced number of coins
+        currentCoins -= toolsCostMap.get("specialToolsChangeValueCost");
+        sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
+        currentCoinsTextView.setText(String.valueOf(currentCoins));
+
+        // Final set of actions
+        saveGameState();
+        handleGoalCompletionStatus();
         onBackPressed();
     }
 
