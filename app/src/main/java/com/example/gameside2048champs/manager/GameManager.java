@@ -324,7 +324,7 @@ public class GameManager {
 
     public void updateGameState() {
         if (!hasGoalBeenCompleted) {
-            // The check win condition is as follows
+            // The check goal completion condition is as follows
             for (int row = 0; row < currentGameMode.getRows(); row++) {
                 for (int column = 0; column < currentGameMode.getColumns(); column++) {
                     if (gameMatrix.get(row).get(column) >= currentGameMode.getGoal()) {

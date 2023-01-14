@@ -683,6 +683,7 @@ public class GameActivity extends AppCompatActivity implements
             goalTileTextView.setText(String.format("GOAL TILE %s", String.valueOf(toChars(greenTickEmojiUnicode))));
         } else {
             goalDone = false;
+            gameManager.setHasGoalBeenCompleted(false);
             goalTileTextView.setText("GOAL TILE");
             sharedPreferences.edit().putBoolean("goalDone" + " " + currentGameMode.getMode()
                     + " " + currentGameMode.getDimensions(), goalDone).apply();

@@ -18,13 +18,6 @@ import android.view.WindowManager;
 import com.example.gameside2048champs.dialogs.ArrivingFeatureDialog;
 import com.example.gameside2048champs.fragments.PreGameFragment;
 
-/* TODO -> !! Bug !! -> If we do undo exactly after the move in which we completed the goal, then goal completion is done.
-           But now if the user makes any move even a move which does not lead to goal completion the code block for goal
-           completion is being played. This happens also when Change Value tool reverses the goal completion status. Also
-           check if, after this bug happens in the game once, it somehow happens again and again. Additionally, look out for
-           this bug after undo is done for game over and the first move is made after this undo (Check after bug has happened
-           once before this) (Noted in Main Project)
-*/
 // TODO -> Add option in ShopFragment to earn coins for free by watching Ad when ad has loaded
 public class MainActivity extends AppCompatActivity implements PreGameFragment.OnPreGameFragmentInteractionListener {
 
