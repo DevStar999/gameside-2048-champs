@@ -59,6 +59,10 @@
     <color name="white_dialog_background_translucent">#66FFFFFF</color>
     <!-- Current opacity for following color = 75% i.e. in hex = BF -->
     <color name="white_translucent_splash_screen">#BFFFFFFF</color>
+    <color name="combo_merge_inner1">#FCC729</color>
+    <color name="combo_merge_outer1">#337DEF</color>
+    <color name="combo_merge_inner2">@color/royal_red</color>
+    <color name="combo_merge_outer2">@color/blue_50_500</color>
 
     <!-- Number Colors -->
     <color name="number_color_0002">#766D64</color>
