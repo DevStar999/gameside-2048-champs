@@ -51,6 +51,8 @@ public class GameLayoutProvider {
                     imageView.setImageResource(selectedBlockDesign.getBlockDrawableResourceId());
                     imageView.setScaleX(selectedBlockDesign.getBlockDrawableScaleX());
                     imageView.setScaleY(selectedBlockDesign.getBlockDrawableScaleY());
+                    imageView.setRotationX(selectedBlockDesign.getBlockDrawableRotationX());
+                    imageView.setRotationY(selectedBlockDesign.getBlockDrawableRotationY());
                 } else {
                     imageView.setImageResource(R.drawable.cell_empty);
                 }
