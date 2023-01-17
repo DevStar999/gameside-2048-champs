@@ -14,10 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GameSide2048Champs"
         tools:targetApi="32">
-        <activity android:name=".GameActivity" />
+        <activity
+            android:name=".GameActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
