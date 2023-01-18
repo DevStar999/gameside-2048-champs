@@ -28,25 +28,19 @@
     <color name="black_translucent_film_dark">#80000000</color>
     <!-- Current opacity for following color = 60% i.e. in hex = 99 -->
     <color name="black_translucent_film_game_activity_background">#99000000</color>
-    <color name="board_color">#BBADA0</color>
+    <color name="board_color">#1D1D1D</color>
     <color name="button_background_color">@color/orange_button</color>
-    <color name="dialog_background_color">#EADDCA</color>
-    <color name="empty_cell">#D6CDC4</color>
-    <color name="game_primary_background_color">#FBF8EF</color>
+    <color name="dialog_background_color">#232323</color>
+    <color name="empty_cell">#787878</color>
+    <color name="game_primary_background_color">#070707</color>
     <!-- Current opacity for following color = 60% i.e. in hex = 99 -->
-    <color name="game_primary_background_color_translucent1">#99FBF8EF</color>
+    <color name="game_primary_background_color_translucent1">#99000000</color>
     <!-- Current opacity for following color = 80% i.e. in hex = CC -->
-    <color name="game_primary_background_color_translucent2">#CCFBF8EF</color>
-    <color name="game_text_color">#967969</color>
+    <color name="game_primary_background_color_translucent2">#CC000000</color>
+    <color name="game_text_color">#FFFFFF</color>
     <color name="game_text_color_dark">#442E19</color>
     <!-- Current opacity for following color = 50% i.e. in hex = 80 -->
     <color name="game_text_color_divider_line">#80967969</color>
-    <!-- Current opacity for following color = 20% i.e. in hex = 32 -->
-    <color name="game_text_color_translucent_bgf1">#32967969</color>
-    <!-- Current opacity for following color = 30% i.e. in hex = 4D -->
-    <color name="game_text_color_translucent_bgf2">#4D967969</color>
-    <!-- Current opacity for following color = 30% i.e. in hex = 4D -->
-    <color name="game_text_color_translucent_bgf3">#4D967969</color>
     <!-- Current opacity for following color = 70% i.e. in hex = B3 -->
     <color name="grid_lottie_black_translucent_film">#B3000000</color>
     <color name="ic_launcher_background">#EEC22E</color>
