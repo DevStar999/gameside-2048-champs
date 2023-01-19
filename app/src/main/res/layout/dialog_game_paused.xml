@@ -32,7 +32,7 @@
         android:letterSpacing="0.04"
         android:text="The game is paused"
         android:textAlignment="center"
-        android:textColor="@color/game_text_color"
+        android:textColor="@color/text_color"
         android:textSize="16sp"
         android:textStyle="bold"
         android:visibility="invisible"
