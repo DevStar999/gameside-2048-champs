@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true"
-    android:background="@color/game_primary_background_color"
+    android:background="@color/primary_background_color"
     tools:context=".fragments.PreGameFragment">
 
     <FrameLayout
@@ -28,7 +28,7 @@
             android:scrollHorizontally="false"
             android:text="SELECT GAME MODE"
             android:textAlignment="center"
-            android:textColor="@color/game_primary_background_color"
+            android:textColor="@color/primary_background_color"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:scaleX="1.4"
                 android:scaleY="1.4"
-                android:background="@color/game_primary_background_color"
+                android:background="@color/primary_background_color"
                 android:contentDescription="Game mode browse left"
                 app:srcCompat="@drawable/arrow_left" />
 
@@ -92,10 +92,10 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/game_primary_background_color"
+                android:background="@color/primary_background_color"
                 android:contentDescription="Game mode display button"
                 android:scrollHorizontally="false"
-                android:textColor="@color/game_text_color"
+                android:textColor="@color/text_color"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textAlignment="center"/>
@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:scaleX="1.4"
                 android:scaleY="1.4"
-                android:background="@color/game_primary_background_color"
+                android:background="@color/primary_background_color"
                 android:contentDescription="Game mode browse right"
                 app:srcCompat="@drawable/arrow_right" />
 
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:scaleX="1.4"
                 android:scaleY="1.4"
-                android:background="@color/game_primary_background_color"
+                android:background="@color/primary_background_color"
                 android:contentDescription="Game size browse left"
                 app:srcCompat="@drawable/arrow_left" />
 
@@ -135,10 +135,10 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/game_primary_background_color"
+                android:background="@color/primary_background_color"
                 android:scrollHorizontally="false"
                 android:contentDescription="Game size display button"
-                android:textColor="@color/game_text_color"
+                android:textColor="@color/text_color"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textAlignment="center"/>
@@ -149,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:scaleX="1.4"
                 android:scaleY="1.4"
-                android:background="@color/game_primary_background_color"
+                android:background="@color/primary_background_color"
                 android:contentDescription="Game size browse right"
                 app:srcCompat="@drawable/arrow_right" />
 
