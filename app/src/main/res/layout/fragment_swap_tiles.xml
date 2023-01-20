@@ -94,7 +94,7 @@
                 android:layout_marginEnd="4dp"
                 android:scrollHorizontally="false"
                 android:text="SWAP TILES"
-                android:textColor="@color/game_primary_background_color"
+                android:textColor="@color/text_color"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -115,7 +115,7 @@
             android:paddingStart="8dp"
             android:checked="false"
             android:text="Select 1st tile for swap"
-            android:textColor="@color/game_primary_background_color"
+            android:textColor="@color/text_color"
             android:textSize="16sp"
             android:textStyle="normal"
             android:button="@drawable/check_box_selector"
@@ -133,7 +133,7 @@
             android:paddingStart="8dp"
             android:checked="false"
             android:text="Select 2nd tile for swap"
-            android:textColor="@color/game_primary_background_color"
+            android:textColor="@color/text_color"
             android:textSize="16sp"
             android:textStyle="normal"
             android:button="@drawable/check_box_selector"
