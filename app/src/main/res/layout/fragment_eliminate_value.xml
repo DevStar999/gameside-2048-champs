@@ -95,7 +95,7 @@
                 android:layout_marginEnd="4dp"
                 android:scrollHorizontally="false"
                 android:text="ELIMINATE VALUE"
-                android:textColor="@color/game_primary_background_color"
+                android:textColor="@color/text_color"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -117,7 +117,7 @@
             android:checked="false"
             android:paddingStart="8dp"
             android:text="Select a tile to remove all the tiles having the same value"
-            android:textColor="@color/game_primary_background_color"
+            android:textColor="@color/text_color"
             android:textSize="16sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
