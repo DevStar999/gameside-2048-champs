@@ -94,7 +94,7 @@
                 android:layout_marginEnd="4dp"
                 android:scrollHorizontally="false"
                 android:text="CHANGE VALUE"
-                android:textColor="@color/game_primary_background_color"
+                android:textColor="@color/text_color"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -116,7 +116,7 @@
             android:checked="false"
             android:paddingStart="8dp"
             android:text="Select a tile for value change"
-            android:textColor="@color/game_primary_background_color"
+            android:textColor="@color/text_color"
             android:textSize="16sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toTopOf="@id/second_click_change_value_fragment_check_box"
@@ -135,7 +135,7 @@
             android:checked="false"
             android:paddingStart="8dp"
             android:text="Choose a value from given options"
-            android:textColor="@color/game_primary_background_color"
+            android:textColor="@color/text_color"
             android:textSize="16sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toTopOf="@id/value_options_change_value_fragment_frame_layout"
@@ -164,7 +164,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="Chosen Option"
-                    android:textColor="@color/game_primary_background_color"
+                    android:textColor="@color/text_color"
                     android:textSize="16sp"
                     android:textStyle="normal" />
 
