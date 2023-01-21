@@ -85,7 +85,7 @@
                     android:layout_marginEnd="10dp"
                     android:scrollHorizontally="false"
                     android:text="-"
-                    android:textColor="@color/game_primary_background_color"
+                    android:textColor="@color/primary_background_color"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -110,7 +110,7 @@
                 android:layout_marginHorizontal="4dp"
                 android:scrollHorizontally="false"
                 android:text="-"
-                android:textColor="@color/game_text_color"
+                android:textColor="@color/text_color"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -159,7 +159,7 @@
             android:layout_height="2dp"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="10dp"
-            android:background="@color/game_text_color_divider_line" />
+            android:background="@color/settings_divider_line" />
 
     </LinearLayout>
 
@@ -308,7 +308,7 @@
                         android:layout_marginEnd="1dp"
                         android:scrollHorizontally="false"
                         android:text="-"
-                        android:textColor="@color/game_primary_background_color"
+                        android:textColor="@color/primary_background_color"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
@@ -362,7 +362,7 @@
                         android:layout_marginEnd="1dp"
                         android:scrollHorizontally="false"
                         android:text="-"
-                        android:textColor="@color/game_primary_background_color"
+                        android:textColor="@color/primary_background_color"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
@@ -417,7 +417,7 @@
                         android:layout_marginEnd="1dp"
                         android:scrollHorizontally="false"
                         android:text="-"
-                        android:textColor="@color/game_primary_background_color"
+                        android:textColor="@color/primary_background_color"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
@@ -479,7 +479,7 @@
                         android:layout_marginEnd="1dp"
                         android:scrollHorizontally="false"
                         android:text="-"
-                        android:textColor="@color/game_primary_background_color"
+                        android:textColor="@color/primary_background_color"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
@@ -533,7 +533,7 @@
                         android:layout_marginEnd="1dp"
                         android:scrollHorizontally="false"
                         android:text="-"
-                        android:textColor="@color/game_primary_background_color"
+                        android:textColor="@color/primary_background_color"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
@@ -588,7 +588,7 @@
                         android:layout_marginEnd="1dp"
                         android:scrollHorizontally="false"
                         android:text="-"
-                        android:textColor="@color/game_primary_background_color"
+                        android:textColor="@color/primary_background_color"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
@@ -667,7 +667,7 @@
         android:scrollHorizontally="false"
         android:text=""
         android:textAlignment="center"
-        android:textColor="@color/game_text_color"
+        android:textColor="@color/text_color"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/game_frame_layout"
