@@ -18,6 +18,8 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -81,6 +83,7 @@ public class GameActivity extends AppCompatActivity implements
     private int currentScore;
     private int bestScore;
     private boolean isCurrentScoreTheBest; // Flag to check if best score and current score displays have been merged
+    private int multiMergeComboBarProgress;
     private boolean isToolsChestOpen;
 
     // UI Elements
@@ -95,6 +98,7 @@ public class GameActivity extends AppCompatActivity implements
     private AppCompatTextView currentCoinsTextView;
     private AppCompatTextView currentScoreTextView;
     private AppCompatTextView bestScoreTextView;
+    private ProgressBar multiMergeComboBar;
     private AppCompatTextView goalTileTextView;
     private LottieAnimationView toolsChangeLottie;
     private AppCompatTextView tutorialTextView;
@@ -129,6 +133,8 @@ public class GameActivity extends AppCompatActivity implements
         bestScore = sharedPreferences.getInt("bestScore" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), 0);
         isCurrentScoreTheBest = false;
+        multiMergeComboBarProgress = sharedPreferences.getInt("multiMergeComboBarProgress"  + " " +
+                currentGameMode.getMode() + " " + currentGameMode.getDimensions(), 1);
         isToolsChestOpen = sharedPreferences.getBoolean("isToolsChestOpen" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), false);
     }
@@ -171,6 +177,9 @@ public class GameActivity extends AppCompatActivity implements
 
         bestScoreTextView = findViewById(R.id.best_score_value_text_view);
         bestScoreTextView.setText(String.valueOf(bestScore));
+        multiMergeComboBar = findViewById(R.id.multi_merge_combo_bar_progress_bar);
+        multiMergeComboBar.setMax(49);
+        setMultiMergeComboBarProgress(multiMergeComboBarProgress);
         goalTileTextView = findViewById(R.id.goal_tile_text_view);
         if (gameManager.getCurrentGameState() == GameStates.GAME_OVER) {
             updateScore(0);
@@ -332,6 +341,8 @@ public class GameActivity extends AppCompatActivity implements
                     if (gameManager.isHasMoveBeenCompleted()) {
                         gameManager.updateGameState();
                         updateScore(gameManager.getCurrentScore());
+                        // TODO -> Make call to a method updateMultiMergeComboBar() to handle it's state
+                        updateMultiMergeComboBar(swipeUtility.getMergePositionsCount());
                         if (gameManager.isHasGoalBeenCompleted() && !goalDone) {
                             goalDone = true;
                             int greenTickEmojiUnicode = 0x2705;
@@ -466,6 +477,51 @@ public class GameActivity extends AppCompatActivity implements
         }
     }
 
+    // TODO -> In the later stages of the game, make different ranges for smaller & larger dimension game boards
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void setMultiMergeComboBarProgress(int givenMultiMergeComboBarProgress) {
+        multiMergeComboBarProgress = givenMultiMergeComboBarProgress;
+        multiMergeComboBar.setProgress(multiMergeComboBarProgress);
+        if (givenMultiMergeComboBarProgress >= 0 && givenMultiMergeComboBarProgress <= 6) {
+            multiMergeComboBar.setProgressDrawable(getDrawable(R.drawable.combo_bar_progress_segment1));
+        } else if (givenMultiMergeComboBarProgress >= 7 && givenMultiMergeComboBarProgress <= 12) {
+            multiMergeComboBar.setProgressDrawable(getDrawable(R.drawable.combo_bar_progress_segment2));
+        } else if (givenMultiMergeComboBarProgress >= 13 && givenMultiMergeComboBarProgress <= 18) {
+            multiMergeComboBar.setProgressDrawable(getDrawable(R.drawable.combo_bar_progress_segment3));
+        } else if (givenMultiMergeComboBarProgress >= 19 && givenMultiMergeComboBarProgress <= 24) {
+            multiMergeComboBar.setProgressDrawable(getDrawable(R.drawable.combo_bar_progress_segment4));
+        } else if (givenMultiMergeComboBarProgress >= 25 && givenMultiMergeComboBarProgress <= 30) {
+            multiMergeComboBar.setProgressDrawable(getDrawable(R.drawable.combo_bar_progress_segment5));
+        } else if (givenMultiMergeComboBarProgress >= 31 && givenMultiMergeComboBarProgress <= 36) {
+            multiMergeComboBar.setProgressDrawable(getDrawable(R.drawable.combo_bar_progress_segment6));
+        } else if (givenMultiMergeComboBarProgress >= 37 && givenMultiMergeComboBarProgress <= 42) {
+            multiMergeComboBar.setProgressDrawable(getDrawable(R.drawable.combo_bar_progress_segment7));
+        } else if (givenMultiMergeComboBarProgress >= 43 && givenMultiMergeComboBarProgress <= 48) {
+            multiMergeComboBar.setProgressDrawable(getDrawable(R.drawable.combo_bar_progress_segment8));
+        } else { // Over 48 i.e. 49 which is the limit, so the bar is completely filled now and it is time to reset it
+            /* TODO -> Add the following animations/sounds at this stage of the game -
+                       (1) Reset the progress of the Multi-Merge Progress Bar in an animated way
+                       (2) Add the +5 coins to the total coins tally in an animated way (With Sound)
+                       (3) Remove the old toast message 
+            */
+            multiMergeComboBarProgress = 1;
+            multiMergeComboBar.setProgress(multiMergeComboBarProgress);
+            multiMergeComboBar.setProgressDrawable(getDrawable(R.drawable.combo_bar_progress_segment1));
+
+            // Added 5 coins to the total
+            currentCoins += 5;
+            sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
+            currentCoinsTextView.setText(String.valueOf(currentCoins));
+            Toast.makeText(GameActivity.this, "Cheers!! Rewarded +5 Coins", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void updateMultiMergeComboBar(int mergePositionsCount) {
+        if (mergePositionsCount > 1) {
+            setMultiMergeComboBarProgress(multiMergeComboBarProgress + 1);
+        }
+    }
+
     private ArrayList<ArrayList<Integer>> getCopyOfGivenBoard(ArrayList<ArrayList<Integer>> givenBoard) {
         ArrayList<ArrayList<Integer>> copyOfGivenBoard = new ArrayList<>();
         for (int i = 0; i < givenBoard.size(); i++) {
@@ -482,6 +538,8 @@ public class GameActivity extends AppCompatActivity implements
         // Saving the current state of the game to play later
         sharedPreferences.edit().putInt("gameStateEnumIndex" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), gameManager.getCurrentGameState().ordinal()).apply();
+        sharedPreferences.edit().putInt("multiMergeComboBarProgress"  + " " + currentGameMode.getMode() + " " +
+                currentGameMode.getDimensions(), multiMergeComboBarProgress).apply();
         sharedPreferences.edit().putInt("currentScore" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), currentScore).apply();
         sharedPreferences.edit().putString("undoManager" + " " + currentGameMode.getMode()

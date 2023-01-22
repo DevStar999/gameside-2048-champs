@@ -232,4 +232,14 @@ public class SwipeUtility {
 
         setAfterMoveMatrixValues();
     }
+
+    public int getMergePositionsCount() {
+        int result = 0;
+        for (int row = 0; row < ctiMatrix.size(); row++) {
+            for (int column = 0; column < ctiMatrix.get(row).size(); column++) {
+                result = (ctiMatrix.get(row).get(column).isDidMerge()) ? result + 1 : result;
+            }
+        }
+        return result;
+    }
 }
