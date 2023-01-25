@@ -11,10 +11,10 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Customize your theme here. -->
-        <item name="colorBackgroundFloating">@color/white_dialog_background_translucent</item>
-        <item name="android:statusBarColor">@color/game_primary_background_color</item>
-        <item name="android:navigationBarColor">@color/game_primary_background_color</item>
-        <item name="android:windowBackground">@color/game_primary_background_color</item>
+        <item name="colorBackgroundFloating">@color/dialog_background_film</item>
+        <item name="android:statusBarColor">@color/primary_background_color</item>
+        <item name="android:navigationBarColor">@color/primary_background_color</item>
+        <item name="android:windowBackground">@color/primary_background_color</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.GameSide2048Champs">
@@ -26,7 +26,7 @@
     <style name="CustomDialogTheme" parent="@android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">false</item>
-        <item name="android:windowBackground">@color/white_dialog_background_translucent</item>
+        <item name="android:windowBackground">@color/dialog_background_film</item>
         <item name="android:windowAnimationStyle">@style/CustomDialogAnimation</item>
     </style>
 
@@ -44,7 +44,7 @@
     </style>
 
     <style name="CustomCheckBox">
-        <item name="colorControlActivated">@color/game_text_color</item>
-        <item name="colorControlHighlight">@color/game_primary_background_color</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
     </style>
 </resources>
