@@ -9,6 +9,7 @@
     android:paddingHorizontal="8dp"
     android:paddingVertical="24dp">
 
+    <!-- TODO -> Add Coins Display on the tools page of this dialog -->
     <FrameLayout
         android:id="@+id/pages_frame_layout_game_over_dialog"
         android:layout_width="match_parent"
@@ -37,7 +38,7 @@
                 android:scrollHorizontally="false"
                 android:text="Revive game using tools? 🤔"
                 android:textAlignment="center"
-                android:textColor="@color/game_text_color"
+                android:textColor="@color/text_color"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -102,7 +103,7 @@
                                 android:layout_marginEnd="1dp"
                                 android:scrollHorizontally="false"
                                 android:text="-"
-                                android:textColor="@color/game_primary_background_color"
+                                android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -155,7 +156,7 @@
                                 android:layout_marginEnd="1dp"
                                 android:scrollHorizontally="false"
                                 android:text="-"
-                                android:textColor="@color/game_primary_background_color"
+                                android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -209,7 +210,7 @@
                                 android:layout_marginEnd="1dp"
                                 android:scrollHorizontally="false"
                                 android:text="-"
-                                android:textColor="@color/game_primary_background_color"
+                                android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -223,6 +224,7 @@
                             android:background="@drawable/click_standard_tools"
                             android:contentDescription="Swap Two Tiles"
                             android:scaleType="fitXY"
+                            android:padding="4dp"
                             app:srcCompat="@drawable/standard_tools_swap_tiles" />
 
                     </LinearLayout>
@@ -270,7 +272,7 @@
                                 android:layout_marginEnd="1dp"
                                 android:scrollHorizontally="false"
                                 android:text="-"
-                                android:textColor="@color/game_primary_background_color"
+                                android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -323,7 +325,7 @@
                                 android:layout_marginEnd="1dp"
                                 android:scrollHorizontally="false"
                                 android:text="-"
-                                android:textColor="@color/game_primary_background_color"
+                                android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -376,7 +378,7 @@
                                 android:layout_marginEnd="1dp"
                                 android:scrollHorizontally="false"
                                 android:text="-"
-                                android:textColor="@color/game_primary_background_color"
+                                android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -454,7 +456,7 @@
                 android:scrollHorizontally="false"
                 android:text="[ ⚠️ Warning: All game progress will be lost if you continue ]"
                 android:textAlignment="center"
-                android:textColor="@color/game_text_color"
+                android:textColor="@color/text_color"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -510,8 +512,8 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_marginEnd="2dp"
                     android:layout_gravity="center_vertical"
                     app:srcCompat="@drawable/game_over_dialog_page_selected" />
@@ -548,7 +550,7 @@
                 android:letterSpacing="0.04"
                 android:text="GAME OVER"
                 android:textAlignment="center"
-                android:textColor="@color/game_text_color"
+                android:textColor="@color/text_color"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -582,7 +584,7 @@
                         android:layout_gravity="center_vertical"
                         android:scrollHorizontally="false"
                         android:text="🏆 New High Score"
-                        android:textColor="@color/game_text_color"
+                        android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -592,7 +594,7 @@
                         android:layout_gravity="center"
                         android:layout_marginHorizontal="8dp"
                         android:text=":"
-                        android:textColor="@color/game_text_color"
+                        android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -603,7 +605,7 @@
                         android:scrollHorizontally="false"
                         android:text=""
                         android:textAlignment="viewStart"
-                        android:textColor="@color/game_text_color"
+                        android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -623,7 +625,7 @@
                         android:layout_marginEnd="8dp"
                         android:text="Score"
                         android:textAlignment="center"
-                        android:textColor="@color/game_text_color"
+                        android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         android:scrollHorizontally="false"
@@ -637,7 +639,7 @@
                         android:layout_height="wrap_content"
                         android:text=":"
                         android:textAlignment="center"
-                        android:textColor="@color/game_text_color"
+                        android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         app:layout_constraintTop_toTopOf="parent"
@@ -652,7 +654,7 @@
                         android:layout_marginStart="8dp"
                         android:text=""
                         android:textAlignment="viewStart"
-                        android:textColor="@color/game_text_color"
+                        android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         android:scrollHorizontally="false"
@@ -674,7 +676,7 @@
                         android:layout_marginEnd="8dp"
                         android:text="High Score"
                         android:textAlignment="center"
-                        android:textColor="@color/game_text_color"
+                        android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         android:scrollHorizontally="false"
@@ -688,7 +690,7 @@
                         android:layout_height="wrap_content"
                         android:text=":"
                         android:textAlignment="center"
-                        android:textColor="@color/game_text_color"
+                        android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -703,7 +705,7 @@
                         android:layout_marginStart="8dp"
                         android:text=""
                         android:textAlignment="viewStart"
-                        android:textColor="@color/game_text_color"
+                        android:textColor="@color/text_color"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         android:scrollHorizontally="false"
@@ -794,8 +796,8 @@
                     app:srcCompat="@drawable/game_over_dialog_page_unselected" />
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_marginStart="2dp"
                     android:layout_gravity="center_vertical"
                     app:srcCompat="@drawable/game_over_dialog_page_selected" />
