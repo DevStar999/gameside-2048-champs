@@ -7,6 +7,6 @@
     <!-- Source Link -> https://www.svgrepo.com/svg/358684/dot -->
 
     <path
-        android:fillColor="@color/game_text_color"
+        android:fillColor="@color/custom_green"
         android:pathData="M224,224m-192,0a192,192 0,1 1,384 0a192,192 0,1 1,-384 0" />
 </vector>
