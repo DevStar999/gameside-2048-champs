@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/game_primary_background_color"
+    android:background="@color/primary_background_color"
     android:clickable="true"
     android:focusable="true"
     tools:context=".fragments.ShopFragment">
@@ -27,7 +27,7 @@
             android:scrollHorizontally="false"
             android:text="SHOP"
             android:textAlignment="center"
-            android:textColor="@color/game_primary_background_color"
+            android:textColor="@color/text_color"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -63,7 +63,7 @@
             android:layout_weight="1"
             android:text="Current Coins: "
             android:textAlignment="center"
-            android:textColor="@color/game_text_color"
+            android:textColor="@color/text_color"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -75,7 +75,7 @@
             android:layout_weight="1"
             android:text=""
             android:textAlignment="center"
-            android:textColor="@color/game_text_color"
+            android:textColor="@color/text_color"
             android:textSize="24sp"
             android:textStyle="bold" />
 

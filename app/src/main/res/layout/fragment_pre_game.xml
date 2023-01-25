@@ -28,7 +28,7 @@
             android:scrollHorizontally="false"
             android:text="SELECT GAME MODE"
             android:textAlignment="center"
-            android:textColor="@color/primary_background_color"
+            android:textColor="@color/text_color"
             android:textSize="18sp"
             android:textStyle="bold" />
 
