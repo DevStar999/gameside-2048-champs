@@ -176,14 +176,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/multi_merge_icon_constraint_layout"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="33dp"
+            android:layout_height="35dp"
             android:layout_gravity="start|center_vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/multi_merge_combo_bar_icon_fire_imageview"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
