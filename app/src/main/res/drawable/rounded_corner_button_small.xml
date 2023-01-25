@@ -3,9 +3,9 @@
     android:shape="rectangle">
     <stroke
         android:width="3dp"
-        android:color="@color/game_text_color" />
+        android:color="@color/text_color" />
 
-    <solid android:color="@color/game_primary_background_color" />
+    <solid android:color="@color/primary_background_color" />
 
     <corners
         android:bottomLeftRadius="8dp"
