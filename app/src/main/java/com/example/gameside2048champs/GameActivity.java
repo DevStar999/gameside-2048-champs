@@ -509,10 +509,8 @@ public class GameActivity extends AppCompatActivity implements
             multiMergeComboBar.setProgressDrawable(getDrawable(R.drawable.combo_bar_progress_segment1));
 
             // Added 5 coins to the total
-            currentCoins += 5;
-            sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
-            currentCoinsTextView.setText(String.valueOf(currentCoins));
-            Toast.makeText(GameActivity.this, "Cheers!! Rewarded +5 Coins", Toast.LENGTH_LONG).show();
+            updateCoins(this.currentCoins + 5);
+            Toast.makeText(GameActivity.this, "Cheers \uD83E\uDD17 Rewarded +5 Coins", Toast.LENGTH_LONG).show();
         }
     }
 
