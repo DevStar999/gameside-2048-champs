@@ -48,7 +48,7 @@ public class ChangeValueFragment extends Fragment {
     private LinearLayout changeValueOptionsLinearLayout;
     private LinearLayout changeValueOptionsFirstRow;
     private LinearLayout changeValueOptionsSecondRow;
-    private List<Integer> optionValues;
+    private List<Long> optionValues;
     private List<AppCompatTextView> valueOptionTextViews;
     private List<AppCompatImageView> valueOptionSelectionImageViews;
     private boolean isFirstClickDone;
@@ -86,7 +86,7 @@ public class ChangeValueFragment extends Fragment {
         valueOptionTextView.setTypeface(valueOptionTextView.getTypeface(), Typeface.BOLD);
         valueOptionTextView.setVisibility(View.VISIBLE);
 
-        int currentOptionValue = optionValues.get(optionNumber);
+        long currentOptionValue = optionValues.get(optionNumber);
         CellValues cellValueCurrentOption = CellValues.getCellValueEnum(currentOptionValue);
         valueOptionTextView.setText(String.valueOf(currentOptionValue));
         valueOptionTextView.setTextColor(ContextCompat.getColor(context, cellValueCurrentOption.getNumberColorResourceId()));
@@ -164,7 +164,7 @@ public class ChangeValueFragment extends Fragment {
         changeValueOptionsLinearLayout = view.findViewById(R.id.change_value_options_linear_layout);
         changeValueOptionsFirstRow = view.findViewById(R.id.change_value_options_first_row);
         changeValueOptionsSecondRow = view.findViewById(R.id.change_value_options_second_row);
-        optionValues = new ArrayList<>() {{ add(2); add(4); add(8); add(16); add(32); }};
+        optionValues = new ArrayList<>() {{ add(2L); add(4L); add(8L); add(16L); add(32L); }};
         valueOptionTextViews = new ArrayList<>();
         valueOptionSelectionImageViews = new ArrayList<>();
         isFirstClickDone = true;
@@ -225,7 +225,7 @@ public class ChangeValueFragment extends Fragment {
         this.changeValueTileLottie.playAnimation();
     }
 
-    private void handleChangeValueToolSecondClick(int newValue, int optionNumber) {
+    private void handleChangeValueToolSecondClick(long newValue, int optionNumber) {
         // 1st set of events is as follows
         isSecondClickDone = true;
         backButton.setVisibility(View.GONE);
@@ -312,7 +312,7 @@ public class ChangeValueFragment extends Fragment {
 
     public interface OnChangeValueFragmentInteractionListener {
         void onChangeValueFragmentInteractionBackClicked();
-        void onChangeValueFragmentInteractionProcessToolUse(Pair<Integer, Integer> changeValueTilePosition, int newValue);
+        void onChangeValueFragmentInteractionProcessToolUse(Pair<Integer, Integer> changeValueTilePosition, long newValue);
     }
 
     @Override

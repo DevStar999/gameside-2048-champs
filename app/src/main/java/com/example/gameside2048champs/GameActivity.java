@@ -80,8 +80,8 @@ public class GameActivity extends AppCompatActivity implements
     private boolean goalDone;
     private int currentCoins;
     private Map<String, Integer> toolsCostMap;
-    private int currentScore;
-    private int bestScore;
+    private long currentScore;
+    private long bestScore;
     private boolean isCurrentScoreTheBest; // Flag to check if best score and current score displays have been merged
     private int multiMergeComboBarProgress;
     private boolean isToolsChestOpen;
@@ -128,10 +128,10 @@ public class GameActivity extends AppCompatActivity implements
             put("specialToolsEliminateValueCost", 450);
             put("specialToolsDestroyAreaCost", 500);
         }};
-        currentScore = sharedPreferences.getInt("currentScore" + " " + currentGameMode.getMode()
-                + " " + currentGameMode.getDimensions(), 0);
-        bestScore = sharedPreferences.getInt("bestScore" + " " + currentGameMode.getMode()
-                + " " + currentGameMode.getDimensions(), 0);
+        currentScore = sharedPreferences.getLong("currentScore" + " " + currentGameMode.getMode()
+                + " " + currentGameMode.getDimensions(), 0L);
+        bestScore = sharedPreferences.getLong("bestScore" + " " + currentGameMode.getMode()
+                + " " + currentGameMode.getDimensions(), 0L);
         isCurrentScoreTheBest = false;
         multiMergeComboBarProgress = sharedPreferences.getInt("multiMergeComboBarProgress"  + " " +
                 currentGameMode.getMode() + " " + currentGameMode.getDimensions(), 1);
@@ -167,7 +167,7 @@ public class GameActivity extends AppCompatActivity implements
 
         String jsonRetrieveBoard = sharedPreferences.getString("currentBoard" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), gson.toJson(gameManager.getGameMatrix()));
-        Type typeBoard = new TypeToken<List<List<Integer>>>(){}.getType();
+        Type typeBoard = new TypeToken<List<List<Long>>>(){}.getType();
         gameManager.setGameMatrix(gson.fromJson(jsonRetrieveBoard, typeBoard));
 
         String jsonRetrieveUndoManager = sharedPreferences.getString("undoManager" + " " + currentGameMode.getMode()
@@ -182,7 +182,7 @@ public class GameActivity extends AppCompatActivity implements
         setMultiMergeComboBarProgress(multiMergeComboBarProgress);
         goalTileTextView = findViewById(R.id.goal_tile_text_view);
         if (gameManager.getCurrentGameState() == GameStates.GAME_OVER) {
-            updateScore(0);
+            updateScore(0L);
         } else {
             updateScore(currentScore);
         }
@@ -458,14 +458,14 @@ public class GameActivity extends AppCompatActivity implements
         }
     }
 
-    private void updateScore(int updatedCurrentScore) {
+    private void updateScore(long updatedCurrentScore) {
         currentScore = updatedCurrentScore;
         currentScoreTextView.setText(String.valueOf(currentScore));
 
-        if ((currentScore >= bestScore) && currentScore > 0) {
+        if ((currentScore >= bestScore) && currentScore > 0L) {
             bestScore = currentScore;
             bestScoreTextView.setText(String.valueOf(bestScore));
-            sharedPreferences.edit().putInt("bestScore" + " " + currentGameMode.getMode()
+            sharedPreferences.edit().putLong("bestScore" + " " + currentGameMode.getMode()
                     + " " + currentGameMode.getDimensions(), bestScore).apply();
             if (!isCurrentScoreTheBest) {
                 isCurrentScoreTheBest = true;
@@ -520,10 +520,10 @@ public class GameActivity extends AppCompatActivity implements
         }
     }
 
-    private ArrayList<ArrayList<Integer>> getCopyOfGivenBoard(ArrayList<ArrayList<Integer>> givenBoard) {
-        ArrayList<ArrayList<Integer>> copyOfGivenBoard = new ArrayList<>();
+    private ArrayList<ArrayList<Long>> getCopyOfGivenBoard(ArrayList<ArrayList<Long>> givenBoard) {
+        ArrayList<ArrayList<Long>> copyOfGivenBoard = new ArrayList<>();
         for (int i = 0; i < givenBoard.size(); i++) {
-            ArrayList<Integer> row = new ArrayList<>();
+            ArrayList<Long> row = new ArrayList<>();
             for (int j = 0; j < givenBoard.get(i).size(); j++) {
                 row.add(givenBoard.get(i).get(j));
             }
@@ -538,7 +538,7 @@ public class GameActivity extends AppCompatActivity implements
                 + " " + currentGameMode.getDimensions(), gameManager.getCurrentGameState().ordinal()).apply();
         sharedPreferences.edit().putInt("multiMergeComboBarProgress"  + " " + currentGameMode.getMode() + " " +
                 currentGameMode.getDimensions(), multiMergeComboBarProgress).apply();
-        sharedPreferences.edit().putInt("currentScore" + " " + currentGameMode.getMode()
+        sharedPreferences.edit().putLong("currentScore" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), currentScore).apply();
         sharedPreferences.edit().putString("undoManager" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), gson.toJson(gameManager.getUndoManager())).apply();
@@ -708,7 +708,7 @@ public class GameActivity extends AppCompatActivity implements
     private boolean checkIfGoalCompletionIsIntact() {
         for (int row = 0; row < currentGameMode.getRows(); row++) {
             for (int column = 0; column < currentGameMode.getColumns(); column++) {
-                int value = gameManager.getGameMatrix().get(row).get(column);
+                long value = gameManager.getGameMatrix().get(row).get(column);
                 if (value >= gameManager.getCurrentGameMode().getGoal()) {
                     return true;
                 }
@@ -739,7 +739,7 @@ public class GameActivity extends AppCompatActivity implements
         }
     }
 
-    private void updateScoreOnUndo(int updatedCurrentScore) {
+    private void updateScoreOnUndo(long updatedCurrentScore) {
         currentScore = updatedCurrentScore;
         currentScoreTextView.setText(String.valueOf(currentScore));
 
@@ -759,8 +759,8 @@ public class GameActivity extends AppCompatActivity implements
             for (int column = 0; column < currentGameMode.getColumns(); column++) {
                 GridLayout gameGridLayout = findViewById(R.id.game_grid_layout);
                 AppCompatTextView textView = gameGridLayout.findViewWithTag("gameCell" + row + column);
-                int value = gameManager.getGameMatrix().get(row).get(column);
-                if (value == 0 || value == -1) {
+                long value = gameManager.getGameMatrix().get(row).get(column);
+                if (value == 0L || value == -1L) {
                     textView.setVisibility(View.INVISIBLE);
                 } else {
                     CellValues cellValueEnum = CellValues.getCellValueEnum(value);
@@ -868,7 +868,7 @@ public class GameActivity extends AppCompatActivity implements
                     @Override
                     public void onFinish() {
                         gameManager.setCurrentGameState(GameStates.GAME_ONGOING);
-                        Pair<Integer, List<List<Integer>>> previousStateInfo = gameManager.getUndoManager().undoToPreviousState();
+                        Pair<Long, List<List<Long>>> previousStateInfo = gameManager.getUndoManager().undoToPreviousState();
                         // Revert the state of the board to the previous state
                         gameManager.updateGameMatrixPostUndo(previousStateInfo.second);
                         updateBoardOnUndo();
@@ -925,7 +925,8 @@ public class GameActivity extends AppCompatActivity implements
         for (int i = 0; i < currentGameMode.getRows(); i++) {
             for (int j = 0; j < currentGameMode.getColumns(); j++) {
                 LottieAnimationView lottieAnimationView = gameCellLottieLayout.findViewWithTag("gameCellLottie" + i + j);
-                int row = i, column = j, cellValue = gameManager.getGameMatrix().get(row).get(column);
+                int row = i, column = j;
+                long cellValue = gameManager.getGameMatrix().get(row).get(column);
                 lottieAnimationView.setOnClickListener(view -> {
                     int countOfFragments = getSupportFragmentManager().getFragments().size();
                     if (countOfFragments > 0) {
@@ -933,7 +934,7 @@ public class GameActivity extends AppCompatActivity implements
                         if (topMostFragment != null && topMostFragment.getTag() != null &&
                                 !topMostFragment.getTag().isEmpty()) {
                             if (topMostFragment.getTag().equals("SMASH_TILE_FRAGMENT")) {
-                                if (cellValue != 0 && cellValue != -1) {
+                                if (cellValue != 0L && cellValue != -1L) {
                                     SmashTileFragment smashTileFragment = ((SmashTileFragment) topMostFragment);
                                     if (!smashTileFragment.checkToolUseState()) { // Tool use is not complete
                                         rootGameConstraintLayout.setEnabled(false);
@@ -942,7 +943,7 @@ public class GameActivity extends AppCompatActivity implements
                                     } // else, user has clicked after choosing tile to smash, so we ignore the click
                                 }
                             } else if (topMostFragment.getTag().equals("SWAP_TILES_FRAGMENT")) {
-                                if (cellValue != 0 && cellValue != -1) {
+                                if (cellValue != 0L && cellValue != -1L) {
                                     SwapTilesFragment swapTilesFragment = ((SwapTilesFragment) topMostFragment);
                                     if (swapTilesFragment.checkFirstClickStatus()
                                             && swapTilesFragment.checkSecondClickStatus()) {
@@ -960,7 +961,7 @@ public class GameActivity extends AppCompatActivity implements
                                     }
                                 }
                             } else if (topMostFragment.getTag().equals("CHANGE_VALUE_FRAGMENT")) {
-                                if (cellValue != 0 && cellValue != -1) {
+                                if (cellValue != 0L && cellValue != -1L) {
                                     ChangeValueFragment changeValueFragment = ((ChangeValueFragment) topMostFragment);
                                     if (changeValueFragment.checkFirstClickStatus()
                                             && changeValueFragment.checkSecondClickStatus()) {
@@ -975,7 +976,7 @@ public class GameActivity extends AppCompatActivity implements
                                     }
                                 }
                             } else if (topMostFragment.getTag().equals("ELIMINATE_VALUE_FRAGMENT")) {
-                                if (cellValue != 0 && cellValue != -1) {
+                                if (cellValue != 0L && cellValue != -1L) {
                                     EliminateValueFragment eliminateValueFragment = ((EliminateValueFragment) topMostFragment);
                                     if (!eliminateValueFragment.checkToolUseState()) { // Tool use is not complete
                                         rootGameConstraintLayout.setEnabled(false);
@@ -1209,14 +1210,14 @@ public class GameActivity extends AppCompatActivity implements
     @SuppressLint("UseCompatLoadingForDrawables")
     public void onSmashTileFragmentInteractionProcessToolUse(Pair<Integer, Integer> targetTilePosition) {
         // Making a copy of the board
-        List<List<Integer>> copyOfCurrentBoard = new ArrayList<>();
+        List<List<Long>> copyOfCurrentBoard = new ArrayList<>();
         for (int i = 0; i < gameManager.getGameMatrix().size(); i++) {
-            List<Integer> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));
+            List<Long> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));
             copyOfCurrentBoard.add(boardRow);
         }
 
         // Removing the chosen tile from the board
-        copyOfCurrentBoard.get(targetTilePosition.first).set(targetTilePosition.second, 0);
+        copyOfCurrentBoard.get(targetTilePosition.first).set(targetTilePosition.second, 0L);
         AppCompatTextView targetTextView = rootGameConstraintLayout.findViewWithTag("gameCell" +
                 targetTilePosition.first + targetTilePosition.second);
         targetTextView.setVisibility(View.INVISIBLE);
@@ -1262,16 +1263,16 @@ public class GameActivity extends AppCompatActivity implements
     public void onSwapTilesFragmentInteractionProcessToolUse(Pair<Integer, Integer> firstSwapTilePosition,
                                                              Pair<Integer, Integer> secondSwapTilePosition) {
         // Making a copy of the board
-        List<List<Integer>> copyOfCurrentBoard = new ArrayList<>();
+        List<List<Long>> copyOfCurrentBoard = new ArrayList<>();
         for (int i = 0; i < gameManager.getGameMatrix().size(); i++) {
-            List<Integer> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));
+            List<Long> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));
             copyOfCurrentBoard.add(boardRow);
         }
 
         /* Swapping the chosen tiles on the board */
         // Settings values in copyOfCurrentBoard
-        int firstValue = gameManager.getGameMatrix().get(firstSwapTilePosition.first).get(firstSwapTilePosition.second);
-        int secondValue = gameManager.getGameMatrix().get(secondSwapTilePosition.first).get(secondSwapTilePosition.second);
+        long firstValue = gameManager.getGameMatrix().get(firstSwapTilePosition.first).get(firstSwapTilePosition.second);
+        long secondValue = gameManager.getGameMatrix().get(secondSwapTilePosition.first).get(secondSwapTilePosition.second);
         copyOfCurrentBoard.get(firstSwapTilePosition.first).set(firstSwapTilePosition.second, secondValue);
         copyOfCurrentBoard.get(secondSwapTilePosition.first).set(secondSwapTilePosition.second, firstValue);
         int popUpAnimationDuration = 250; // In Milli-seconds
@@ -1312,11 +1313,11 @@ public class GameActivity extends AppCompatActivity implements
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
-    public void onChangeValueFragmentInteractionProcessToolUse(Pair<Integer, Integer> changeValueTilePosition, int newValue) {
+    public void onChangeValueFragmentInteractionProcessToolUse(Pair<Integer, Integer> changeValueTilePosition, long newValue) {
         // Making a copy of the board
-        List<List<Integer>> copyOfCurrentBoard = new ArrayList<>();
+        List<List<Long>> copyOfCurrentBoard = new ArrayList<>();
         for (int i = 0; i < gameManager.getGameMatrix().size(); i++) {
-            List<Integer> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));
+            List<Long> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));
             copyOfCurrentBoard.add(boardRow);
         }
 
@@ -1356,16 +1357,16 @@ public class GameActivity extends AppCompatActivity implements
     @Override
     public void onEliminateValueFragmentInteractionProcessToolUse(List<Pair<Integer, Integer>> targetTilesPositions) {
         // Making a copy of the board
-        List<List<Integer>> copyOfCurrentBoard = new ArrayList<>();
+        List<List<Long>> copyOfCurrentBoard = new ArrayList<>();
         for (int i = 0; i < gameManager.getGameMatrix().size(); i++) {
-            List<Integer> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));
+            List<Long> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));
             copyOfCurrentBoard.add(boardRow);
         }
 
         // Removing the chosen tile from the board
         for (int index = 0; index < targetTilesPositions.size(); index++) {
             copyOfCurrentBoard.get(targetTilesPositions.get(index).first)
-                    .set(targetTilesPositions.get(index).second, 0);
+                    .set(targetTilesPositions.get(index).second, 0L);
             AppCompatTextView textView = rootGameConstraintLayout.findViewWithTag("gameCell" +
                     targetTilesPositions.get(index).first + targetTilesPositions.get(index).second);
             textView.setVisibility(View.INVISIBLE);

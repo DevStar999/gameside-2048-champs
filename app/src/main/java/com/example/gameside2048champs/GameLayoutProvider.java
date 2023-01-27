@@ -45,7 +45,7 @@ public class GameLayoutProvider {
         for (int i = 0; i < gameMode.getRows(); i++) {
             for (int j = 0; j < gameMode.getColumns(); j++) {
                 AppCompatImageView imageView = new AppCompatImageView(context);
-                if (gameMode.getBlockCells().get(i).get(j).equals(-1)) {
+                if (gameMode.getBlockCells().get(i).get(j).equals(-1L)) {
                     BlockDesigns selectedBlockDesign = BlockDesigns.valueOf(sharedPreferences
                             .getString("selectedBlockDrawableEnumName", BlockDesigns.BLOCK_CELL_X.name()));
                     imageView.setImageResource(selectedBlockDesign.getBlockDrawableResourceId());

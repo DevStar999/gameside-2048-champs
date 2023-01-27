@@ -33,11 +33,11 @@ import lombok.Setter;
 public class GameManager {
     private final Activity parentActivity;
     private final GameModes currentGameMode;
-    private int currentScore; // Total score of the user in a game session
-    private int moveScore; // Total score of the user in a single move
+    private long currentScore; // Total score of the user in a game session
+    private long moveScore; // Total score of the user in a single move
     private boolean hasMoveBeenCompleted;
     private boolean hasGoalBeenCompleted;
-    private List<List<Integer>> gameMatrix;
+    private List<List<Long>> gameMatrix;
     private UndoManager undoManager;
     private List<List<Boolean>> areAllAnimationsDone; // Boolean matrix to check if all animations are done
     private GameStates currentGameState;
@@ -54,13 +54,13 @@ public class GameManager {
         undoManager = new UndoManager();
         areAllAnimationsDone = new ArrayList<>();
         for (int row = 0; row < this.currentGameMode.getRows(); row++) {
-            List<Integer> gameMatrixRow = new ArrayList<>();
+            List<Long> gameMatrixRow = new ArrayList<>();
             List<Boolean> areAllAnimationsDoneRow = new ArrayList<>();
             for (int column = 0; column < this.currentGameMode.getColumns(); column++) {
-                if (this.currentGameMode.getBlockCells().get(row).get(column).equals(-1)) { // This is a block cell
-                    gameMatrixRow.add(-1);
+                if (this.currentGameMode.getBlockCells().get(row).get(column).equals(-1L)) { // This is a block cell
+                    gameMatrixRow.add(-1L);
                 } else { // This is a free cell
-                    gameMatrixRow.add(0); // At first, we fill all cells with zero
+                    gameMatrixRow.add(0L); // At first, we fill all cells with zero
                 }
                 areAllAnimationsDoneRow.add(false); // At first, we assign all values to false
             }
@@ -69,11 +69,11 @@ public class GameManager {
         }
     }
 
-    public void addNewValues(int numberOfCellsToAdd, List<List<Integer>> givenBoard) {
+    public void addNewValues(int numberOfCellsToAdd, List<List<Long>> givenBoard) {
         // Assigning some random start values to play with at start
         Random random = new Random();
         for (int currentCell = 0; currentCell < numberOfCellsToAdd; currentCell++) {
-            int randomStartValue = (random.nextInt(1000) < 900) ? 2 : 4;
+            long randomStartValue = (random.nextInt(1000) < 900) ? 2L : 4L;
             int randomRow, randomColumn;
             do {
                 randomRow = random.nextInt(currentGameMode.getRows());
@@ -111,8 +111,8 @@ public class GameManager {
             for (int column = 0; column < currentGameMode.getColumns(); column++) {
                 GridLayout gameGridLayout = parentActivity.findViewById(R.id.game_grid_layout);
                 AppCompatTextView textView = gameGridLayout.findViewWithTag("gameCell" + row + column);
-                int currentCellValue = gameMatrix.get(row).get(column);
-                if (currentCellValue == 0 || currentCellValue == -1) {
+                long currentCellValue = gameMatrix.get(row).get(column);
+                if (currentCellValue == 0L || currentCellValue == -1L) {
                     textView.setVisibility(View.INVISIBLE);
                 } else {
                     CellValues cellValueEnum = CellValues.getCellValueEnum(currentCellValue);
@@ -128,10 +128,10 @@ public class GameManager {
         return true;
     }
 
-    public void updateGameMatrix(List<List<Integer>> afterMoveGameMatrix) {
-        List<List<Integer>> shallowCopyGameMatrix = new ArrayList<>();
+    public void updateGameMatrix(List<List<Long>> afterMoveGameMatrix) {
+        List<List<Long>> shallowCopyGameMatrix = new ArrayList<>();
         for (int row = 0; row < currentGameMode.getRows(); row++) {
-            List<Integer> shallowCopyGameMatrixRow = new ArrayList<>();
+            List<Long> shallowCopyGameMatrixRow = new ArrayList<>();
             for (int column = 0; column < currentGameMode.getColumns(); column++) {
                 shallowCopyGameMatrixRow.add(gameMatrix.get(row).get(column));
                 gameMatrix.get(row).set(column, afterMoveGameMatrix.get(row).get(column));
@@ -141,11 +141,11 @@ public class GameManager {
         undoManager.saveStatePostMove(currentScore, shallowCopyGameMatrix);
     }
 
-    public int findGameTilesCurrentlyOnBoard(List<List<Integer>> givenBoard) {
+    public int findGameTilesCurrentlyOnBoard(List<List<Long>> givenBoard) {
         int gameTilesCount = 0;
         for (int row = 0; row < givenBoard.size(); row++) {
             for (int column = 0; column < givenBoard.get(row).size(); column++) {
-                if (givenBoard.get(row).get(column) != 0 && givenBoard.get(row).get(column) != -1) {
+                if (givenBoard.get(row).get(column) != 0L && givenBoard.get(row).get(column) != -1L) {
                     gameTilesCount++;
                 }
             }
@@ -153,7 +153,7 @@ public class GameManager {
         return gameTilesCount;
     }
 
-    public List<Pair<Integer, Integer>> giveAllTilesPositionsOfGivenValue(List<List<Integer>> givenBoard, int targetValue) {
+    public List<Pair<Integer, Integer>> giveAllTilesPositionsOfGivenValue(List<List<Long>> givenBoard, long targetValue) {
         List<Pair<Integer, Integer>> targetValueTilesPositions = new ArrayList<>();
         for (int row = 0; row < givenBoard.size(); row++) {
             for (int column = 0; column < givenBoard.get(row).size(); column++) {
@@ -165,7 +165,7 @@ public class GameManager {
         return targetValueTilesPositions;
     }
 
-    public void updateGameMatrixPostUndo(List<List<Integer>> previousGameState) {
+    public void updateGameMatrixPostUndo(List<List<Long>> previousGameState) {
         for (int row = 0; row < currentGameMode.getRows(); row++) {
             for (int column = 0; column < currentGameMode.getColumns(); column++) {
                 gameMatrix.get(row).set(column, previousGameState.get(row).get(column));
@@ -245,8 +245,8 @@ public class GameManager {
 
                 /* Taking care of the moveAnimation first -> Duration = 125 ms  */
                 int moveAnimationDuration = 125;
-                if (ctiMatrix.get(row).get(column).getInitialValue() == 0
-                        || ctiMatrix.get(row).get(column).getInitialValue() == -1) { // Initially un-filled
+                if (ctiMatrix.get(row).get(column).getInitialValue() == 0L
+                        || ctiMatrix.get(row).get(column).getInitialValue() == -1L) { // Initially un-filled
                     moveAnimation = AnimationsUtility.getEmptyAnimation(textView, moveAnimationDuration, 0, View.INVISIBLE);
                 } else { // Initially filled
                     if (row == ctiMatrix.get(row).get(column).getFinalLocationRow()
@@ -264,7 +264,7 @@ public class GameManager {
 
                 /* Now taking care of the endPartAnimation -> Duration = 75 ms */
                 int endPartAnimationDuration = 75;
-                if (gameMatrix.get(row).get(column) == 0 || gameMatrix.get(row).get(column) == -1) { // Finally un-filled
+                if (gameMatrix.get(row).get(column) == 0L || gameMatrix.get(row).get(column) == -1L) { // Finally un-filled
                     endPartAnimation = AnimationsUtility.getEmptyAnimation(textView, endPartAnimationDuration, 0, View.INVISIBLE);
                 } else { // Finally filled
                     if (ctiMatrix.get(row).get(column).isDidMerge()) { // Merge happened here
@@ -339,7 +339,7 @@ public class GameManager {
         // GAME_ONGOING if we find a single 0 cell value
         for (int row = 0; row < currentGameMode.getRows(); row++) {
             for (int column = 0; column < currentGameMode.getColumns(); column++) {
-                if (gameMatrix.get(row).get(column) == 0) {
+                if (gameMatrix.get(row).get(column) == 0L) {
                     currentGameState = GameStates.GAME_ONGOING;
                     return;
                 }
@@ -349,7 +349,7 @@ public class GameManager {
         // Still, GAME_ONGOING if we find that user can merge cells
         for (int row = 0; row < currentGameMode.getRows() - 1; row++) {
             for (int column = 0; column < currentGameMode.getColumns() - 1; column++) {
-                if (gameMatrix.get(row).get(column) != -1) {
+                if (gameMatrix.get(row).get(column) != -1L) {
                     if (gameMatrix.get(row).get(column).equals(gameMatrix.get(row + 1).get(column)) ||
                             gameMatrix.get(row).get(column).equals(gameMatrix.get(row).get(column + 1))) {
                         currentGameState = GameStates.GAME_ONGOING;

@@ -48,8 +48,8 @@ public class GameOverDialog extends Dialog {
     private AppCompatButton continueButton;
 
     /* Attributes of the GameOverDialog related to the GAME_SUMMARY_PAGE */
-    private int currentScore;
-    private int bestScore;
+    private long currentScore;
+    private long bestScore;
     private LottieAnimationView gameOverLottie;
     private LinearLayout newHighScoreSummaryLinearLayout;
     private AppCompatTextView newHighScoreTextView;
@@ -63,7 +63,7 @@ public class GameOverDialog extends Dialog {
     /* TODO -> Later, use SharedPreferences to decide which tools to keep open based on the state of the tools
                chest in the game.
     */
-    private void initialise(int currentScore, int bestScore) {
+    private void initialise(long currentScore, long bestScore) {
         didUserGiveResponse = false;
         activePage = GameOverDialogActivePage.REVIVE_TOOLS_PAGE; // Since by default we open this page
         optionSelected = GameOverDialogOptions.PLAY_AGAIN; // As we want to start the game again if the user does not choose
@@ -417,7 +417,7 @@ public class GameOverDialog extends Dialog {
         });
     }
 
-    public GameOverDialog(@NonNull Context context, int currentScore, int bestScore) {
+    public GameOverDialog(@NonNull Context context, long currentScore, long bestScore) {
         super(context, R.style.CustomDialogTheme);
         setContentView(R.layout.dialog_game_over);
 

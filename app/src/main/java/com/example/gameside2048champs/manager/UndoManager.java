@@ -20,7 +20,7 @@ public class UndoManager {
     /*  Using Deque instead of a Stack, as Stack is legacy.
         The first element in the pair Integer is to save and the previous score and
         the second element is to save the game matrix itself */
-    private Deque<Pair<Integer, List<List<Integer>>>> gameMatrixPreviousStates;
+    private Deque<Pair<Long, List<List<Long>>>> gameMatrixPreviousStates;
 
 
     public UndoManager() {
@@ -31,23 +31,13 @@ public class UndoManager {
         gameMatrixPreviousStates = new ArrayDeque<>();
     }
 
-    public Pair<Integer, List<List<Integer>>> undoToPreviousState() {
+    public Pair<Long, List<List<Long>>> undoToPreviousState() {
         movesSinceUndoLimit--;
         undoUsed = true;
         return gameMatrixPreviousStates.pollFirst();
     }
 
-    public Pair<Integer, List<List<Integer>>> undoTillUndoLimit() {
-        movesSinceUndoLimit = 0;
-        undoUsed = true;
-        comboUndoUsed = true;
-        for (int i = 1; i < undoLimit; i++) {
-            gameMatrixPreviousStates.pollFirst();
-        }
-        return gameMatrixPreviousStates.pollFirst();
-    }
-
-    public void saveStatePostMove(int score, List<List<Integer>> gameMatrix) {
+    public void saveStatePostMove(long score, List<List<Long>> gameMatrix) {
         undoUsed = false;
         if (movesSinceUndoLimit == 5) {
             gameMatrixPreviousStates.pollLast();

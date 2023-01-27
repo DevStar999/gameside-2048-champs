@@ -13,7 +13,7 @@ import com.example.gameside2048champs.enums.Direction;
 import com.example.gameside2048champs.enums.GameLayoutProperties;
 
 public class AnimationsUtility {
-    private static void setTextViewAttributes(AppCompatTextView textView, int cellValue,
+    private static void setTextViewAttributes(AppCompatTextView textView, long cellValue,
                                               int textColor, Drawable backgroundDrawable,
                                               GameLayoutProperties gameLayoutProperties) {
         textView.setVisibility(View.VISIBLE);
@@ -26,7 +26,7 @@ public class AnimationsUtility {
     /* Note: ViewGroup is the parent class for all the Layout classes and View is the parent class
              for all types of views
     */
-    public static void executePopUpAnimation(AppCompatTextView textView, int cellValue, int textColor,
+    public static void executePopUpAnimation(AppCompatTextView textView, long cellValue, int textColor,
                                              Drawable backgroundDrawable, long duration, long delay,
                                              GameLayoutProperties gameLayoutProperties) {
         ObjectAnimator popUpXAnimator = ObjectAnimator.ofFloat(textView, View.SCALE_X, 0.5f, 1f).setDuration(duration);
@@ -139,7 +139,7 @@ public class AnimationsUtility {
     /**
      * The following two are end part animations
      */
-    public static AnimatorSet getSimplyAppearAnimation(AppCompatTextView textView, int cellValue, int textColor,
+    public static AnimatorSet getSimplyAppearAnimation(AppCompatTextView textView, long cellValue, int textColor,
                                                        Drawable backgroundDrawable, long duration, long delay,
                                                        GameLayoutProperties gameLayoutProperties) {
         AnimatorSet simplyAppearAnimatorSet = new AnimatorSet();
@@ -161,7 +161,7 @@ public class AnimationsUtility {
         return simplyAppearAnimatorSet;
     }
 
-    public static AnimatorSet getMergeAnimation(AppCompatTextView textView, int cellValue, int textColor,
+    public static AnimatorSet getMergeAnimation(AppCompatTextView textView, long cellValue, int textColor,
                                                 Drawable backgroundDrawable, long duration, long delay,
                                                 GameLayoutProperties gameLayoutProperties) {
         AnimatorSet mergeAnimatorSet = new AnimatorSet();

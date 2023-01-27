@@ -97,7 +97,7 @@ public class ToolAnimationsUtility {
         gridLottieView.playAnimation();
     }
 
-    public static void standardToolsUndoResetState(AppCompatTextView textView, int cellValue, int textColor,
+    public static void standardToolsUndoResetState(AppCompatTextView textView, long cellValue, int textColor,
                                                    Drawable backgroundDrawable, GameLayoutProperties gameLayoutProperties) {
         textView.setVisibility(View.VISIBLE);
         textView.setText(String.valueOf(cellValue));

@@ -63,10 +63,10 @@ public enum GameLayoutProperties {
         this.highOrderNts = highOrderNts;
     }
 
-    public float getTextSizeForValue(int value) {
+    public float getTextSizeForValue(long value) {
         int numberOfDigits = 0;
-        while (value != 0) {
-            value /= 10;
+        while (value != 0L) {
+            value /= 10L;
             numberOfDigits++;
         }
         switch (numberOfDigits) {

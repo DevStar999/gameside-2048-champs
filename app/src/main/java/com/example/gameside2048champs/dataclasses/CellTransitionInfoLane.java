@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 // Transition info for a cell w.r.t. a Lane
 public class CellTransitionInfoLane {
-    private int initialValue; // Initial Value of current cell
-    private int finalValue; // Final Value in current cell
+    private long initialValue; // Initial Value of current cell
+    private long finalValue; // Final Value in current cell
     private int shiftByCells; // Shift in position of a cell in the count of number of cells
     private boolean didMerge; // Did any 2 cells merge in current position
 }
