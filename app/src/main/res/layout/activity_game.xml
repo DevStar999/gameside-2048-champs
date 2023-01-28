@@ -676,7 +676,7 @@
                 android:scaleX="1.5"
                 android:scaleY="1.5"
                 app:lottie_speed="1.75"
-                app:lottie_rawRes="@raw/tools_intro" />
+                app:lottie_rawRes="@raw/tool_intro" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/tools_lottie_middle"
@@ -688,7 +688,7 @@
                 android:scaleX="1.5"
                 android:scaleY="1.5"
                 app:lottie_speed="1.75"
-                app:lottie_rawRes="@raw/tools_intro" />
+                app:lottie_rawRes="@raw/tool_intro" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/tools_lottie_right"
@@ -700,7 +700,7 @@
                 android:scaleX="1.5"
                 android:scaleY="1.5"
                 app:lottie_speed="1.75"
-                app:lottie_rawRes="@raw/tools_intro" />
+                app:lottie_rawRes="@raw/tool_intro" />
 
         </LinearLayout>
 
