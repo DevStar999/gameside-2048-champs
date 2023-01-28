@@ -141,10 +141,10 @@ public class GameActivity extends AppCompatActivity implements
 
     private void initialiseLayouts() {
         rootGameConstraintLayout = findViewById(R.id.root_game_constraint_layout);
-        gameFrameLayout = findViewById(R.id.game_frame_layout);
-        standardToolsLinearLayout = findViewById(R.id.standard_tools_linear_layout);
-        specialToolsLinearLayout = findViewById(R.id.special_tools_linear_layout);
-        toolsLottieLinearLayout = findViewById(R.id.tools_lottie_linear_layout);
+        gameFrameLayout = findViewById(R.id.game_activity_game_frame_layout);
+        standardToolsLinearLayout = findViewById(R.id.standard_tools_game_activity_linear_layout);
+        specialToolsLinearLayout = findViewById(R.id.special_tools_game_activity_linear_layout);
+        toolsLottieLinearLayout = findViewById(R.id.tools_lottie_game_activity_linear_layout);
 
         if (!isToolsChestOpen) { // Tools chest is NOT open (This is the default condition as well)
             standardToolsLinearLayout.setVisibility(View.VISIBLE);
@@ -160,7 +160,7 @@ public class GameActivity extends AppCompatActivity implements
         currentCoinsTextView = findViewById(R.id.current_coins_game_activity_text_view);
         currentCoinsTextView.setText(String.valueOf(currentCoins));
 
-        currentScoreTextView = findViewById(R.id.current_score_value_text_view);
+        currentScoreTextView = findViewById(R.id.current_score_value_game_activity_text_view);
         currentScoreTextView.setText(String.valueOf(currentScore));
         gameManager.setCurrentScore(currentScore);
         gameManager.setHasGoalBeenCompleted(goalDone);
@@ -175,23 +175,23 @@ public class GameActivity extends AppCompatActivity implements
         Type typeUndoManager = new TypeToken<UndoManager>(){}.getType();
         gameManager.setUndoManager(gson.fromJson(jsonRetrieveUndoManager, typeUndoManager));
 
-        bestScoreTextView = findViewById(R.id.best_score_value_text_view);
+        bestScoreTextView = findViewById(R.id.best_score_value_game_activity_text_view);
         bestScoreTextView.setText(String.valueOf(bestScore));
-        multiMergeComboBar = findViewById(R.id.multi_merge_combo_bar_progress_bar);
+        multiMergeComboBar = findViewById(R.id.multi_merge_combo_bar_game_activity_progress_bar);
         multiMergeComboBar.setMax(49);
         setMultiMergeComboBarProgress(multiMergeComboBarProgress);
-        goalTileTextView = findViewById(R.id.goal_tile_text_view);
+        goalTileTextView = findViewById(R.id.goal_tile_title_game_activity_text_view);
         if (gameManager.getCurrentGameState() == GameStates.GAME_OVER) {
             updateScore(0L);
         } else {
             updateScore(currentScore);
         }
 
-        toolsChangeLottie = findViewById(R.id.tools_change_lottie);
+        toolsChangeLottie = findViewById(R.id.tools_change_game_activity_lottie);
         toolsChangeLottie.setProgress((!isToolsChestOpen) ? 0f : 1f);
         toolsChangeLottie.setOnClickListener(view -> handleToolsChangeTransition());
 
-        tutorialTextView = findViewById(R.id.tutorial_text_view);
+        tutorialTextView = findViewById(R.id.tutorial_game_activity_text_view);
         if (goalDone) {
             int greenTickEmojiUnicode = 0x2705;
             goalTileTextView.setText(String.format("GOAL TILE %s",
@@ -202,23 +202,23 @@ public class GameActivity extends AppCompatActivity implements
             tutorialTextView.setText("Merge the tiles to form the GOAL TILE!");
         }
 
-        AppCompatTextView standardToolsUndoCostTextView = findViewById(R.id.standard_tools_undo_cost_text_view);
+        AppCompatTextView standardToolsUndoCostTextView = findViewById(R.id.standard_tools_undo_cost_game_activity_text_view);
         standardToolsUndoCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsUndoCost")));
-        AppCompatTextView standardToolsSmashTileCostTextView = findViewById(R.id.standard_tools_smash_cost_text_view);
+        AppCompatTextView standardToolsSmashTileCostTextView = findViewById(R.id.standard_tools_smash_cost_game_activity_text_view);
         standardToolsSmashTileCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsSmashTileCost")));
-        AppCompatTextView standardToolsSwapTilesCostTextView = findViewById(R.id.standard_tools_swap_tiles_cost_text_view);
+        AppCompatTextView standardToolsSwapTilesCostTextView = findViewById(R.id.standard_tools_swap_tiles_cost_game_activity_text_view);
         standardToolsSwapTilesCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsSwapTilesCost")));
-        AppCompatTextView specialToolsChangeValueCostTextView = findViewById(R.id.special_tools_change_value_cost_text_view);
+        AppCompatTextView specialToolsChangeValueCostTextView = findViewById(R.id.special_tools_change_value_cost_game_activity_text_view);
         specialToolsChangeValueCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsChangeValueCost")));
-        AppCompatTextView specialToolsEliminateValueCostTextView = findViewById(R.id.special_tools_eliminate_value_cost_text_view);
+        AppCompatTextView specialToolsEliminateValueCostTextView = findViewById(R.id.special_tools_eliminate_value_cost_game_activity_text_view);
         specialToolsEliminateValueCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsEliminateValueCost")));
-        AppCompatTextView specialToolsDestroyAreaCostTextView = findViewById(R.id.special_tools_destroy_area_cost_text_view);
+        AppCompatTextView specialToolsDestroyAreaCostTextView = findViewById(R.id.special_tools_destroy_area_cost_game_activity_text_view);
         specialToolsDestroyAreaCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsDestroyAreaCost")));
     }
 
     private void initialiseGoalText() {
         CellValues goalCellValue = CellValues.getCellValueEnum(currentGameMode.getGoal());
-        AppCompatTextView goalTextView = findViewById(R.id.goal_value_text_view);
+        AppCompatTextView goalTextView = findViewById(R.id.goal_value_game_activity_text_view);
         goalTextView.setText(String.valueOf(goalCellValue.getCellValue()));
         goalTextView.setTextColor(getColor(goalCellValue.getNumberColorResourceId()));
         GradientDrawable goalScoreGradientDrawable = new GradientDrawable();
@@ -797,9 +797,9 @@ public class GameActivity extends AppCompatActivity implements
                     specialToolsLinearLayout.setVisibility(View.VISIBLE);
                     standardToolsLinearLayout.setVisibility(View.GONE);
 
-                    LottieAnimationView leftView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_left);
-                    LottieAnimationView midView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_middle);
-                    LottieAnimationView rightView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_right);
+                    LottieAnimationView leftView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_left_game_activity_lottie);
+                    LottieAnimationView midView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_middle_game_activity_lottie);
+                    LottieAnimationView rightView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_right_game_activity_lottie);
                     toolsLottieLinearLayout.setVisibility(View.VISIBLE);
                     midView.addAnimatorListener(new Animator.AnimatorListener() {
                         @Override

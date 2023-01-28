@@ -74,7 +74,7 @@ public class ShopFragment extends Fragment {
 
         currentCoinsTextView = view.findViewById(R.id.current_coins_shop_fragment_text_view);
         backButton = view.findViewById(R.id.title_back_shop_fragment_button);
-        addCoinsButton = view.findViewById(R.id.add_coins_button_shop_fragment);
+        addCoinsButton = view.findViewById(R.id.add_coins_shop_fragment_button);
 
         currentCoins = sharedPreferences.getInt("currentCoins", 3000);
         currentCoinsTextView.setText(String.valueOf(currentCoins));

@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -62,10 +61,10 @@ public class SmashTileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_smash_tile, container, false);
 
-        backButton = view.findViewById(R.id.back_button_smash_tile_fragment);
-        rotatingLightLottie = view.findViewById(R.id.rotating_light_smash_tile_fragment);
-        smashTilePreviewLottie = view.findViewById(R.id.smash_tile_preview_lottie);
-        toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_smash_tile_fragment);
+        backButton = view.findViewById(R.id.back_smash_tile_fragment_button);
+        rotatingLightLottie = view.findViewById(R.id.rotating_light_smash_tile_fragment_lottie);
+        smashTilePreviewLottie = view.findViewById(R.id.smash_tile_preview_smash_tile_fragment_lottie);
+        toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_smash_tile_fragment_image_view);
         userActionCheckBox = view.findViewById(R.id.user_action_smash_tile_fragment_check_box);
         isToolUseComplete = true;
 

@@ -70,10 +70,10 @@ public class SwapTilesFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_swap_tiles, container, false);
 
-        backButton = view.findViewById(R.id.back_button_swap_tiles_fragment);
-        rotatingLightLottie = view.findViewById(R.id.rotating_light_swap_tiles_fragment);
-        swapTilesPreviewLottie = view.findViewById(R.id.swap_tiles_preview_lottie);
-        toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_swap_tiles_fragment);
+        backButton = view.findViewById(R.id.back_swap_tiles_fragment_button);
+        rotatingLightLottie = view.findViewById(R.id.rotating_light_swap_tiles_fragment_lottie);
+        swapTilesPreviewLottie = view.findViewById(R.id.swap_tiles_preview_swap_tiles_fragment_lottie);
+        toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_swap_tiles_fragment_image_view);
         firstClickCheckBox = view.findViewById(R.id.first_click_swap_tiles_fragment_check_box);
         secondClickCheckBox = view.findViewById(R.id.second_click_swap_tiles_fragment_check_box);
         isFirstClickDone = true;

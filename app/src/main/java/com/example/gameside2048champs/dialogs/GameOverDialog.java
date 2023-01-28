@@ -67,11 +67,11 @@ public class GameOverDialog extends Dialog {
         didUserGiveResponse = false;
         activePage = GameOverDialogActivePage.REVIVE_TOOLS_PAGE; // Since by default we open this page
         optionSelected = GameOverDialogOptions.PLAY_AGAIN; // As we want to start the game again if the user does not choose
-        rootLinearLayoutFirstPage = findViewById(R.id.root_linear_layout_first_page_game_over_dialog);
-        rootLinearLayoutSecondPage = findViewById(R.id.root_linear_layout_second_page_game_over_dialog);
+        rootLinearLayoutFirstPage = findViewById(R.id.root_first_page_game_over_dialog_linear_layout);
+        rootLinearLayoutSecondPage = findViewById(R.id.root_second_page_game_over_dialog_linear_layout);
 
         isToolsChestOpen = false;
-        toolsChangeLottie = findViewById(R.id.tools_change_lottie_game_over_dialog);
+        toolsChangeLottie = findViewById(R.id.tools_change_game_over_dialog_lottie);
         toolsCostMap = new HashMap<>() {{
             put("standardToolsUndoCost", 125);
             put("standardToolsSmashTileCost", 150);
@@ -80,44 +80,44 @@ public class GameOverDialog extends Dialog {
             put("specialToolsEliminateValueCost", 450);
             put("specialToolsDestroyAreaCost", 500);
         }};
-        standardToolsLinearLayout = findViewById(R.id.standard_tools_linear_layout_game_over_dialog);
-        specialToolsLinearLayout = findViewById(R.id.special_tools_linear_layout_game_over_dialog);
-        toolsLottieLinearLayout = findViewById(R.id.tools_lottie_linear_layout_game_over_dialog);
-        standardToolsUndoImageView = findViewById(R.id.standard_tools_undo_icon_game_over_dialog);
-        standardToolsSmashTileImageView = findViewById(R.id.standard_tools_smash_icon_game_over_dialog);
-        standardToolsSwapTilesImageView = findViewById(R.id.standard_tools_swap_tiles_icon_game_over_dialog);
-        specialToolsChangeValueImageView = findViewById(R.id.special_tools_change_value_icon_game_over_dialog);
-        specialToolsEliminateValueImageView = findViewById(R.id.special_tools_eliminate_value_icon_game_over_dialog);
-        specialToolsDestroyAreaImageView = findViewById(R.id.special_tools_destroy_area_icon_game_over_dialog);
+        standardToolsLinearLayout = findViewById(R.id.standard_tools_game_over_dialog_linear_layout);
+        specialToolsLinearLayout = findViewById(R.id.special_tools_game_over_dialog_linear_layout);
+        toolsLottieLinearLayout = findViewById(R.id.tools_lottie_game_over_dialog_linear_layout);
+        standardToolsUndoImageView = findViewById(R.id.standard_tools_undo_icon_game_over_dialog_image_view);
+        standardToolsSmashTileImageView = findViewById(R.id.standard_tools_smash_icon_game_over_dialog_image_view);
+        standardToolsSwapTilesImageView = findViewById(R.id.standard_tools_swap_tiles_icon_game_over_dialog_image_view);
+        specialToolsChangeValueImageView = findViewById(R.id.special_tools_change_value_icon_game_over_dialog_image_view);
+        specialToolsEliminateValueImageView = findViewById(R.id.special_tools_eliminate_value_icon_game_over_dialog_image_view);
+        specialToolsDestroyAreaImageView = findViewById(R.id.special_tools_destroy_area_icon_game_over_dialog_image_view);
         AppCompatTextView standardToolsUndoCostTextView =
-                findViewById(R.id.standard_tools_undo_cost_text_view_game_over_dialog);
+                findViewById(R.id.standard_tools_undo_cost_game_over_dialog_text_view);
         standardToolsUndoCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsUndoCost")));
         AppCompatTextView standardToolsSmashTileCostTextView =
-                findViewById(R.id.standard_tools_smash_cost_text_view_game_over_dialog);
+                findViewById(R.id.standard_tools_smash_cost_game_over_dialog_text_view);
         standardToolsSmashTileCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsSmashTileCost")));
         AppCompatTextView standardToolsSwapTilesCostTextView =
-                findViewById(R.id.standard_tools_swap_tiles_cost_text_view_game_over_dialog);
+                findViewById(R.id.standard_tools_swap_tiles_cost_game_over_dialog_text_view);
         standardToolsSwapTilesCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsSwapTilesCost")));
         AppCompatTextView specialToolsChangeValueCostTextView =
-                findViewById(R.id.special_tools_change_value_cost_text_view_game_over_dialog);
+                findViewById(R.id.special_tools_change_value_cost_game_over_dialog_text_view);
         specialToolsChangeValueCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsChangeValueCost")));
         AppCompatTextView specialToolsEliminateValueCostTextView =
-                findViewById(R.id.special_tools_eliminate_value_cost_text_view_game_over_dialog);
+                findViewById(R.id.special_tools_eliminate_value_cost_game_over_dialog_text_view);
         specialToolsEliminateValueCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsEliminateValueCost")));
         AppCompatTextView specialToolsDestroyAreaCostTextView =
-                findViewById(R.id.special_tools_destroy_area_cost_text_view_game_over_dialog);
+                findViewById(R.id.special_tools_destroy_area_cost_game_over_dialog_text_view);
         specialToolsDestroyAreaCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsDestroyAreaCost")));
-        shopCoinsButton = findViewById(R.id.first_page_shop_coins_game_over_dialog);
-        continueButton = findViewById(R.id.first_page_continue_game_over_dialog);
+        shopCoinsButton = findViewById(R.id.first_page_shop_coins_game_over_dialog_button);
+        continueButton = findViewById(R.id.first_page_continue_game_over_dialog_button);
 
         this.currentScore = currentScore;
         this.bestScore = bestScore;
-        gameOverLottie = findViewById(R.id.lottie_game_over_dialog);
-        newHighScoreSummaryLinearLayout = findViewById(R.id.new_high_score_summary_linear_layout_game_over_dialog);
-        newHighScoreTextView = findViewById(R.id.new_high_score_text_game_over_dialog);
-        scoresSummaryConstraintLayout = findViewById(R.id.scores_summary_constraint_layout_game_over_dialog);
-        currentScoreTextView = findViewById(R.id.score_text_game_over_dialog);
-        bestScoreTextView = findViewById(R.id.high_score_text_game_over_dialog);
+        gameOverLottie = findViewById(R.id.game_over_dialog_lottie);
+        newHighScoreSummaryLinearLayout = findViewById(R.id.new_high_score_summary_game_over_dialog_linear_layout);
+        newHighScoreTextView = findViewById(R.id.new_high_score_game_over_dialog_text_view);
+        scoresSummaryConstraintLayout = findViewById(R.id.scores_summary_game_over_dialog_constraint_layout);
+        currentScoreTextView = findViewById(R.id.score_game_over_dialog_text_view);
+        bestScoreTextView = findViewById(R.id.high_score_game_over_dialog_text_view);
         if (currentScore == bestScore) {
             newHighScoreSummaryLinearLayout.setVisibility(View.VISIBLE);
             scoresSummaryConstraintLayout.setVisibility(View.GONE);
@@ -128,9 +128,9 @@ public class GameOverDialog extends Dialog {
             currentScoreTextView.setText(String.valueOf(this.currentScore));
             bestScoreTextView.setText(String.valueOf(this.bestScore));
         }
-        mainMenuButton = findViewById(R.id.second_page_main_menu_game_over_dialog);
-        playAgainButton = findViewById(R.id.second_page_play_again_game_over_dialog);
-        backButton = findViewById(R.id.second_page_back_game_over_dialog);
+        mainMenuButton = findViewById(R.id.second_page_main_menu_game_over_dialog_button);
+        playAgainButton = findViewById(R.id.second_page_play_again_game_over_dialog_button);
+        backButton = findViewById(R.id.second_page_back_game_over_dialog_button);
     }
 
     private void setVisibilityOfDialogPage(GameOverDialogActivePage currentActivePage, int visibility) {
@@ -173,9 +173,9 @@ public class GameOverDialog extends Dialog {
                     specialToolsLinearLayout.setVisibility(View.VISIBLE);
                     standardToolsLinearLayout.setVisibility(View.GONE);
 
-                    LottieAnimationView leftView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_left_game_over_dialog);
-                    LottieAnimationView midView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_middle_game_over_dialog);
-                    LottieAnimationView rightView = toolsLottieLinearLayout.findViewById(R.id.tools_lottie_right_game_over_dialog);
+                    LottieAnimationView leftView = toolsLottieLinearLayout.findViewById(R.id.tools_left_game_over_dialog_lottie);
+                    LottieAnimationView midView = toolsLottieLinearLayout.findViewById(R.id.tools_middle_game_over_dialog_lottie);
+                    LottieAnimationView rightView = toolsLottieLinearLayout.findViewById(R.id.tools_right_game_over_dialog_lottie);
                     toolsLottieLinearLayout.setVisibility(View.VISIBLE);
                     midView.addAnimatorListener(new Animator.AnimatorListener() {
                         @Override

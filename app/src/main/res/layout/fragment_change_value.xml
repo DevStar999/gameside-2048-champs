@@ -18,7 +18,7 @@
         app:layout_constraintGuide_percent="0.35" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/back_button_change_value_fragment"
+        android:id="@+id/back_change_value_fragment_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -31,7 +31,7 @@
         app:srcCompat="@drawable/back_arrow" />
 
     <FrameLayout
-        android:id="@+id/tool_preview_frame_layout_change_value_fragment"
+        android:id="@+id/tool_preview_change_value_fragment_frame_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/rotating_light_change_value_fragment"
+            android:id="@+id/rotating_light_change_value_fragment_lottie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -54,7 +54,7 @@
             app:lottie_speed="0.8" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/change_value_preview_lottie"
+            android:id="@+id/change_value_preview_change_value_fragment_lottie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -78,7 +78,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/tool_title_linear_layout_change_value_fragment"
+            android:id="@+id/tool_title_change_value_fragment_linear_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -88,7 +88,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tool_title_text_view_change_value_fragment"
+                android:id="@+id/tool_title_change_value_fragment_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
@@ -99,7 +99,7 @@
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/tool_title_completed_image_view_change_value_fragment"
+                android:id="@+id/tool_title_completed_change_value_fragment_image_view"
                 android:layout_width="32dp"
                 android:layout_height="match_parent" />
 
@@ -121,7 +121,7 @@
             android:textStyle="normal"
             app:layout_constraintBottom_toTopOf="@id/second_click_change_value_fragment_check_box"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tool_title_linear_layout_change_value_fragment"
+            app:layout_constraintTop_toBottomOf="@id/tool_title_change_value_fragment_linear_layout"
             app:theme="@style/CustomCheckBox" />
 
         <!-- android:button attribute is for actual CheckBox looks and
@@ -153,7 +153,7 @@
             app:layout_constraintTop_toBottomOf="@id/second_click_change_value_fragment_check_box">
 
             <LinearLayout
-                android:id="@+id/selected_option_linear_layout"
+                android:id="@+id/selected_option_change_value_fragment_linear_layout"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -178,7 +178,7 @@
                     app:srcCompat="@drawable/change_value_selection_arrow" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/selected_option_value_text_view"
+                    android:id="@+id/selected_option_value_change_value_fragment_text_view"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:gravity="center"
@@ -189,7 +189,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/change_value_options_linear_layout"
+                android:id="@+id/change_value_options_change_value_fragment_linear_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:divider="@drawable/gap_change_value_options_row"
@@ -197,7 +197,7 @@
                 android:showDividers="middle">
 
                 <LinearLayout
-                    android:id="@+id/change_value_options_first_row"
+                    android:id="@+id/change_value_options_first_row_change_value_fragment_linear_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -208,7 +208,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/change_value_options_second_row"
+                    android:id="@+id/change_value_options_second_row__change_value_fragment_linear_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

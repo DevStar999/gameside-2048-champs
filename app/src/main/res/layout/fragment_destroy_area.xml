@@ -18,7 +18,7 @@
         app:layout_constraintGuide_percent="0.35" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/back_button_destroy_area_fragment"
+        android:id="@+id/back_destroy_area_fragment_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -31,7 +31,7 @@
         app:srcCompat="@drawable/back_arrow" />
 
     <FrameLayout
-        android:id="@+id/tool_preview_frame_layout_destroy_area_fragment"
+        android:id="@+id/tool_preview_destroy_area_fragment_frame_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/rotating_light_destroy_area_fragment"
+            android:id="@+id/rotating_light_destroy_area_fragment_lottie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -54,7 +54,7 @@
             app:lottie_speed="0.8" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/destroy_area_preview_lottie"
+            android:id="@+id/destroy_area_preview_destroy_area_fragment_lottie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -78,17 +78,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/tool_title_linear_layout_destroy_area_fragment"
+            android:id="@+id/tool_title_destroy_area_fragment_linear_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/tool_description_text_view_destroy_area_fragment"
+            app:layout_constraintBottom_toTopOf="@id/tool_description_destroy_area_fragment_text_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tool_title_text_view_destroy_area_fragment"
+                android:id="@+id/tool_title_destroy_area_fragment_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
@@ -99,14 +99,14 @@
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/tool_title_completed_image_view_destroy_area_fragment"
+                android:id="@+id/tool_title_completed_destroy_area_fragment_image_view"
                 android:layout_width="32dp"
                 android:layout_height="match_parent" />
 
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tool_description_text_view_destroy_area_fragment"
+            android:id="@+id/tool_description_destroy_area_fragment_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scrollHorizontally="false"
@@ -117,7 +117,7 @@
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tool_title_linear_layout_destroy_area_fragment" />
+            app:layout_constraintTop_toBottomOf="@id/tool_title_destroy_area_fragment_linear_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

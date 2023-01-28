@@ -11,7 +11,7 @@
 
     <!-- TODO -> Add Coins Display on the tools page of this dialog -->
     <FrameLayout
-        android:id="@+id/pages_frame_layout_game_over_dialog"
+        android:id="@+id/pages_game_over_dialog_frame_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/root_linear_layout_first_page_game_over_dialog"
+            android:id="@+id/root_first_page_game_over_dialog_linear_layout"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             android:visibility="visible">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/first_page_title_text_view_game_over_dialog"
+                android:id="@+id/first_page_title_game_over_dialog_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
@@ -43,7 +43,7 @@
                 android:textStyle="bold" />
 
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/tools_change_lottie_game_over_dialog"
+                android:id="@+id/tools_change_game_over_dialog_lottie"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center_horizontal"
@@ -57,13 +57,13 @@
                 app:lottie_rawRes="@raw/tools_chest_transition" />
 
             <FrameLayout
-                android:id="@+id/tools_frame_layout_game_over_dialog"
+                android:id="@+id/tools_game_over_dialog_frame_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal">
 
                 <LinearLayout
-                    android:id="@+id/standard_tools_linear_layout_game_over_dialog"
+                    android:id="@+id/standard_tools_game_over_dialog_linear_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -95,7 +95,7 @@
                                 app:srcCompat="@drawable/coin_symbol" />
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/standard_tools_undo_cost_text_view_game_over_dialog"
+                                android:id="@+id/standard_tools_undo_cost_game_over_dialog_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="end|center_vertical"
@@ -110,7 +110,7 @@
                         </LinearLayout>
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/standard_tools_undo_icon_game_over_dialog"
+                            android:id="@+id/standard_tools_undo_icon_game_over_dialog_image_view"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:layout_gravity="center_horizontal"
@@ -148,7 +148,7 @@
                                 app:srcCompat="@drawable/coin_symbol" />
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/standard_tools_smash_cost_text_view_game_over_dialog"
+                                android:id="@+id/standard_tools_smash_cost_game_over_dialog_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="end|center_vertical"
@@ -163,7 +163,7 @@
                         </LinearLayout>
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/standard_tools_smash_icon_game_over_dialog"
+                            android:id="@+id/standard_tools_smash_icon_game_over_dialog_image_view"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:layout_gravity="center_horizontal"
@@ -202,7 +202,7 @@
                                 app:srcCompat="@drawable/coin_symbol" />
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/standard_tools_swap_tiles_cost_text_view_game_over_dialog"
+                                android:id="@+id/standard_tools_swap_tiles_cost_game_over_dialog_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="end|center_vertical"
@@ -217,7 +217,7 @@
                         </LinearLayout>
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/standard_tools_swap_tiles_icon_game_over_dialog"
+                            android:id="@+id/standard_tools_swap_tiles_icon_game_over_dialog_image_view"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:layout_gravity="center_horizontal"
@@ -232,7 +232,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/special_tools_linear_layout_game_over_dialog"
+                    android:id="@+id/special_tools_game_over_dialog_linear_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -264,7 +264,7 @@
                                 app:srcCompat="@drawable/coin_symbol" />
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/special_tools_change_value_cost_text_view_game_over_dialog"
+                                android:id="@+id/special_tools_change_value_cost_game_over_dialog_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="end|center_vertical"
@@ -279,7 +279,7 @@
                         </LinearLayout>
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/special_tools_change_value_icon_game_over_dialog"
+                            android:id="@+id/special_tools_change_value_icon_game_over_dialog_image_view"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:layout_gravity="center_horizontal"
@@ -317,7 +317,7 @@
                                 app:srcCompat="@drawable/coin_symbol" />
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/special_tools_eliminate_value_cost_text_view_game_over_dialog"
+                                android:id="@+id/special_tools_eliminate_value_cost_game_over_dialog_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="end|center_vertical"
@@ -332,7 +332,7 @@
                         </LinearLayout>
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/special_tools_eliminate_value_icon_game_over_dialog"
+                            android:id="@+id/special_tools_eliminate_value_icon_game_over_dialog_image_view"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:layout_gravity="center_horizontal"
@@ -370,7 +370,7 @@
                                 app:srcCompat="@drawable/coin_symbol" />
 
                             <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/special_tools_destroy_area_cost_text_view_game_over_dialog"
+                                android:id="@+id/special_tools_destroy_area_cost_game_over_dialog_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="end|center_vertical"
@@ -385,7 +385,7 @@
                         </LinearLayout>
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/special_tools_destroy_area_icon_game_over_dialog"
+                            android:id="@+id/special_tools_destroy_area_icon_game_over_dialog_image_view"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:layout_gravity="center_horizontal"
@@ -400,14 +400,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tools_lottie_linear_layout_game_over_dialog"
+                    android:id="@+id/tools_lottie_game_over_dialog_linear_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:visibility="gone">
 
                     <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/tools_lottie_left_game_over_dialog"
+                        android:id="@+id/tools_left_game_over_dialog_lottie"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_marginHorizontal="4dp"
@@ -419,7 +419,7 @@
                         app:lottie_rawRes="@raw/tool_intro" />
 
                     <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/tools_lottie_middle_game_over_dialog"
+                        android:id="@+id/tools_middle_game_over_dialog_lottie"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_marginHorizontal="4dp"
@@ -431,7 +431,7 @@
                         app:lottie_rawRes="@raw/tool_intro" />
 
                     <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/tools_lottie_right_game_over_dialog"
+                        android:id="@+id/tools_right_game_over_dialog_lottie"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_marginHorizontal="4dp"
@@ -447,7 +447,7 @@
             </FrameLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/first_page_warning_text_view_game_over_dialog"
+                android:id="@+id/first_page_warning_game_over_dialog_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
@@ -461,7 +461,7 @@
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:id="@+id/first_page_all_buttons_linear_layout_game_over_dialog"
+                android:id="@+id/first_page_all_buttons_game_over_dialog_linear_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -472,7 +472,7 @@
                 app:layout_constraintTop_toBottomOf="@id/game_paused_text">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/first_page_shop_coins_game_over_dialog"
+                    android:id="@+id/first_page_shop_coins_game_over_dialog_button"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_marginHorizontal="8dp"
@@ -488,7 +488,7 @@
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/first_page_continue_game_over_dialog"
+                    android:id="@+id/first_page_continue_game_over_dialog_button"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_marginHorizontal="8dp"
@@ -530,7 +530,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/root_linear_layout_second_page_game_over_dialog"
+            android:id="@+id/root_second_page_game_over_dialog_linear_layout"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -543,7 +543,7 @@
                  text of the dialog in uppercase (as the text is short & should
                  be in caps based on it's significance) -->
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/second_page_title_text_view_game_over_dialog"
+                android:id="@+id/second_page_title_game_over_dialog_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -556,21 +556,21 @@
 
             <!-- Lottie Animation Link = https://lottiefiles.com/68436-you-lose -->
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lottie_game_over_dialog"
+                android:id="@+id/game_over_dialog_lottie"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
                 app:lottie_rawRes="@raw/game_over" />
 
             <FrameLayout
-                android:id="@+id/scores_summary_frame_layout_game_over_dialog"
+                android:id="@+id/scores_summary_game_over_dialog_frame_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="24dp"
                 android:layout_gravity="center_horizontal">
 
                 <LinearLayout
-                    android:id="@+id/new_high_score_summary_linear_layout_game_over_dialog"
+                    android:id="@+id/new_high_score_summary_game_over_dialog_linear_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -599,7 +599,7 @@
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/new_high_score_text_game_over_dialog"
+                        android:id="@+id/new_high_score_game_over_dialog_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:scrollHorizontally="false"
@@ -612,14 +612,14 @@
                 </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/scores_summary_constraint_layout_game_over_dialog"
+                    android:id="@+id/scores_summary_game_over_dialog_constraint_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:visibility="invisible">
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/score_description_text_view_game_over_dialog"
+                        android:id="@+id/score_description_game_over_dialog_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
@@ -630,11 +630,11 @@
                         android:textStyle="bold"
                         android:scrollHorizontally="false"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/score_mid_colon_text_view_game_over_dialog"
+                        app:layout_constraintEnd_toStartOf="@id/score_mid_colon_game_over_dialog_text_view"
                         app:layout_constraintBottom_toTopOf="@id/horizontal_guide_mid_scores_summary_game_over_dialog" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/score_mid_colon_text_view_game_over_dialog"
+                        android:id="@+id/score_mid_colon_game_over_dialog_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=":"
@@ -648,7 +648,7 @@
                         app:layout_constraintBottom_toTopOf="@id/horizontal_guide_mid_scores_summary_game_over_dialog"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/score_text_game_over_dialog"
+                        android:id="@+id/score_game_over_dialog_text_view"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -659,7 +659,7 @@
                         android:textStyle="bold"
                         android:scrollHorizontally="false"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/score_mid_colon_text_view_game_over_dialog"
+                        app:layout_constraintStart_toEndOf="@id/score_mid_colon_game_over_dialog_text_view"
                         app:layout_constraintBottom_toTopOf="@id/horizontal_guide_mid_scores_summary_game_over_dialog" />
 
                     <androidx.constraintlayout.widget.Guideline
@@ -670,7 +670,7 @@
                         app:layout_constraintGuide_percent="0.5" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/high_score_description_text_view_game_over_dialog"
+                        android:id="@+id/high_score_description_game_over_dialog_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
@@ -681,11 +681,11 @@
                         android:textStyle="bold"
                         android:scrollHorizontally="false"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/high_score_mid_colon_text_view_game_over_dialog"
+                        app:layout_constraintEnd_toStartOf="@id/high_score_mid_colon_game_over_dialog_text_view"
                         app:layout_constraintTop_toBottomOf="@id/horizontal_guide_mid_scores_summary_game_over_dialog" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/high_score_mid_colon_text_view_game_over_dialog"
+                        android:id="@+id/high_score_mid_colon_game_over_dialog_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=":"
@@ -699,7 +699,7 @@
                         app:layout_constraintTop_toBottomOf="@id/horizontal_guide_mid_scores_summary_game_over_dialog"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/high_score_text_game_over_dialog"
+                        android:id="@+id/high_score_game_over_dialog_text_view"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -710,7 +710,7 @@
                         android:textStyle="bold"
                         android:scrollHorizontally="false"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/high_score_mid_colon_text_view_game_over_dialog"
+                        app:layout_constraintStart_toEndOf="@id/high_score_mid_colon_game_over_dialog_text_view"
                         app:layout_constraintTop_toBottomOf="@id/horizontal_guide_mid_scores_summary_game_over_dialog" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -718,7 +718,7 @@
             </FrameLayout>
 
             <LinearLayout
-                android:id="@+id/second_page_all_buttons_linear_layout_game_over_dialog"
+                android:id="@+id/second_page_all_buttons_game_over_dialog_linear_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -729,7 +729,7 @@
                     android:layout_height="wrap_content">
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/second_page_main_menu_game_over_dialog"
+                        android:id="@+id/second_page_main_menu_game_over_dialog_button"
                         android:layout_width="wrap_content"
                         android:layout_height="48dp"
                         android:layout_marginHorizontal="8dp"
@@ -745,7 +745,7 @@
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/second_page_play_again_game_over_dialog"
+                        android:id="@+id/second_page_play_again_game_over_dialog_button"
                         android:layout_width="wrap_content"
                         android:layout_height="48dp"
                         android:layout_marginHorizontal="8dp"
@@ -763,7 +763,7 @@
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/second_page_back_game_over_dialog"
+                    android:id="@+id/second_page_back_game_over_dialog_button"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"

@@ -153,17 +153,17 @@ public class ChangeValueFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_change_value, container, false);
 
-        backButton = view.findViewById(R.id.back_button_change_value_fragment);
-        rotatingLightLottie = view.findViewById(R.id.rotating_light_change_value_fragment);
-        changeValuePreviewLottie = view.findViewById(R.id.change_value_preview_lottie);
-        toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_change_value_fragment);
+        backButton = view.findViewById(R.id.back_change_value_fragment_button);
+        rotatingLightLottie = view.findViewById(R.id.rotating_light_change_value_fragment_lottie);
+        changeValuePreviewLottie = view.findViewById(R.id.change_value_preview_change_value_fragment_lottie);
+        toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_change_value_fragment_image_view);
         firstClickCheckBox = view.findViewById(R.id.first_click_change_value_fragment_check_box);
         secondClickCheckBox = view.findViewById(R.id.second_click_change_value_fragment_check_box);
-        selectedOptionLinearLayout = view.findViewById(R.id.selected_option_linear_layout);
-        selectedOptionValueTextView = view.findViewById(R.id.selected_option_value_text_view);
-        changeValueOptionsLinearLayout = view.findViewById(R.id.change_value_options_linear_layout);
-        changeValueOptionsFirstRow = view.findViewById(R.id.change_value_options_first_row);
-        changeValueOptionsSecondRow = view.findViewById(R.id.change_value_options_second_row);
+        selectedOptionLinearLayout = view.findViewById(R.id.selected_option_change_value_fragment_linear_layout);
+        selectedOptionValueTextView = view.findViewById(R.id.selected_option_value_change_value_fragment_text_view);
+        changeValueOptionsLinearLayout = view.findViewById(R.id.change_value_options_change_value_fragment_linear_layout);
+        changeValueOptionsFirstRow = view.findViewById(R.id.change_value_options_first_row_change_value_fragment_linear_layout);
+        changeValueOptionsSecondRow = view.findViewById(R.id.change_value_options_second_row__change_value_fragment_linear_layout);
         optionValues = new ArrayList<>() {{ add(2L); add(4L); add(8L); add(16L); add(32L); }};
         valueOptionTextViews = new ArrayList<>();
         valueOptionSelectionImageViews = new ArrayList<>();

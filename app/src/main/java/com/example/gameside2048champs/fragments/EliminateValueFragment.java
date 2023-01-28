@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -64,10 +63,10 @@ public class EliminateValueFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_eliminate_value, container, false);
 
-        backButton = view.findViewById(R.id.back_button_eliminate_value_fragment);
-        rotatingLightLottie = view.findViewById(R.id.rotating_light_eliminate_value_fragment);
-        eliminateValuePreviewLottie = view.findViewById(R.id.eliminate_value_preview_lottie);
-        toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_eliminate_value_fragment);
+        backButton = view.findViewById(R.id.back_eliminate_value_fragment_button);
+        rotatingLightLottie = view.findViewById(R.id.rotating_light_eliminate_value_fragment_lottie);
+        eliminateValuePreviewLottie = view.findViewById(R.id.eliminate_value_preview_eliminate_value_fragment_lottie);
+        toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_eliminate_value_fragment_image_view);
         userActionCheckBox = view.findViewById(R.id.user_action_eliminate_value_fragment_check_box);
         isToolUseComplete = true;
 

@@ -90,8 +90,8 @@ public class GameManager {
             return false;
         }
 
-        AppCompatTextView goalTileTextView = parentActivity.findViewById(R.id.goal_tile_text_view);
-        AppCompatTextView tutorialTextView = parentActivity.findViewById(R.id.tutorial_text_view);
+        AppCompatTextView goalTileTextView = parentActivity.findViewById(R.id.goal_tile_title_game_activity_text_view);
+        AppCompatTextView tutorialTextView = parentActivity.findViewById(R.id.tutorial_game_activity_text_view);
         if (hasGoalBeenCompleted) { // True, goal completed
             int greenTickEmojiUnicode = 0x2705;
             goalTileTextView.setText(String.format("GOAL TILE %s", String.valueOf(toChars(greenTickEmojiUnicode))));
@@ -257,7 +257,7 @@ public class GameManager {
                                 ctiMatrix.get(row).get(column).getFinalLocationRow(),
                                 ctiMatrix.get(row).get(column).getFinalLocationColumn(),
                                 currentGameMode.getRows(), currentGameMode.getColumns(),
-                                parentActivity.findViewById(R.id.game_frame_layout), swipeDirection,
+                                parentActivity.findViewById(R.id.game_activity_game_frame_layout), swipeDirection,
                                 textView, moveAnimationDuration, 0);
                     }
                 }

@@ -58,12 +58,12 @@ public class DestroyAreaFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_destroy_area, container, false);
 
-        backButton = view.findViewById(R.id.back_button_destroy_area_fragment);
-        rotatingLightLottie = view.findViewById(R.id.rotating_light_destroy_area_fragment);
-        destroyAreaPreviewLottie = view.findViewById(R.id.destroy_area_preview_lottie);
+        backButton = view.findViewById(R.id.back_destroy_area_fragment_button);
+        rotatingLightLottie = view.findViewById(R.id.rotating_light_destroy_area_fragment_lottie);
+        destroyAreaPreviewLottie = view.findViewById(R.id.destroy_area_preview_destroy_area_fragment_lottie);
         destroyAreaPreviewLottie.setMaxFrame(50);
-        toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_image_view_destroy_area_fragment);
-        toolDescriptionTextView = view.findViewById(R.id.tool_description_text_view_destroy_area_fragment);
+        toolUseCompletedImageView = view.findViewById(R.id.tool_title_completed_destroy_area_fragment_image_view);
+        toolDescriptionTextView = view.findViewById(R.id.tool_description_destroy_area_fragment_text_view);
         isToolUseComplete = true;
 
         // Making tool lottie view emerge so that it grabs attention during the tool fragment transition
