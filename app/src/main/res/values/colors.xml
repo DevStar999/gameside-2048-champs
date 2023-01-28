@@ -6,12 +6,11 @@
     <color name="blue_50_800">#1565C0</color>
     <color name="blue_50_900">#0D47A1</color>
     <color name="bright_orange">#FFAF19</color>
+    <color name="custom_green">#42D16F</color>
     <color name="grey">#808080</color>
     <color name="malachite_green">#0BDA51</color>
     <color name="orange_50_400">#FFA726</color>
     <color name="orange_50_200">#FFCC80</color>
-    <color name="orange_button">#F2B179</color>
-    <color name="orange_button_dark">#F59563</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -28,65 +27,82 @@
     <color name="black_translucent_film_dark">#80000000</color>
     <!-- Current opacity for following color = 60% i.e. in hex = 99 -->
     <color name="black_translucent_film_game_activity_background">#99000000</color>
+    <!-- Current opacity for following color = 70% i.e. in hex = B3 -->
+    <color name="black_translucent_film_tools_fragment_background">#B3000000</color>
     <color name="board_color">#1D1D1D</color>
-    <color name="button_background_color">@color/orange_button</color>
-    <color name="dialog_background_color">#232323</color>
-    <color name="empty_cell">#787878</color>
-    <color name="game_primary_background_color">#070707</color>
-    <!-- Current opacity for following color = 60% i.e. in hex = 99 -->
-    <color name="game_primary_background_color_translucent1">#99000000</color>
-    <!-- Current opacity for following color = 80% i.e. in hex = CC -->
-    <color name="game_primary_background_color_translucent2">#CC000000</color>
-    <color name="game_text_color">#FFFFFF</color>
-    <color name="game_text_color_dark">#442E19</color>
-    <!-- Current opacity for following color = 50% i.e. in hex = 80 -->
-    <color name="game_text_color_divider_line">#80967969</color>
+    <color name="button_background_color">@color/custom_green</color>
+    <color name="combo_merge_inner">@color/royal_red</color>
+    <color name="combo_merge_outer">@color/blue_50_500</color>
+    <color name="dialog_background_color">@color/primary_background_overlay_dark</color>
+    <!-- Current opacity for following color = 45% i.e. in hex = 73 -->
+    <color name="dialog_background_film">#73000000</color>
+    <color name="divider_line">#FFFFFF</color>
+    <color name="empty_cell">@color/primary_background_overlay_light</color>
+    <color name="fragment_title_color">#0064AF</color>
+    <color name="game_tile_number_color_light">#FFFFFF</color>
+    <color name="game_tile_number_color_dark">#242424</color>
     <!-- Current opacity for following color = 70% i.e. in hex = B3 -->
     <color name="grid_lottie_black_translucent_film">#B3000000</color>
     <color name="ic_launcher_background">#EEC22E</color>
+    <color name="primary_background_color_dark">#070707</color>
+    <color name="primary_background_color">#141414</color>
+    <color name="primary_background_overlay_dark">#242424</color>
+    <color name="primary_background_overlay_light">#787878</color>
+    <color name="settings_divider_line">#FFFFFF</color>
     <color name="special_tools_icon_background_color">@color/royal_red</color>
     <color name="standard_tools_icon_background_color">@color/blue_50_500</color>
     <color name="swap_tiles_orange_color">@color/bright_orange</color>
     <color name="swap_tiles_red_color">@color/red_50_500</color>
+    <color name="text_color">#FFFFFF</color>
     <color name="transparent_color">@android:color/transparent</color>
-    <!-- Current opacity for following color = 40% i.e. in hex = 66 -->
-    <color name="white_dialog_background_translucent">#66FFFFFF</color>
     <!-- Current opacity for following color = 75% i.e. in hex = BF -->
     <color name="white_translucent_splash_screen">#BFFFFFFF</color>
-    <color name="combo_merge_inner1">#FCC729</color>
-    <color name="combo_merge_outer1">#337DEF</color>
-    <color name="combo_merge_inner2">@color/royal_red</color>
-    <color name="combo_merge_outer2">@color/blue_50_500</color>
-
-    <!-- Number Colors -->
-    <color name="number_color_0002">#766D64</color>
-    <color name="number_color_0004">#766D64</color>
-    <color name="number_color_0008">#FFFFFF</color>
-    <color name="number_color_0016">#FFFFFF</color>
-    <color name="number_color_0032">#FFFFFF</color>
-    <color name="number_color_0064">#FFFFFF</color>
-    <color name="number_color_0128">#FFFFFF</color>
-    <color name="number_color_0256">#FFFFFF</color>
-    <color name="number_color_0512">#FFFFFF</color>
-    <color name="number_color_1024">#FFFFFF</color>
-    <color name="number_color_2048">#FFFFFF</color>
-    <color name="number_color_4096">#FFFFFF</color>
-    <color name="number_color_8192">#FFFFFF</color>
-    <color name="number_color_higher_order">#FFFFFF</color>
 
     <!-- Background Colors of Numbers -->
-    <color name="background_color_0002">#EEE4DA</color>
-    <color name="background_color_0004">#EDE0C8</color>
-    <color name="background_color_0008">@color/orange_button</color>
-    <color name="background_color_0016">@color/orange_button_dark</color>
-    <color name="background_color_0032">#F57C5F</color>
-    <color name="background_color_0064">#F65D3B</color>
-    <color name="background_color_0128">#EDCE71</color>
-    <color name="background_color_0256">#EDCC61</color>
-    <color name="background_color_0512">#ECC850</color>
-    <color name="background_color_1024">#EDC53F</color>
-    <color name="background_color_2048">#EEC22E</color>
-    <color name="background_color_4096">#64B5F6</color>
-    <color name="background_color_8192">#1976D2</color>
+    <color name="background_color_1_2">#249CD1</color>
+    <color name="background_color_2_4">#ED893D</color>
+    <color name="background_color_3_8">#E25A88</color>
+    <color name="background_color_4_16">#058555</color>
+    <color name="background_color_5_32">#A34E78</color>
+    <color name="background_color_6_64">#8C6EBE</color>
+    <color name="background_color_7_128">#117F80</color>
+    <color name="background_color_8_256">#55D5B2</color>
+    <color name="background_color_9_512">#F8968D</color>
+    <color name="background_color_10_1024">#98DA5E</color>
+    <color name="background_color_11_2048">#FC4160</color>
+    <color name="background_color_12_4096">#818A51</color>
+    <color name="background_color_13_8192">#5AC26B</color>
+    <color name="background_color_14_16384">#FBC44F</color>
+    <color name="background_color_15_32768">#C21E39</color>
+    <color name="background_color_16_65536">#117F80</color>
+    <color name="background_color_17_131072">#058555</color>
+    <color name="background_color_18_262144">#249CD1</color>
+    <color name="background_color_19_524288">#A34E78</color>
+    <color name="background_color_20_1048576">#98DA5E</color>
+    <color name="background_color_21_2097152">#FC4160</color>
+    <color name="background_color_22_4194304">#55D5B2</color>
+    <color name="background_color_23_8388608">#E25A88</color>
+    <color name="background_color_24_16777216">#ED893D</color>
+    <color name="background_color_25_33554432">#C21E39</color>
+    <color name="background_color_26_67108864">#5AC26B</color>
+    <color name="background_color_27_134217728">#818A51</color>
+    <color name="background_color_28_268435456">#FBC44F</color>
+    <color name="background_color_29_536870912">#8C6EBE</color>
+    <color name="background_color_30_1073741824">#F8968D</color>
+    <color name="background_color_31_2147483648">#249CD1</color>
+    <color name="background_color_32_4294967296">#98DA5E</color>
+    <color name="background_color_33_8589934592">#058555</color>
+    <color name="background_color_34_17179869184">#117F80</color>
+    <color name="background_color_35_34359738368">#E25A88</color>
+    <color name="background_color_36_68719476736">#FC4160</color>
+    <color name="background_color_37_137438953472">#A34E78</color>
+    <color name="background_color_38_274877906944">#C21E39</color>
+    <color name="background_color_39_549755813888">#55D5B2</color>
+    <color name="background_color_40_1099511627776">#F8968D</color>
+    <color name="background_color_41_w">#8C6EBE</color>
+    <color name="background_color_42_b">#5AC26B</color>
+    <color name="background_color_43_w">#ED893D</color>
+    <color name="background_color_44_b">#FBC44F</color>
+    <color name="background_color_45_w">#818A51</color>
     <color name="background_color_higher_order">#353935</color>
 </resources>
