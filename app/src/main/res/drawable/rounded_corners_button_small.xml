@@ -4,12 +4,6 @@
     <stroke
         android:width="3dp"
         android:color="@color/text_color" />
-
     <solid android:color="@color/primary_background_overlay_dark" />
-
-    <corners
-        android:bottomLeftRadius="8dp"
-        android:bottomRightRadius="8dp"
-        android:topLeftRadius="8dp"
-        android:topRightRadius="8dp" />
+    <corners android:radius="8dp" />
 </shape>

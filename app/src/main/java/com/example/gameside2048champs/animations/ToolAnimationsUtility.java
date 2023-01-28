@@ -67,7 +67,7 @@ public class ToolAnimationsUtility {
     public static void standardToolsUndo(LottieAnimationView gridLottieView, ConstraintLayout rootGameConstraintLayout) {
         gridLottieView.setVisibility(View.VISIBLE);
         gridLottieView.setRotationY(180f);
-        gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
+        gridLottieView.setBackgroundResource(R.drawable.rounded_corners_grid_lottie);
         gridLottieView.setAnimation(R.raw.standard_tools_undo_grid);
         gridLottieView.setSpeed(1.5f);
         gridLottieView.addAnimatorListener(new Animator.AnimatorListener() {
@@ -118,7 +118,7 @@ public class ToolAnimationsUtility {
     public static void standardToolsSmashTileGridSetup(LottieAnimationView gridLottieView) {
         gridLottieView.setVisibility(View.VISIBLE);
         gridLottieView.setRotationY(180f);
-        gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
+        gridLottieView.setBackgroundResource(R.drawable.rounded_corners_grid_lottie);
         gridLottieView.setAnimation(R.raw.standard_tools_smash_tile_grid_tile);
         gridLottieView.setSpeed(0.7f);
     }
@@ -127,7 +127,7 @@ public class ToolAnimationsUtility {
         targetTileLottie.setVisibility(View.VISIBLE);
         targetTileLottie.setRotationY(180f);
         targetTileLottie.setMaxFrame(15);
-        targetTileLottie.setBackgroundResource(R.drawable.rounded_corner_tile_lottie);
+        targetTileLottie.setBackgroundResource(R.drawable.rounded_corners_tile_lottie);
         targetTileLottie.setAnimation(R.raw.standard_tools_smash_tile_grid_tile);
         targetTileLottie.setSpeed(0.7f);
     }
@@ -161,14 +161,14 @@ public class ToolAnimationsUtility {
 
     public static void standardToolsSwapTilesGridSetup(LottieAnimationView gridLottieView) {
         gridLottieView.setVisibility(View.VISIBLE);
-        gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
+        gridLottieView.setBackgroundResource(R.drawable.rounded_corners_grid_lottie);
         gridLottieView.setAnimation(R.raw.standard_tools_swap_tiles_grid);
         gridLottieView.setSpeed(1.25f);
     }
 
     public static void standardToolsSwapTilesSwapTileSetup(LottieAnimationView swapTileLottie) {
         swapTileLottie.setVisibility(View.VISIBLE);
-        swapTileLottie.setBackgroundResource(R.drawable.rounded_corner_tile_lottie);
+        swapTileLottie.setBackgroundResource(R.drawable.rounded_corners_tile_lottie);
         swapTileLottie.setAnimation(R.raw.standard_tools_swap_tiles_tile);
         swapTileLottie.setSpeed(1.5f);
     }
@@ -199,14 +199,14 @@ public class ToolAnimationsUtility {
 
     public static void specialToolsChangeValueGridSetup(LottieAnimationView gridLottieView) {
         gridLottieView.setVisibility(View.VISIBLE);
-        gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
+        gridLottieView.setBackgroundResource(R.drawable.rounded_corners_grid_lottie);
         gridLottieView.setAnimation(R.raw.special_tools_change_value_grid);
         gridLottieView.setSpeed(2f);
     }
 
     public static void specialToolsChangeValueTargetTileSetup(LottieAnimationView changeValueTileLottie) {
         changeValueTileLottie.setVisibility(View.VISIBLE);
-        changeValueTileLottie.setBackgroundResource(R.drawable.rounded_corner_tile_lottie);
+        changeValueTileLottie.setBackgroundResource(R.drawable.rounded_corners_tile_lottie);
         changeValueTileLottie.setAnimation(R.raw.special_tools_change_value_tile);
         changeValueTileLottie.setSpeed(1.5f);
     }
@@ -224,7 +224,7 @@ public class ToolAnimationsUtility {
 
     public static void specialToolsEliminateValueGridSetup(LottieAnimationView gridLottieView) {
         gridLottieView.setVisibility(View.VISIBLE);
-        gridLottieView.setBackgroundResource(R.drawable.rounded_corner_grid_lottie);
+        gridLottieView.setBackgroundResource(R.drawable.rounded_corners_grid_lottie);
         gridLottieView.setAnimation(R.raw.special_tools_eliminate_value_grid);
         gridLottieView.setSpeed(3f);
     }
@@ -233,7 +233,7 @@ public class ToolAnimationsUtility {
         for (int index = 0; index < targetTilesLottie.size(); index++) {
             targetTilesLottie.get(index).setVisibility(View.VISIBLE);
             targetTilesLottie.get(index).setMaxFrame(100);
-            targetTilesLottie.get(index).setBackgroundResource(R.drawable.rounded_corner_tile_lottie);
+            targetTilesLottie.get(index).setBackgroundResource(R.drawable.rounded_corners_tile_lottie);
             targetTilesLottie.get(index).setAnimation(R.raw.special_tools_eliminate_value_tile);
             targetTilesLottie.get(index).setSpeed(1.25f);
         }

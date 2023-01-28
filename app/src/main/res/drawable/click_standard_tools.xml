@@ -11,5 +11,5 @@
                 android:topRightRadius="0dp" />
         </shape>
     </item>
-    <item android:drawable="@drawable/rounded_corner_standard_tools" />
+    <item android:drawable="@drawable/rounded_corners_standard_tool" />
 </ripple>

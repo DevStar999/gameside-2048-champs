@@ -11,7 +11,7 @@
         <scale android:scaleWidth="100%">
             <shape android:shape="rectangle">
                 <corners android:radius="8dp" />
-                <solid android:color="#FBD06C" />
+                <solid android:color="#FFA726" />
             </shape>
         </scale>
     </item>
