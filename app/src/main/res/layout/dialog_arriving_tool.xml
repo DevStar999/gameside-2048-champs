@@ -39,7 +39,7 @@
         android:text="The 'DESTROY AREA' tool is arriving soon, so stay tuned for updates !!"
         android:textAlignment="center"
         android:textColor="@color/text_color"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/arriving_tool_buttons_linear_layout"
