@@ -1031,8 +1031,8 @@ public class GameActivity extends AppCompatActivity implements
             SmashTileFragment fragment = new SmashTileFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.setCustomAnimations(R.anim.tools_fragment_entry, R.anim.tools_fragment_exit,
-                    R.anim.tools_fragment_entry, R.anim.tools_fragment_exit);
+            transaction.setCustomAnimations(R.anim.tool_fragment_entry, R.anim.tool_fragment_exit,
+                    R.anim.tool_fragment_entry, R.anim.tool_fragment_exit);
             transaction.addToBackStack(null);
             transaction.replace(R.id.tool_use_game_activity_fragment_container,
                     fragment, "SMASH_TILE_FRAGMENT").commit();
@@ -1068,8 +1068,8 @@ public class GameActivity extends AppCompatActivity implements
             SwapTilesFragment fragment = new SwapTilesFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.setCustomAnimations(R.anim.tools_fragment_entry, R.anim.tools_fragment_exit,
-                    R.anim.tools_fragment_entry, R.anim.tools_fragment_exit);
+            transaction.setCustomAnimations(R.anim.tool_fragment_entry, R.anim.tool_fragment_exit,
+                    R.anim.tool_fragment_entry, R.anim.tool_fragment_exit);
             transaction.addToBackStack(null);
             transaction.replace(R.id.tool_use_game_activity_fragment_container,
                     fragment, "SWAP_TILES_FRAGMENT").commit();
@@ -1105,8 +1105,8 @@ public class GameActivity extends AppCompatActivity implements
             ChangeValueFragment fragment = new ChangeValueFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.setCustomAnimations(R.anim.tools_fragment_entry, R.anim.tools_fragment_exit,
-                    R.anim.tools_fragment_entry, R.anim.tools_fragment_exit);
+            transaction.setCustomAnimations(R.anim.tool_fragment_entry, R.anim.tool_fragment_exit,
+                    R.anim.tool_fragment_entry, R.anim.tool_fragment_exit);
             transaction.addToBackStack(null);
             transaction.replace(R.id.tool_use_game_activity_fragment_container,
                     fragment, "CHANGE_VALUE_FRAGMENT").commit();
@@ -1142,8 +1142,8 @@ public class GameActivity extends AppCompatActivity implements
             EliminateValueFragment fragment = new EliminateValueFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.setCustomAnimations(R.anim.tools_fragment_entry, R.anim.tools_fragment_exit,
-                    R.anim.tools_fragment_entry, R.anim.tools_fragment_exit);
+            transaction.setCustomAnimations(R.anim.tool_fragment_entry, R.anim.tool_fragment_exit,
+                    R.anim.tool_fragment_entry, R.anim.tool_fragment_exit);
             transaction.addToBackStack(null);
             transaction.replace(R.id.tool_use_game_activity_fragment_container,
                     fragment, "ELIMINATE_VALUE_FRAGMENT").commit();
@@ -1179,8 +1179,8 @@ public class GameActivity extends AppCompatActivity implements
             DestroyAreaFragment fragment = new DestroyAreaFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.setCustomAnimations(R.anim.tools_fragment_entry, R.anim.tools_fragment_exit,
-                    R.anim.tools_fragment_entry, R.anim.tools_fragment_exit);
+            transaction.setCustomAnimations(R.anim.tool_fragment_entry, R.anim.tool_fragment_exit,
+                    R.anim.tool_fragment_entry, R.anim.tool_fragment_exit);
             transaction.addToBackStack(null);
             transaction.replace(R.id.tool_use_game_activity_fragment_container,
                     fragment, "DESTROY_AREA_FRAGMENT").commit();
