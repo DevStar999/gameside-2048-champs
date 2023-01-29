@@ -6,6 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/gpgs_sign_in_status_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:paddingHorizontal="24dp"
+        android:scrollHorizontally="false"
+        android:text="Google Play Games Sign In Status : NOT Signed In"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/gpgs_sign_in_image_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/gpgs_sign_in_image_view"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/navigation_gpgs_sign_in"
+        app:layout_constraintBottom_toTopOf="@id/start_pregame_fragment_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gpgs_sign_in_status_text_view" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/start_pregame_fragment_button"
         android:layout_width="wrap_content"
@@ -21,7 +48,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/gpgs_sign_in_image_view" />
 
     <FrameLayout
         android:id="@+id/main_activity_full_screen_fragment_container"
