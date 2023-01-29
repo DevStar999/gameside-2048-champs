@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GameSide 2048 Champs</string>
+    <string name="game_services_project_id">707068481295</string>
 </resources>
