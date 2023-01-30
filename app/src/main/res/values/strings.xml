@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">GameSide 2048 Champs</string>
+    <!--app_id for Play Games Project-->
     <string name="game_services_project_id">707068481295</string>
+    <!--achievement Novice-->
+    <string name="achievement_novice" translatable="false">CgkIj57DhMoUEAIQAw</string>
+    <!--achievement Skilled-->
+    <string name="achievement_skilled" translatable="false">CgkIj57DhMoUEAIQBA</string>
+    <!--achievement Genius-->
+    <string name="achievement_genius" translatable="false">CgkIj57DhMoUEAIQBQ</string>
+    <!--achievement Champion-->
+    <string name="achievement_champion" translatable="false">CgkIj57DhMoUEAIQBg</string>
+    <!--achievement God Tier-->
+    <string name="achievement_god_tier" translatable="false">CgkIj57DhMoUEAIQBw</string>
+    <!--achievement Masterful-->
+    <string name="achievement_masterful" translatable="false">CgkIj57DhMoUEAIQCA</string>
+    <!--achievement Brainiac-->
+    <string name="achievement_brainiac" translatable="false">CgkIj57DhMoUEAIQCQ</string>
 </resources>
