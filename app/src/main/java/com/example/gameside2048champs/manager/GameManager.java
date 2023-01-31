@@ -20,6 +20,8 @@ import com.example.gameside2048champs.enums.CellValues;
 import com.example.gameside2048champs.enums.Direction;
 import com.example.gameside2048champs.enums.GameModes;
 import com.example.gameside2048champs.enums.GameStates;
+import com.google.android.gms.games.LeaderboardsClient;
+import com.google.android.gms.games.PlayGames;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,8 @@ public class GameManager {
     private UndoManager undoManager;
     private List<List<Boolean>> areAllAnimationsDone; // Boolean matrix to check if all animations are done
     private GameStates currentGameState;
+    private AchievementsManager achievementsManager;
+    private LeaderboardsClient leaderboardsClient;
 
     public GameManager(Activity parentActivity, GameModes currentGameMode) {
         this.parentActivity = parentActivity;
@@ -67,6 +71,9 @@ public class GameManager {
             gameMatrix.add(gameMatrixRow);
             areAllAnimationsDone.add(areAllAnimationsDoneRow);
         }
+
+        achievementsManager = new AchievementsManager(this.parentActivity);
+        leaderboardsClient = PlayGames.getLeaderboardsClient(this.parentActivity);
     }
 
     public void addNewValues(int numberOfCellsToAdd, List<List<Long>> givenBoard) {

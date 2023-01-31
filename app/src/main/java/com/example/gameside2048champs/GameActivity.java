@@ -252,7 +252,7 @@ public class GameActivity extends AppCompatActivity implements
         }
         tutorialTextView.setText(String.format("GAME OVER %s",
                 String.valueOf(toChars(Integer.parseInt("1F613", 16)))));
-        saveGameState();
+        saveGameState(true);
         GameOverDialog gameOverDialog = new GameOverDialog(GameActivity.this, currentScore, bestScore);
         gameOverDialog.show();
         gameOverDialog.setGameOverDialogListener(new GameOverDialog.GameOverDialogListener() {
@@ -532,7 +532,7 @@ public class GameActivity extends AppCompatActivity implements
         return copyOfGivenBoard;
     }
 
-    private void saveGameState() {
+    private void saveGameState(boolean submitScore) {
         // Saving the current state of the game to play later
         sharedPreferences.edit().putInt("gameStateEnumIndex" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), gameManager.getCurrentGameState().ordinal()).apply();
@@ -553,6 +553,12 @@ public class GameActivity extends AppCompatActivity implements
             sharedPreferences.edit().putString("currentBoard" + " " + currentGameMode.getMode()
                     + " " + currentGameMode.getDimensions(), gson.toJson(gameManager.getGameMatrix())).apply();
         }
+
+        // Submitting the score to leaderboards if the current score is the high score
+        if (isCurrentScoreTheBest && submitScore) {
+            gameManager.getLeaderboardsClient().submitScore(getString(currentGameMode.getLeaderboardStringResourceId()),
+                    bestScore);
+        }
     }
 
     public void resetGameAndStartIfFlagTrue(boolean flag) {
@@ -561,7 +567,7 @@ public class GameActivity extends AppCompatActivity implements
         goalDone = false;
         gameManager.setHasGoalBeenCompleted(false);
         gameManager.setCurrentGameState(GameStates.GAME_START);
-        saveGameState();
+        saveGameState(false);
 
         if (flag) {
             swipeUtility = new SwipeUtility(currentGameMode.getRows(), currentGameMode.getColumns());
@@ -572,13 +578,13 @@ public class GameActivity extends AppCompatActivity implements
 
     private void setupGamePausedDialog() {
         movesQueue.clear();
-        saveGameState();
         GamePausedDialog gamePausedDialog = new GamePausedDialog(this);
         gamePausedDialog.show();
         gamePausedDialog.setGamePausedDialogListener(new GamePausedDialog.GamePausedDialogListener() {
             @Override
             public void getResponseOfPausedDialog(boolean response) {
                 if (response) {
+                    saveGameState(true);
                     // Switching to MainActivity
                     Intent intent = new Intent(GameActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -642,14 +648,14 @@ public class GameActivity extends AppCompatActivity implements
     @Override
     protected void onPause() {
         super.onPause();
-        saveGameState();
+        saveGameState(false);
     }
 
     // For when the 'Recent Apps' button on the device is pressed
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        saveGameState();
+        saveGameState(false);
     }
 
     /**
@@ -1248,7 +1254,7 @@ public class GameActivity extends AppCompatActivity implements
         currentCoinsTextView.setText(String.valueOf(currentCoins));
 
         // Final set of actions
-        saveGameState();
+        saveGameState(false);
         handleGoalCompletionStatus();
         onBackPressed();
     }
@@ -1302,7 +1308,7 @@ public class GameActivity extends AppCompatActivity implements
         currentCoinsTextView.setText(String.valueOf(currentCoins));
 
         // Final set of actions
-        saveGameState();
+        saveGameState(false);
         onBackPressed();
     }
 
@@ -1343,7 +1349,7 @@ public class GameActivity extends AppCompatActivity implements
         currentCoinsTextView.setText(String.valueOf(currentCoins));
 
         // Final set of actions
-        saveGameState();
+        saveGameState(false);
         handleGoalCompletionStatus();
         onBackPressed();
     }
@@ -1399,7 +1405,7 @@ public class GameActivity extends AppCompatActivity implements
         currentCoinsTextView.setText(String.valueOf(currentCoins));
 
         // Final set of actions
-        saveGameState();
+        saveGameState(false);
         handleGoalCompletionStatus();
         onBackPressed();
     }
