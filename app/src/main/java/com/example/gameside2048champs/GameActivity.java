@@ -456,6 +456,13 @@ public class GameActivity extends AppCompatActivity implements
                 }
             }
         }
+
+        // Check if current coins count is greater than the highest most coins count
+        int mostCoins = sharedPreferences.getInt("mostCoins", 0);
+        if (this.currentCoins >= mostCoins + 1000) {
+            sharedPreferences.edit().putInt("mostCoins", this.currentCoins).apply();
+            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_coins_leaderboard), this.currentCoins);
+        }
     }
 
     private void updateScore(long updatedCurrentScore) {
