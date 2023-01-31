@@ -1,19 +1,42 @@
 <resources>
     <string name="app_name">GameSide 2048 Champs</string>
-    <!--app_id for Play Games Project-->
     <string name="game_services_project_id">707068481295</string>
     <!--achievement Novice-->
     <string name="achievement_novice" translatable="false">CgkIj57DhMoUEAIQAw</string>
     <!--achievement Skilled-->
     <string name="achievement_skilled" translatable="false">CgkIj57DhMoUEAIQBA</string>
+    <!--achievement Masterful-->
+    <string name="achievement_masterful" translatable="false">CgkIj57DhMoUEAIQCA</string>
     <!--achievement Genius-->
     <string name="achievement_genius" translatable="false">CgkIj57DhMoUEAIQBQ</string>
     <!--achievement Champion-->
     <string name="achievement_champion" translatable="false">CgkIj57DhMoUEAIQBg</string>
-    <!--achievement God Tier-->
-    <string name="achievement_god_tier" translatable="false">CgkIj57DhMoUEAIQBw</string>
-    <!--achievement Masterful-->
-    <string name="achievement_masterful" translatable="false">CgkIj57DhMoUEAIQCA</string>
     <!--achievement Brainiac-->
     <string name="achievement_brainiac" translatable="false">CgkIj57DhMoUEAIQCQ</string>
+    <!--achievement God Tier-->
+    <string name="achievement_god_tier" translatable="false">CgkIj57DhMoUEAIQBw</string>
+    <!--leaderboard 4x4 - Square-->
+    <string name="leaderboard_4x4__square" translatable="false">CgkIj57DhMoUEAIQCg</string>
+    <!--leaderboard 5x5 - Square-->
+    <string name="leaderboard_5x5__square" translatable="false">CgkIj57DhMoUEAIQCw</string>
+    <!--leaderboard 6x6 - Square-->
+    <string name="leaderboard_6x6__square" translatable="false">CgkIj57DhMoUEAIQDA</string>
+    <!--leaderboard 4x5 - Rectangle-->
+    <string name="leaderboard_4x5__rectangle" translatable="false">CgkIj57DhMoUEAIQDQ</string>
+    <!--leaderboard 4x6 - Rectangle-->
+    <string name="leaderboard_4x6__rectangle" translatable="false">CgkIj57DhMoUEAIQDg</string>
+    <!--leaderboard 5x6 - Rectangle-->
+    <string name="leaderboard_5x6__rectangle" translatable="false">CgkIj57DhMoUEAIQDw</string>
+    <!--leaderboard 5x5 - Block Middle Sq.-->
+    <string name="leaderboard_5x5__block_middle_sq." translatable="false">CgkIj57DhMoUEAIQEA</string>
+    <!--leaderboard 4x6 - Block Middle Rec.-->
+    <string name="leaderboard_4x6__block_middle_rec." translatable="false">CgkIj57DhMoUEAIQEQ</string>
+    <!--leaderboard 5x5 - Block 2 Corners Sq.-->
+    <string name="leaderboard_5x5__block_2_corners_sq." translatable="false">CgkIj57DhMoUEAIQEg</string>
+    <!--leaderboard 4x6 - Block 2 Corners Rec.-->
+    <string name="leaderboard_4x6__block_2_corners_rec." translatable="false">CgkIj57DhMoUEAIQEw</string>
+    <!--leaderboard for Arriving Game Modes-->
+    <string name="leaderboard_arriving_game_modes" translatable="false">00000</string>
+    <!--leaderboard Coins Leaderboard-->
+    <string name="leaderboard_coins_leaderboard" translatable="false">CgkIj57DhMoUEAIQFA</string>
 </resources>
