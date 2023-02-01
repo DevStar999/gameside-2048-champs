@@ -481,6 +481,11 @@ public class GameActivity extends AppCompatActivity implements
                 isCurrentScoreTheBest = false;
             }
         }
+
+        /* This is a great opportunity for us to make the checks to see if conditions for unlocking the many achievements
+           offered in this game are met or not
+        */
+        gameManager.getAchievementsManager().checkScoringAchievements(currentScore);
     }
 
     // TODO -> In the later stages of the game, make different ranges for smaller & larger dimension game boards
@@ -568,7 +573,7 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     public void resetGameAndStartIfFlagTrue(boolean flag) {
-        updateScore(0);
+        updateScore(0L);
         gameManager = new GameManager(GameActivity.this, currentGameMode);
         goalDone = false;
         gameManager.setHasGoalBeenCompleted(false);

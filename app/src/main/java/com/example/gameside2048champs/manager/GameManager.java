@@ -145,7 +145,19 @@ public class GameManager {
             }
             shallowCopyGameMatrix.add(shallowCopyGameMatrixRow);
         }
+
+        // Making updates to the last saved game matrix state and score
         undoManager.saveStatePostMove(currentScore, shallowCopyGameMatrix);
+
+        /* This is a great opportunity for us to make the checks to see if conditions for unlocking the many achievements
+           offered in this game are met or not
+        */
+        for (int row = 0; row < currentGameMode.getRows(); row++) {
+            for (int column = 0; column < currentGameMode.getColumns(); column++) {
+                long tileValue = gameMatrix.get(row).get(column);
+                achievementsManager.checkTileUnlockAchievements(tileValue);
+            }
+        }
     }
 
     public int findGameTilesCurrentlyOnBoard(List<List<Long>> givenBoard) {
