@@ -341,7 +341,6 @@ public class GameActivity extends AppCompatActivity implements
                     if (gameManager.isHasMoveBeenCompleted()) {
                         gameManager.updateGameState();
                         updateScore(gameManager.getCurrentScore());
-                        // TODO -> Make call to a method updateMultiMergeComboBar() to handle it's state
                         updateMultiMergeComboBar(swipeUtility.getMergePositionsCount());
                         if (gameManager.isHasGoalBeenCompleted() && !goalDone) {
                             goalDone = true;
