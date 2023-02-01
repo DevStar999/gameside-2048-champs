@@ -137,7 +137,11 @@ public class MainActivity extends AppCompatActivity implements PreGameFragment.O
                     gpgsSignInImageView.setVisibility(View.VISIBLE);
                     if (isSignInAttemptManual) {
                         if (isInternetConnected()) {
-                            // TODO -> Show a dialog for GPGS Sign In Troubleshooting
+                            /* TODO -> Replace this toast with something better like a dialog etc. and more descriptive
+                                       (Sign In feature)
+                            */
+                            Toast.makeText(MainActivity.this, "Download the 'Google Play Games' app and " +
+                                    "select an account to play this game", Toast.LENGTH_LONG).show();
                         } else { // Internet is NOT connected
                             Toast.makeText(MainActivity.this, "Network connection failed. Please check " +
                                     "Internet connectivity", Toast.LENGTH_LONG).show();
