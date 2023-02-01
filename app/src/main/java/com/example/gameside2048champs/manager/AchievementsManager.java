@@ -2,6 +2,7 @@ package com.example.gameside2048champs.manager;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.example.gameside2048champs.enums.ScoringAchievements;
 import com.example.gameside2048champs.enums.TileUnlockAchievements;
@@ -18,6 +19,7 @@ import lombok.Setter;
 @Setter
 public class AchievementsManager {
     private Context context;
+    private SharedPreferences sharedPreferences;
     private AchievementsClient achievementsClient;
 
     /* A map to keep track of all scoring level achievements
@@ -31,18 +33,22 @@ public class AchievementsManager {
 
     AchievementsManager(Context context) {
         this.context = context;
+        sharedPreferences = context.getSharedPreferences("com.nerdcoredevelopment.game2048champsfinal", Context.MODE_PRIVATE);
         achievementsClient = PlayGames.getAchievementsClient((Activity) this.context);
-        scoringAchievements = new HashMap<>() {{
-            put(ScoringAchievements.SCORING_ACHIEVEMENT_LEVEL_1, false);
-            put(ScoringAchievements.SCORING_ACHIEVEMENT_LEVEL_2, false);
-            put(ScoringAchievements.SCORING_ACHIEVEMENT_LEVEL_3, false);
-            put(ScoringAchievements.SCORING_ACHIEVEMENT_LEVEL_4, false);
-            put(ScoringAchievements.SCORING_ACHIEVEMENT_LEVEL_5, false);
-        }};
-        tileUnlockAchievements = new HashMap<>() {{
-           put(TileUnlockAchievements.TILE_UNLOCK_ACHIEVEMENT_LEVEL_1, false);
-           put(TileUnlockAchievements.TILE_UNLOCK_ACHIEVEMENT_LEVEL_2, false);
-        }};
+        scoringAchievements = new HashMap<>();
+        for (int index = 0; index < ScoringAchievements.values().length; index++) {
+            ScoringAchievements currentScoringAchievement = ScoringAchievements.values()[index];
+            boolean isCurrentAchievementUnlocked = sharedPreferences.getBoolean("scoringAchievement" + "_" +
+                    context.getString(currentScoringAchievement.getAchievementStringResourceId()), false);
+            scoringAchievements.put(currentScoringAchievement, isCurrentAchievementUnlocked);
+        }
+        tileUnlockAchievements = new HashMap<>();
+        for (int index = 0; index < TileUnlockAchievements.values().length; index++) {
+            TileUnlockAchievements currentTileUnlockAchievement = TileUnlockAchievements.values()[index];
+            boolean isCurrentAchievementUnlocked = sharedPreferences.getBoolean("tileUnlockAchievement" + "_" +
+                    context.getString(currentTileUnlockAchievement.getAchievementStringResourceId()), false);
+            tileUnlockAchievements.put(currentTileUnlockAchievement, isCurrentAchievementUnlocked);
+        }
     }
 
     public void checkScoringAchievements(long givenScore) {
@@ -53,6 +59,8 @@ public class AchievementsManager {
             if (givenScore >= achievementThresholdScore && !isAchievementUnlocked) {
                 scoringAchievements.put(currentScoringAchievement, true);
                 achievementsClient.unlock(context.getString(currentScoringAchievement.getAchievementStringResourceId()));
+                sharedPreferences.edit().putBoolean("scoringAchievement" + "_" +
+                        context.getString(currentScoringAchievement.getAchievementStringResourceId()), true).apply();
             }
         }
     }
@@ -65,6 +73,8 @@ public class AchievementsManager {
             if (givenTileValue == achievementTileValue && !isAchievementUnlocked) {
                 tileUnlockAchievements.put(currentTileUnlockAchievement, true);
                 achievementsClient.unlock(context.getString(currentTileUnlockAchievement.getAchievementStringResourceId()));
+                sharedPreferences.edit().putBoolean("tileUnlockAchievement" + "_" +
+                        context.getString(currentTileUnlockAchievement.getAchievementStringResourceId()), true).apply();
             }
         }
     }
