@@ -47,6 +47,28 @@ public enum CellValues {
     CELL_VALUE_38_274877906944(274877906944L, R.color.game_tile_number_color_light, R.color.background_color_38_274877906944, R.drawable.cell_value_38_274877906944),
     CELL_VALUE_39_549755813888(549755813888L, R.color.game_tile_number_color_dark, R.color.background_color_39_549755813888, R.drawable.cell_value_39_549755813888),
     CELL_VALUE_40_1099511627776(1099511627776L, R.color.game_tile_number_color_dark, R.color.background_color_40_1099511627776, R.drawable.cell_value_40_1099511627776),
+    CELL_VALUE_41_2199023255552(2199023255552L, R.color.game_tile_number_color_light, R.color.background_color_41_2199023255552, R.drawable.cell_value_41_2199023255552),
+    CELL_VALUE_42_4398046511104(4398046511104L, R.color.game_tile_number_color_dark, R.color.background_color_42_4398046511104, R.drawable.cell_value_42_4398046511104),
+    CELL_VALUE_43_8796093022208(8796093022208L, R.color.game_tile_number_color_light, R.color.background_color_43_8796093022208, R.drawable.cell_value_43_8796093022208),
+    CELL_VALUE_44_17592186044416(17592186044416L, R.color.game_tile_number_color_dark, R.color.background_color_44_17592186044416, R.drawable.cell_value_44_17592186044416),
+    CELL_VALUE_45_35184372088832(35184372088832L, R.color.game_tile_number_color_light, R.color.background_color_45_35184372088832, R.drawable.cell_value_45_35184372088832),
+    CELL_VALUE_46_70368744177664(70368744177664L, R.color.game_tile_number_color_dark, R.color.background_color_46_70368744177664, R.drawable.cell_value_46_70368744177664),
+    CELL_VALUE_47_140737488355328(140737488355328L, R.color.game_tile_number_color_light, R.color.background_color_47_140737488355328, R.drawable.cell_value_47_140737488355328),
+    CELL_VALUE_48_281474976710656(281474976710656L, R.color.game_tile_number_color_light, R.color.background_color_48_281474976710656, R.drawable.cell_value_48_281474976710656),
+    CELL_VALUE_49_562949953421312(562949953421312L, R.color.game_tile_number_color_light, R.color.background_color_49_562949953421312, R.drawable.cell_value_49_562949953421312),
+    CELL_VALUE_50_1125899906842624(1125899906842624L, R.color.game_tile_number_color_light, R.color.background_color_50_1125899906842624, R.drawable.cell_value_50_1125899906842624),
+    CELL_VALUE_51_2251799813685248(2251799813685248L, R.color.game_tile_number_color_dark, R.color.background_color_51_2251799813685248, R.drawable.cell_value_51_2251799813685248),
+    CELL_VALUE_52_4503599627370496(4503599627370496L, R.color.game_tile_number_color_light, R.color.background_color_52_4503599627370496, R.drawable.cell_value_52_4503599627370496),
+    CELL_VALUE_53_9007199254740992(9007199254740992L, R.color.game_tile_number_color_light, R.color.background_color_53_9007199254740992, R.drawable.cell_value_53_9007199254740992),
+    CELL_VALUE_54_18014398509481984(18014398509481984L, R.color.game_tile_number_color_dark, R.color.background_color_54_18014398509481984, R.drawable.cell_value_54_18014398509481984),
+    CELL_VALUE_55_36028797018963968(36028797018963968L, R.color.game_tile_number_color_light, R.color.background_color_55_36028797018963968, R.drawable.cell_value_55_36028797018963968),
+    CELL_VALUE_56_72057594037927936(72057594037927936L, R.color.game_tile_number_color_light, R.color.background_color_56_72057594037927936, R.drawable.cell_value_56_72057594037927936),
+    CELL_VALUE_57_144115188075855872(144115188075855872L, R.color.game_tile_number_color_dark, R.color.background_color_57_144115188075855872, R.drawable.cell_value_57_144115188075855872),
+    CELL_VALUE_58_288230376151711744(288230376151711744L, R.color.game_tile_number_color_light, R.color.background_color_58_288230376151711744, R.drawable.cell_value_58_288230376151711744),
+    CELL_VALUE_59_576460752303423488(576460752303423488L, R.color.game_tile_number_color_light, R.color.background_color_59_576460752303423488, R.drawable.cell_value_59_576460752303423488),
+    CELL_VALUE_60_1152921504606846976(1152921504606846976L, R.color.game_tile_number_color_dark, R.color.background_color_60_1152921504606846976, R.drawable.cell_value_60_1152921504606846976),
+    CELL_VALUE_61_2305843009213693952(2305843009213693952L, R.color.game_tile_number_color_light, R.color.background_color_61_2305843009213693952, R.drawable.cell_value_61_2305843009213693952),
+    CELL_VALUE_62_4611686018427387904(4611686018427387904L, R.color.game_tile_number_color_light, R.color.background_color_62_4611686018427387904, R.drawable.cell_value_62_4611686018427387904),
     CELL_VALUE_HIGHER_ORDER(Integer.MAX_VALUE, R.color.game_tile_number_color_light, R.color.background_color_higher_order, R.drawable.cell_value_higher_order);
 
     private long cellValue;
@@ -107,6 +129,28 @@ public enum CellValues {
         else if (cellValue == 274877906944L) { return valueOf("CELL_VALUE_38_274877906944"); }
         else if (cellValue == 549755813888L) { return valueOf("CELL_VALUE_39_549755813888"); }
         else if (cellValue == 1099511627776L) { return valueOf("CELL_VALUE_40_1099511627776"); }
+        else if (cellValue == 2199023255552L) { return valueOf("CELL_VALUE_41_2199023255552"); }
+        else if (cellValue == 4398046511104L) { return valueOf("CELL_VALUE_42_4398046511104"); }
+        else if (cellValue == 8796093022208L) { return valueOf("CELL_VALUE_43_8796093022208"); }
+        else if (cellValue == 17592186044416L) { return valueOf("CELL_VALUE_44_17592186044416"); }
+        else if (cellValue == 35184372088832L) { return valueOf("CELL_VALUE_45_35184372088832"); }
+        else if (cellValue == 70368744177664L) { return valueOf("CELL_VALUE_46_70368744177664"); }
+        else if (cellValue == 140737488355328L) { return valueOf("CELL_VALUE_47_140737488355328"); }
+        else if (cellValue == 281474976710656L) { return valueOf("CELL_VALUE_48_281474976710656"); }
+        else if (cellValue == 562949953421312L) { return valueOf("CELL_VALUE_49_562949953421312"); }
+        else if (cellValue == 1125899906842624L) { return valueOf("CELL_VALUE_50_1125899906842624"); }
+        else if (cellValue == 2251799813685248L) { return valueOf("CELL_VALUE_51_2251799813685248"); }
+        else if (cellValue == 4503599627370496L) { return valueOf("CELL_VALUE_52_4503599627370496"); }
+        else if (cellValue == 9007199254740992L) { return valueOf("CELL_VALUE_53_9007199254740992"); }
+        else if (cellValue == 18014398509481984L) { return valueOf("CELL_VALUE_54_18014398509481984"); }
+        else if (cellValue == 36028797018963968L) { return valueOf("CELL_VALUE_55_36028797018963968"); }
+        else if (cellValue == 72057594037927936L) { return valueOf("CELL_VALUE_56_72057594037927936"); }
+        else if (cellValue == 144115188075855872L) { return valueOf("CELL_VALUE_57_144115188075855872"); }
+        else if (cellValue == 288230376151711744L) { return valueOf("CELL_VALUE_58_288230376151711744"); }
+        else if (cellValue == 576460752303423488L) { return valueOf("CELL_VALUE_59_576460752303423488"); }
+        else if (cellValue == 1152921504606846976L) { return valueOf("CELL_VALUE_60_1152921504606846976"); }
+        else if (cellValue == 2305843009213693952L) { return valueOf("CELL_VALUE_61_2305843009213693952"); }
+        else if (cellValue == 4611686018427387904L) { return valueOf("CELL_VALUE_62_4611686018427387904"); }
         else {
             CellValues cellValueEnum = valueOf("CELL_VALUE_HIGHER_ORDER");
             cellValueEnum.setCellValue(cellValue);
