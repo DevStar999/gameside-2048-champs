@@ -196,6 +196,15 @@ public class NumericValueDisplay {
         return decimalFormat.format(cellValue);
     }
 
+    public static long getCellValueFromFormattedGameTileString(String formattedGameTileString) {
+        if (formattedGameTileString.equals("2")) { // FormattedString = 2, Base = 2, Index (Power) = 1
+            // Expression = 2 ^ 1, Value = 2
+            return 2L;
+        } else if (formattedGameTileString.equals("4")) {
+            return 4L;
+        }
+    }
+
     private static int getNumberOfDigits(long value) {
         return String.valueOf(value).length();
     }

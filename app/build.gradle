@@ -47,6 +47,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
+    // Apache Commons Collections
+    implementation 'org.apache.commons:commons-collections4:4.4'
+
     // For Lottie Animations
     implementation "com.airbnb.android:lottie:5.2.0"
 
