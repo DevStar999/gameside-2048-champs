@@ -1,16 +1,15 @@
 package com.example.gameside2048champs;
 
 import java.text.DecimalFormat;
-
-import org.apache.commons.collections4.BidiMap;
-import org.apache.commons.collections4.bidimap.DualHashBidiMap;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NumericValueDisplay {
-    private static final BidiMap<Long, String> gameTileValueToFormattedString;
-    private static final BidiMap<String, Long> gameTileFormattedStringToValue;
+    private static final Map<Long, String> gameTileValueToFormattedString;
+    private static final Map<String, Long> gameTileFormattedStringToValue;
 
     static {
-        gameTileValueToFormattedString = new DualHashBidiMap<>();
+        gameTileValueToFormattedString = new HashMap<>();
         gameTileValueToFormattedString.put(2L, "2"); // Formatted Value = 2
         gameTileValueToFormattedString.put(4L, "4"); // Formatted Value = 4
         gameTileValueToFormattedString.put(8L, "8"); // Formatted Value = 8
@@ -74,7 +73,10 @@ public class NumericValueDisplay {
         gameTileValueToFormattedString.put(2305843009213693952L, "2305Q"); // Formatted Value = 2,305,843,009,213,693,952
         gameTileValueToFormattedString.put(4611686018427387904L, "4611Q"); // Formatted Value = 4,611,686,018,427,387,904
 
-        gameTileFormattedStringToValue = gameTileValueToFormattedString.inverseBidiMap();
+        gameTileFormattedStringToValue = new HashMap<>();
+        for (Map.Entry<Long, String> element: gameTileValueToFormattedString.entrySet()) {
+            gameTileFormattedStringToValue.put(element.getValue(), element.getKey());
+        }
     }
 
     public static String getGameTileValueDisplay(long cellValue) {
