@@ -110,3 +110,4 @@ public class NumericValueDisplay {
         return decimalFormat.format(value);
     }
 }
+
