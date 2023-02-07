@@ -21,6 +21,7 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -83,7 +84,7 @@ public class ChangeValueFragment extends Fragment {
         valueOptionTextView.setGravity(Gravity.CENTER);
         valueOptionTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
         valueOptionTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        valueOptionTextView.setTypeface(valueOptionTextView.getTypeface(), Typeface.BOLD);
+        valueOptionTextView.setTypeface(ResourcesCompat.getFont(context, R.font.dosis_extra_bold), Typeface.BOLD);
         valueOptionTextView.setVisibility(View.VISIBLE);
 
         long currentOptionValue = optionValues.get(optionNumber);

@@ -13,6 +13,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.gameside2048champs.enums.BlockDesigns;
@@ -82,7 +83,7 @@ public class GameLayoutProvider {
                 textView.setGravity(Gravity.CENTER);
                 textView.setTag("gameCell" + i + j);
                 textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
+                textView.setTypeface(ResourcesCompat.getFont(context, R.font.dosis_extra_bold), Typeface.BOLD);
                 textView.setBackground(context.getDrawable(R.drawable.cell_empty));
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
                 params.height = 1;
