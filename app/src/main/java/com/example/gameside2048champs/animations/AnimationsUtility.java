@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.example.gameside2048champs.NumericValueDisplay;
 import com.example.gameside2048champs.enums.Direction;
 import com.example.gameside2048champs.enums.GameLayoutProperties;
 
@@ -17,7 +18,7 @@ public class AnimationsUtility {
                                               int textColor, Drawable backgroundDrawable,
                                               GameLayoutProperties gameLayoutProperties) {
         textView.setVisibility(View.VISIBLE);
-        textView.setText(String.valueOf(cellValue));
+        textView.setText(NumericValueDisplay.getGameTileValueDisplay(cellValue));
         textView.setTextColor(textColor);
         textView.setTextSize(gameLayoutProperties.getTextSizeForValue(cellValue));
         textView.setBackground(backgroundDrawable);

@@ -158,10 +158,10 @@ public class GameActivity extends AppCompatActivity implements
     private void initialiseViews() {
         backgroundFilmImageView = findViewById(R.id.background_film_game_activity_image_view);
         currentCoinsTextView = findViewById(R.id.current_coins_game_activity_text_view);
-        currentCoinsTextView.setText(String.valueOf(currentCoins));
+        currentCoinsTextView.setText(NumericValueDisplay.getGeneralValueDisplay(currentCoins));
 
         currentScoreTextView = findViewById(R.id.current_score_value_game_activity_text_view);
-        currentScoreTextView.setText(String.valueOf(currentScore));
+        currentScoreTextView.setText(NumericValueDisplay.getScoreValueDisplay(currentScore));
         gameManager.setCurrentScore(currentScore);
         gameManager.setHasGoalBeenCompleted(goalDone);
 
@@ -176,7 +176,7 @@ public class GameActivity extends AppCompatActivity implements
         gameManager.setUndoManager(gson.fromJson(jsonRetrieveUndoManager, typeUndoManager));
 
         bestScoreTextView = findViewById(R.id.best_score_value_game_activity_text_view);
-        bestScoreTextView.setText(String.valueOf(bestScore));
+        bestScoreTextView.setText(NumericValueDisplay.getScoreValueDisplay(bestScore));
         multiMergeComboBar = findViewById(R.id.multi_merge_combo_bar_game_activity_progress_bar);
         multiMergeComboBar.setMax(49);
         setMultiMergeComboBarProgress(multiMergeComboBarProgress);
@@ -203,23 +203,23 @@ public class GameActivity extends AppCompatActivity implements
         }
 
         AppCompatTextView standardToolsUndoCostTextView = findViewById(R.id.standard_tools_undo_cost_game_activity_text_view);
-        standardToolsUndoCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsUndoCost")));
+        standardToolsUndoCostTextView.setText(NumericValueDisplay.getGeneralValueDisplay(toolsCostMap.get("standardToolsUndoCost")));
         AppCompatTextView standardToolsSmashTileCostTextView = findViewById(R.id.standard_tools_smash_cost_game_activity_text_view);
-        standardToolsSmashTileCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsSmashTileCost")));
+        standardToolsSmashTileCostTextView.setText(NumericValueDisplay.getGeneralValueDisplay(toolsCostMap.get("standardToolsSmashTileCost")));
         AppCompatTextView standardToolsSwapTilesCostTextView = findViewById(R.id.standard_tools_swap_tiles_cost_game_activity_text_view);
-        standardToolsSwapTilesCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsSwapTilesCost")));
+        standardToolsSwapTilesCostTextView.setText(NumericValueDisplay.getGeneralValueDisplay(toolsCostMap.get("standardToolsSwapTilesCost")));
         AppCompatTextView specialToolsChangeValueCostTextView = findViewById(R.id.special_tools_change_value_cost_game_activity_text_view);
-        specialToolsChangeValueCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsChangeValueCost")));
+        specialToolsChangeValueCostTextView.setText(NumericValueDisplay.getGeneralValueDisplay(toolsCostMap.get("specialToolsChangeValueCost")));
         AppCompatTextView specialToolsEliminateValueCostTextView = findViewById(R.id.special_tools_eliminate_value_cost_game_activity_text_view);
-        specialToolsEliminateValueCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsEliminateValueCost")));
+        specialToolsEliminateValueCostTextView.setText(NumericValueDisplay.getGeneralValueDisplay(toolsCostMap.get("specialToolsEliminateValueCost")));
         AppCompatTextView specialToolsDestroyAreaCostTextView = findViewById(R.id.special_tools_destroy_area_cost_game_activity_text_view);
-        specialToolsDestroyAreaCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsDestroyAreaCost")));
+        specialToolsDestroyAreaCostTextView.setText(NumericValueDisplay.getGeneralValueDisplay(toolsCostMap.get("specialToolsDestroyAreaCost")));
     }
 
     private void initialiseGoalText() {
         CellValues goalCellValue = CellValues.getCellValueEnum(currentGameMode.getGoal());
         AppCompatTextView goalTextView = findViewById(R.id.goal_value_game_activity_text_view);
-        goalTextView.setText(String.valueOf(goalCellValue.getCellValue()));
+        goalTextView.setText(NumericValueDisplay.getGameTileValueDisplay(goalCellValue.getCellValue()));
         goalTextView.setTextColor(getColor(goalCellValue.getNumberColorResourceId()));
         GradientDrawable goalScoreGradientDrawable = new GradientDrawable();
         goalScoreGradientDrawable.setColor(getColor(goalCellValue.getBackgroundColorResourceId()));
@@ -441,7 +441,7 @@ public class GameActivity extends AppCompatActivity implements
         // For GameActivity
         this.currentCoins = currentCoins;
         sharedPreferences.edit().putInt("currentCoins", this.currentCoins).apply();
-        currentCoinsTextView.setText(String.valueOf(this.currentCoins));
+        currentCoinsTextView.setText(NumericValueDisplay.getGeneralValueDisplay(this.currentCoins));
 
         // For fragments which display coins
         sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
@@ -466,11 +466,11 @@ public class GameActivity extends AppCompatActivity implements
 
     private void updateScore(long updatedCurrentScore) {
         currentScore = updatedCurrentScore;
-        currentScoreTextView.setText(String.valueOf(currentScore));
+        currentScoreTextView.setText(NumericValueDisplay.getScoreValueDisplay(currentScore));
 
         if ((currentScore >= bestScore) && currentScore > 0L) {
             bestScore = currentScore;
-            bestScoreTextView.setText(String.valueOf(bestScore));
+            bestScoreTextView.setText(NumericValueDisplay.getScoreValueDisplay(bestScore));
             sharedPreferences.edit().putLong("bestScore" + " " + currentGameMode.getMode()
                     + " " + currentGameMode.getDimensions(), bestScore).apply();
             if (!isCurrentScoreTheBest) {
@@ -758,7 +758,7 @@ public class GameActivity extends AppCompatActivity implements
 
     private void updateScoreOnUndo(long updatedCurrentScore) {
         currentScore = updatedCurrentScore;
-        currentScoreTextView.setText(String.valueOf(currentScore));
+        currentScoreTextView.setText(NumericValueDisplay.getScoreValueDisplay(currentScore));
 
         // Making a check if the current score and the best scores need to be split or not
         if (currentScore < bestScore) {
@@ -897,7 +897,7 @@ public class GameActivity extends AppCompatActivity implements
                         // Update the reduced number of coins
                         currentCoins -= toolsCostMap.get("standardToolsUndoCost");
                         sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
-                        currentCoinsTextView.setText(String.valueOf(currentCoins));
+                        currentCoinsTextView.setText(NumericValueDisplay.getGeneralValueDisplay(currentCoins));
                     }
                 }.start();
             } else {
@@ -1262,7 +1262,7 @@ public class GameActivity extends AppCompatActivity implements
         // Update the reduced number of coins
         currentCoins -= toolsCostMap.get("standardToolsSmashTileCost");
         sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
-        currentCoinsTextView.setText(String.valueOf(currentCoins));
+        currentCoinsTextView.setText(NumericValueDisplay.getGeneralValueDisplay(currentCoins));
 
         // Final set of actions
         saveGameState(false);
@@ -1316,7 +1316,7 @@ public class GameActivity extends AppCompatActivity implements
         // Update the reduced number of coins
         currentCoins -= toolsCostMap.get("standardToolsSwapTilesCost");
         sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
-        currentCoinsTextView.setText(String.valueOf(currentCoins));
+        currentCoinsTextView.setText(NumericValueDisplay.getGeneralValueDisplay(currentCoins));
 
         // Final set of actions
         saveGameState(false);
@@ -1357,7 +1357,7 @@ public class GameActivity extends AppCompatActivity implements
         // Update the reduced number of coins
         currentCoins -= toolsCostMap.get("specialToolsChangeValueCost");
         sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
-        currentCoinsTextView.setText(String.valueOf(currentCoins));
+        currentCoinsTextView.setText(NumericValueDisplay.getGeneralValueDisplay(currentCoins));
 
         // Final set of actions
         saveGameState(false);
@@ -1413,7 +1413,7 @@ public class GameActivity extends AppCompatActivity implements
         // Update the reduced number of coins
         currentCoins -= toolsCostMap.get("specialToolsEliminateValueCost");
         sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
-        currentCoinsTextView.setText(String.valueOf(currentCoins));
+        currentCoinsTextView.setText(NumericValueDisplay.getGeneralValueDisplay(currentCoins));
 
         // Final set of actions
         saveGameState(false);

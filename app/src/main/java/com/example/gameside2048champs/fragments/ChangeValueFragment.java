@@ -25,6 +25,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.gameside2048champs.NumericValueDisplay;
 import com.example.gameside2048champs.R;
 import com.example.gameside2048champs.animations.ToolAnimationsUtility;
 import com.example.gameside2048champs.enums.CellValues;
@@ -89,7 +90,7 @@ public class ChangeValueFragment extends Fragment {
 
         long currentOptionValue = optionValues.get(optionNumber);
         CellValues cellValueCurrentOption = CellValues.getCellValueEnum(currentOptionValue);
-        valueOptionTextView.setText(String.valueOf(currentOptionValue));
+        valueOptionTextView.setText(NumericValueDisplay.getGameTileValueDisplay(currentOptionValue));
         valueOptionTextView.setTextColor(ContextCompat.getColor(context, cellValueCurrentOption.getNumberColorResourceId()));
         valueOptionTextView.setBackgroundResource(cellValueCurrentOption.getBackgroundDrawableResourceId());
 
@@ -233,7 +234,7 @@ public class ChangeValueFragment extends Fragment {
         toolUseCompletedImageView.setImageResource(R.drawable.completed_icon);
         secondClickCheckBox.setChecked(true);
         CellValues cellValuesSelectedOption = CellValues.getCellValueEnum(optionValues.get(optionNumber));
-        selectedOptionValueTextView.setText(String.valueOf(cellValuesSelectedOption.getCellValue()));
+        selectedOptionValueTextView.setText(NumericValueDisplay.getGameTileValueDisplay(cellValuesSelectedOption.getCellValue()));
         selectedOptionValueTextView.setTextColor(ContextCompat.getColor(context,
                 cellValuesSelectedOption.getNumberColorResourceId()));
         selectedOptionValueTextView.setBackgroundResource(cellValuesSelectedOption.getBackgroundDrawableResourceId());

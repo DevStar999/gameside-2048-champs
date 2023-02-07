@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
+import com.example.gameside2048champs.NumericValueDisplay;
 import com.example.gameside2048champs.R;
 import com.example.gameside2048champs.enums.GameLayoutProperties;
 
@@ -100,7 +101,7 @@ public class ToolAnimationsUtility {
     public static void standardToolsUndoResetState(AppCompatTextView textView, long cellValue, int textColor,
                                                    Drawable backgroundDrawable, GameLayoutProperties gameLayoutProperties) {
         textView.setVisibility(View.VISIBLE);
-        textView.setText(String.valueOf(cellValue));
+        textView.setText(NumericValueDisplay.getGameTileValueDisplay(cellValue));
         textView.setTextColor(textColor);
         textView.setTextSize(gameLayoutProperties.getTextSizeForValue(cellValue));
         textView.setBackground(backgroundDrawable);

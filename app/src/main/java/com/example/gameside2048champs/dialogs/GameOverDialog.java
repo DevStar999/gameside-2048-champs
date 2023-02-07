@@ -16,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
+import com.example.gameside2048champs.NumericValueDisplay;
 import com.example.gameside2048champs.R;
 import com.example.gameside2048champs.enums.GameOverDialogActivePage;
 import com.example.gameside2048champs.enums.GameOverDialogOptions;
@@ -121,12 +122,12 @@ public class GameOverDialog extends Dialog {
         if (currentScore == bestScore) {
             newHighScoreSummaryLinearLayout.setVisibility(View.VISIBLE);
             scoresSummaryConstraintLayout.setVisibility(View.GONE);
-            newHighScoreTextView.setText(String.valueOf(this.bestScore));
+            newHighScoreTextView.setText(NumericValueDisplay.getScoreValueDisplay(this.bestScore));
         } else {
             newHighScoreSummaryLinearLayout.setVisibility(View.GONE);
             scoresSummaryConstraintLayout.setVisibility(View.VISIBLE);
-            currentScoreTextView.setText(String.valueOf(this.currentScore));
-            bestScoreTextView.setText(String.valueOf(this.bestScore));
+            currentScoreTextView.setText(NumericValueDisplay.getScoreValueDisplay(this.currentScore));
+            bestScoreTextView.setText(NumericValueDisplay.getScoreValueDisplay(this.bestScore));
         }
         mainMenuButton = findViewById(R.id.second_page_main_menu_game_over_dialog_button);
         playAgainButton = findViewById(R.id.second_page_play_again_game_over_dialog_button);
