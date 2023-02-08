@@ -11,8 +11,12 @@ import lombok.Getter;
 public enum TileUnlockAchievements {
     TILE_UNLOCK_ACHIEVEMENT_LEVEL_1("Masterful", R.string.achievement_masterful, 1,
             2048L),
-    TILE_UNLOCK_ACHIEVEMENT_LEVEL_2("Brainiac", R.string.achievement_brainiac, 1,
-            4096L);
+    TILE_UNLOCK_ACHIEVEMENT_LEVEL_2("Brainiac", R.string.achievement_brainiac, 2,
+            4096L),
+    TILE_UNLOCK_ACHIEVEMENT_LEVEL_3("Gifted", R.string.achievement_gifted, 3,
+            16384L),
+    TILE_UNLOCK_ACHIEVEMENT_LEVEL_4("Enigma", R.string.achievement_enigma, 4,
+            131072L);
 
     private String nameOfAchievement; // Name as per the name given in the Google Play Games project
     private int achievementStringResourceId; // Achievement Id as per the Id generated in the Google Play Games project

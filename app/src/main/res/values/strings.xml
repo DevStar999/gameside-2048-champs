@@ -7,13 +7,17 @@
     <string name="achievement_skilled" translatable="false">CgkIj57DhMoUEAIQBA</string>
     <!--achievement Masterful-->
     <string name="achievement_masterful" translatable="false">CgkIj57DhMoUEAIQCA</string>
-    <!--achievement Genius-->
-    <string name="achievement_genius" translatable="false">CgkIj57DhMoUEAIQBQ</string>
-    <!--achievement Champion-->
-    <string name="achievement_champion" translatable="false">CgkIj57DhMoUEAIQBg</string>
-    <!--achievement Brainiac-->
+    <!--achievement Brainiac 🧠-->
     <string name="achievement_brainiac" translatable="false">CgkIj57DhMoUEAIQCQ</string>
-    <!--achievement God Tier-->
+    <!--achievement Genius 🤓-->
+    <string name="achievement_genius" translatable="false">CgkIj57DhMoUEAIQBQ</string>
+    <!--achievement Gifted-->
+    <string name="achievement_gifted" translatable="false">CgkIj57DhMoUEAIQFQ</string>
+    <!--achievement Champion 👑-->
+    <string name="achievement_champion" translatable="false">CgkIj57DhMoUEAIQBg</string>
+    <!--achievement Enigma-->
+    <string name="achievement_enigma" translatable="false">CgkIj57DhMoUEAIQFg</string>
+    <!--achievement God Tier 💫-->
     <string name="achievement_god_tier" translatable="false">CgkIj57DhMoUEAIQBw</string>
     <!--leaderboard 4x4 - Square-->
     <string name="leaderboard_4x4__square" translatable="false">CgkIj57DhMoUEAIQCg</string>
