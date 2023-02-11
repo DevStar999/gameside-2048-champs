@@ -4,4 +4,20 @@
     <item type="id" name="game_grid_layout" />
     <item type="id" name="game_cell_lottie_layout" />
     <item type="id" name="grid_lottie_view" />
+
+    <item type="id" name="shop_coins_level1_shop_fragment_constraint_layout" />
+    <item type="id" name="shop_coins_level2_shop_fragment_constraint_layout" />
+    <item type="id" name="shop_coins_level3_shop_fragment_constraint_layout" />
+    <item type="id" name="shop_coins_level4_shop_fragment_constraint_layout" />
+    <item type="id" name="shop_coins_level5_shop_fragment_constraint_layout" />
+    <item type="id" name="shop_coins_level6_shop_fragment_constraint_layout" />
+    <item type="id" name="shop_coins_level7_shop_fragment_constraint_layout" />
+
+    <item type="id" name="shop_coins_level1_shop_fragment_purchase_button" />
+    <item type="id" name="shop_coins_level2_shop_fragment_purchase_button" />
+    <item type="id" name="shop_coins_level3_shop_fragment_purchase_button" />
+    <item type="id" name="shop_coins_level4_shop_fragment_purchase_button" />
+    <item type="id" name="shop_coins_level5_shop_fragment_purchase_button" />
+    <item type="id" name="shop_coins_level6_shop_fragment_purchase_button" />
+    <item type="id" name="shop_coins_level7_shop_fragment_purchase_button" />
 </resources>
