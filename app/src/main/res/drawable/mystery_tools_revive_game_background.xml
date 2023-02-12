@@ -8,5 +8,5 @@
     </item>
     <item
         android:drawable="@drawable/mystery_tools_revive_game_background_icon"
-        android:gravity="center"/>
+        android:gravity="fill"/>
 </layer-list>

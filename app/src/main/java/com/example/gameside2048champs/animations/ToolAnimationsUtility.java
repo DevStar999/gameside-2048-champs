@@ -3,7 +3,9 @@ package com.example.gameside2048champs.animations;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -20,6 +22,11 @@ import com.example.gameside2048champs.enums.GameLayoutProperties;
 import java.util.List;
 
 public class ToolAnimationsUtility {
+    private static int dpToPx(int dp, Context context) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return Math.round((float) dp * density);
+    }
+
     public static void toolsBackgroundAppearAnimation(AppCompatImageView backgroundFilmImageView, int duration) {
         ObjectAnimator simpleAppearAnimator = ObjectAnimator.ofFloat(backgroundFilmImageView, View.ALPHA, 0f, 1f)
                 .setDuration(duration);
@@ -76,7 +83,6 @@ public class ToolAnimationsUtility {
             public void onAnimationStart(Animator animator) {
                 rootGameConstraintLayout.setEnabled(false);
             }
-
             @Override
             public void onAnimationEnd(Animator animator) {
                 gridLottieView.setRotationY(0f);
@@ -86,14 +92,10 @@ public class ToolAnimationsUtility {
                 gridLottieView.removeAllAnimatorListeners();
                 rootGameConstraintLayout.setEnabled(true);
             }
-
             @Override
-            public void onAnimationCancel(Animator animator) {
-            }
-
+            public void onAnimationCancel(Animator animator) {}
             @Override
-            public void onAnimationRepeat(Animator animator) {
-            }
+            public void onAnimationRepeat(Animator animator) {}
         });
         gridLottieView.playAnimation();
     }
@@ -238,6 +240,45 @@ public class ToolAnimationsUtility {
             targetTilesLottie.get(index).setAnimation(R.raw.special_tools_eliminate_value_tile);
             targetTilesLottie.get(index).setSpeed(1.25f);
         }
+    }
+
+    public static void mysteryToolsReviveGame(Context context, LottieAnimationView gridLottieView,
+                                              ConstraintLayout rootGameConstraintLayout) {
+        gridLottieView.setVisibility(View.VISIBLE);
+        gridLottieView.setBackgroundResource(R.drawable.mystery_tools_revive_game_background);
+        gridLottieView.setPadding(dpToPx(64, context), dpToPx(64, context),
+                dpToPx(64, context), dpToPx(64, context));
+        gridLottieView.setAnimation(R.raw.mystery_tools_revive_game_grid); // Duration ~ 1400 ms
+        gridLottieView.setSpeed(1.25f); // Total Duration = 1400/1.15 = 1120 ms
+        gridLottieView.setRepeatCount(1); // Total Duration = 1120 * 2 = 2240 ms
+        gridLottieView.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                rootGameConstraintLayout.setEnabled(false);
+            }
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                gridLottieView.setBackgroundResource(0); // To remove background drawable
+                gridLottieView.setVisibility(View.GONE);
+                gridLottieView.setPadding(dpToPx(0, context), dpToPx(0, context),
+                        dpToPx(0, context), dpToPx(0, context));
+                gridLottieView.setSpeed(1f);
+                gridLottieView.setRepeatCount(0);
+                gridLottieView.removeAllAnimatorListeners();
+            }
+            @Override
+            public void onAnimationCancel(Animator animator) {}
+            @Override
+            public void onAnimationRepeat(Animator animator) {}
+        });
+        gridLottieView.playAnimation();
+    }
+
+    public static void mysteryToolsReviveGameReviveTileSetup(LottieAnimationView reviveTileLottie) {
+        reviveTileLottie.setVisibility(View.VISIBLE);
+        reviveTileLottie.setBackgroundResource(R.drawable.rounded_corners_tile_lottie);
+        reviveTileLottie.setAnimation(R.raw.mystery_tools_revive_game_tile);
+        reviveTileLottie.setSpeed(1.5f);
     }
 }
 

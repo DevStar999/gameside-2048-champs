@@ -80,6 +80,7 @@ public class GameOverDialog extends Dialog {
             put("specialToolsChangeValueCost", 400);
             put("specialToolsEliminateValueCost", 450);
             put("specialToolsDestroyAreaCost", 500);
+            put("mysteryToolsReviveGameCost", 1000);
         }};
         standardToolsLinearLayout = findViewById(R.id.standard_tools_game_over_dialog_linear_layout);
         specialToolsLinearLayout = findViewById(R.id.special_tools_game_over_dialog_linear_layout);

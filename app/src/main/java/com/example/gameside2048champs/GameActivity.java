@@ -51,6 +51,7 @@ import com.example.gameside2048champs.fragments.ShopFragment;
 import com.example.gameside2048champs.fragments.SmashTileFragment;
 import com.example.gameside2048champs.fragments.SwapTilesFragment;
 import com.example.gameside2048champs.manager.GameManager;
+import com.example.gameside2048champs.manager.ReviveGameManager;
 import com.example.gameside2048champs.manager.UndoManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -127,6 +128,7 @@ public class GameActivity extends AppCompatActivity implements
             put("specialToolsChangeValueCost", 400);
             put("specialToolsEliminateValueCost", 450);
             put("specialToolsDestroyAreaCost", 500);
+            put("mysteryToolsReviveGameCost", 1000);
         }};
         currentScore = sharedPreferences.getLong("currentScore" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), 0L);
@@ -790,6 +792,114 @@ public class GameActivity extends AppCompatActivity implements
         }
     }
 
+    private void addTempIndividualCellLottieLayerForReviveGame() {
+        float density = getResources().getDisplayMetrics().density;
+        int dp = currentGameMode.getGameLayoutProperties().getSpacing();
+        int padding = Math.round((float) dp * density);
+
+        // Adding a layer of lottie animation views for each individual game cell
+        GridLayout gameCellLottieLayout = new GridLayout(this);
+        gameCellLottieLayout.setId(R.id.game_cell_lottie_layout);
+        gameCellLottieLayout.setRowCount(currentGameMode.getRows());
+        gameCellLottieLayout.setColumnCount(currentGameMode.getColumns());
+        for (int i = 0; i < currentGameMode.getRows(); i++) {
+            for (int j = 0; j < currentGameMode.getColumns(); j++) {
+                LottieAnimationView lottieView = new LottieAnimationView(this);
+                lottieView.setTag("gameCellLottie" + i + j);
+                lottieView.setVisibility(View.VISIBLE);
+                GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+                params.height = 1;
+                params.width = 1;
+                params.topMargin = params.bottomMargin = params.leftMargin = params.rightMargin = padding;
+                params.rowSpec = GridLayout.spec(i, 1f);
+                params.columnSpec = GridLayout.spec(j, 1f);
+                params.setGravity(Gravity.FILL);
+                lottieView.setLayoutParams(params);
+                gameCellLottieLayout.addView(lottieView);
+            }
+        }
+        gameCellLottieLayout.setPadding(padding, padding, padding, padding);
+
+        // Adding layer to gameFrameLayout
+        gameFrameLayout.addView(gameCellLottieLayout);
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void updateBoardOnReviveGame() {
+        // Adding a layer of individual lottie cells
+        addTempIndividualCellLottieLayerForReviveGame();
+
+        // Hiding all the tiles just before the grid lottie animation ends
+        for (int row = 0; row < currentGameMode.getRows(); row++) {
+            for (int column = 0; column < currentGameMode.getColumns(); column++) {
+                AppCompatTextView textView = gameFrameLayout.findViewWithTag("gameCell" + row + column);
+                textView.setVisibility(View.INVISIBLE);
+            }
+        }
+
+        // Setting up all the individual tile lottie animations
+        int finalGameTileRow = 0;
+        int finalGameTileColumn = 0;
+        for (int row = 0; row < currentGameMode.getRows(); row++) {
+            for (int column = 0; column < currentGameMode.getColumns(); column++) {
+                LottieAnimationView cellLottie = gameFrameLayout.findViewWithTag("gameCellLottie" + row + column);
+                long value = gameManager.getGameMatrix().get(row).get(column);
+                if (value == 0L || value == -1L) {
+                    cellLottie.setVisibility(View.INVISIBLE);
+                } else {
+                    finalGameTileRow = row;
+                    finalGameTileColumn = column;
+                    ToolAnimationsUtility.mysteryToolsReviveGameReviveTileSetup(cellLottie);
+                }
+            }
+        }
+        LottieAnimationView finalGameTileLottie = gameFrameLayout.findViewWithTag("gameCellLottie" +
+                finalGameTileRow + finalGameTileColumn);
+        finalGameTileLottie.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {}
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                gameFrameLayout.removeView(findViewById(R.id.game_cell_lottie_layout));
+                for (int row = 0; row < currentGameMode.getRows(); row++) {
+                    for (int column = 0; column < currentGameMode.getColumns(); column++) {
+                        GridLayout gameGridLayout = findViewById(R.id.game_grid_layout);
+                        AppCompatTextView textView = gameGridLayout.findViewWithTag("gameCell" + row + column);
+                        long value = gameManager.getGameMatrix().get(row).get(column);
+                        if (value == 0L || value == -1L) {
+                            textView.setVisibility(View.INVISIBLE);
+                        } else {
+                            CellValues cellValueEnum = CellValues.getCellValueEnum(value);
+                            AnimationsUtility.executePopUpAnimation(textView, cellValueEnum.getCellValue(),
+                                    getColor(cellValueEnum.getNumberColorResourceId()),
+                                    getDrawable(cellValueEnum.getBackgroundDrawableResourceId()), 300, 0,
+                                    currentGameMode.getGameLayoutProperties());
+                        }
+                    }
+                }
+
+                rootGameConstraintLayout.setEnabled(true);
+            }
+            @Override
+            public void onAnimationCancel(Animator animator) {}
+            @Override
+            public void onAnimationRepeat(Animator animator) {}
+        });
+
+        // Playing all the individual tile lottie animations
+        for (int row = 0; row < currentGameMode.getRows(); row++) {
+            for (int column = 0; column < currentGameMode.getColumns(); column++) {
+                LottieAnimationView cellLottie = gameFrameLayout.findViewWithTag("gameCellLottie" + row + column);
+                long value = gameManager.getGameMatrix().get(row).get(column);
+                if (value == 0L || value == -1L) {
+                    cellLottie.setVisibility(View.INVISIBLE);
+                } else {
+                    cellLottie.playAnimation();
+                }
+            }
+        }
+    }
+
     private void handleToolsChangeTransition() {
         if (!isToolsChestOpen) { // False i.e. the tools chest is NOT open. So, now we will open it.
             toolsChangeLottie.setSpeed(0.7f);
@@ -1201,6 +1311,48 @@ public class GameActivity extends AppCompatActivity implements
             transaction.addToBackStack(null);
             transaction.replace(R.id.tool_use_game_activity_fragment_container,
                     fragment, "DESTROY_AREA_FRAGMENT").commit();
+        } else {
+            openShopFragment();
+        }
+    }
+
+    private void reviveGameProcess() {
+        movesQueue.clear();
+        /*  There is no requirement to check any condition to use this tool, as this is already done because dialog is only
+            shown when the game is over
+        */
+
+        if (currentCoins >= toolsCostMap.get("mysteryToolsReviveGameCost")) {
+            ToolAnimationsUtility.mysteryToolsReviveGame(this, gridLottieView, rootGameConstraintLayout);
+            new CountDownTimer(2200, 10000) {
+                @Override
+                public void onTick(long l) {
+                }
+
+                @Override
+                public void onFinish() {
+                    gameManager.setCurrentGameState(GameStates.GAME_ONGOING);
+                    // Storing the result of revive game tool before hand with us
+                    ReviveGameManager reviveGameManager = new ReviveGameManager(gameManager.getGameMatrix());
+                    List<List<Long>> postReviveGameProcessGameMatrix = reviveGameManager.gameMatrixPostReviveGame();
+                    /*  Taking steps for undo, so as to have the game state which was just before the game got over,
+                        available for undo if the user chooses to do undo just after the revive game process
+                    */
+                    Pair<Long, List<List<Long>>> previousStateInfo = gameManager.getUndoManager().undoToPreviousState();
+                    gameManager.updateGameMatrixPostUndo(previousStateInfo.second);
+                    gameManager.setCurrentScore(previousStateInfo.first);
+                    currentScore = gameManager.getCurrentScore();
+                    // Taking steps for revive game process as follows
+                    gameManager.updateGameMatrix(postReviveGameProcessGameMatrix);
+                    updateBoardOnReviveGame();
+                    // Restore the tutorial text view message
+                    restoreTutorialTextViewMessage();
+                    // Update the reduced number of coins
+                    currentCoins -= toolsCostMap.get("mysteryToolsReviveGameCost");
+                    sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
+                    currentCoinsTextView.setText(NumericValueDisplay.getGeneralValueDisplay(currentCoins));
+                }
+            }.start();
         } else {
             openShopFragment();
         }
