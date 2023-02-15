@@ -34,8 +34,8 @@
     <color name="combo_merge_inner">@color/royal_red</color>
     <color name="combo_merge_outer">@color/blue_50_500</color>
     <color name="dialog_background_color">@color/primary_background_overlay_dark</color>
-    <!-- Current opacity for following color = 45% i.e. in hex = 73 -->
-    <color name="dialog_background_film">#73000000</color>
+    <!-- Current opacity for following color = 85% i.e. in hex = D9 -->
+    <color name="dialog_background_film">#D9000000</color>
     <color name="divider_line">#FFFFFF</color>
     <color name="empty_cell">@color/primary_background_overlay_light</color>
     <color name="fragment_title_color">#0064AF</color>
