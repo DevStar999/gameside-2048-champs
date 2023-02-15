@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="200dp"
-    android:height="200dp"
+    android:width="10dp"
+    android:height="10dp"
     android:viewportWidth="448"
     android:viewportHeight="448">
     <!-- Source Link -> https://www.svgrepo.com/svg/358684/dot -->
