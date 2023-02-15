@@ -27,8 +27,11 @@ public class GameOverDialogFragment extends Fragment implements
         GameSummaryFragment.OnGameSummaryFragmentInteractionListener {
     private static final String CURRENT_SCORE = "currentScore";
     private static final String BEST_SCORE = "bestScore";
+    public static final String CURRENT_COINS = "currentCoins";
     private long currentScore;
     private long bestScore;
+    private int currentCoins;
+    private boolean didUserRespond;
     private Context context;
     private OnGameOverDialogFragmentInteractionListener mListener;
     private LinearLayout pageSelectedDotIndicatorLinearLayout;
@@ -44,11 +47,12 @@ public class GameOverDialogFragment extends Fragment implements
         // Required empty public constructor
     }
 
-    public static GameOverDialogFragment newInstance(long currentScore, long bestScore) {
+    public static GameOverDialogFragment newInstance(long currentScore, long bestScore, int currentCoins) {
         GameOverDialogFragment fragment = new GameOverDialogFragment();
         Bundle args = new Bundle();
         args.putLong(CURRENT_SCORE, currentScore);
         args.putLong(BEST_SCORE, bestScore);
+        args.putInt(CURRENT_COINS, currentCoins);
         fragment.setArguments(args);
         return fragment;
     }
@@ -59,6 +63,7 @@ public class GameOverDialogFragment extends Fragment implements
         if (getArguments() != null) {
             this.currentScore = getArguments().getLong(CURRENT_SCORE);
             this.bestScore = getArguments().getLong(BEST_SCORE);
+            this.currentCoins = getArguments().getInt(CURRENT_COINS);
         }
     }
 
@@ -141,6 +146,7 @@ public class GameOverDialogFragment extends Fragment implements
 
         View view = inflater.inflate(R.layout.fragment_game_over_dialog, container, false);
 
+        didUserRespond = false;
         pageSelectedDotIndicatorLinearLayout = view.findViewById(R.id.
                 page_selected_dot_indicator_game_over_dialog_fragment_linear_layout);
         firstPageDotIndicator = view.findViewById(R.id.first_page_dot_game_over_dialog_fragment_image_view);
@@ -172,13 +178,80 @@ public class GameOverDialogFragment extends Fragment implements
     }
 
     @Override
-    public void onStop() {
-        setVisibilityOfViews(View.INVISIBLE);
-        super.onStop();
+    public void onToolsPageFragmentInteractionStandardToolsUndoClicked() {
+        didUserRespond = true;
+        if (mListener != null) {
+            mListener.onGameOverDialogFragmentInteractionStandardToolsUndoClicked();
+        }
     }
 
-    public interface OnGameOverDialogFragmentInteractionListener {
+    @Override
+    public void onToolsPageFragmentInteractionStandardToolsSmashTileClicked() {
+        didUserRespond = true;
+        if (mListener != null) {
+            mListener.onGameOverDialogFragmentInteractionStandardToolsSmashTileClicked();
+        }
+    }
 
+    @Override
+    public void onToolsPageFragmentInteractionStandardToolsSwapTilesClicked() {
+        didUserRespond = true;
+        if (mListener != null) {
+            mListener.onGameOverDialogFragmentInteractionStandardToolsSwapTilesClicked();
+        }
+    }
+
+    @Override
+    public void onToolsPageFragmentInteractionSpecialToolsChangeValueClicked() {
+        didUserRespond = true;
+        if (mListener != null) {
+            mListener.onGameOverDialogFragmentInteractionSpecialToolsChangeValueClicked();
+        }
+    }
+
+    @Override
+    public void onToolsPageFragmentInteractionSpecialToolsEliminateValueClicked() {
+        didUserRespond = true;
+        if (mListener != null) {
+            mListener.onGameOverDialogFragmentInteractionSpecialToolsEliminateValueClicked();
+        }
+    }
+
+    @Override
+    public void onToolsPageFragmentInteractionSpecialToolsDestroyAreaClicked() {
+        didUserRespond = true;
+        if (mListener != null) {
+            mListener.onGameOverDialogFragmentInteractionSpecialToolsDestroyAreaClicked();
+        }
+    }
+
+    @Override
+    public void onToolsPageFragmentInteractionShopCoinsClicked() {
+        didUserRespond = true;
+        if (mListener != null) {
+            mListener.onGameOverDialogFragmentInteractionShopCoinsClicked();
+        }
+    }
+
+
+    public interface OnGameOverDialogFragmentInteractionListener {
+        void onGameOverDialogFragmentInteractionUserDidNotRespond();
+        void onGameOverDialogFragmentInteractionStandardToolsUndoClicked();
+        void onGameOverDialogFragmentInteractionStandardToolsSmashTileClicked();
+        void onGameOverDialogFragmentInteractionStandardToolsSwapTilesClicked();
+        void onGameOverDialogFragmentInteractionSpecialToolsChangeValueClicked();
+        void onGameOverDialogFragmentInteractionSpecialToolsEliminateValueClicked();
+        void onGameOverDialogFragmentInteractionSpecialToolsDestroyAreaClicked();
+        void onGameOverDialogFragmentInteractionShopCoinsClicked();
+    }
+
+    @Override
+    public void onStop() {
+        setVisibilityOfViews(View.INVISIBLE);
+        if (mListener != null && !didUserRespond) {
+            mListener.onGameOverDialogFragmentInteractionUserDidNotRespond();
+        }
+        super.onStop();
     }
 
     @Override

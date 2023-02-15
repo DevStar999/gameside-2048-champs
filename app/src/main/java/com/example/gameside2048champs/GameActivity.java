@@ -459,7 +459,7 @@ public class GameActivity extends AppCompatActivity implements
         }
 
         // Initiate the tool entry transition
-        GameOverDialogFragment fragment = GameOverDialogFragment.newInstance(currentScore, bestScore);
+        GameOverDialogFragment fragment = GameOverDialogFragment.newInstance(currentScore, bestScore, currentCoins);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.open_dialog, R.anim.close_dialog,
@@ -1401,6 +1401,56 @@ public class GameActivity extends AppCompatActivity implements
     @Override
     public void onShopFragmentInteractionUpdateCoins(int currentCoins) {
         updateCoins(currentCoins);
+    }
+
+    @Override
+    public void onGameOverDialogFragmentInteractionUserDidNotRespond() {
+        // If the user does not respond we will start a new game from our side
+        resetGameAndStartIfFlagTrue(true);
+    }
+
+    @Override
+    public void onGameOverDialogFragmentInteractionStandardToolsUndoClicked() {
+        onBackPressed();
+        undoProcess();
+    }
+
+    @Override
+    public void onGameOverDialogFragmentInteractionStandardToolsSmashTileClicked() {
+        onBackPressed();
+        smashTileProcess();
+    }
+
+    @Override
+    public void onGameOverDialogFragmentInteractionStandardToolsSwapTilesClicked() {
+        onBackPressed();
+        swapTilesProcess();
+    }
+
+    @Override
+    public void onGameOverDialogFragmentInteractionSpecialToolsChangeValueClicked() {
+        onBackPressed();
+        changeValueProcess();
+    }
+
+    @Override
+    public void onGameOverDialogFragmentInteractionSpecialToolsEliminateValueClicked() {
+        onBackPressed();
+        eliminateValueProcess();
+    }
+
+    @Override
+    public void onGameOverDialogFragmentInteractionSpecialToolsDestroyAreaClicked() {
+        onBackPressed();
+        new ArrivingToolDialog(GameActivity.this).show();
+        /* TODO -> Implement the Destroy Area tool and uncomment the following line */
+        //destroyAreaProcess();
+    }
+
+    @Override
+    public void onGameOverDialogFragmentInteractionShopCoinsClicked() {
+        onBackPressed();
+        openShopFragment();
     }
 
     @Override
