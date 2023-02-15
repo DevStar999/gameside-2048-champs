@@ -644,47 +644,48 @@ public class GameActivity extends AppCompatActivity implements
         if (getSupportFragmentManager().getBackStackEntryCount() == 0) { // Back button was pressed from activity
             setupGamePausedDialog();
         } else { // Back button was pressed from fragment
-            boolean forToolFragmentsIsToolInProgress = false;
             int countOfFragments = getSupportFragmentManager().getFragments().size();
-            if (countOfFragments > 0) {
-                Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments - 1);
-                if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()) {
-                    String fragmentTag = topMostFragment.getTag();
-                    if (fragmentTag.equals("SMASH_TILE_FRAGMENT") || fragmentTag.equals("SWAP_TILES_FRAGMENT")
-                            || fragmentTag.equals("CHANGE_VALUE_FRAGMENT") || fragmentTag.equals("ELIMINATE_VALUE_FRAGMENT")
-                            || fragmentTag.equals("DESTROY_AREA_FRAGMENT")) {
-                        if (fragmentTag.equals("SMASH_TILE_FRAGMENT")) {
-                            forToolFragmentsIsToolInProgress = ((SmashTileFragment) topMostFragment).checkToolUseState();
-                            handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
-                        } else if (fragmentTag.equals("SWAP_TILES_FRAGMENT")) {
-                            forToolFragmentsIsToolInProgress = ((SwapTilesFragment) topMostFragment).checkSecondClickStatus();
-                            handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
-                        } else if (fragmentTag.equals("CHANGE_VALUE_FRAGMENT")) {
-                            forToolFragmentsIsToolInProgress = ((ChangeValueFragment) topMostFragment).checkSecondClickStatus();
-                            handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
-                        } else if (fragmentTag.equals("ELIMINATE_VALUE_FRAGMENT")) {
-                            forToolFragmentsIsToolInProgress = ((EliminateValueFragment) topMostFragment).checkToolUseState();
-                            handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
-                        } else { // For DestroyAreaFragment
-                            // TODO -> Add the handleToolFragmentBackClicked() method for this code block as well
-                        }
+            Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments - 1);
+            if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()) {
+                String fragmentTag = topMostFragment.getTag();
+                if (fragmentTag.equals("SMASH_TILE_FRAGMENT") || fragmentTag.equals("SWAP_TILES_FRAGMENT")
+                        || fragmentTag.equals("CHANGE_VALUE_FRAGMENT") || fragmentTag.equals("ELIMINATE_VALUE_FRAGMENT")
+                        || fragmentTag.equals("DESTROY_AREA_FRAGMENT")) {
+                    boolean forToolFragmentsIsToolInProgress = false;
+                    if (fragmentTag.equals("SMASH_TILE_FRAGMENT")) {
+                        forToolFragmentsIsToolInProgress = ((SmashTileFragment) topMostFragment).checkToolUseState();
+                        handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
+                    } else if (fragmentTag.equals("SWAP_TILES_FRAGMENT")) {
+                        forToolFragmentsIsToolInProgress = ((SwapTilesFragment) topMostFragment).checkSecondClickStatus();
+                        handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
+                    } else if (fragmentTag.equals("CHANGE_VALUE_FRAGMENT")) {
+                        forToolFragmentsIsToolInProgress = ((ChangeValueFragment) topMostFragment).checkSecondClickStatus();
+                        handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
+                    } else if (fragmentTag.equals("ELIMINATE_VALUE_FRAGMENT")) {
+                        forToolFragmentsIsToolInProgress = ((EliminateValueFragment) topMostFragment).checkToolUseState();
+                        handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
+                    } else { // For DestroyAreaFragment
+                        // TODO -> Add the handleToolFragmentBackClicked() method for this code block as well
                     }
+
+                    if (!forToolFragmentsIsToolInProgress) { // If tool is not in use, we can safely close the fragment
+                        getSupportFragmentManager().popBackStack();
+                    } else {
+                        // If tool use is in progress we want to ignore the back clicked
+                    }
+
+                    // We will perform a game state check after every tool use as follows
+                    gameManager.updateGameState();
+                    if (gameManager.getCurrentGameState() == GameStates.GAME_OVER) {
+                        handleGameOverProcess();
+                    } else {
+                        restoreTutorialTextViewMessage();
+                    }
+                    return;
                 }
             }
 
-            if (!forToolFragmentsIsToolInProgress) {
-                getSupportFragmentManager().popBackStack();
-            } else { // If tool use is in progress we want to ignore the back clicked and return
-                return;
-            }
-
-            // We will perform a game state check after every tool use as follows
-            gameManager.updateGameState();
-            if (gameManager.getCurrentGameState() == GameStates.GAME_OVER) {
-                handleGameOverProcess();
-            } else {
-                restoreTutorialTextViewMessage();
-            }
+            getSupportFragmentManager().popBackStack();
         }
     }
 
