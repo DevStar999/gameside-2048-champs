@@ -2,9 +2,11 @@ package com.example.gameside2048champs.dialogs;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +31,7 @@ public class GameOverDialogFragment extends Fragment implements
     private long bestScore;
     private Context context;
     private OnGameOverDialogFragmentInteractionListener mListener;
+    private LinearLayout pageSelectedDotIndicatorLinearLayout;
     private AppCompatImageView firstPageDotIndicator;
     private AppCompatImageView secondPageDotIndicator;
     private AppCompatImageView thirdPageDotIndicator;
@@ -57,6 +60,11 @@ public class GameOverDialogFragment extends Fragment implements
             this.currentScore = getArguments().getLong(CURRENT_SCORE);
             this.bestScore = getArguments().getLong(BEST_SCORE);
         }
+    }
+
+    private void setVisibilityOfViews(int visibility) {
+        viewPager2.setVisibility(visibility);
+        pageSelectedDotIndicatorLinearLayout.setVisibility(visibility);
     }
 
     private void handleNavigationArrowsChange(int pageIndex) {
@@ -133,6 +141,8 @@ public class GameOverDialogFragment extends Fragment implements
 
         View view = inflater.inflate(R.layout.fragment_game_over_dialog, container, false);
 
+        pageSelectedDotIndicatorLinearLayout = view.findViewById(R.id.
+                page_selected_dot_indicator_game_over_dialog_fragment_linear_layout);
         firstPageDotIndicator = view.findViewById(R.id.first_page_dot_game_over_dialog_fragment_image_view);
         secondPageDotIndicator = view.findViewById(R.id.second_page_dot_game_over_dialog_fragment_image_view);
         thirdPageDotIndicator = view.findViewById(R.id.third_page_dot_game_over_dialog_fragment_image_view);
@@ -146,6 +156,25 @@ public class GameOverDialogFragment extends Fragment implements
         settingOnClickListeners();
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        new CountDownTimer(350, 10000) {
+            @Override
+            public void onTick(long millisUntilFinished) {}
+            @Override
+            public void onFinish() {
+                setVisibilityOfViews(View.VISIBLE);
+            }
+        }.start();
+    }
+
+    @Override
+    public void onStop() {
+        setVisibilityOfViews(View.INVISIBLE);
+        super.onStop();
     }
 
     public interface OnGameOverDialogFragmentInteractionListener {
