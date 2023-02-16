@@ -75,7 +75,7 @@ public class ToolsPageFragment extends Fragment {
         toolsChangeLottie.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
-                toolsChangeLottie.setClickable(false);
+                toolsChangeClickAreaImageView.setClickable(false);
             }
 
             @Override
@@ -83,7 +83,7 @@ public class ToolsPageFragment extends Fragment {
                 if (!isToolsChestOpen) {
                     standardToolsLinearLayout.setVisibility(View.VISIBLE);
                     specialToolsLinearLayout.setVisibility(View.GONE);
-                    toolsChangeLottie.setClickable(true);
+                    toolsChangeClickAreaImageView.setClickable(true);
                 } else {
                     specialToolsLinearLayout.setVisibility(View.VISIBLE);
                     standardToolsLinearLayout.setVisibility(View.GONE);
@@ -97,7 +97,7 @@ public class ToolsPageFragment extends Fragment {
                         public void onAnimationStart(Animator animator) {}
                         @Override
                         public void onAnimationEnd(Animator animator) {
-                            toolsChangeLottie.setClickable(true);
+                            toolsChangeClickAreaImageView.setClickable(true);
                             toolsLottieLinearLayout.setVisibility(View.GONE);
                         }
                         @Override

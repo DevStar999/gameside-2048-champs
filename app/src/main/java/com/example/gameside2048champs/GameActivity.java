@@ -101,6 +101,7 @@ public class GameActivity extends AppCompatActivity implements
     private ProgressBar multiMergeComboBar;
     private AppCompatTextView goalTileTextView;
     private LottieAnimationView toolsChangeLottie;
+    private AppCompatImageView toolsChangeClickAreaImageView;
     private AppCompatTextView tutorialTextView;
     private LottieAnimationView gridLottieView;
 
@@ -189,7 +190,8 @@ public class GameActivity extends AppCompatActivity implements
 
         toolsChangeLottie = findViewById(R.id.tools_change_game_activity_lottie);
         toolsChangeLottie.setProgress((!isToolsChestOpen) ? 0f : 1f);
-        toolsChangeLottie.setOnClickListener(view -> handleToolsChangeTransition());
+        toolsChangeClickAreaImageView = findViewById(R.id.tools_change_click_area_game_activity_image_view);
+        toolsChangeClickAreaImageView.setOnClickListener(view -> handleToolsChangeTransition());
 
         tutorialTextView = findViewById(R.id.tutorial_game_activity_text_view);
         if (goalDone) {
@@ -888,7 +890,7 @@ public class GameActivity extends AppCompatActivity implements
         toolsChangeLottie.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
-                toolsChangeLottie.setClickable(false);
+                toolsChangeClickAreaImageView.setClickable(false);
             }
 
             @Override
@@ -896,7 +898,7 @@ public class GameActivity extends AppCompatActivity implements
                 if (!isToolsChestOpen) {
                     standardToolsLinearLayout.setVisibility(View.VISIBLE);
                     specialToolsLinearLayout.setVisibility(View.GONE);
-                    toolsChangeLottie.setClickable(true);
+                    toolsChangeClickAreaImageView.setClickable(true);
                 } else {
                     specialToolsLinearLayout.setVisibility(View.VISIBLE);
                     standardToolsLinearLayout.setVisibility(View.GONE);
@@ -910,7 +912,7 @@ public class GameActivity extends AppCompatActivity implements
                         public void onAnimationStart(Animator animator) {}
                         @Override
                         public void onAnimationEnd(Animator animator) {
-                            toolsChangeLottie.setClickable(true);
+                            toolsChangeClickAreaImageView.setClickable(true);
                             toolsLottieLinearLayout.setVisibility(View.GONE);
                         }
                         @Override
