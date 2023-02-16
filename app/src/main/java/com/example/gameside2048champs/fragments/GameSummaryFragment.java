@@ -75,9 +75,6 @@ public class GameSummaryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_game_summary, container, false);
 
         gameOverLottie = view.findViewById(R.id.game_over_game_summary_fragment_lottie);
-        gameOverLottie.setRepeatMode(LottieDrawable.RESTART);
-        gameOverLottie.setRepeatCount(4);
-        gameOverLottie.playAnimation();
         newHighScoreSummaryLinearLayout = view.findViewById(R.id.new_high_score_summary_game_summary_fragment_linear_layout);
         newHighScoreTextView = view.findViewById(R.id.new_high_score_game_summary_fragment_text_view);
         scoresSummaryConstraintLayout = view.findViewById(R.id.scores_summary_game_summary_fragment_constraint_layout);
