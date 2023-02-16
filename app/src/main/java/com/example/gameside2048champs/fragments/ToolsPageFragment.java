@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -19,15 +18,14 @@ import androidx.fragment.app.Fragment;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.gameside2048champs.NumericValueDisplay;
 import com.example.gameside2048champs.R;
-import com.example.gameside2048champs.dialogs.GameOverDialogFragment;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ToolsPageFragment extends Fragment {
     public static final String CURRENT_COINS = "currentCoins";
-    private OnToolsPageFragmentInteractionListener mListener;
     private int currentCoins;
+    private OnToolsPageFragmentInteractionListener mListener;
     private LinearLayout currentCoinsCountLinearLayout;
     private AppCompatTextView currentCoinsTextView;
     private AppCompatImageView currentCoinsAddCoinsImageView;

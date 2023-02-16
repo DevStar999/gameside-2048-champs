@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:paddingHorizontal="24dp"
+        android:paddingHorizontal="4dp"
         app:layout_constraintBottom_toTopOf="@id/option_buttons_game_summary_fragment_linear_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

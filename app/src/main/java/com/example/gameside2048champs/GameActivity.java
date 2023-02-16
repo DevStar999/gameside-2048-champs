@@ -1454,6 +1454,22 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onGameOverDialogFragmentInteractionMainMenuClicked() {
+        resetGameAndStartIfFlagTrue(false);
+        onBackPressed();
+
+        Intent intent = new Intent(GameActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onGameOverDialogFragmentInteractionPlayAgainClicked() {
+        onBackPressed();
+        resetGameAndStartIfFlagTrue(true);
+    }
+
+    @Override
     public void onSmashTileFragmentInteractionBackClicked() {
         onBackPressed();
     }

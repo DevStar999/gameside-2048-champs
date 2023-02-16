@@ -14,14 +14,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.125"/>
+        app:layout_constraintGuide_percent="0.11"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical_guide_right_game_over_dialog_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.875"/>
+        app:layout_constraintGuide_percent="0.89"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontal_guide_top_game_over_dialog_fragment"

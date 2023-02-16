@@ -32,7 +32,6 @@ public class GameOverDialogFragment extends Fragment implements
     private long bestScore;
     private int currentCoins;
     private boolean didUserRespond;
-    private Context context;
     private OnGameOverDialogFragmentInteractionListener mListener;
     private LinearLayout pageSelectedDotIndicatorLinearLayout;
     private AppCompatImageView firstPageDotIndicator;
@@ -104,7 +103,7 @@ public class GameOverDialogFragment extends Fragment implements
     private void setupViewPager() {
         pagerAdapter.addFragment(ToolsPageFragment.newInstance(currentCoins));
         pagerAdapter.addFragment(new ReviveGameFragment());
-        pagerAdapter.addFragment(new GameSummaryFragment());
+        pagerAdapter.addFragment(GameSummaryFragment.newInstance(currentScore, bestScore));
         viewPager2.setAdapter(pagerAdapter);
         viewPager2.setPageTransformer(new ZoomOutPageTransformer());
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -236,6 +235,21 @@ public class GameOverDialogFragment extends Fragment implements
         }
     }
 
+    @Override
+    public void onGameSummaryFragmentInteractionMainMenuClicked() {
+        didUserRespond = true;
+        if (mListener != null) {
+            mListener.onGameOverDialogFragmentInteractionMainMenuClicked();
+        }
+    }
+
+    @Override
+    public void onGameSummaryFragmentInteractionPlayAgainClicked() {
+        didUserRespond = true;
+        if (mListener != null) {
+            mListener.onGameOverDialogFragmentInteractionPlayAgainClicked();
+        }
+    }
 
     public interface OnGameOverDialogFragmentInteractionListener {
         void onGameOverDialogFragmentInteractionUserDidNotRespond();
@@ -246,6 +260,8 @@ public class GameOverDialogFragment extends Fragment implements
         void onGameOverDialogFragmentInteractionSpecialToolsEliminateValueClicked();
         void onGameOverDialogFragmentInteractionSpecialToolsDestroyAreaClicked();
         void onGameOverDialogFragmentInteractionShopCoinsClicked();
+        void onGameOverDialogFragmentInteractionMainMenuClicked();
+        void onGameOverDialogFragmentInteractionPlayAgainClicked();
     }
 
     @Override
@@ -265,7 +281,6 @@ public class GameOverDialogFragment extends Fragment implements
         } else {
             throw new RuntimeException(context + " must implement OnGameOverDialogFragmentInteractionListener");
         }
-        this.context = context;
     }
 
     @Override
