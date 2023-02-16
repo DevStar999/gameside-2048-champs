@@ -109,7 +109,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginHorizontal="4dp"
-                android:onClick="currentScoreClicked"
                 android:fontFamily="@font/dosis_extra_bold"
                 android:scrollHorizontally="false"
                 android:text="-"

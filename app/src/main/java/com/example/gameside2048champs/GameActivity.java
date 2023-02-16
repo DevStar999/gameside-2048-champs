@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
@@ -34,7 +33,6 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.example.gameside2048champs.animations.AnimationsUtility;
 import com.example.gameside2048champs.animations.ToolAnimationsUtility;
 import com.example.gameside2048champs.dialogs.ArrivingToolDialog;
-import com.example.gameside2048champs.dialogs.GameOverDialog;
 import com.example.gameside2048champs.dialogs.GameOverDialogFragment;
 import com.example.gameside2048champs.dialogs.GamePausedDialog;
 import com.example.gameside2048champs.dialogs.GameResetDialog;
@@ -43,8 +41,6 @@ import com.example.gameside2048champs.dialogs.ToolUseProhibitedDialog;
 import com.example.gameside2048champs.enums.CellValues;
 import com.example.gameside2048champs.enums.Direction;
 import com.example.gameside2048champs.enums.GameModes;
-import com.example.gameside2048champs.enums.GameOverDialogActivePage;
-import com.example.gameside2048champs.enums.GameOverDialogOptions;
 import com.example.gameside2048champs.enums.GameStates;
 import com.example.gameside2048champs.fragments.ChangeValueFragment;
 import com.example.gameside2048champs.fragments.DestroyAreaFragment;
@@ -258,48 +254,28 @@ public class GameActivity extends AppCompatActivity implements
         tutorialTextView.setText(String.format("GAME OVER %s",
                 String.valueOf(toChars(Integer.parseInt("1F613", 16)))));
         saveGameState(true);
-        GameOverDialog gameOverDialog = new GameOverDialog(GameActivity.this, currentScore, bestScore);
-        gameOverDialog.show();
-        gameOverDialog.setGameOverDialogListener(new GameOverDialog.GameOverDialogListener() {
-            @Override
-            public void getResponseOfOverDialog(boolean didUserRespond, GameOverDialogActivePage activePage,
-                                                GameOverDialogOptions optionSelected) {
-                if (didUserRespond) {
-                    if (activePage == GameOverDialogActivePage.REVIVE_TOOLS_PAGE) {
-                        if (optionSelected == GameOverDialogOptions.SHOP_COINS) {
-                            openShopFragment();
-                        } else if (optionSelected == GameOverDialogOptions.STANDARD_TOOL_UNDO) {
-                            undoProcess();
-                        } else if (optionSelected == GameOverDialogOptions.STANDARD_TOOL_SMASH_TILE) {
-                            smashTileProcess();
-                        } else if (optionSelected == GameOverDialogOptions.STANDARD_TOOL_SWAP_TILES) {
-                            swapTilesProcess();
-                        } else if (optionSelected == GameOverDialogOptions.SPECIAL_TOOL_CHANGE_VALUE) {
-                            changeValueProcess();
-                        } else if (optionSelected == GameOverDialogOptions.SPECIAL_TOOL_ELIMINATE_VALUE) {
-                            eliminateValueProcess();
-                        } else if (optionSelected == GameOverDialogOptions.SPECIAL_TOOL_DESTROY_AREA) {
-                            new ArrivingToolDialog(GameActivity.this).show();
-                            /* TODO -> Implement the Destroy Area tool and uncomment the following line */
-                            //destroyAreaProcess();
-                        }
-                    } else if (activePage == GameOverDialogActivePage.GAME_SUMMARY_PAGE) {
-                        if (optionSelected == GameOverDialogOptions.MAIN_MENU) {
-                            resetGameAndStartIfFlagTrue(false);
-
-                            Intent intent = new Intent(GameActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else if (optionSelected == GameOverDialogOptions.PLAY_AGAIN) {
-                            resetGameAndStartIfFlagTrue(true);
-                        }
-                    }
-                } else {
-                    // If the user does not respond we will start a new game from our side
-                    resetGameAndStartIfFlagTrue(true);
+        // If GameOverDialogFragment has been opened even once, then return
+        int countOfFragments = getSupportFragmentManager().getFragments().size();
+        if (countOfFragments > 0) {
+            List<Fragment> allFragments = new ArrayList<>(getSupportFragmentManager().getFragments());
+            for (int index = 0; index < allFragments.size(); index++) {
+                Fragment currentFragment = allFragments.get(index);
+                if (currentFragment != null && currentFragment.getTag() != null && !currentFragment.getTag().isEmpty()
+                        && currentFragment.getTag().equals("GAME_OVER_DIALOG_FRAGMENT")) {
+                    return;
                 }
             }
-        });
+        }
+
+        // Initiate the tool entry transition
+        GameOverDialogFragment fragment = GameOverDialogFragment.newInstance(currentScore, bestScore, currentCoins);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.open_dialog, R.anim.close_dialog,
+                R.anim.open_dialog, R.anim.close_dialog);
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.game_activity_full_screen_fragment_container,
+                fragment, "GAME_OVER_DIALOG_FRAGMENT").commit();
     }
 
     private void executeMove() {
@@ -440,34 +416,6 @@ public class GameActivity extends AppCompatActivity implements
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-    }
-
-    public void currentScoreClicked(View view) {
-        // If GameOverDialogFragment has been opened even once, then return
-        int countOfFragments = getSupportFragmentManager().getFragments().size();
-        if (countOfFragments > 0) {
-            List<Fragment> allFragments = new ArrayList<>(getSupportFragmentManager().getFragments());
-            for (int index = 0; index < allFragments.size(); index++) {
-                Fragment currentFragment = allFragments.get(index);
-                if (currentFragment != null && currentFragment.getTag() != null && !currentFragment.getTag().isEmpty()
-                        && currentFragment.getTag().equals("GAME_OVER_DIALOG_FRAGMENT")) {
-                    Log.i("Custom Debugging", "Will not open the GameOverDialog more than once, so ignoring " +
-                            "button click");
-                    return;
-                }
-            }
-        }
-
-        // Initiate the tool entry transition
-        GameOverDialogFragment fragment = GameOverDialogFragment.newInstance(currentScore, bestScore, currentCoins);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.open_dialog, R.anim.close_dialog,
-                R.anim.open_dialog, R.anim.close_dialog);
-        transaction.addToBackStack(null);
-        transaction.replace(R.id.game_activity_full_screen_fragment_container,
-                fragment, "GAME_OVER_DIALOG_FRAGMENT").commit();
-
     }
 
     private void updateCoins(int currentCoins) {
