@@ -136,8 +136,7 @@ public class GameActivity extends AppCompatActivity implements
         isCurrentScoreTheBest = false;
         multiMergeComboBarProgress = sharedPreferences.getInt("multiMergeComboBarProgress"  + " " +
                 currentGameMode.getMode() + " " + currentGameMode.getDimensions(), 1);
-        isToolsChestOpen = sharedPreferences.getBoolean("isToolsChestOpen" + " " + currentGameMode.getMode()
-                + " " + currentGameMode.getDimensions(), false);
+        isToolsChestOpen = false; // Always start with the Tools' Chest closed
     }
 
     private void initialiseLayouts() {
@@ -536,8 +535,6 @@ public class GameActivity extends AppCompatActivity implements
                 + " " + currentGameMode.getDimensions(), gson.toJson(gameManager.getUndoManager())).apply();
         sharedPreferences.edit().putBoolean("goalDone" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), goalDone).apply();
-        sharedPreferences.edit().putBoolean("isToolsChestOpen" + " " + currentGameMode.getMode()
-                + " " + currentGameMode.getDimensions(), isToolsChestOpen).apply();
         if (gameManager.getCurrentGameState() == GameStates.GAME_START) {
             sharedPreferences.edit().putString("currentBoard" + " " + currentGameMode.getMode()
                     + " " + currentGameMode.getDimensions(), gson.toJson(getCopyOfGivenBoard(currentGameMode.getBlockCells()))).apply();
@@ -932,8 +929,6 @@ public class GameActivity extends AppCompatActivity implements
             public void onAnimationRepeat(Animator animator) {}
         });
         toolsChangeLottie.playAnimation();
-        sharedPreferences.edit().putBoolean("isToolsChestOpen" + " " + currentGameMode.getMode()
-                + " " + currentGameMode.getDimensions(), isToolsChestOpen).apply();
     }
 
     public void standardToolsUndo(View view) {
