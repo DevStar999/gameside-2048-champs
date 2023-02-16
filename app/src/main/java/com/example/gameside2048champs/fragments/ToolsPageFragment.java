@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -16,15 +17,23 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.gameside2048champs.NumericValueDisplay;
 import com.example.gameside2048champs.R;
+import com.example.gameside2048champs.dialogs.GameOverDialogFragment;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ToolsPageFragment extends Fragment {
+    public static final String CURRENT_COINS = "currentCoins";
     private OnToolsPageFragmentInteractionListener mListener;
+    private int currentCoins;
+    private LinearLayout currentCoinsCountLinearLayout;
+    private AppCompatTextView currentCoinsTextView;
+    private AppCompatImageView currentCoinsAddCoinsImageView;
     private boolean isToolsChestOpen;
     private LottieAnimationView toolsChangeLottie;
+    private AppCompatImageView toolsChangeClickAreaImageView;
     private Map<String, Integer> toolsCostMap;
     private LinearLayout standardToolsLinearLayout;
     private LinearLayout specialToolsLinearLayout;
@@ -41,9 +50,20 @@ public class ToolsPageFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public static ToolsPageFragment newInstance(int currentCoins) {
+        ToolsPageFragment fragment = new ToolsPageFragment();
+        Bundle args = new Bundle();
+        args.putInt(CURRENT_COINS, currentCoins);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            this.currentCoins = getArguments().getInt(CURRENT_COINS);
+        }
     }
 
     private void handleToolsChangeTransition() {
@@ -101,7 +121,17 @@ public class ToolsPageFragment extends Fragment {
     }
 
     private void settingOnClickListeners() {
-        toolsChangeLottie.setOnClickListener(view -> {
+        currentCoinsCountLinearLayout.setOnClickListener(v -> {
+            if (mListener != null) {
+                mListener.onToolsPageFragmentInteractionShopCoinsClicked();
+            }
+        });
+        currentCoinsAddCoinsImageView.setOnClickListener(v -> {
+            if (mListener != null) {
+                mListener.onToolsPageFragmentInteractionShopCoinsClicked();
+            }
+        });
+        toolsChangeClickAreaImageView.setOnClickListener(v -> {
             handleToolsChangeTransition();
         });
         standardToolsUndoImageView.setOnClickListener(view -> {
@@ -146,8 +176,13 @@ public class ToolsPageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tools_page, container, false);
 
+        currentCoinsCountLinearLayout = view.findViewById(R.id.current_coins_count_tools_page_fragment_linear_layout);
+        currentCoinsTextView = view.findViewById(R.id.current_coins_tools_page_fragment_text_view);
+        currentCoinsTextView.setText(NumericValueDisplay.getGeneralValueDisplay(currentCoins));
+        currentCoinsAddCoinsImageView = view.findViewById(R.id.current_coins_add_coins_tools_page_fragment_image_view);
         isToolsChestOpen = false;
         toolsChangeLottie = view.findViewById(R.id.tools_change_tools_page_fragment_lottie);
+        toolsChangeClickAreaImageView = view.findViewById(R.id.tools_change_click_area_tools_page_fragment_image_view);
         toolsCostMap = new HashMap<>() {{
             put("standardToolsUndoCost", 125);
             put("standardToolsSmashTileCost", 150);
@@ -167,22 +202,28 @@ public class ToolsPageFragment extends Fragment {
         specialToolsDestroyAreaImageView = view.findViewById(R.id.special_tools_destroy_area_icon_tools_page_fragment_image_view);
         AppCompatTextView standardToolsUndoCostTextView =
                 view.findViewById(R.id.standard_tools_undo_cost_tools_page_fragment_text_view);
-        standardToolsUndoCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsUndoCost")));
+        standardToolsUndoCostTextView.setText(NumericValueDisplay
+                .getGeneralValueDisplay(toolsCostMap.get("standardToolsUndoCost")));
         AppCompatTextView standardToolsSmashTileCostTextView =
                 view.findViewById(R.id.standard_tools_smash_cost_tools_page_fragment_text_view);
-        standardToolsSmashTileCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsSmashTileCost")));
+        standardToolsSmashTileCostTextView.setText(NumericValueDisplay
+                .getGeneralValueDisplay(toolsCostMap.get("standardToolsSmashTileCost")));
         AppCompatTextView standardToolsSwapTilesCostTextView =
                 view.findViewById(R.id.standard_tools_swap_tiles_cost_tools_page_fragment_text_view);
-        standardToolsSwapTilesCostTextView.setText(String.valueOf(toolsCostMap.get("standardToolsSwapTilesCost")));
+        standardToolsSwapTilesCostTextView.setText(NumericValueDisplay
+                .getGeneralValueDisplay(toolsCostMap.get("standardToolsSwapTilesCost")));
         AppCompatTextView specialToolsChangeValueCostTextView =
                 view.findViewById(R.id.special_tools_change_value_cost_tools_page_fragment_text_view);
-        specialToolsChangeValueCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsChangeValueCost")));
+        specialToolsChangeValueCostTextView.setText(NumericValueDisplay
+                .getGeneralValueDisplay(toolsCostMap.get("specialToolsChangeValueCost")));
         AppCompatTextView specialToolsEliminateValueCostTextView =
                 view.findViewById(R.id.special_tools_eliminate_value_cost_tools_page_fragment_text_view);
-        specialToolsEliminateValueCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsEliminateValueCost")));
+        specialToolsEliminateValueCostTextView.setText(NumericValueDisplay
+                .getGeneralValueDisplay(toolsCostMap.get("specialToolsEliminateValueCost")));
         AppCompatTextView specialToolsDestroyAreaCostTextView =
                 view.findViewById(R.id.special_tools_destroy_area_cost_tools_page_fragment_text_view);
-        specialToolsDestroyAreaCostTextView.setText(String.valueOf(toolsCostMap.get("specialToolsDestroyAreaCost")));
+        specialToolsDestroyAreaCostTextView.setText(NumericValueDisplay
+                .getGeneralValueDisplay(toolsCostMap.get("specialToolsDestroyAreaCost")));
         shopCoinsButton = view.findViewById(R.id.shop_coins_tools_page_fragment_button);
 
         settingOnClickListeners();

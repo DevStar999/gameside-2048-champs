@@ -102,6 +102,9 @@ public class GameOverDialogFragment extends Fragment implements
     }
 
     private void setupViewPager() {
+        pagerAdapter.addFragment(ToolsPageFragment.newInstance(currentCoins));
+        pagerAdapter.addFragment(new ReviveGameFragment());
+        pagerAdapter.addFragment(new GameSummaryFragment());
         viewPager2.setAdapter(pagerAdapter);
         viewPager2.setPageTransformer(new ZoomOutPageTransformer());
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
