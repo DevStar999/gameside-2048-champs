@@ -220,7 +220,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:scrollHorizontally="false"
-        android:text="Rescue your game 🛟. See what magic 🪄 is in store for you 😉"
+        android:text="Revive your game 🛟. See what magic 🪄 is in store for you 😉"
         android:textAlignment="center"
         android:textColor="@color/text_color"
         android:textSize="16sp"
