@@ -42,7 +42,6 @@ public class ToolsPageFragment extends Fragment {
     private AppCompatImageView specialToolsChangeValueImageView;
     private AppCompatImageView specialToolsEliminateValueImageView;
     private AppCompatImageView specialToolsDestroyAreaImageView;
-    private AppCompatButton shopCoinsButton;
 
     public ToolsPageFragment() {
         // Required empty public constructor
@@ -162,11 +161,6 @@ public class ToolsPageFragment extends Fragment {
                 mListener.onToolsPageFragmentInteractionSpecialToolsDestroyAreaClicked();
             }
         });
-        shopCoinsButton.setOnClickListener(view -> {
-            if (mListener != null) {
-                mListener.onToolsPageFragmentInteractionShopCoinsClicked();
-            }
-        });
     }
 
     @Nullable
@@ -222,7 +216,6 @@ public class ToolsPageFragment extends Fragment {
                 view.findViewById(R.id.special_tools_destroy_area_cost_tools_page_fragment_text_view);
         specialToolsDestroyAreaCostTextView.setText(NumericValueDisplay
                 .getGeneralValueDisplay(toolsCostMap.get("specialToolsDestroyAreaCost")));
-        shopCoinsButton = view.findViewById(R.id.shop_coins_tools_page_fragment_button);
 
         settingOnClickListeners();
 

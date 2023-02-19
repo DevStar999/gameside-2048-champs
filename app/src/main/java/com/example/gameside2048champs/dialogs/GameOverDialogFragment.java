@@ -102,7 +102,7 @@ public class GameOverDialogFragment extends Fragment implements
 
     private void setupViewPager() {
         pagerAdapter.addFragment(ToolsPageFragment.newInstance(currentCoins));
-        pagerAdapter.addFragment(new ReviveGameFragment());
+        pagerAdapter.addFragment(ReviveGameFragment.newInstance(currentCoins));
         pagerAdapter.addFragment(GameSummaryFragment.newInstance(currentScore, bestScore));
         viewPager2.setAdapter(pagerAdapter);
         viewPager2.setPageTransformer(new ZoomOutPageTransformer());
@@ -251,6 +251,22 @@ public class GameOverDialogFragment extends Fragment implements
         }
     }
 
+    @Override
+    public void onReviveGameFragmentInteractionMysteryToolsReviveGameClicked() {
+        didUserRespond = true;
+        if (mListener != null) {
+            mListener.onGameOverDialogFragmentInteractionMysteryToolsReviveGameClicked();
+        }
+    }
+
+    @Override
+    public void onReviveGameFragmentInteractionShopCoinsClicked() {
+        didUserRespond = true;
+        if (mListener != null) {
+            mListener.onGameOverDialogFragmentInteractionShopCoinsClicked();
+        }
+    }
+
     public interface OnGameOverDialogFragmentInteractionListener {
         void onGameOverDialogFragmentInteractionUserDidNotRespond();
         void onGameOverDialogFragmentInteractionStandardToolsUndoClicked();
@@ -259,6 +275,7 @@ public class GameOverDialogFragment extends Fragment implements
         void onGameOverDialogFragmentInteractionSpecialToolsChangeValueClicked();
         void onGameOverDialogFragmentInteractionSpecialToolsEliminateValueClicked();
         void onGameOverDialogFragmentInteractionSpecialToolsDestroyAreaClicked();
+        void onGameOverDialogFragmentInteractionMysteryToolsReviveGameClicked();
         void onGameOverDialogFragmentInteractionShopCoinsClicked();
         void onGameOverDialogFragmentInteractionMainMenuClicked();
         void onGameOverDialogFragmentInteractionPlayAgainClicked();

@@ -252,9 +252,11 @@ public class GameActivity extends AppCompatActivity implements
         if (movesQueue.size() > 0) {
             movesQueue.clear();
         }
+
         tutorialTextView.setText(String.format("GAME OVER %s",
                 String.valueOf(toChars(Integer.parseInt("1F613", 16)))));
         saveGameState(true);
+
         // If GameOverDialogFragment has been opened even once, then return
         int countOfFragments = getSupportFragmentManager().getFragments().size();
         if (countOfFragments > 0) {
@@ -1390,6 +1392,12 @@ public class GameActivity extends AppCompatActivity implements
         new ArrivingToolDialog(GameActivity.this).show();
         /* TODO -> Implement the Destroy Area tool and uncomment the following line */
         //destroyAreaProcess();
+    }
+
+    @Override
+    public void onGameOverDialogFragmentInteractionMysteryToolsReviveGameClicked() {
+        onBackPressed();
+        reviveGameProcess();
     }
 
     @Override

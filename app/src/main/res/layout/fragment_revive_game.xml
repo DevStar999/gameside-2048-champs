@@ -6,18 +6,244 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ReviveGameFragment">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/revive_game_fragment_title_text_view"
+    <LinearLayout
+        android:id="@+id/title_revive_game_fragment_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/current_coins_count_revive_game_fragment_linear_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:scrollHorizontally="false"
+            android:text="🎊❓"
+            android:textColor="@color/text_color"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:scrollHorizontally="false"
+                android:text="MYSTERY TOOL"
+                android:textAlignment="center"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:scrollHorizontally="false"
+                android:text="REVEALED"
+                android:textAlignment="center"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:scrollHorizontally="false"
+            android:text="❓🎊"
+            android:textColor="@color/text_color"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/current_coins_count_revive_game_fragment_linear_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Revive Game Fragment"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/rounded_corners_current_coins"
+        android:orientation="horizontal"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="4dp"
+        android:scaleX="1.25"
+        android:scaleY="1.25"
+        app:layout_constraintBottom_toTopOf="@id/main_icon_revive_game_fragment_frame_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_revive_game_fragment_linear_layout">
+
+        <FrameLayout
+            android:layout_gravity="start|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleX="1.4"
+                android:scaleY="1.4"
+                app:srcCompat="@drawable/coin_symbol" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:alpha="0.85"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                app:srcCompat="@drawable/sparkle_icon" />
+
+        </FrameLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/current_coins_revive_game_fragment_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="8dp"
+            android:scrollHorizontally="false"
+            android:text="-"
+            android:textColor="@color/text_color"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/current_coins_add_coins_revive_game_fragment_image_view"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="end|center_vertical"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/plus_icon" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/main_icon_revive_game_fragment_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="32dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintBottom_toTopOf="@id/description_revive_game_fragment_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/current_coins_count_revive_game_fragment_linear_layout">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/main_icon_background_revive_game_fragment_lottie"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_repeatMode="restart"
+            app:lottie_speed="0.4"
+            app:lottie_rawRes="@raw/rotating_light" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rounded_corners_tool_cost"
+                android:orientation="horizontal"
+                android:padding="1dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginHorizontal="2dp"
+                    android:layout_marginVertical="2dp"
+                    android:scaleX="1.4"
+                    android:scaleY="1.4"
+                    app:srcCompat="@drawable/coin_symbol" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/mystery_tools_revive_game_cost_revive_game_fragment_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="1dp"
+                    android:scrollHorizontally="false"
+                    android:text="-"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/mystery_tools_revive_game_icon_revive_game_fragment_image_view"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/click_mystery_tools"
+                android:contentDescription="Revive the Game"
+                android:scaleType="fitXY"
+                android:padding="4dp"
+                app:srcCompat="@drawable/mystery_tools_revive_game" />
+
+        </LinearLayout>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/main_icon_overlay_revive_game_fragment_lottie"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:scaleType="fitXY"
+            app:lottie_rawRes="@raw/mystery_tools_revive_game_reveal" />
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/description_revive_game_fragment_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:scrollHorizontally="false"
+        android:text="Rescue your game 🛟. See what magic 🪄 is in store for you 😉"
         android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="28sp"
+        android:textColor="@color/text_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/warning_revive_game_fragment_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_icon_revive_game_fragment_frame_layout" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/warning_revive_game_fragment_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:scrollHorizontally="false"
+        android:text="[ ⚠️ Warning: All game progress will be lost if you continue ]"
+        android:textAlignment="center"
+        android:textColor="@color/text_color"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/description_revive_game_fragment_text_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
