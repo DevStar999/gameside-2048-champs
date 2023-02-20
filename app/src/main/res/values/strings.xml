@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Practise 2048 Champs</string>
+    <string name="app_name">GameSide 2048 Champs</string>
 
     <!-- ## App Id for Play Games Project-->
     <string name="game_services_project_id">707068481295</string>
