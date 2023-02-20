@@ -3,9 +3,9 @@ package com.example.gameside2048champs.manager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.example.gameside2048champs.enums.ScoringAchievements;
+import com.example.gameside2048champs.enums.SmashTileToolAchievements;
 import com.example.gameside2048champs.enums.TileUnlockAchievements;
 import com.example.gameside2048champs.enums.UndoToolAchievements;
 import com.google.android.gms.games.AchievementsClient;
@@ -45,6 +45,15 @@ public class AchievementsManager {
     */
     private Map<UndoToolAchievements, Integer> undoToolAchievements;
 
+    /** Attributes related to -> 'Smash Tile' Tool Use Achievements **/
+    private int smashTileToolUseCountSubmitted;
+    private int smashTileToolCurrentUseCount;
+    /* A map to keep track of all 'Undo' Tool Use Achievements
+       [Element = 'Smash Tile' Tool Use Achievement enum, Current State of achievement
+       (STATE_HIDDEN/STATE_REVEALED/STATE_UNLOCKED) ]
+    */
+    private Map<SmashTileToolAchievements, Integer> smashTileToolAchievements;
+
     AchievementsManager(Context context) {
         this.context = context;
         sharedPreferences = context.getSharedPreferences("com.nerdcoredevelopment.game2048champsfinal", Context.MODE_PRIVATE);
@@ -78,6 +87,18 @@ public class AchievementsManager {
                     context.getString(currentUndoToolAchievement.getAchievementStringResourceId()),
                     currentUndoToolAchievement.getInitialAchievementState());
             undoToolAchievements.put(currentUndoToolAchievement, currentStateOfAchievement);
+        }
+
+        // 'Smash Tile' Tool use achievements are initialised as follows
+        smashTileToolUseCountSubmitted = sharedPreferences.getInt("smashTileToolUseCountSubmitted", 0);
+        smashTileToolCurrentUseCount = sharedPreferences.getInt("smashTileToolCurrentUseCount", smashTileToolUseCountSubmitted);
+        smashTileToolAchievements = new HashMap<>();
+        for (int index = 0; index < SmashTileToolAchievements.values().length; index++) {
+            SmashTileToolAchievements currentSmashTileToolAchievement = SmashTileToolAchievements.values()[index];
+            int currentStateOfAchievement = sharedPreferences.getInt("smashTileToolAchievement" + "_" +
+                    context.getString(currentSmashTileToolAchievement.getAchievementStringResourceId()),
+                    currentSmashTileToolAchievement.getInitialAchievementState());
+            smashTileToolAchievements.put(currentSmashTileToolAchievement, currentStateOfAchievement);
         }
     }
 
@@ -164,6 +185,64 @@ public class AchievementsManager {
 
         sharedPreferences.edit().putInt("undoToolCurrentUseCount", undoToolCurrentUseCount).apply();
         sharedPreferences.edit().putInt("undoToolUseCountSubmitted", undoToolUseCountSubmitted).apply();
+        return isScoreToBeSubmittedToLeaderboard;
+    }
+
+    // Here, we return 'true' if the score needs to be submitted to the 'Smash Tile' tool use leaderboard & 'false' otherwise
+    public boolean incrementSmashTileToolUseCount() {
+        boolean isScoreToBeSubmittedToLeaderboard = false;
+        smashTileToolCurrentUseCount += 1;
+        if (smashTileToolCurrentUseCount >= smashTileToolUseCountSubmitted + 10) { // Here, we need to update GPGS data
+            smashTileToolUseCountSubmitted = smashTileToolCurrentUseCount;
+
+            // Here, we setSteps() for appropriate achievement
+            if (smashTileToolCurrentUseCount >= 0 && smashTileToolCurrentUseCount <= 100) {
+                SmashTileToolAchievements smashTileToolAchievementInRange = SmashTileToolAchievements.SMASH_TILE_TOOL_ACHIEVEMENT_LEVEL_1;
+                achievementsClient.setSteps(context.getString(smashTileToolAchievementInRange.getAchievementStringResourceId()),
+                        smashTileToolCurrentUseCount);
+                if (smashTileToolCurrentUseCount == 100) {
+                    sharedPreferences.edit().putInt("smashTileToolAchievement" + "_" + context.getString(smashTileToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+
+                    SmashTileToolAchievements smashTileToolAchievementNextUp = SmashTileToolAchievements.SMASH_TILE_TOOL_ACHIEVEMENT_LEVEL_2;
+                    achievementsClient.reveal(context.getString(smashTileToolAchievementNextUp.getAchievementStringResourceId()));
+                    sharedPreferences.edit().putInt("smashTileToolAchievement" + "_" + context.getString(smashTileToolAchievementNextUp
+                            .getAchievementStringResourceId()), Achievement.STATE_REVEALED).apply();
+
+                    achievementsClient.setSteps(context.getString(smashTileToolAchievementNextUp.getAchievementStringResourceId()),
+                            smashTileToolCurrentUseCount);
+                }
+            } else if (smashTileToolCurrentUseCount > 100 && smashTileToolCurrentUseCount <= 250) {
+                SmashTileToolAchievements smashTileToolAchievementInRange = SmashTileToolAchievements.SMASH_TILE_TOOL_ACHIEVEMENT_LEVEL_2;
+                achievementsClient.setSteps(context.getString(smashTileToolAchievementInRange.getAchievementStringResourceId()),
+                        smashTileToolCurrentUseCount);
+                if (smashTileToolCurrentUseCount == 250) {
+                    sharedPreferences.edit().putInt("smashTileToolAchievement" + "_" + context.getString(smashTileToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+
+                    SmashTileToolAchievements smashTileToolAchievementNextUp = SmashTileToolAchievements.SMASH_TILE_TOOL_ACHIEVEMENT_LEVEL_3;
+                    achievementsClient.reveal(context.getString(smashTileToolAchievementNextUp.getAchievementStringResourceId()));
+                    sharedPreferences.edit().putInt("smashTileToolAchievement" + "_" + context.getString(smashTileToolAchievementNextUp
+                            .getAchievementStringResourceId()), Achievement.STATE_REVEALED).apply();
+
+                    achievementsClient.setSteps(context.getString(smashTileToolAchievementNextUp.getAchievementStringResourceId()),
+                            smashTileToolCurrentUseCount);
+                }
+            } else if (smashTileToolCurrentUseCount > 250 && smashTileToolCurrentUseCount <= 500) {
+                SmashTileToolAchievements smashTileToolAchievementInRange = SmashTileToolAchievements.SMASH_TILE_TOOL_ACHIEVEMENT_LEVEL_3;
+                achievementsClient.setSteps(context.getString(smashTileToolAchievementInRange.getAchievementStringResourceId()),
+                        smashTileToolCurrentUseCount);
+                if (smashTileToolCurrentUseCount == 500) {
+                    sharedPreferences.edit().putInt("smashTileToolAchievement" + "_" + context.getString(smashTileToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+                }
+            }
+
+            isScoreToBeSubmittedToLeaderboard = true;
+        }
+
+        sharedPreferences.edit().putInt("smashTileToolCurrentUseCount", smashTileToolCurrentUseCount).apply();
+        sharedPreferences.edit().putInt("smashTileToolUseCountSubmitted", smashTileToolUseCountSubmitted).apply();
         return isScoreToBeSubmittedToLeaderboard;
     }
 }

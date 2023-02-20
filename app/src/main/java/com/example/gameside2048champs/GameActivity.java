@@ -1471,6 +1471,11 @@ public class GameActivity extends AppCompatActivity implements
         updateCoins(currentCoins);
 
         // Final set of actions
+            // Update the count of tool use
+        if (gameManager.getAchievementsManager().incrementSmashTileToolUseCount()) {
+            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_smash_tile_tool_masters),
+                    gameManager.getAchievementsManager().getSmashTileToolCurrentUseCount());
+        }
         saveGameState(false);
         handleGoalCompletionStatus();
         onBackPressed();

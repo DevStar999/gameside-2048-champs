@@ -37,6 +37,14 @@
     <!-- Achievement Time Traveller 🕰 ('Undo' Tool Level 3) -->
     <string name="achievement_time_traveller" translatable="false">CgkIj57DhMoUEAIQFw</string>
 
+        <!-- # 'Smash Tile' Tool Achievements are as follows -->
+    <!-- Achievement Smasher ('Smash Tile' Tool Level 1) -->
+    <string name="achievement_smasher" translatable="false">CgkIj57DhMoUEAIQHA</string>
+    <!-- Achievement Crusher ('Smash Tile' Tool Level 2) -->
+    <string name="achievement_crusher" translatable="false">CgkIj57DhMoUEAIQHQ</string>
+    <!-- Achievement Destroyer ('Smash Tile' Tool Level 3) -->
+    <string name="achievement_destroyer" translatable="false">CgkIj57DhMoUEAIQHg</string>
+
     <!-- ## Leaderboards are listed as follows -->
 
         <!-- # Game Mode Leaderboards are listed as follows -->
@@ -66,6 +74,8 @@
     <string name="leaderboard_coins_leaderboard" translatable="false">CgkIj57DhMoUEAIQFA</string>
     <!-- Leaderboard -> 'Undo' Tool Masters Leaderboard -->
     <string name="leaderboard_undo_tool_masters" translatable="false">CgkIj57DhMoUEAIQGg</string>
+    <!-- Leaderboard -> 'Smash Tile' Tool Masters Leaderboard-->
+    <string name="leaderboard_smash_tile_tool_masters" translatable="false">CgkIj57DhMoUEAIQGw</string>
 
         <!-- # Temporary Leaderboards are as follows -->
     <!-- Leaderboard for Arriving Game Modes-->
