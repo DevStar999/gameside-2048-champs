@@ -40,28 +40,30 @@
     <!-- ## Leaderboards are listed as follows -->
 
         <!-- # Game Mode Leaderboards are listed as follows -->
-    <!-- Leaderboard 4x4 - Square -->
+    <!-- Leaderboard -> 4x4 - Square -->
     <string name="leaderboard_4x4__square" translatable="false">CgkIj57DhMoUEAIQCg</string>
-    <!-- Leaderboard 5x5 - Square -->
+    <!-- Leaderboard -> 5x5 - Square -->
     <string name="leaderboard_5x5__square" translatable="false">CgkIj57DhMoUEAIQCw</string>
-    <!-- Leaderboard 6x6 - Square -->
+    <!-- Leaderboard -> 6x6 - Square -->
     <string name="leaderboard_6x6__square" translatable="false">CgkIj57DhMoUEAIQDA</string>
-    <!-- Leaderboard 4x5 - Rectangle -->
+    <!-- Leaderboard -> 4x5 - Rectangle -->
     <string name="leaderboard_4x5__rectangle" translatable="false">CgkIj57DhMoUEAIQDQ</string>
-    <!-- Leaderboard 4x6 - Rectangle -->
+    <!-- Leaderboard -> 4x6 - Rectangle -->
     <string name="leaderboard_4x6__rectangle" translatable="false">CgkIj57DhMoUEAIQDg</string>
-    <!-- Leaderboard 5x6 - Rectangle -->
+    <!-- Leaderboard -> 5x6 - Rectangle -->
     <string name="leaderboard_5x6__rectangle" translatable="false">CgkIj57DhMoUEAIQDw</string>
-    <!-- Leaderboard 5x5 - Block Middle Sq. -->
+    <!-- Leaderboard -> 5x5 - Block Middle Sq. -->
     <string name="leaderboard_5x5__block_middle_sq." translatable="false">CgkIj57DhMoUEAIQEA</string>
-    <!-- Leaderboard 4x6 - Block Middle Rec. -->
+    <!-- Leaderboard -> 4x6 - Block Middle Rec. -->
     <string name="leaderboard_4x6__block_middle_rec." translatable="false">CgkIj57DhMoUEAIQEQ</string>
-    <!-- Leaderboard 5x5 - Block 2 Corners Sq. -->
+    <!-- Leaderboard -> 5x5 - Block 2 Corners Sq. -->
     <string name="leaderboard_5x5__block_2_corners_sq." translatable="false">CgkIj57DhMoUEAIQEg</string>
-    <!-- Leaderboard 4x6 - Block 2 Corners Rec. -->
+    <!-- Leaderboard -> 4x6 - Block 2 Corners Rec. -->
     <string name="leaderboard_4x6__block_2_corners_rec." translatable="false">CgkIj57DhMoUEAIQEw</string>
 
         <!-- # Miscellaneous Leaderboards are as follows -->
-    <!-- Leaderboard Coins Leaderboard -->
+    <!-- Leaderboard -> Coins Leaderboard -->
     <string name="leaderboard_coins_leaderboard" translatable="false">CgkIj57DhMoUEAIQFA</string>
+    <!-- Leaderboard -> 'Undo' Tool Use Leaderboard -->
+    <string name="leaderboard_undo_tool_use" translatable="false">CgkIj57DhMoUEAIQGg</string>
 </resources>
