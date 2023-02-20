@@ -989,8 +989,6 @@ public class GameActivity extends AppCompatActivity implements
                         updateCoins(currentCoins);
                         // Update the count of tool use
                         if (gameManager.getAchievementsManager().incrementUndoToolUseCount()) {
-                            Log.i("Custom Debugging", "inside undoProcess(), score is submitted to 'Undo' " +
-                                    "tool leaderboard");
                             gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_undo_tool_masters),
                                     gameManager.getAchievementsManager().getUndoToolCurrentUseCount());
                         }

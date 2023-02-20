@@ -68,28 +68,15 @@ public class AchievementsManager {
             tileUnlockAchievements.put(currentTileUnlockAchievement, isCurrentAchievementUnlocked);
         }
 
-        Log.i("Custom Debugging", "inside AchievementsManager(), init for 'Undo' tool attributes as follows - ");
         // 'Undo' Tool use achievements are initialised as follows
         undoToolUseCountSubmitted = sharedPreferences.getInt("undoToolUseCountSubmitted", 0);
         undoToolCurrentUseCount = sharedPreferences.getInt("undoToolCurrentUseCount", undoToolUseCountSubmitted);
-        Log.i("Custom Debugging", "inside AchievementsManager(), undoToolUseCountSubmitted = " + undoToolUseCountSubmitted);
-        Log.i("Custom Debugging", "inside AchievementsManager(), undoToolCurrentUseCount = " + undoToolCurrentUseCount);
         undoToolAchievements = new HashMap<>();
-        Log.i("Custom Debugging", "Going inside undoToolAchievements as follows - ");
         for (int index = 0; index < UndoToolAchievements.values().length; index++) {
             UndoToolAchievements currentUndoToolAchievement = UndoToolAchievements.values()[index];
-            Log.i("Custom Debugging", "inside undoToolAchievements, currentUndoToolAchievement = " +
-                    currentUndoToolAchievement);
             int currentStateOfAchievement = sharedPreferences.getInt("undoToolAchievement" + "_" +
                     context.getString(currentUndoToolAchievement.getAchievementStringResourceId()),
                     currentUndoToolAchievement.getInitialAchievementState());
-            if (currentStateOfAchievement == Achievement.STATE_HIDDEN) {
-                Log.i("Custom Debugging", "currentState = " + "STATE_HIDDEN");
-            } else if (currentStateOfAchievement == Achievement.STATE_REVEALED) {
-                Log.i("Custom Debugging", "currentState = " + "STATE_REVEALED");
-            } else if (currentStateOfAchievement == Achievement.STATE_UNLOCKED) {
-                Log.i("Custom Debugging", "currentState = " + "STATE_UNLOCKED");
-            }
             undoToolAchievements.put(currentUndoToolAchievement, currentStateOfAchievement);
         }
     }
@@ -127,12 +114,10 @@ public class AchievementsManager {
         boolean isScoreToBeSubmittedToLeaderboard = false;
         undoToolCurrentUseCount += 25;
         if (undoToolCurrentUseCount >= undoToolUseCountSubmitted + 10) { // Here, we need to update GPGS data
-            Log.i("Custom Debugging", "Time to updated the value of undoToolUseCountSubmitted");
             undoToolUseCountSubmitted = undoToolCurrentUseCount;
 
             // Here, we setSteps() for appropriate achievement
             if (undoToolCurrentUseCount >= 0 && undoToolCurrentUseCount <= 100) {
-                Log.i("Custom Debugging", "setSteps() called for Level 1");
                 UndoToolAchievements undoToolAchievementInRange = UndoToolAchievements.UNDO_TOOL_ACHIEVEMENT_LEVEL_1;
                 achievementsClient.setSteps(context.getString(undoToolAchievementInRange.getAchievementStringResourceId()),
                         undoToolCurrentUseCount);
@@ -149,7 +134,6 @@ public class AchievementsManager {
                             undoToolCurrentUseCount);
                 }
             } else if (undoToolCurrentUseCount > 100 && undoToolCurrentUseCount <= 250) {
-                Log.i("Custom Debugging", "setSteps() called for Level 2");
                 UndoToolAchievements undoToolAchievementInRange = UndoToolAchievements.UNDO_TOOL_ACHIEVEMENT_LEVEL_2;
                 achievementsClient.setSteps(context.getString(undoToolAchievementInRange.getAchievementStringResourceId()),
                         undoToolCurrentUseCount);
@@ -166,7 +150,6 @@ public class AchievementsManager {
                             undoToolCurrentUseCount);
                 }
             } else if (undoToolCurrentUseCount > 250 && undoToolCurrentUseCount <= 500) {
-                Log.i("Custom Debugging", "setSteps() called for Level 3");
                 UndoToolAchievements undoToolAchievementInRange = UndoToolAchievements.UNDO_TOOL_ACHIEVEMENT_LEVEL_3;
                 achievementsClient.setSteps(context.getString(undoToolAchievementInRange.getAchievementStringResourceId()),
                         undoToolCurrentUseCount);
@@ -179,10 +162,6 @@ public class AchievementsManager {
             isScoreToBeSubmittedToLeaderboard = true;
         }
 
-        Log.i("Custom Debugging", "undoToolCurrentUseCount (just before saving new value in local) = "
-                + undoToolCurrentUseCount);
-        Log.i("Custom Debugging", "undoToolUseCountSubmitted (just before saving new value in local) = "
-                + undoToolUseCountSubmitted);
         sharedPreferences.edit().putInt("undoToolCurrentUseCount", undoToolCurrentUseCount).apply();
         sharedPreferences.edit().putInt("undoToolUseCountSubmitted", undoToolUseCountSubmitted).apply();
         return isScoreToBeSubmittedToLeaderboard;
