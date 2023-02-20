@@ -66,4 +66,8 @@
     <string name="leaderboard_coins_leaderboard" translatable="false">CgkIj57DhMoUEAIQFA</string>
     <!-- Leaderboard -> 'Undo' Tool Masters Leaderboard -->
     <string name="leaderboard_undo_tool_masters" translatable="false">CgkIj57DhMoUEAIQGg</string>
+
+        <!-- # Temporary Leaderboards are as follows -->
+    <!-- Leaderboard for Arriving Game Modes-->
+    <string name="leaderboard_arriving_game_modes" translatable="false">00000</string>
 </resources>
