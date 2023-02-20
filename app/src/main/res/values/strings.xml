@@ -64,6 +64,6 @@
         <!-- # Miscellaneous Leaderboards are as follows -->
     <!-- Leaderboard -> Coins Leaderboard -->
     <string name="leaderboard_coins_leaderboard" translatable="false">CgkIj57DhMoUEAIQFA</string>
-    <!-- Leaderboard -> 'Undo' Tool Use Leaderboard -->
-    <string name="leaderboard_undo_tool_use" translatable="false">CgkIj57DhMoUEAIQGg</string>
+    <!-- Leaderboard -> 'Undo' Tool Masters Leaderboard -->
+    <string name="leaderboard_undo_tool_masters" translatable="false">CgkIj57DhMoUEAIQGg</string>
 </resources>
