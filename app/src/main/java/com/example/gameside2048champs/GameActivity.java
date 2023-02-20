@@ -1529,6 +1529,11 @@ public class GameActivity extends AppCompatActivity implements
         updateCoins(currentCoins);
 
         // Final set of actions
+            // Update the count of tool use
+        if (gameManager.getAchievementsManager().incrementSwapTilesToolUseCount()) {
+            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_swap_tiles_tool_masters),
+                    gameManager.getAchievementsManager().getSwapTilesToolCurrentUseCount());
+        }
         saveGameState(false);
         onBackPressed();
     }

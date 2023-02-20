@@ -45,6 +45,14 @@
     <!-- Achievement Destroyer ('Smash Tile' Tool Level 3) -->
     <string name="achievement_destroyer" translatable="false">CgkIj57DhMoUEAIQHg</string>
 
+        <!-- # 'Swap Tiles' Tool Achievements are as follows -->
+    <!-- Achievement Sleight of Hand ('Swap Tiles' Tool Level 1) -->
+    <string name="achievement_sleight_of_hand" translatable="false">CgkIj57DhMoUEAIQIA</string>
+    <!-- Achievement Slick Shuffle ('Swap Tiles' Tool Level 2) -->
+    <string name="achievement_slick_shuffle" translatable="false">CgkIj57DhMoUEAIQIQ</string>
+    <!-- Achievement Switcheroo ('Swap Tiles' Tool Level 3) -->
+    <string name="achievement_switcheroo" translatable="false">CgkIj57DhMoUEAIQIg</string>
+
     <!-- ## Leaderboards are listed as follows -->
 
         <!-- # Game Mode Leaderboards are listed as follows -->
@@ -74,8 +82,10 @@
     <string name="leaderboard_coins_leaderboard" translatable="false">CgkIj57DhMoUEAIQFA</string>
     <!-- Leaderboard -> 'Undo' Tool Masters Leaderboard -->
     <string name="leaderboard_undo_tool_masters" translatable="false">CgkIj57DhMoUEAIQGg</string>
-    <!-- Leaderboard -> 'Smash Tile' Tool Masters Leaderboard-->
+    <!-- Leaderboard -> 'Smash Tile' Tool Masters Leaderboard -->
     <string name="leaderboard_smash_tile_tool_masters" translatable="false">CgkIj57DhMoUEAIQGw</string>
+    <!-- Leaderboard -> 'Swap Tiles' Tool Masters Leaderboard -->
+    <string name="leaderboard_swap_tiles_tool_masters" translatable="false">CgkIj57DhMoUEAIQHw</string>
 
         <!-- # Temporary Leaderboards are as follows -->
     <!-- Leaderboard for Arriving Game Modes-->

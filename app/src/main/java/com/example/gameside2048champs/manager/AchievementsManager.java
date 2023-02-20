@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import com.example.gameside2048champs.enums.ScoringAchievements;
 import com.example.gameside2048champs.enums.SmashTileToolAchievements;
+import com.example.gameside2048champs.enums.SwapTilesToolAchievements;
 import com.example.gameside2048champs.enums.TileUnlockAchievements;
 import com.example.gameside2048champs.enums.UndoToolAchievements;
 import com.google.android.gms.games.AchievementsClient;
@@ -48,11 +49,20 @@ public class AchievementsManager {
     /** Attributes related to -> 'Smash Tile' Tool Use Achievements **/
     private int smashTileToolUseCountSubmitted;
     private int smashTileToolCurrentUseCount;
-    /* A map to keep track of all 'Undo' Tool Use Achievements
+    /* A map to keep track of all 'Smash Tile' Tool Use Achievements
        [Element = 'Smash Tile' Tool Use Achievement enum, Current State of achievement
        (STATE_HIDDEN/STATE_REVEALED/STATE_UNLOCKED) ]
     */
     private Map<SmashTileToolAchievements, Integer> smashTileToolAchievements;
+
+    /** Attributes related to -> 'Swap Tiles' Tool Use Achievements **/
+    private int swapTilesToolUseCountSubmitted;
+    private int swapTilesToolCurrentUseCount;
+    /* A map to keep track of all 'Swap Tiles' Tool Use Achievements
+       [Element = 'Swap Tiles' Tool Use Achievement enum, Current State of achievement
+       (STATE_HIDDEN/STATE_REVEALED/STATE_UNLOCKED) ]
+    */
+    private Map<SwapTilesToolAchievements, Integer> swapTilesToolAchievements;
 
     AchievementsManager(Context context) {
         this.context = context;
@@ -99,6 +109,18 @@ public class AchievementsManager {
                     context.getString(currentSmashTileToolAchievement.getAchievementStringResourceId()),
                     currentSmashTileToolAchievement.getInitialAchievementState());
             smashTileToolAchievements.put(currentSmashTileToolAchievement, currentStateOfAchievement);
+        }
+
+        // 'Swap Tiles' Tool use achievements are initialised as follows
+        swapTilesToolUseCountSubmitted = sharedPreferences.getInt("swapTilesToolUseCountSubmitted", 0);
+        swapTilesToolCurrentUseCount = sharedPreferences.getInt("swapTilesToolCurrentUseCount", swapTilesToolUseCountSubmitted);
+        swapTilesToolAchievements = new HashMap<>();
+        for (int index = 0; index < SwapTilesToolAchievements.values().length; index++) {
+            SwapTilesToolAchievements currentSwapTilesToolAchievement = SwapTilesToolAchievements.values()[index];
+            int currentStateOfAchievement = sharedPreferences.getInt("swapTilesToolAchievement" + "_" +
+                    context.getString(currentSwapTilesToolAchievement.getAchievementStringResourceId()),
+                    currentSwapTilesToolAchievement.getInitialAchievementState());
+            swapTilesToolAchievements.put(currentSwapTilesToolAchievement, currentStateOfAchievement);
         }
     }
 
@@ -243,6 +265,64 @@ public class AchievementsManager {
 
         sharedPreferences.edit().putInt("smashTileToolCurrentUseCount", smashTileToolCurrentUseCount).apply();
         sharedPreferences.edit().putInt("smashTileToolUseCountSubmitted", smashTileToolUseCountSubmitted).apply();
+        return isScoreToBeSubmittedToLeaderboard;
+    }
+
+    // Here, we return 'true' if the score needs to be submitted to the 'Swap Tiles' tool use leaderboard & 'false' otherwise
+    public boolean incrementSwapTilesToolUseCount() {
+        boolean isScoreToBeSubmittedToLeaderboard = false;
+        swapTilesToolCurrentUseCount += 1;
+        if (swapTilesToolCurrentUseCount >= swapTilesToolUseCountSubmitted + 10) { // Here, we need to update GPGS data
+            swapTilesToolUseCountSubmitted = swapTilesToolCurrentUseCount;
+
+            // Here, we setSteps() for appropriate achievement
+            if (swapTilesToolCurrentUseCount >= 0 && swapTilesToolCurrentUseCount <= 100) {
+                SwapTilesToolAchievements swapTilesToolAchievementInRange = SwapTilesToolAchievements.SWAP_TILES_TOOL_ACHIEVEMENT_LEVEL_1;
+                achievementsClient.setSteps(context.getString(swapTilesToolAchievementInRange.getAchievementStringResourceId()),
+                        swapTilesToolCurrentUseCount);
+                if (swapTilesToolCurrentUseCount == 100) {
+                    sharedPreferences.edit().putInt("swapTilesToolAchievement" + "_" + context.getString(swapTilesToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+
+                    SwapTilesToolAchievements swapTilesToolAchievementNextUp = SwapTilesToolAchievements.SWAP_TILES_TOOL_ACHIEVEMENT_LEVEL_2;
+                    achievementsClient.reveal(context.getString(swapTilesToolAchievementNextUp.getAchievementStringResourceId()));
+                    sharedPreferences.edit().putInt("swapTilesToolAchievement" + "_" + context.getString(swapTilesToolAchievementNextUp
+                            .getAchievementStringResourceId()), Achievement.STATE_REVEALED).apply();
+
+                    achievementsClient.setSteps(context.getString(swapTilesToolAchievementNextUp.getAchievementStringResourceId()),
+                            swapTilesToolCurrentUseCount);
+                }
+            } else if (swapTilesToolCurrentUseCount > 100 && swapTilesToolCurrentUseCount <= 250) {
+                SwapTilesToolAchievements swapTilesToolAchievementInRange = SwapTilesToolAchievements.SWAP_TILES_TOOL_ACHIEVEMENT_LEVEL_2;
+                achievementsClient.setSteps(context.getString(swapTilesToolAchievementInRange.getAchievementStringResourceId()),
+                        swapTilesToolCurrentUseCount);
+                if (swapTilesToolCurrentUseCount == 250) {
+                    sharedPreferences.edit().putInt("swapTilesToolAchievement" + "_" + context.getString(swapTilesToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+
+                    SwapTilesToolAchievements swapTilesToolAchievementNextUp = SwapTilesToolAchievements.SWAP_TILES_TOOL_ACHIEVEMENT_LEVEL_3;
+                    achievementsClient.reveal(context.getString(swapTilesToolAchievementNextUp.getAchievementStringResourceId()));
+                    sharedPreferences.edit().putInt("swapTilesToolAchievement" + "_" + context.getString(swapTilesToolAchievementNextUp
+                            .getAchievementStringResourceId()), Achievement.STATE_REVEALED).apply();
+
+                    achievementsClient.setSteps(context.getString(swapTilesToolAchievementNextUp.getAchievementStringResourceId()),
+                            swapTilesToolCurrentUseCount);
+                }
+            } else if (swapTilesToolCurrentUseCount > 250 && swapTilesToolCurrentUseCount <= 500) {
+                SwapTilesToolAchievements swapTilesToolAchievementInRange = SwapTilesToolAchievements.SWAP_TILES_TOOL_ACHIEVEMENT_LEVEL_3;
+                achievementsClient.setSteps(context.getString(swapTilesToolAchievementInRange.getAchievementStringResourceId()),
+                        swapTilesToolCurrentUseCount);
+                if (swapTilesToolCurrentUseCount == 500) {
+                    sharedPreferences.edit().putInt("swapTilesToolAchievement" + "_" + context.getString(swapTilesToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+                }
+            }
+
+            isScoreToBeSubmittedToLeaderboard = true;
+        }
+
+        sharedPreferences.edit().putInt("swapTilesToolCurrentUseCount", swapTilesToolCurrentUseCount).apply();
+        sharedPreferences.edit().putInt("swapTilesToolUseCountSubmitted", swapTilesToolUseCountSubmitted).apply();
         return isScoreToBeSubmittedToLeaderboard;
     }
 }
