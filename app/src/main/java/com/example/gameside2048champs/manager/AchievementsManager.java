@@ -112,7 +112,7 @@ public class AchievementsManager {
     // Here, we return 'true' if the score needs to be submitted to the 'Undo' tool use leaderboard & 'false' otherwise
     public boolean incrementUndoToolUseCount() {
         boolean isScoreToBeSubmittedToLeaderboard = false;
-        undoToolCurrentUseCount += 25;
+        undoToolCurrentUseCount += 1;
         if (undoToolCurrentUseCount >= undoToolUseCountSubmitted + 10) { // Here, we need to update GPGS data
             undoToolUseCountSubmitted = undoToolCurrentUseCount;
 
