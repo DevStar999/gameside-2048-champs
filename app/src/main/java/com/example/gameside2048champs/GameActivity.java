@@ -441,7 +441,7 @@ public class GameActivity extends AppCompatActivity implements
         }
 
         // Check if current coins count is greater than the highest most coins count
-        int mostCoins = sharedPreferences.getInt("mostCoins", 0);
+        int mostCoins = sharedPreferences.getInt("mostCoins", 3000);
         if (this.currentCoins >= mostCoins + 1000) {
             sharedPreferences.edit().putInt("mostCoins", this.currentCoins).apply();
             gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_coins_leaderboard), this.currentCoins);
@@ -985,8 +985,7 @@ public class GameActivity extends AppCompatActivity implements
                         restoreTutorialTextViewMessage();
                         // Update the reduced number of coins
                         currentCoins -= toolsCostMap.get("standardToolsUndoCost");
-                        sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
-                        currentCoinsTextView.setText(NumericValueDisplay.getGeneralValueDisplay(currentCoins));
+                        updateCoins(currentCoins);
                     }
                 }.start();
             } else {
@@ -1328,8 +1327,7 @@ public class GameActivity extends AppCompatActivity implements
                     restoreTutorialTextViewMessage();
                     // Update the reduced number of coins
                     currentCoins -= toolsCostMap.get("mysteryToolsReviveGameCost");
-                    sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
-                    currentCoinsTextView.setText(NumericValueDisplay.getGeneralValueDisplay(currentCoins));
+                    updateCoins(currentCoins);
                 }
             }.start();
         } else {
@@ -1464,8 +1462,7 @@ public class GameActivity extends AppCompatActivity implements
 
         // Update the reduced number of coins
         currentCoins -= toolsCostMap.get("standardToolsSmashTileCost");
-        sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
-        currentCoinsTextView.setText(NumericValueDisplay.getGeneralValueDisplay(currentCoins));
+        updateCoins(currentCoins);
 
         // Final set of actions
         saveGameState(false);
@@ -1518,8 +1515,7 @@ public class GameActivity extends AppCompatActivity implements
 
         // Update the reduced number of coins
         currentCoins -= toolsCostMap.get("standardToolsSwapTilesCost");
-        sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
-        currentCoinsTextView.setText(NumericValueDisplay.getGeneralValueDisplay(currentCoins));
+        updateCoins(currentCoins);
 
         // Final set of actions
         saveGameState(false);
@@ -1559,8 +1555,7 @@ public class GameActivity extends AppCompatActivity implements
 
         // Update the reduced number of coins
         currentCoins -= toolsCostMap.get("specialToolsChangeValueCost");
-        sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
-        currentCoinsTextView.setText(NumericValueDisplay.getGeneralValueDisplay(currentCoins));
+        updateCoins(currentCoins);
 
         // Final set of actions
         saveGameState(false);
@@ -1615,8 +1610,7 @@ public class GameActivity extends AppCompatActivity implements
 
         // Update the reduced number of coins
         currentCoins -= toolsCostMap.get("specialToolsEliminateValueCost");
-        sharedPreferences.edit().putInt("currentCoins", currentCoins).apply();
-        currentCoinsTextView.setText(NumericValueDisplay.getGeneralValueDisplay(currentCoins));
+        updateCoins(currentCoins);
 
         // Final set of actions
         saveGameState(false);
