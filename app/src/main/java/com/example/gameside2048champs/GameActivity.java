@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
@@ -986,6 +987,13 @@ public class GameActivity extends AppCompatActivity implements
                         // Update the reduced number of coins
                         currentCoins -= toolsCostMap.get("standardToolsUndoCost");
                         updateCoins(currentCoins);
+                        // Update the count of tool use
+                        if (gameManager.getAchievementsManager().incrementUndoToolUseCount()) {
+                            Log.i("Custom Debugging", "inside undoProcess(), score is submitted to 'Undo' " +
+                                    "tool leaderboard");
+                            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_undo_tool_masters),
+                                    gameManager.getAchievementsManager().getUndoToolCurrentUseCount());
+                        }
                     }
                 }.start();
             } else {
