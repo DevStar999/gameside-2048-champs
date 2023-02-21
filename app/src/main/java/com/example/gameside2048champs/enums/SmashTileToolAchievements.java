@@ -11,9 +11,9 @@ import lombok.Getter;
 public enum SmashTileToolAchievements {
     SMASH_TILE_TOOL_ACHIEVEMENT_LEVEL_1("Smasher", R.string.achievement_smasher,
             1, 100, STATE_REVEALED),
-    SMASH_TILE_TOOL_ACHIEVEMENT_LEVEL_2("Crusher", R.string.achievement_crusher,
+    SMASH_TILE_TOOL_ACHIEVEMENT_LEVEL_2("Destroyer", R.string.achievement_destroyer,
             2, 250, STATE_HIDDEN),
-    SMASH_TILE_TOOL_ACHIEVEMENT_LEVEL_3("Destroyer", R.string.achievement_destroyer,
+    SMASH_TILE_TOOL_ACHIEVEMENT_LEVEL_3("Hammer of Thor", R.string.achievement_hammer_of_thor,
             3, 500, STATE_HIDDEN);
 
     private String nameOfAchievement; // Name as per the name given in the Google Play Games project

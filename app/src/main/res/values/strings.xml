@@ -40,10 +40,10 @@
         <!-- # 'Smash Tile' Tool Achievements are as follows -->
     <!-- Achievement Smasher ('Smash Tile' Tool Level 1) -->
     <string name="achievement_smasher" translatable="false">CgkIj57DhMoUEAIQHA</string>
-    <!-- Achievement Crusher ('Smash Tile' Tool Level 2) -->
-    <string name="achievement_crusher" translatable="false">CgkIj57DhMoUEAIQHQ</string>
-    <!-- Achievement Destroyer ('Smash Tile' Tool Level 3) -->
-    <string name="achievement_destroyer" translatable="false">CgkIj57DhMoUEAIQHg</string>
+    <!-- Achievement Destroyer ('Smash Tile' Tool Level 2) -->
+    <string name="achievement_destroyer" translatable="false">CgkIj57DhMoUEAIQHQ</string>
+    <!-- Achievement Hammer of Thor ('Smash Tile' Tool Level 3) -->
+    <string name="achievement_hammer_of_thor" translatable="false">CgkIj57DhMoUEAIQHg</string>
 
         <!-- # 'Swap Tiles' Tool Achievements are as follows -->
     <!-- Achievement Sleight of Hand ('Swap Tiles' Tool Level 1) -->
