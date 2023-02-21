@@ -69,6 +69,14 @@
     <!-- Achievement Jonin ('Eliminate Value' Tool Level 3) -->
     <string name="achievement_jonin" translatable="false">CgkIj57DhMoUEAIQKg</string>
     
+        <!-- # 'Destroy Area' Tool Achievements are as follows -->
+    <!-- Achievement Grenadier ('Destroy Area' Tool Level 1) -->
+    <string name="achievement_grenadier" translatable="false">CgkIj57DhMoUEAIQLA</string>
+    <!-- Achievement Demolition Man ('Destroy Area' Tool Level 2) -->
+    <string name="achievement_demolition_man" translatable="false">CgkIj57DhMoUEAIQLQ</string>
+    <!-- Achievement Carnage ('Destroy Area' Tool Level 3) -->
+    <string name="achievement_carnage" translatable="false">CgkIj57DhMoUEAIQLg</string>
+    
     <!-- ## Leaderboards are listed as follows -->
 
         <!-- # Game Mode Leaderboards are listed as follows -->
@@ -106,6 +114,8 @@
     <string name="leaderboard_change_value_tool_masters" translatable="false">CgkIj57DhMoUEAIQIw</string>
     <!-- Leaderboard -> 'Eliminate Value' Tool Masters Leaderboard -->
     <string name="leaderboard_eliminate_value_tool_masters" translatable="false">CgkIj57DhMoUEAIQJw</string>
+    <!-- Leaderboard -> 'Destroy Area' Tool Masters Leaderboard -->
+    <string name="leaderboard_destroy_area_tool_masters" translatable="false">CgkIj57DhMoUEAIQKw</string>
 
         <!-- # Temporary Leaderboards are as follows -->
     <!-- Leaderboard for Arriving Game Modes-->

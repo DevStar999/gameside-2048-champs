@@ -1264,6 +1264,9 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     private void destroyAreaProcess() {
+        /* TODO -> After the implementation of the this tool is done at the very end of the process of this tool, remember to
+                   add code to increment the tool use count (Refer to other tools if required)
+        */
         movesQueue.clear();
         if (gameManager.findGameTilesCurrentlyOnBoard(gameManager.getGameMatrix()) < 1) {
             String destroyAreaMessage = "Atleast 1 game tile is required to use the \"DESTROY AREA\" tool";

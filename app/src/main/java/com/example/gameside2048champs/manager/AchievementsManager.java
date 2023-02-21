@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.gameside2048champs.enums.ChangeValueToolAchievements;
+import com.example.gameside2048champs.enums.DestroyAreaToolAchievements;
 import com.example.gameside2048champs.enums.EliminateValueToolAchievements;
 import com.example.gameside2048champs.enums.ScoringAchievements;
 import com.example.gameside2048champs.enums.SmashTileToolAchievements;
@@ -83,6 +84,15 @@ public class AchievementsManager {
        (STATE_HIDDEN/STATE_REVEALED/STATE_UNLOCKED) ]
     */
     private Map<EliminateValueToolAchievements, Integer> eliminateValueToolAchievements;
+
+    /** Attributes related to -> 'Destroy Area' Tool Use Achievements **/
+    private int destroyAreaToolUseCountSubmitted;
+    private int destroyAreaToolCurrentUseCount;
+    /* A map to keep track of all 'Destroy Area' Tool Use Achievements
+       [Element = 'Destroy Area' Tool Use Achievement enum, Current State of achievement
+       (STATE_HIDDEN/STATE_REVEALED/STATE_UNLOCKED) ]
+    */
+    private Map<DestroyAreaToolAchievements, Integer> destroyAreaToolAchievements;
 
     AchievementsManager(Context context) {
         this.context = context;
@@ -165,6 +175,18 @@ public class AchievementsManager {
                     context.getString(currentEliminateValueToolAchievement.getAchievementStringResourceId()),
                     currentEliminateValueToolAchievement.getInitialAchievementState());
             eliminateValueToolAchievements.put(currentEliminateValueToolAchievement, currentStateOfAchievement);
+        }
+
+        // 'Destroy Area' Tool use achievements are initialised as follows
+        destroyAreaToolUseCountSubmitted = sharedPreferences.getInt("destroyAreaToolUseCountSubmitted", 0);
+        destroyAreaToolCurrentUseCount = sharedPreferences.getInt("destroyAreaToolCurrentUseCount", destroyAreaToolUseCountSubmitted);
+        destroyAreaToolAchievements = new HashMap<>();
+        for (int index = 0; index < DestroyAreaToolAchievements.values().length; index++) {
+            DestroyAreaToolAchievements currentDestroyAreaToolAchievement = DestroyAreaToolAchievements.values()[index];
+            int currentStateOfAchievement = sharedPreferences.getInt("destroyAreaToolAchievement" + "_" +
+                    context.getString(currentDestroyAreaToolAchievement.getAchievementStringResourceId()),
+                    currentDestroyAreaToolAchievement.getInitialAchievementState());
+            destroyAreaToolAchievements.put(currentDestroyAreaToolAchievement, currentStateOfAchievement);
         }
     }
 
@@ -483,6 +505,64 @@ public class AchievementsManager {
 
         sharedPreferences.edit().putInt("eliminateValueToolCurrentUseCount", eliminateValueToolCurrentUseCount).apply();
         sharedPreferences.edit().putInt("eliminateValueToolUseCountSubmitted", eliminateValueToolUseCountSubmitted).apply();
+        return isScoreToBeSubmittedToLeaderboard;
+    }
+
+    // Here, we return 'true' if the score needs to be submitted to the 'Destroy Area' tool use leaderboard & 'false' otherwise
+    public boolean incrementDestroyAreaToolUseCount() {
+        boolean isScoreToBeSubmittedToLeaderboard = false;
+        destroyAreaToolCurrentUseCount += 1;
+        if (destroyAreaToolCurrentUseCount >= destroyAreaToolUseCountSubmitted + 10) { // Here, we need to update GPGS data
+            destroyAreaToolUseCountSubmitted = destroyAreaToolCurrentUseCount;
+
+            // Here, we setSteps() for appropriate achievement
+            if (destroyAreaToolCurrentUseCount >= 0 && destroyAreaToolCurrentUseCount <= 100) {
+                DestroyAreaToolAchievements destroyAreaToolAchievementInRange = DestroyAreaToolAchievements.DESTROY_AREA_TOOL_ACHIEVEMENT_LEVEL_1;
+                achievementsClient.setSteps(context.getString(destroyAreaToolAchievementInRange.getAchievementStringResourceId()),
+                        destroyAreaToolCurrentUseCount);
+                if (destroyAreaToolCurrentUseCount == 100) {
+                    sharedPreferences.edit().putInt("destroyAreaToolAchievement" + "_" + context.getString(destroyAreaToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+
+                    DestroyAreaToolAchievements destroyAreaToolAchievementNextUp = DestroyAreaToolAchievements.DESTROY_AREA_TOOL_ACHIEVEMENT_LEVEL_2;
+                    achievementsClient.reveal(context.getString(destroyAreaToolAchievementNextUp.getAchievementStringResourceId()));
+                    sharedPreferences.edit().putInt("destroyAreaToolAchievement" + "_" + context.getString(destroyAreaToolAchievementNextUp
+                            .getAchievementStringResourceId()), Achievement.STATE_REVEALED).apply();
+
+                    achievementsClient.setSteps(context.getString(destroyAreaToolAchievementNextUp.getAchievementStringResourceId()),
+                            destroyAreaToolCurrentUseCount);
+                }
+            } else if (destroyAreaToolCurrentUseCount > 100 && destroyAreaToolCurrentUseCount <= 250) {
+                DestroyAreaToolAchievements destroyAreaToolAchievementInRange = DestroyAreaToolAchievements.DESTROY_AREA_TOOL_ACHIEVEMENT_LEVEL_2;
+                achievementsClient.setSteps(context.getString(destroyAreaToolAchievementInRange.getAchievementStringResourceId()),
+                        destroyAreaToolCurrentUseCount);
+                if (destroyAreaToolCurrentUseCount == 250) {
+                    sharedPreferences.edit().putInt("destroyAreaToolAchievement" + "_" + context.getString(destroyAreaToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+
+                    DestroyAreaToolAchievements destroyAreaToolAchievementNextUp = DestroyAreaToolAchievements.DESTROY_AREA_TOOL_ACHIEVEMENT_LEVEL_3;
+                    achievementsClient.reveal(context.getString(destroyAreaToolAchievementNextUp.getAchievementStringResourceId()));
+                    sharedPreferences.edit().putInt("destroyAreaToolAchievement" + "_" + context.getString(destroyAreaToolAchievementNextUp
+                            .getAchievementStringResourceId()), Achievement.STATE_REVEALED).apply();
+
+                    achievementsClient.setSteps(context.getString(destroyAreaToolAchievementNextUp.getAchievementStringResourceId()),
+                            destroyAreaToolCurrentUseCount);
+                }
+            } else if (destroyAreaToolCurrentUseCount > 250 && destroyAreaToolCurrentUseCount <= 500) {
+                DestroyAreaToolAchievements destroyAreaToolAchievementInRange = DestroyAreaToolAchievements.DESTROY_AREA_TOOL_ACHIEVEMENT_LEVEL_3;
+                achievementsClient.setSteps(context.getString(destroyAreaToolAchievementInRange.getAchievementStringResourceId()),
+                        destroyAreaToolCurrentUseCount);
+                if (destroyAreaToolCurrentUseCount == 500) {
+                    sharedPreferences.edit().putInt("destroyAreaToolAchievement" + "_" + context.getString(destroyAreaToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+                }
+            }
+
+            isScoreToBeSubmittedToLeaderboard = true;
+        }
+
+        sharedPreferences.edit().putInt("destroyAreaToolCurrentUseCount", destroyAreaToolCurrentUseCount).apply();
+        sharedPreferences.edit().putInt("destroyAreaToolUseCountSubmitted", destroyAreaToolUseCountSubmitted).apply();
         return isScoreToBeSubmittedToLeaderboard;
     }
 }
