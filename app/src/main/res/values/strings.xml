@@ -76,6 +76,14 @@
     <string name="achievement_demolition_man" translatable="false">CgkIj57DhMoUEAIQLQ</string>
     <!-- Achievement Carnage ('Destroy Area' Tool Level 3) -->
     <string name="achievement_carnage" translatable="false">CgkIj57DhMoUEAIQLg</string>
+
+        <!-- # 'Revive Game' Tool Achievements are as follows -->
+    <!-- Achievement Revival Expert ('Revive Game' Tool Level 1) -->
+    <string name="achievement_revival_expert" translatable="false">CgkIj57DhMoUEAIQMA</string>
+    <!-- Achievement Cure All ('Revive Game' Tool Level 2) -->
+    <string name="achievement_cure_all" translatable="false">CgkIj57DhMoUEAIQMQ</string>
+    <!-- Achievement Fountain of Life ('Revive Game' Tool Level 3) -->
+    <string name="achievement_fountain_of_life" translatable="false">CgkIj57DhMoUEAIQMg</string>
     
     <!-- ## Leaderboards are listed as follows -->
 
@@ -116,6 +124,8 @@
     <string name="leaderboard_eliminate_value_tool_masters" translatable="false">CgkIj57DhMoUEAIQJw</string>
     <!-- Leaderboard -> 'Destroy Area' Tool Masters Leaderboard -->
     <string name="leaderboard_destroy_area_tool_masters" translatable="false">CgkIj57DhMoUEAIQKw</string>
+    <!-- Leaderboard -> 'Revive Game' Tool Masters Leaderboard -->
+    <string name="leaderboard_revive_game_tool_masters" translatable="false">CgkIj57DhMoUEAIQLw</string>
 
         <!-- # Temporary Leaderboards are as follows -->
     <!-- Leaderboard for Arriving Game Modes-->

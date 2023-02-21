@@ -1337,6 +1337,11 @@ public class GameActivity extends AppCompatActivity implements
                     // Update the reduced number of coins
                     currentCoins -= toolsCostMap.get("mysteryToolsReviveGameCost");
                     updateCoins(currentCoins);
+                    // Update the count of tool use
+                    if (gameManager.getAchievementsManager().incrementReviveGameToolUseCount()) {
+                        gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_revive_game_tool_masters),
+                                gameManager.getAchievementsManager().getReviveGameToolCurrentUseCount());
+                    }
                 }
             }.start();
         } else {

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import com.example.gameside2048champs.enums.ChangeValueToolAchievements;
 import com.example.gameside2048champs.enums.DestroyAreaToolAchievements;
 import com.example.gameside2048champs.enums.EliminateValueToolAchievements;
+import com.example.gameside2048champs.enums.ReviveGameToolAchievements;
 import com.example.gameside2048champs.enums.ScoringAchievements;
 import com.example.gameside2048champs.enums.SmashTileToolAchievements;
 import com.example.gameside2048champs.enums.SwapTilesToolAchievements;
@@ -93,6 +94,15 @@ public class AchievementsManager {
        (STATE_HIDDEN/STATE_REVEALED/STATE_UNLOCKED) ]
     */
     private Map<DestroyAreaToolAchievements, Integer> destroyAreaToolAchievements;
+
+    /** Attributes related to -> 'Revive Game' Tool Use Achievements **/
+    private int reviveGameToolUseCountSubmitted;
+    private int reviveGameToolCurrentUseCount;
+    /* A map to keep track of all 'Revive Game' Tool Use Achievements
+       [Element = 'Revive Game' Tool Use Achievement enum, Current State of achievement
+       (STATE_HIDDEN/STATE_REVEALED/STATE_UNLOCKED) ]
+    */
+    private Map<ReviveGameToolAchievements, Integer> reviveGameToolAchievements;
 
     AchievementsManager(Context context) {
         this.context = context;
@@ -563,6 +573,64 @@ public class AchievementsManager {
 
         sharedPreferences.edit().putInt("destroyAreaToolCurrentUseCount", destroyAreaToolCurrentUseCount).apply();
         sharedPreferences.edit().putInt("destroyAreaToolUseCountSubmitted", destroyAreaToolUseCountSubmitted).apply();
+        return isScoreToBeSubmittedToLeaderboard;
+    }
+
+    // Here, we return 'true' if the score needs to be submitted to the 'Revive Game' tool use leaderboard & 'false' otherwise
+    public boolean incrementReviveGameToolUseCount() {
+        boolean isScoreToBeSubmittedToLeaderboard = false;
+        reviveGameToolCurrentUseCount += 1;
+        if (reviveGameToolCurrentUseCount >= reviveGameToolUseCountSubmitted + 10) { // Here, we need to update GPGS data
+            reviveGameToolUseCountSubmitted = reviveGameToolCurrentUseCount;
+
+            // Here, we setSteps() for appropriate achievement
+            if (reviveGameToolCurrentUseCount >= 0 && reviveGameToolCurrentUseCount <= 50) {
+                ReviveGameToolAchievements reviveGameToolAchievementInRange = ReviveGameToolAchievements.REVIVE_GAME_TOOL_ACHIEVEMENT_LEVEL_1;
+                achievementsClient.setSteps(context.getString(reviveGameToolAchievementInRange.getAchievementStringResourceId()),
+                        reviveGameToolCurrentUseCount);
+                if (reviveGameToolCurrentUseCount == 50) {
+                    sharedPreferences.edit().putInt("reviveGameToolAchievement" + "_" + context.getString(reviveGameToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+
+                    ReviveGameToolAchievements reviveGameToolAchievementNextUp = ReviveGameToolAchievements.REVIVE_GAME_TOOL_ACHIEVEMENT_LEVEL_2;
+                    achievementsClient.reveal(context.getString(reviveGameToolAchievementNextUp.getAchievementStringResourceId()));
+                    sharedPreferences.edit().putInt("reviveGameToolAchievement" + "_" + context.getString(reviveGameToolAchievementNextUp
+                            .getAchievementStringResourceId()), Achievement.STATE_REVEALED).apply();
+
+                    achievementsClient.setSteps(context.getString(reviveGameToolAchievementNextUp.getAchievementStringResourceId()),
+                            reviveGameToolCurrentUseCount);
+                }
+            } else if (reviveGameToolCurrentUseCount > 50 && reviveGameToolCurrentUseCount <= 100) {
+                ReviveGameToolAchievements reviveGameToolAchievementInRange = ReviveGameToolAchievements.REVIVE_GAME_TOOL_ACHIEVEMENT_LEVEL_2;
+                achievementsClient.setSteps(context.getString(reviveGameToolAchievementInRange.getAchievementStringResourceId()),
+                        reviveGameToolCurrentUseCount);
+                if (reviveGameToolCurrentUseCount == 100) {
+                    sharedPreferences.edit().putInt("reviveGameToolAchievement" + "_" + context.getString(reviveGameToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+
+                    ReviveGameToolAchievements reviveGameToolAchievementNextUp = ReviveGameToolAchievements.REVIVE_GAME_TOOL_ACHIEVEMENT_LEVEL_3;
+                    achievementsClient.reveal(context.getString(reviveGameToolAchievementNextUp.getAchievementStringResourceId()));
+                    sharedPreferences.edit().putInt("reviveGameToolAchievement" + "_" + context.getString(reviveGameToolAchievementNextUp
+                            .getAchievementStringResourceId()), Achievement.STATE_REVEALED).apply();
+
+                    achievementsClient.setSteps(context.getString(reviveGameToolAchievementNextUp.getAchievementStringResourceId()),
+                            reviveGameToolCurrentUseCount);
+                }
+            } else if (reviveGameToolCurrentUseCount > 100 && reviveGameToolCurrentUseCount <= 200) {
+                ReviveGameToolAchievements reviveGameToolAchievementInRange = ReviveGameToolAchievements.REVIVE_GAME_TOOL_ACHIEVEMENT_LEVEL_3;
+                achievementsClient.setSteps(context.getString(reviveGameToolAchievementInRange.getAchievementStringResourceId()),
+                        reviveGameToolCurrentUseCount);
+                if (reviveGameToolCurrentUseCount == 200) {
+                    sharedPreferences.edit().putInt("reviveGameToolAchievement" + "_" + context.getString(reviveGameToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+                }
+            }
+
+            isScoreToBeSubmittedToLeaderboard = true;
+        }
+
+        sharedPreferences.edit().putInt("reviveGameToolCurrentUseCount", reviveGameToolCurrentUseCount).apply();
+        sharedPreferences.edit().putInt("reviveGameToolUseCountSubmitted", reviveGameToolUseCountSubmitted).apply();
         return isScoreToBeSubmittedToLeaderboard;
     }
 }
