@@ -60,6 +60,14 @@
     <string name="achievement_wizard" translatable="false">CgkIj57DhMoUEAIQJQ</string>
     <!-- Achievement Sorcerer Supreme ('Change Value' Tool Level 3) -->
     <string name="achievement_sorcerer_supreme" translatable="false">CgkIj57DhMoUEAIQJg</string>
+
+        <!-- # 'Eliminate Value' Tool Achievements are as follows -->
+    <!-- Achievement Genin ('Eliminate Value' Tool Level 1) -->
+    <string name="achievement_genin" translatable="false">CgkIj57DhMoUEAIQKA</string>
+    <!-- Achievement Chunin ('Eliminate Value' Tool Level 2) -->
+    <string name="achievement_chunin" translatable="false">CgkIj57DhMoUEAIQKQ</string>
+    <!-- Achievement Jonin ('Eliminate Value' Tool Level 3) -->
+    <string name="achievement_jonin" translatable="false">CgkIj57DhMoUEAIQKg</string>
     
     <!-- ## Leaderboards are listed as follows -->
 
@@ -96,6 +104,8 @@
     <string name="leaderboard_swap_tiles_tool_masters" translatable="false">CgkIj57DhMoUEAIQHw</string>
     <!-- Leaderboard -> 'Change Value' Tool Masters Leaderboard -->
     <string name="leaderboard_change_value_tool_masters" translatable="false">CgkIj57DhMoUEAIQIw</string>
+    <!-- Leaderboard -> 'Eliminate Value' Tool Masters Leaderboard -->
+    <string name="leaderboard_eliminate_value_tool_masters" translatable="false">CgkIj57DhMoUEAIQJw</string>
 
         <!-- # Temporary Leaderboards are as follows -->
     <!-- Leaderboard for Arriving Game Modes-->

@@ -1634,6 +1634,11 @@ public class GameActivity extends AppCompatActivity implements
         updateCoins(currentCoins);
 
         // Final set of actions
+            // Update the count of tool use
+        if (gameManager.getAchievementsManager().incrementEliminateValueToolUseCount()) {
+            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_eliminate_value_tool_masters),
+                    gameManager.getAchievementsManager().getEliminateValueToolCurrentUseCount());
+        }
         saveGameState(false);
         handleGoalCompletionStatus();
         onBackPressed();

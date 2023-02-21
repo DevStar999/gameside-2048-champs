@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.gameside2048champs.enums.ChangeValueToolAchievements;
+import com.example.gameside2048champs.enums.EliminateValueToolAchievements;
 import com.example.gameside2048champs.enums.ScoringAchievements;
 import com.example.gameside2048champs.enums.SmashTileToolAchievements;
 import com.example.gameside2048champs.enums.SwapTilesToolAchievements;
@@ -73,6 +74,15 @@ public class AchievementsManager {
        (STATE_HIDDEN/STATE_REVEALED/STATE_UNLOCKED) ]
     */
     private Map<ChangeValueToolAchievements, Integer> changeValueToolAchievements;
+
+    /** Attributes related to -> 'Eliminate Value' Tool Use Achievements **/
+    private int eliminateValueToolUseCountSubmitted;
+    private int eliminateValueToolCurrentUseCount;
+    /* A map to keep track of all 'Eliminate Value' Tool Use Achievements
+       [Element = 'Eliminate Value' Tool Use Achievement enum, Current State of achievement
+       (STATE_HIDDEN/STATE_REVEALED/STATE_UNLOCKED) ]
+    */
+    private Map<EliminateValueToolAchievements, Integer> eliminateValueToolAchievements;
 
     AchievementsManager(Context context) {
         this.context = context;
@@ -143,6 +153,18 @@ public class AchievementsManager {
                     context.getString(currentChangeValueToolAchievement.getAchievementStringResourceId()),
                     currentChangeValueToolAchievement.getInitialAchievementState());
             changeValueToolAchievements.put(currentChangeValueToolAchievement, currentStateOfAchievement);
+        }
+
+        // 'Eliminate Value' Tool use achievements are initialised as follows
+        eliminateValueToolUseCountSubmitted = sharedPreferences.getInt("eliminateValueToolUseCountSubmitted", 0);
+        eliminateValueToolCurrentUseCount = sharedPreferences.getInt("eliminateValueToolCurrentUseCount", eliminateValueToolUseCountSubmitted);
+        eliminateValueToolAchievements = new HashMap<>();
+        for (int index = 0; index < EliminateValueToolAchievements.values().length; index++) {
+            EliminateValueToolAchievements currentEliminateValueToolAchievement = EliminateValueToolAchievements.values()[index];
+            int currentStateOfAchievement = sharedPreferences.getInt("eliminateValueToolAchievement" + "_" +
+                    context.getString(currentEliminateValueToolAchievement.getAchievementStringResourceId()),
+                    currentEliminateValueToolAchievement.getInitialAchievementState());
+            eliminateValueToolAchievements.put(currentEliminateValueToolAchievement, currentStateOfAchievement);
         }
     }
 
@@ -351,7 +373,7 @@ public class AchievementsManager {
     // Here, we return 'true' if the score needs to be submitted to the 'Change Value' tool use leaderboard & 'false' otherwise
     public boolean incrementChangeValueToolUseCount() {
         boolean isScoreToBeSubmittedToLeaderboard = false;
-        changeValueToolCurrentUseCount += 25; // TODO -> Revert '25' back to '1' (After testing code)
+        changeValueToolCurrentUseCount += 1;
         if (changeValueToolCurrentUseCount >= changeValueToolUseCountSubmitted + 10) { // Here, we need to update GPGS data
             changeValueToolUseCountSubmitted = changeValueToolCurrentUseCount;
 
@@ -403,6 +425,64 @@ public class AchievementsManager {
 
         sharedPreferences.edit().putInt("changeValueToolCurrentUseCount", changeValueToolCurrentUseCount).apply();
         sharedPreferences.edit().putInt("changeValueToolUseCountSubmitted", changeValueToolUseCountSubmitted).apply();
+        return isScoreToBeSubmittedToLeaderboard;
+    }
+
+    // Here, we return 'true' if the score needs to be submitted to the 'Eliminate Value' tool use leaderboard & 'false' otherwise
+    public boolean incrementEliminateValueToolUseCount() {
+        boolean isScoreToBeSubmittedToLeaderboard = false;
+        eliminateValueToolCurrentUseCount += 1;
+        if (eliminateValueToolCurrentUseCount >= eliminateValueToolUseCountSubmitted + 10) { // Here, we need to update GPGS data
+            eliminateValueToolUseCountSubmitted = eliminateValueToolCurrentUseCount;
+
+            // Here, we setSteps() for appropriate achievement
+            if (eliminateValueToolCurrentUseCount >= 0 && eliminateValueToolCurrentUseCount <= 100) {
+                EliminateValueToolAchievements eliminateValueToolAchievementInRange = EliminateValueToolAchievements.ELIMINATE_VALUE_TOOL_ACHIEVEMENT_LEVEL_1;
+                achievementsClient.setSteps(context.getString(eliminateValueToolAchievementInRange.getAchievementStringResourceId()),
+                        eliminateValueToolCurrentUseCount);
+                if (eliminateValueToolCurrentUseCount == 100) {
+                    sharedPreferences.edit().putInt("eliminateValueToolAchievement" + "_" + context.getString(eliminateValueToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+
+                    EliminateValueToolAchievements eliminateValueToolAchievementNextUp = EliminateValueToolAchievements.ELIMINATE_VALUE_TOOL_ACHIEVEMENT_LEVEL_2;
+                    achievementsClient.reveal(context.getString(eliminateValueToolAchievementNextUp.getAchievementStringResourceId()));
+                    sharedPreferences.edit().putInt("eliminateValueToolAchievement" + "_" + context.getString(eliminateValueToolAchievementNextUp
+                            .getAchievementStringResourceId()), Achievement.STATE_REVEALED).apply();
+
+                    achievementsClient.setSteps(context.getString(eliminateValueToolAchievementNextUp.getAchievementStringResourceId()),
+                            eliminateValueToolCurrentUseCount);
+                }
+            } else if (eliminateValueToolCurrentUseCount > 100 && eliminateValueToolCurrentUseCount <= 250) {
+                EliminateValueToolAchievements eliminateValueToolAchievementInRange = EliminateValueToolAchievements.ELIMINATE_VALUE_TOOL_ACHIEVEMENT_LEVEL_2;
+                achievementsClient.setSteps(context.getString(eliminateValueToolAchievementInRange.getAchievementStringResourceId()),
+                        eliminateValueToolCurrentUseCount);
+                if (eliminateValueToolCurrentUseCount == 250) {
+                    sharedPreferences.edit().putInt("eliminateValueToolAchievement" + "_" + context.getString(eliminateValueToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+
+                    EliminateValueToolAchievements eliminateValueToolAchievementNextUp = EliminateValueToolAchievements.ELIMINATE_VALUE_TOOL_ACHIEVEMENT_LEVEL_3;
+                    achievementsClient.reveal(context.getString(eliminateValueToolAchievementNextUp.getAchievementStringResourceId()));
+                    sharedPreferences.edit().putInt("eliminateValueToolAchievement" + "_" + context.getString(eliminateValueToolAchievementNextUp
+                            .getAchievementStringResourceId()), Achievement.STATE_REVEALED).apply();
+
+                    achievementsClient.setSteps(context.getString(eliminateValueToolAchievementNextUp.getAchievementStringResourceId()),
+                            eliminateValueToolCurrentUseCount);
+                }
+            } else if (eliminateValueToolCurrentUseCount > 250 && eliminateValueToolCurrentUseCount <= 500) {
+                EliminateValueToolAchievements eliminateValueToolAchievementInRange = EliminateValueToolAchievements.ELIMINATE_VALUE_TOOL_ACHIEVEMENT_LEVEL_3;
+                achievementsClient.setSteps(context.getString(eliminateValueToolAchievementInRange.getAchievementStringResourceId()),
+                        eliminateValueToolCurrentUseCount);
+                if (eliminateValueToolCurrentUseCount == 500) {
+                    sharedPreferences.edit().putInt("eliminateValueToolAchievement" + "_" + context.getString(eliminateValueToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+                }
+            }
+
+            isScoreToBeSubmittedToLeaderboard = true;
+        }
+
+        sharedPreferences.edit().putInt("eliminateValueToolCurrentUseCount", eliminateValueToolCurrentUseCount).apply();
+        sharedPreferences.edit().putInt("eliminateValueToolUseCountSubmitted", eliminateValueToolUseCountSubmitted).apply();
         return isScoreToBeSubmittedToLeaderboard;
     }
 }
