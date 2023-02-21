@@ -53,6 +53,14 @@
     <!-- Achievement Switcheroo ('Swap Tiles' Tool Level 3) -->
     <string name="achievement_switcheroo" translatable="false">CgkIj57DhMoUEAIQIg</string>
 
+        <!-- # 'Change Value' Tool Achievements are as follows -->
+    <!-- Achievement Charlatan ('Change Value' Tool Level 1) -->
+    <string name="achievement_charlatan" translatable="false">CgkIj57DhMoUEAIQJA</string>
+    <!-- Achievement Wizard ('Change Value' Tool Level 2) -->
+    <string name="achievement_wizard" translatable="false">CgkIj57DhMoUEAIQJQ</string>
+    <!-- Achievement Sorcerer Supreme ('Change Value' Tool Level 3) -->
+    <string name="achievement_sorcerer_supreme" translatable="false">CgkIj57DhMoUEAIQJg</string>
+    
     <!-- ## Leaderboards are listed as follows -->
 
         <!-- # Game Mode Leaderboards are listed as follows -->
@@ -86,6 +94,8 @@
     <string name="leaderboard_smash_tile_tool_masters" translatable="false">CgkIj57DhMoUEAIQGw</string>
     <!-- Leaderboard -> 'Swap Tiles' Tool Masters Leaderboard -->
     <string name="leaderboard_swap_tiles_tool_masters" translatable="false">CgkIj57DhMoUEAIQHw</string>
+    <!-- Leaderboard -> 'Change Value' Tool Masters Leaderboard -->
+    <string name="leaderboard_change_value_tool_masters" translatable="false">CgkIj57DhMoUEAIQIw</string>
 
         <!-- # Temporary Leaderboards are as follows -->
     <!-- Leaderboard for Arriving Game Modes-->

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.gameside2048champs.enums.ChangeValueToolAchievements;
 import com.example.gameside2048champs.enums.ScoringAchievements;
 import com.example.gameside2048champs.enums.SmashTileToolAchievements;
 import com.example.gameside2048champs.enums.SwapTilesToolAchievements;
@@ -64,6 +65,15 @@ public class AchievementsManager {
     */
     private Map<SwapTilesToolAchievements, Integer> swapTilesToolAchievements;
 
+    /** Attributes related to -> 'Change Value' Tool Use Achievements **/
+    private int changeValueToolUseCountSubmitted;
+    private int changeValueToolCurrentUseCount;
+    /* A map to keep track of all 'Change Value' Tool Use Achievements
+       [Element = 'Change Value' Tool Use Achievement enum, Current State of achievement
+       (STATE_HIDDEN/STATE_REVEALED/STATE_UNLOCKED) ]
+    */
+    private Map<ChangeValueToolAchievements, Integer> changeValueToolAchievements;
+
     AchievementsManager(Context context) {
         this.context = context;
         sharedPreferences = context.getSharedPreferences("com.nerdcoredevelopment.game2048champsfinal", Context.MODE_PRIVATE);
@@ -121,6 +131,18 @@ public class AchievementsManager {
                     context.getString(currentSwapTilesToolAchievement.getAchievementStringResourceId()),
                     currentSwapTilesToolAchievement.getInitialAchievementState());
             swapTilesToolAchievements.put(currentSwapTilesToolAchievement, currentStateOfAchievement);
+        }
+
+        // 'Change Value' Tool use achievements are initialised as follows
+        changeValueToolUseCountSubmitted = sharedPreferences.getInt("changeValueToolUseCountSubmitted", 0);
+        changeValueToolCurrentUseCount = sharedPreferences.getInt("changeValueToolCurrentUseCount", changeValueToolUseCountSubmitted);
+        changeValueToolAchievements = new HashMap<>();
+        for (int index = 0; index < ChangeValueToolAchievements.values().length; index++) {
+            ChangeValueToolAchievements currentChangeValueToolAchievement = ChangeValueToolAchievements.values()[index];
+            int currentStateOfAchievement = sharedPreferences.getInt("changeValueToolAchievement" + "_" +
+                    context.getString(currentChangeValueToolAchievement.getAchievementStringResourceId()),
+                    currentChangeValueToolAchievement.getInitialAchievementState());
+            changeValueToolAchievements.put(currentChangeValueToolAchievement, currentStateOfAchievement);
         }
     }
 
@@ -323,6 +345,64 @@ public class AchievementsManager {
 
         sharedPreferences.edit().putInt("swapTilesToolCurrentUseCount", swapTilesToolCurrentUseCount).apply();
         sharedPreferences.edit().putInt("swapTilesToolUseCountSubmitted", swapTilesToolUseCountSubmitted).apply();
+        return isScoreToBeSubmittedToLeaderboard;
+    }
+
+    // Here, we return 'true' if the score needs to be submitted to the 'Change Value' tool use leaderboard & 'false' otherwise
+    public boolean incrementChangeValueToolUseCount() {
+        boolean isScoreToBeSubmittedToLeaderboard = false;
+        changeValueToolCurrentUseCount += 25; // TODO -> Revert '25' back to '1' (After testing code)
+        if (changeValueToolCurrentUseCount >= changeValueToolUseCountSubmitted + 10) { // Here, we need to update GPGS data
+            changeValueToolUseCountSubmitted = changeValueToolCurrentUseCount;
+
+            // Here, we setSteps() for appropriate achievement
+            if (changeValueToolCurrentUseCount >= 0 && changeValueToolCurrentUseCount <= 100) {
+                ChangeValueToolAchievements changeValueToolAchievementInRange = ChangeValueToolAchievements.CHANGE_VALUE_TOOL_ACHIEVEMENT_LEVEL_1;
+                achievementsClient.setSteps(context.getString(changeValueToolAchievementInRange.getAchievementStringResourceId()),
+                        changeValueToolCurrentUseCount);
+                if (changeValueToolCurrentUseCount == 100) {
+                    sharedPreferences.edit().putInt("changeValueToolAchievement" + "_" + context.getString(changeValueToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+
+                    ChangeValueToolAchievements changeValueToolAchievementNextUp = ChangeValueToolAchievements.CHANGE_VALUE_TOOL_ACHIEVEMENT_LEVEL_2;
+                    achievementsClient.reveal(context.getString(changeValueToolAchievementNextUp.getAchievementStringResourceId()));
+                    sharedPreferences.edit().putInt("changeValueToolAchievement" + "_" + context.getString(changeValueToolAchievementNextUp
+                            .getAchievementStringResourceId()), Achievement.STATE_REVEALED).apply();
+
+                    achievementsClient.setSteps(context.getString(changeValueToolAchievementNextUp.getAchievementStringResourceId()),
+                            changeValueToolCurrentUseCount);
+                }
+            } else if (changeValueToolCurrentUseCount > 100 && changeValueToolCurrentUseCount <= 250) {
+                ChangeValueToolAchievements changeValueToolAchievementInRange = ChangeValueToolAchievements.CHANGE_VALUE_TOOL_ACHIEVEMENT_LEVEL_2;
+                achievementsClient.setSteps(context.getString(changeValueToolAchievementInRange.getAchievementStringResourceId()),
+                        changeValueToolCurrentUseCount);
+                if (changeValueToolCurrentUseCount == 250) {
+                    sharedPreferences.edit().putInt("changeValueToolAchievement" + "_" + context.getString(changeValueToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+
+                    ChangeValueToolAchievements changeValueToolAchievementNextUp = ChangeValueToolAchievements.CHANGE_VALUE_TOOL_ACHIEVEMENT_LEVEL_3;
+                    achievementsClient.reveal(context.getString(changeValueToolAchievementNextUp.getAchievementStringResourceId()));
+                    sharedPreferences.edit().putInt("changeValueToolAchievement" + "_" + context.getString(changeValueToolAchievementNextUp
+                            .getAchievementStringResourceId()), Achievement.STATE_REVEALED).apply();
+
+                    achievementsClient.setSteps(context.getString(changeValueToolAchievementNextUp.getAchievementStringResourceId()),
+                            changeValueToolCurrentUseCount);
+                }
+            } else if (changeValueToolCurrentUseCount > 250 && changeValueToolCurrentUseCount <= 500) {
+                ChangeValueToolAchievements changeValueToolAchievementInRange = ChangeValueToolAchievements.CHANGE_VALUE_TOOL_ACHIEVEMENT_LEVEL_3;
+                achievementsClient.setSteps(context.getString(changeValueToolAchievementInRange.getAchievementStringResourceId()),
+                        changeValueToolCurrentUseCount);
+                if (changeValueToolCurrentUseCount == 500) {
+                    sharedPreferences.edit().putInt("changeValueToolAchievement" + "_" + context.getString(changeValueToolAchievementInRange
+                            .getAchievementStringResourceId()), Achievement.STATE_UNLOCKED).apply();
+                }
+            }
+
+            isScoreToBeSubmittedToLeaderboard = true;
+        }
+
+        sharedPreferences.edit().putInt("changeValueToolCurrentUseCount", changeValueToolCurrentUseCount).apply();
+        sharedPreferences.edit().putInt("changeValueToolUseCountSubmitted", changeValueToolUseCountSubmitted).apply();
         return isScoreToBeSubmittedToLeaderboard;
     }
 }
