@@ -11,9 +11,9 @@ import lombok.Getter;
 public enum UndoToolAchievements {
     UNDO_TOOL_ACHIEVEMENT_LEVEL_1("Uno Reverse", R.string.achievement_uno_reverse,
             1, 100, STATE_REVEALED),
-    UNDO_TOOL_ACHIEVEMENT_LEVEL_2("Reverse Engineer ↩️", R.string.achievement_reverse_engineer,
+    UNDO_TOOL_ACHIEVEMENT_LEVEL_2("Reverse Engineer", R.string.achievement_reverse_engineer,
             2, 250, STATE_HIDDEN),
-    UNDO_TOOL_ACHIEVEMENT_LEVEL_3("Time Traveller \uD83D\uDD70", R.string.achievement_time_traveller,
+    UNDO_TOOL_ACHIEVEMENT_LEVEL_3("Time Traveller", R.string.achievement_time_traveller,
             3, 500, STATE_HIDDEN);
 
     private String nameOfAchievement; // Name as per the name given in the Google Play Games project
