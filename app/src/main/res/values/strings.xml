@@ -12,29 +12,29 @@
     <string name="achievement_novice" translatable="false">CgkIj57DhMoUEAIQAw</string>
     <!-- Achievement Skilled (Scoring Level 2) -->
     <string name="achievement_skilled" translatable="false">CgkIj57DhMoUEAIQBA</string>
-    <!-- Achievement Genius 🤓 (Scoring Level 3) -->
+    <!-- Achievement Genius (Scoring Level 3) -->
     <string name="achievement_genius" translatable="false">CgkIj57DhMoUEAIQBQ</string>
-    <!-- Achievement Champion 👑 (Scoring Level 4) -->
+    <!-- Achievement Champion (Scoring Level 4) -->
     <string name="achievement_champion" translatable="false">CgkIj57DhMoUEAIQBg</string>
-    <!-- Achievement God Tier 💫 (Scoring Leve 5) -->
+    <!-- Achievement God Tier (Scoring Leve 5) -->
     <string name="achievement_god_tier" translatable="false">CgkIj57DhMoUEAIQBw</string>
 
         <!-- # Tile Unlock Achievements are as follows -->
     <!-- Achievement Masterful (Tile Unlock Level 1) -->
     <string name="achievement_masterful" translatable="false">CgkIj57DhMoUEAIQCA</string>
-    <!-- Achievement Brainiac 🧠 (Tile Unlock Level 2) -->
+    <!-- Achievement Brainiac (Tile Unlock Level 2) -->
     <string name="achievement_brainiac" translatable="false">CgkIj57DhMoUEAIQCQ</string>
-    <!-- Achievement Gifted 🎁 (Tile Unlock Level 3) -->
+    <!-- Achievement Gifted (Tile Unlock Level 3) -->
     <string name="achievement_gifted" translatable="false">CgkIj57DhMoUEAIQFQ</string>
-    <!-- Achievement Enigma 🤹 (Tile Unlock Level 4) -->
+    <!-- Achievement Enigma (Tile Unlock Level 4) -->
     <string name="achievement_enigma" translatable="false">CgkIj57DhMoUEAIQFg</string>
 
         <!-- # 'Undo' Tool Achievements are as follows -->
     <!-- Achievement Uno Reverse ('Undo' Tool Level 1) -->
     <string name="achievement_uno_reverse" translatable="false">CgkIj57DhMoUEAIQGA</string>
-    <!-- Achievement Reverse Engineer ↩️ ('Undo' Tool Level 2) -->
+    <!-- Achievement Reverse Engineer ('Undo' Tool Level 2) -->
     <string name="achievement_reverse_engineer" translatable="false">CgkIj57DhMoUEAIQGQ</string>
-    <!-- Achievement Time Traveller 🕰 ('Undo' Tool Level 3) -->
+    <!-- Achievement Time Traveller ('Undo' Tool Level 3) -->
     <string name="achievement_time_traveller" translatable="false">CgkIj57DhMoUEAIQFw</string>
 
         <!-- # 'Smash Tile' Tool Achievements are as follows -->
