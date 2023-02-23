@@ -68,7 +68,7 @@
     <string name="achievement_chunin" translatable="false">CgkIj57DhMoUEAIQKQ</string>
     <!-- Achievement Jonin ('Eliminate Value' Tool Level 3) -->
     <string name="achievement_jonin" translatable="false">CgkIj57DhMoUEAIQKg</string>
-    
+
         <!-- # 'Destroy Area' Tool Achievements are as follows -->
     <!-- Achievement Grenadier ('Destroy Area' Tool Level 1) -->
     <string name="achievement_grenadier" translatable="false">CgkIj57DhMoUEAIQLA</string>
@@ -77,14 +77,14 @@
     <!-- Achievement Carnage ('Destroy Area' Tool Level 3) -->
     <string name="achievement_carnage" translatable="false">CgkIj57DhMoUEAIQLg</string>
 
-        <!-- # 'Revive Game' Tool Achievements are as follows -->
+    <!-- # 'Revive Game' Tool Achievements are as follows -->
     <!-- Achievement Revival Expert ('Revive Game' Tool Level 1) -->
     <string name="achievement_revival_expert" translatable="false">CgkIj57DhMoUEAIQMA</string>
     <!-- Achievement Cure All ('Revive Game' Tool Level 2) -->
     <string name="achievement_cure_all" translatable="false">CgkIj57DhMoUEAIQMQ</string>
     <!-- Achievement Fountain of Life ('Revive Game' Tool Level 3) -->
     <string name="achievement_fountain_of_life" translatable="false">CgkIj57DhMoUEAIQMg</string>
-    
+
     <!-- ## Leaderboards are listed as follows -->
 
         <!-- # Game Mode Leaderboards are listed as follows -->
