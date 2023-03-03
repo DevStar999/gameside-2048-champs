@@ -29,6 +29,16 @@
     <!-- Achievement Enigma (Tile Unlock Level 4) -->
     <string name="achievement_enigma" translatable="false">CgkIj57DhMoUEAIQFg</string>
 
+        <!-- Early Out Achievements are as follows -->
+    <!-- Achievement Newbie (Loss before score 1000) -->
+    <string name="achievement_newbie" translatable="false">CgkIj57DhMoUEAIQMw</string>
+    <!-- Achievement Rookie (Loss before the reaching tile '256') -->
+    <string name="achievement_rookie" translatable="false">CgkIj57DhMoUEAIQNA</string>
+    <!-- Achievement Trickster (Loss before score 500) -->
+    <string name="achievement_trickster" translatable="false">CgkIj57DhMoUEAIQNQ</string>
+    <!-- Achievement Scammer (Loss before the reaching tile '128') -->
+    <string name="achievement_scammer" translatable="false">CgkIj57DhMoUEAIQNg</string>
+
         <!-- # 'Undo' Tool Achievements are as follows -->
     <!-- Achievement Uno Reverse ('Undo' Tool Level 1) -->
     <string name="achievement_uno_reverse" translatable="false">CgkIj57DhMoUEAIQGA</string>
@@ -77,7 +87,7 @@
     <!-- Achievement Carnage ('Destroy Area' Tool Level 3) -->
     <string name="achievement_carnage" translatable="false">CgkIj57DhMoUEAIQLg</string>
 
-    <!-- # 'Revive Game' Tool Achievements are as follows -->
+        <!-- # 'Revive Game' Tool Achievements are as follows -->
     <!-- Achievement Revival Expert ('Revive Game' Tool Level 1) -->
     <string name="achievement_revival_expert" translatable="false">CgkIj57DhMoUEAIQMA</string>
     <!-- Achievement Cure All ('Revive Game' Tool Level 2) -->

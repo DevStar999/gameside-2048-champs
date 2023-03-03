@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 
 import com.example.gameside2048champs.enums.ChangeValueToolAchievements;
 import com.example.gameside2048champs.enums.DestroyAreaToolAchievements;
+import com.example.gameside2048champs.enums.EarlyOutAchievementType;
+import com.example.gameside2048champs.enums.EarlyOutAchievements;
 import com.example.gameside2048champs.enums.EliminateValueToolAchievements;
 import com.example.gameside2048champs.enums.ReviveGameToolAchievements;
 import com.example.gameside2048champs.enums.ScoringAchievements;
@@ -41,6 +43,13 @@ public class AchievementsManager {
        [Element = Tile Unlock Achievement enum, Boolean if the achievement has been unlocked or not]
     */
     private Map<TileUnlockAchievements, Boolean> tileUnlockAchievements;
+
+
+    /** Attributes related to -> Early Out Achievements **/
+    /* A map to keep track of all Early Out Achievements
+       [Element = Early Out Achievement enum, Boolean if the achievement has been unlocked or not]
+    */
+    private Map<EarlyOutAchievements, Boolean> earlyOutAchievements;
 
     /** Attributes related to -> 'Undo' Tool Use Achievements **/
     private int undoToolUseCountSubmitted;
@@ -127,6 +136,15 @@ public class AchievementsManager {
             tileUnlockAchievements.put(currentTileUnlockAchievement, isCurrentAchievementUnlocked);
         }
 
+        // Early out achievements are initialised as follows
+        earlyOutAchievements = new HashMap<>();
+        for (int index = 0; index < EarlyOutAchievements.values().length; index++) {
+            EarlyOutAchievements currentEarlyOutAchievement = EarlyOutAchievements.values()[index];
+            boolean isCurrentAchievementUnlocked = sharedPreferences.getBoolean("earlyOutAchievement" + "_" +
+                    context.getString(currentEarlyOutAchievement.getAchievementStringResourceId()), false);
+            earlyOutAchievements.put(currentEarlyOutAchievement, isCurrentAchievementUnlocked);
+        }
+
         // 'Undo' Tool use achievements are initialised as follows
         undoToolUseCountSubmitted = sharedPreferences.getInt("undoToolUseCountSubmitted", 0);
         undoToolCurrentUseCount = sharedPreferences.getInt("undoToolCurrentUseCount", undoToolUseCountSubmitted);
@@ -198,6 +216,18 @@ public class AchievementsManager {
                     currentDestroyAreaToolAchievement.getInitialAchievementState());
             destroyAreaToolAchievements.put(currentDestroyAreaToolAchievement, currentStateOfAchievement);
         }
+
+        // 'Revive Game' Tool use achievements are initialised as follows
+        reviveGameToolUseCountSubmitted = sharedPreferences.getInt("reviveGameToolUseCountSubmitted", 0);
+        reviveGameToolCurrentUseCount = sharedPreferences.getInt("reviveGameToolCurrentUseCount", reviveGameToolUseCountSubmitted);
+        reviveGameToolAchievements = new HashMap<>();
+        for (int index = 0; index < ReviveGameToolAchievements.values().length; index++) {
+            ReviveGameToolAchievements currentReviveGameToolAchievement = ReviveGameToolAchievements.values()[index];
+            int currentStateOfAchievement = sharedPreferences.getInt("reviveGameToolAchievement" + "_" +
+                            context.getString(currentReviveGameToolAchievement.getAchievementStringResourceId()),
+                    currentReviveGameToolAchievement.getInitialAchievementState());
+            reviveGameToolAchievements.put(currentReviveGameToolAchievement, currentStateOfAchievement);
+        }
     }
 
     public void checkScoringAchievements(long givenScore) {
@@ -224,6 +254,30 @@ public class AchievementsManager {
                 achievementsClient.unlock(context.getString(currentTileUnlockAchievement.getAchievementStringResourceId()));
                 sharedPreferences.edit().putBoolean("tileUnlockAchievement" + "_" +
                         context.getString(currentTileUnlockAchievement.getAchievementStringResourceId()), true).apply();
+            }
+        }
+    }
+
+    public void checkEarlyOutAchievements(long givenHighestTileValue, long givenCurrentScore) {
+        for (Map.Entry<EarlyOutAchievements, Boolean> element: earlyOutAchievements.entrySet()) {
+            EarlyOutAchievements currentEarlyOutAchievement = element.getKey();
+            boolean isAchievementUnlocked = element.getValue();
+            if (currentEarlyOutAchievement.getEarlyOutAchievementType() == EarlyOutAchievementType.BEFORE_SCORE) {
+                long achievementScore = currentEarlyOutAchievement.getAchievementThreshold();
+                if (givenCurrentScore < achievementScore && !isAchievementUnlocked) {
+                    earlyOutAchievements.put(currentEarlyOutAchievement, true);
+                    achievementsClient.unlock(context.getString(currentEarlyOutAchievement.getAchievementStringResourceId()));
+                    sharedPreferences.edit().putBoolean("earlyOutAchievement" + "_" +
+                            context.getString(currentEarlyOutAchievement.getAchievementStringResourceId()), true).apply();
+                }
+            } else if (currentEarlyOutAchievement.getEarlyOutAchievementType() == EarlyOutAchievementType.BEFORE_TILE) {
+                long achievementTileValue = currentEarlyOutAchievement.getAchievementThreshold();
+                if (givenHighestTileValue < achievementTileValue && !isAchievementUnlocked) {
+                    earlyOutAchievements.put(currentEarlyOutAchievement, true);
+                    achievementsClient.unlock(context.getString(currentEarlyOutAchievement.getAchievementStringResourceId()));
+                    sharedPreferences.edit().putBoolean("earlyOutAchievement" + "_" +
+                            context.getString(currentEarlyOutAchievement.getAchievementStringResourceId()), true).apply();
+                }
             }
         }
     }

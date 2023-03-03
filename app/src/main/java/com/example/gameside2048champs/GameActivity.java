@@ -271,6 +271,9 @@ public class GameActivity extends AppCompatActivity implements
             }
         }
 
+        // Check the early out achievements here
+        gameManager.getAchievementsManager().checkEarlyOutAchievements(gameManager.getHighestTileValueOnBoard(), currentScore);
+
         // Initiate the tool entry transition
         GameOverDialogFragment fragment = GameOverDialogFragment.newInstance(currentScore, bestScore, currentCoins);
         FragmentManager fragmentManager = getSupportFragmentManager();

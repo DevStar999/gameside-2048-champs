@@ -184,6 +184,16 @@ public class GameManager {
         return targetValueTilesPositions;
     }
 
+    public long getHighestTileValueOnBoard() {
+        long highestTileValue = 0;
+        for (int row = 0; row < gameMatrix.size(); row++) {
+            for (int column = 0; column < gameMatrix.get(row).size(); column++) {
+                highestTileValue = Math.max(highestTileValue, gameMatrix.get(row).get(column));
+            }
+        }
+        return highestTileValue;
+    }
+
     public void updateGameMatrixPostUndo(List<List<Long>> previousGameState) {
         for (int row = 0; row < currentGameMode.getRows(); row++) {
             for (int column = 0; column < currentGameMode.getColumns(); column++) {
