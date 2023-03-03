@@ -48,7 +48,7 @@ public class GameLayoutProvider {
                 AppCompatImageView imageView = new AppCompatImageView(context);
                 if (gameMode.getBlockCells().get(i).get(j).equals(-1L)) {
                     BlockDesigns selectedBlockDesign = BlockDesigns.valueOf(sharedPreferences
-                            .getString("selectedBlockDrawableEnumName", BlockDesigns.BLOCK_CELL_X.name()));
+                            .getString("selectedBlockDrawableEnumName", BlockDesigns.BLOCK_PIRATE.name()));
                     imageView.setImageResource(selectedBlockDesign.getBlockDrawableResourceId());
                     imageView.setScaleX(selectedBlockDesign.getBlockDrawableScaleX());
                     imageView.setScaleY(selectedBlockDesign.getBlockDrawableScaleY());

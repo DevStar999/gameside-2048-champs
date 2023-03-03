@@ -9,12 +9,10 @@ import lombok.Getter;
 
 @Getter
 public enum BlockDesigns {
-    BLOCK_CELL_X(R.drawable.block_cell_x, R.drawable.block_preview_cell_x, 1f, 1f,
-            0f, 0f), // Preview Image = BLOCK MIDDLE SQ., 5x5
-    BLOCK_DRAGON(R.drawable.block_dragon, R.drawable.block_preview_dragon, 1.1f, 1f,
-            0f, 0f), // Preview Image = BLOCK MIDDLE REC., 4x6
     BLOCK_PIRATE(R.drawable.block_pirate, R.drawable.block_preview_pirate, 1.15f, 1f,
             0f, 0f), // Preview Image = BLOCK 2 CORNERS REC., 4x6
+    BLOCK_DRAGON(R.drawable.block_dragon, R.drawable.block_preview_dragon, 1.1f, 1f,
+            0f, 0f), // Preview Image = BLOCK MIDDLE REC., 4x6
     BLOCK_VIKING(R.drawable.block_viking, R.drawable.block_preview_viking, 1f, 1f,
             0f, 0f), // Preview Image = BLOCK MIDDLE REC., 4x6
     BLOCK_NINJA(R.drawable.block_ninja, R.drawable.block_preview_ninja, 1f, 1f,
@@ -37,6 +35,8 @@ public enum BlockDesigns {
             0f, 0f), // Preview Image = BLOCK MIDDLE SQ., 5x5
     BLOCK_SNOW_MOUNTAIN(R.drawable.block_snow_mountain, R.drawable.block_preview_snow_mountain, 1f, 1.2f,
             0f, 0f), // Preview Image = BLOCK 2 CORNERS SQ., 5x5
+    BLOCK_CELL_X(R.drawable.block_cell_x, R.drawable.block_preview_cell_x, 1f, 1f,
+            0f, 0f), // Preview Image = BLOCK MIDDLE SQ., 5x5
     BLOCK_ALIEN(R.drawable.block_alien, R.drawable.block_preview_alien, 0.95f, 0.95f,
             0f, 0f), // Preview Image = BLOCK MIDDLE SQ., 5x5
     BLOCK_ROCK(R.drawable.block_rock, R.drawable.block_preview_rock, 1f, 1f,
