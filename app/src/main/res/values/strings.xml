@@ -29,7 +29,7 @@
     <!-- Achievement Enigma (Tile Unlock Level 4) -->
     <string name="achievement_enigma" translatable="false">CgkIj57DhMoUEAIQFg</string>
 
-        <!-- Early Out Achievements are as follows -->
+        <!-- # Early Out Achievements are as follows -->
     <!-- Achievement Newbie (Loss before score 1000) -->
     <string name="achievement_newbie" translatable="false">CgkIj57DhMoUEAIQMw</string>
     <!-- Achievement Rookie (Loss before the reaching tile '256') -->
