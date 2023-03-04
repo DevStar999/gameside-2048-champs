@@ -112,12 +112,20 @@
     <string name="leaderboard_5x6__rectangle" translatable="false">CgkIj57DhMoUEAIQDw</string>
     <!-- Leaderboard -> 5x5 - Block Middle Sq. -->
     <string name="leaderboard_5x5__block_middle_sq." translatable="false">CgkIj57DhMoUEAIQEA</string>
+    <!-- Leaderboard -> 6x6 - Block Middle Sq. -->
+    <string name="leaderboard_6x6__block_middle_sq." translatable="false">CgkIj57DhMoUEAIQNw</string>
     <!-- Leaderboard -> 4x6 - Block Middle Rec. -->
     <string name="leaderboard_4x6__block_middle_rec." translatable="false">CgkIj57DhMoUEAIQEQ</string>
+    <!-- Leaderboard -> 5x6 - Block Middle Rec. -->
+    <string name="leaderboard_5x6__block_middle_rec." translatable="false">CgkIj57DhMoUEAIQOA</string>
     <!-- Leaderboard -> 5x5 - Block 2 Corners Sq. -->
     <string name="leaderboard_5x5__block_2_corners_sq." translatable="false">CgkIj57DhMoUEAIQEg</string>
+    <!-- Leaderboard -> 6x6 - Block 2 Corners Sq. -->
+    <string name="leaderboard_6x6__block_2_corners_sq." translatable="false">CgkIj57DhMoUEAIQOQ</string>
     <!-- Leaderboard -> 4x6 - Block 2 Corners Rec. -->
     <string name="leaderboard_4x6__block_2_corners_rec." translatable="false">CgkIj57DhMoUEAIQEw</string>
+    <!-- Leaderboard -> 5x6 - Block 2 Corners Rec. -->
+    <string name="leaderboard_5x6__block_2_corners_rec." translatable="false">CgkIj57DhMoUEAIQOg</string>
 
         <!-- # Miscellaneous Leaderboards are as follows -->
     <!-- Leaderboard -> Coins Leaderboard -->
@@ -136,8 +144,4 @@
     <string name="leaderboard_destroy_area_tool_masters" translatable="false">CgkIj57DhMoUEAIQKw</string>
     <!-- Leaderboard -> 'Revive Game' Tool Masters Leaderboard -->
     <string name="leaderboard_revive_game_tool_masters" translatable="false">CgkIj57DhMoUEAIQLw</string>
-
-        <!-- # Temporary Leaderboards are as follows -->
-    <!-- Leaderboard for Arriving Game Modes-->
-    <string name="leaderboard_arriving_game_modes" translatable="false">00000</string>
 </resources>
