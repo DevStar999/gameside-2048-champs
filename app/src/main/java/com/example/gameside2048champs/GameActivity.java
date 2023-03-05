@@ -618,7 +618,8 @@ public class GameActivity extends AppCompatActivity implements
                         forToolFragmentsIsToolInProgress = ((EliminateValueFragment) topMostFragment).checkToolUseState();
                         handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
                     } else { // For DestroyAreaFragment
-                        // TODO -> Add the handleToolFragmentBackClicked() method for this code block as well
+                        forToolFragmentsIsToolInProgress = ((DestroyAreaFragment) topMostFragment).checkSecondClickStatus();
+                        handleToolFragmentBackClicked(forToolFragmentsIsToolInProgress);
                     }
 
                     if (!forToolFragmentsIsToolInProgress) { // If tool is not in use, we can safely close the fragment
@@ -960,9 +961,9 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     public void specialToolsDestroyArea(View view) {
-        new ArrivingToolDialog(this).show();
+        // new ArrivingToolDialog(this).show();
         /* TODO -> Implement the Destroy Area tool and uncomment the following line */
-        //destroyAreaProcess();
+        destroyAreaProcess();
     }
 
     private void undoProcess() {
@@ -1106,7 +1107,52 @@ public class GameActivity extends AppCompatActivity implements
                                     } // else, user has clicked after choosing tile value to eliminate, so we ignore the click
                                 }
                             } else if (topMostFragment.getTag().equals("DESTROY_AREA_FRAGMENT")) {
-
+                                DestroyAreaFragment destroyAreaFragment = ((DestroyAreaFragment) topMostFragment);
+                                if (destroyAreaFragment.checkFirstClickStatus()
+                                        && destroyAreaFragment.checkSecondClickStatus()) {
+                                    // User has clicked at some time else which is not valid for this tool use
+                                } else { // Tool use is not complete
+                                    // First we check if the selected area has atleast a single game tile or not
+                                    int rowDown = (row == currentGameMode.getRows() - 1) ? row - 1 : row + 1;
+                                    int columnRight = (column == currentGameMode.getColumns() - 1) ? column - 1 : column + 1;
+                                    long cellValueTopLeft = cellValue;
+                                    long cellValueTopRight = gameManager.getGameMatrix().get(row).get(columnRight);
+                                    long cellValueBottomLeft = gameManager.getGameMatrix().get(rowDown).get(column);
+                                    long cellValueBottomRight = gameManager.getGameMatrix().get(rowDown).get(columnRight);
+                                    if ((cellValueTopLeft == 0 || cellValueTopLeft == -1)
+                                            && (cellValueTopRight == 0 || cellValueTopRight == -1)
+                                            && (cellValueBottomLeft == 0 || cellValueBottomLeft == -1)
+                                            && (cellValueBottomRight == 0 || cellValueBottomRight == -1)
+                                            && !destroyAreaFragment.checkFirstClickStatus()) {
+                                        // The selected area does NOT have a single game tile
+                                        Toast.makeText(GameActivity.this, "The selected area should " +
+                                                "contain atleast 1 game tile", Toast.LENGTH_SHORT).show();
+                                    } else { // The selected area has atleast
+                                        if (!destroyAreaFragment.checkFirstClickStatus()) { // First click is yet to be done
+                                            rootGameConstraintLayout.setEnabled(false);
+                                            List<LottieAnimationView> destroyAreaTilesLotties = new ArrayList<>();
+                                            List<Pair<Integer, Integer>> destroyAreaTilesPositions = new ArrayList<>();
+                                            if (cellValueTopLeft > 0) { destroyAreaTilesLotties.add(lottieAnimationView);
+                                                destroyAreaTilesPositions.add(new Pair<>(row, column));
+                                            }
+                                            if (cellValueTopRight > 0) { destroyAreaTilesLotties.add(gameCellLottieLayout
+                                                .findViewWithTag("gameCellLottie" + row + columnRight));
+                                                destroyAreaTilesPositions.add(new Pair<>(row, columnRight));
+                                            }
+                                            if (cellValueBottomLeft > 0) { destroyAreaTilesLotties.add(gameCellLottieLayout
+                                                    .findViewWithTag("gameCellLottie" + rowDown + column));
+                                                destroyAreaTilesPositions.add(new Pair<>(rowDown, column));
+                                            }
+                                            if (cellValueBottomRight > 0) { destroyAreaTilesLotties.add(gameCellLottieLayout
+                                                    .findViewWithTag("gameCellLottie" + rowDown + columnRight));
+                                                destroyAreaTilesPositions.add(new Pair<>(rowDown, columnRight));
+                                            }
+                                            destroyAreaFragment.handleDestroyAreaToolFirstClick(destroyAreaTilesLotties,
+                                                    findViewById(R.id.game_cell_lottie_layout), gridLottieView,
+                                                    destroyAreaTilesPositions);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -1404,9 +1450,9 @@ public class GameActivity extends AppCompatActivity implements
     @Override
     public void onGameOverDialogFragmentInteractionSpecialToolsDestroyAreaClicked() {
         onBackPressed();
-        new ArrivingToolDialog(GameActivity.this).show();
+        // new ArrivingToolDialog(GameActivity.this).show();
         /* TODO -> Implement the Destroy Area tool and uncomment the following line */
-        //destroyAreaProcess();
+        destroyAreaProcess();
     }
 
     @Override
@@ -1657,6 +1703,61 @@ public class GameActivity extends AppCompatActivity implements
 
     @Override
     public void onDestroyAreaFragmentInteractionBackClicked() {
+        onBackPressed();
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    @Override
+    public void onDestroyAreaFragmentInteractionProcessToolUse(List<Pair<Integer, Integer>> destroyAreaTilesPositions) {
+        // Making a copy of the board
+        List<List<Long>> copyOfCurrentBoard = new ArrayList<>();
+        for (int i = 0; i < gameManager.getGameMatrix().size(); i++) {
+            List<Long> boardRow = new ArrayList<>(gameManager.getGameMatrix().get(i));
+            copyOfCurrentBoard.add(boardRow);
+        }
+
+        // Removing the chosen tile from the board
+        for (int index = 0; index < destroyAreaTilesPositions.size(); index++) {
+            copyOfCurrentBoard.get(destroyAreaTilesPositions.get(index).first)
+                    .set(destroyAreaTilesPositions.get(index).second, 0L);
+            AppCompatTextView textView = rootGameConstraintLayout.findViewWithTag("gameCell" +
+                    destroyAreaTilesPositions.get(index).first + destroyAreaTilesPositions.get(index).second);
+            textView.setVisibility(View.INVISIBLE);
+        }
+        gameManager.updateGameMatrix(copyOfCurrentBoard);
+
+        // Checking if the board has game tiles, or do we need to insert some random values
+        if (gameManager.findGameTilesCurrentlyOnBoard(copyOfCurrentBoard) == 0) {
+            gameManager.addNewValues(2, copyOfCurrentBoard);
+            int addNewRandomCellDuration = 50;
+            for (int row = 0; row < currentGameMode.getRows(); row++) {
+                for (int column = 0; column < currentGameMode.getColumns(); column++) {
+                    if (!copyOfCurrentBoard.get(row).get(column).equals(gameManager.getGameMatrix().get(row).get(column))) {
+                        GridLayout gameGridLayout = findViewById(R.id.game_grid_layout);
+                        AppCompatTextView textView = gameGridLayout.findViewWithTag("gameCell" + row + column);
+                        CellValues cellValueEnum = CellValues.getCellValueEnum(copyOfCurrentBoard.get(row).get(column));
+                        AnimationsUtility.executePopUpAnimation(textView, cellValueEnum.getCellValue(),
+                                getColor(cellValueEnum.getNumberColorResourceId()),
+                                getDrawable(cellValueEnum.getBackgroundDrawableResourceId()),
+                                addNewRandomCellDuration, 500, currentGameMode.getGameLayoutProperties());
+                    }
+                }
+            }
+            gameManager.updateGameMatrix(copyOfCurrentBoard);
+        }
+
+        // Update the reduced number of coins
+        currentCoins -= toolsCostMap.get("specialToolsDestroyAreaCost");
+        updateCoins(currentCoins);
+
+        // Final set of actions
+            // Update the count of tool use
+        if (gameManager.getAchievementsManager().incrementDestroyAreaToolUseCount()) {
+            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_destroy_area_tool_masters),
+                    gameManager.getAchievementsManager().getDestroyAreaToolCurrentUseCount());
+        }
+        saveGameState(false);
+        handleGoalCompletionStatus();
         onBackPressed();
     }
 

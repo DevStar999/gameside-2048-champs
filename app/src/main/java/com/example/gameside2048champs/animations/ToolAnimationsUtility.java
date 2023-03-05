@@ -242,6 +242,48 @@ public class ToolAnimationsUtility {
         }
     }
 
+    public static void specialToolsDestroyAreaFirstClickSelectionSetup(List<LottieAnimationView> destroyAreaTilesLotties) {
+        for (int index = 0; index < destroyAreaTilesLotties.size(); index++) {
+            destroyAreaTilesLotties.get(index).setPadding(2,2,2,2);
+            destroyAreaTilesLotties.get(index).setVisibility(View.VISIBLE);
+            destroyAreaTilesLotties.get(index).setRepeatMode(LottieDrawable.RESTART);
+            destroyAreaTilesLotties.get(index).setRepeatCount(LottieDrawable.INFINITE);
+            destroyAreaTilesLotties.get(index).setScaleType(ImageView.ScaleType.FIT_XY);
+            destroyAreaTilesLotties.get(index).setAnimation(R.raw.tile_selection_continuous);
+        }
+    }
+
+    public static void specialToolsDestroyAreaSecondClickSelectionSetup(LottieAnimationView destroyAreaTileLottie) {
+        // Removing old properties
+        destroyAreaTileLottie.setPadding(0,0,0,0);
+        destroyAreaTileLottie.setRepeatCount(0);
+        destroyAreaTileLottie.setScaleType(ImageView.ScaleType.FIT_CENTER); // Setting back to the default ScaleType
+
+        // Setting new properties
+        destroyAreaTileLottie.setPadding(16,0,0,0);
+        destroyAreaTileLottie.setScaleX(1.05f);
+        destroyAreaTileLottie.setVisibility(View.VISIBLE);
+        destroyAreaTileLottie.setMaxFrame(20);
+        destroyAreaTileLottie.setAnimation(R.raw.tile_selection);
+        destroyAreaTileLottie.setSpeed(1f);
+    }
+
+    public static void specialToolsDestroyAreaGridSetup(LottieAnimationView gridLottieView) {
+        gridLottieView.setVisibility(View.VISIBLE);
+        gridLottieView.setBackgroundResource(R.drawable.rounded_corners_grid_lottie);
+        gridLottieView.setAnimation(R.raw.special_tools_destroy_area_grid);
+        gridLottieView.setSpeed(2f);
+    }
+
+    public static void specialToolsDestroyAreaTargetTilesSetup(List<LottieAnimationView> destroyAreaTilesLotties) {
+        for (int index = 0; index < destroyAreaTilesLotties.size(); index++) {
+            destroyAreaTilesLotties.get(index).setVisibility(View.VISIBLE);
+            destroyAreaTilesLotties.get(index).setBackgroundResource(R.drawable.rounded_corners_tile_lottie);
+            destroyAreaTilesLotties.get(index).setAnimation(R.raw.special_tools_destroy_area_tile);
+            destroyAreaTilesLotties.get(index).setSpeed(1.5f);
+        }
+    }
+
     public static void mysteryToolsReviveGame(Context context, LottieAnimationView gridLottieView,
                                               ConstraintLayout rootGameConstraintLayout) {
         gridLottieView.setVisibility(View.VISIBLE);

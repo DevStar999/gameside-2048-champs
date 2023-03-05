@@ -242,7 +242,7 @@ public class ChangeValueFragment extends Fragment {
         selectedOptionLinearLayout.setVisibility(View.VISIBLE);
 
         // Pre-processing for the 4th set of events is as follows
-        Animator.AnimatorListener individualTileLottieSmashAnimatorListener = new Animator.AnimatorListener() {
+        Animator.AnimatorListener individualTileLottieChangeAnimatorListener = new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {}
             @Override
@@ -274,7 +274,7 @@ public class ChangeValueFragment extends Fragment {
                 // 4th set of events is as follows
                 ToolAnimationsUtility.specialToolsChangeValueTargetTileSetup(ChangeValueFragment.this.changeValueTileLottie);
                 ChangeValueFragment.this.changeValueTileLottie.removeAllAnimatorListeners();
-                ChangeValueFragment.this.changeValueTileLottie.addAnimatorListener(individualTileLottieSmashAnimatorListener);
+                ChangeValueFragment.this.changeValueTileLottie.addAnimatorListener(individualTileLottieChangeAnimatorListener);
                 ChangeValueFragment.this.changeValueTileLottie.playAnimation();
             }
             @Override
