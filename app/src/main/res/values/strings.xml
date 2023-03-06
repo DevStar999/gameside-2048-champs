@@ -99,31 +99,31 @@
 
         <!-- # Game Mode Leaderboards are listed as follows -->
     <!-- Leaderboard -> 4x4 - Square -->
-    <string name="leaderboard_4x4__square" translatable="false">CgkIj57DhMoUEAIQCg</string>
+    <string name="leaderboard_4x4__square" translatable="false">CgkIj57DhMoUEAIQOw</string>
     <!-- Leaderboard -> 5x5 - Square -->
-    <string name="leaderboard_5x5__square" translatable="false">CgkIj57DhMoUEAIQCw</string>
+    <string name="leaderboard_5x5__square" translatable="false">CgkIj57DhMoUEAIQPA</string>
     <!-- Leaderboard -> 6x6 - Square -->
-    <string name="leaderboard_6x6__square" translatable="false">CgkIj57DhMoUEAIQDA</string>
+    <string name="leaderboard_6x6__square" translatable="false">CgkIj57DhMoUEAIQPQ</string>
     <!-- Leaderboard -> 4x5 - Rectangle -->
-    <string name="leaderboard_4x5__rectangle" translatable="false">CgkIj57DhMoUEAIQDQ</string>
+    <string name="leaderboard_4x5__rectangle" translatable="false">CgkIj57DhMoUEAIQPg</string>
     <!-- Leaderboard -> 4x6 - Rectangle -->
-    <string name="leaderboard_4x6__rectangle" translatable="false">CgkIj57DhMoUEAIQDg</string>
+    <string name="leaderboard_4x6__rectangle" translatable="false">CgkIj57DhMoUEAIQPw</string>
     <!-- Leaderboard -> 5x6 - Rectangle -->
-    <string name="leaderboard_5x6__rectangle" translatable="false">CgkIj57DhMoUEAIQDw</string>
+    <string name="leaderboard_5x6__rectangle" translatable="false">CgkIj57DhMoUEAIQQA</string>
     <!-- Leaderboard -> 5x5 - Block Middle Sq. -->
-    <string name="leaderboard_5x5__block_middle_sq." translatable="false">CgkIj57DhMoUEAIQEA</string>
+    <string name="leaderboard_5x5__block_middle_sq." translatable="false">CgkIj57DhMoUEAIQQQ</string>
     <!-- Leaderboard -> 6x6 - Block Middle Sq. -->
     <string name="leaderboard_6x6__block_middle_sq." translatable="false">CgkIj57DhMoUEAIQNw</string>
     <!-- Leaderboard -> 4x6 - Block Middle Rec. -->
-    <string name="leaderboard_4x6__block_middle_rec." translatable="false">CgkIj57DhMoUEAIQEQ</string>
+    <string name="leaderboard_4x6__block_middle_rec." translatable="false">CgkIj57DhMoUEAIQQg</string>
     <!-- Leaderboard -> 5x6 - Block Middle Rec. -->
     <string name="leaderboard_5x6__block_middle_rec." translatable="false">CgkIj57DhMoUEAIQOA</string>
     <!-- Leaderboard -> 5x5 - Block 2 Corners Sq. -->
-    <string name="leaderboard_5x5__block_2_corners_sq." translatable="false">CgkIj57DhMoUEAIQEg</string>
+    <string name="leaderboard_5x5__block_2_corners_sq." translatable="false">CgkIj57DhMoUEAIQQw</string>
     <!-- Leaderboard -> 6x6 - Block 2 Corners Sq. -->
     <string name="leaderboard_6x6__block_2_corners_sq." translatable="false">CgkIj57DhMoUEAIQOQ</string>
     <!-- Leaderboard -> 4x6 - Block 2 Corners Rec. -->
-    <string name="leaderboard_4x6__block_2_corners_rec." translatable="false">CgkIj57DhMoUEAIQEw</string>
+    <string name="leaderboard_4x6__block_2_corners_rec." translatable="false">CgkIj57DhMoUEAIQRA</string>
     <!-- Leaderboard -> 5x6 - Block 2 Corners Rec. -->
     <string name="leaderboard_5x6__block_2_corners_rec." translatable="false">CgkIj57DhMoUEAIQOg</string>
 
