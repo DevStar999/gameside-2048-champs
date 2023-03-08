@@ -500,7 +500,7 @@ public class GameActivity extends AppCompatActivity implements
         } else { // Over 48 i.e. 49 which is the limit, so the bar is completely filled now and it is time to reset it
             /* TODO -> Add the following animations/sounds at this stage of the game -
                        (1) Reset the progress of the Multi-Merge Progress Bar in an animated way
-                       (2) Add the +5 coins to the total coins tally in an animated way (With Sound)
+                       (2) Add the +10 coins to the total coins tally in an animated way (With Sound)
                        (3) Remove the old toast message 
             */
             multiMergeComboBarProgress = 1;
@@ -508,8 +508,10 @@ public class GameActivity extends AppCompatActivity implements
             multiMergeComboBar.setProgressDrawable(getDrawable(R.drawable.combo_bar_progress_segment1));
 
             // Added 5 coins to the total
-            updateCoins(this.currentCoins + 5);
-            Toast.makeText(GameActivity.this, "Cheers \uD83E\uDD17 Rewarded +5 Coins", Toast.LENGTH_LONG).show();
+            int rewardAmountCoins = 10;
+            updateCoins(this.currentCoins + rewardAmountCoins);
+            Toast.makeText(GameActivity.this, "Cheers \uD83E\uDD17 Rewarded +" + rewardAmountCoins
+                    + " Coins", Toast.LENGTH_LONG).show();
         }
     }
 
