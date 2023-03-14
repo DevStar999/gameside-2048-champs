@@ -113,7 +113,7 @@ public class AchievementsManager {
     */
     private Map<ReviveGameToolAchievements, Integer> reviveGameToolAchievements;
 
-    AchievementsManager(Context context) {
+    public AchievementsManager(Context context) {
         this.context = context;
         sharedPreferences = context.getSharedPreferences("com.nerdcoredevelopment.game2048champsfinal", Context.MODE_PRIVATE);
         achievementsClient = PlayGames.getAchievementsClient((Activity) this.context);
