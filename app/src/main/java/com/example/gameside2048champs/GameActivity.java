@@ -121,7 +121,7 @@ public class GameActivity extends AppCompatActivity implements
         movesQueue = new ArrayDeque<>();
         goalDone = sharedPreferences.getBoolean("goalDone" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), false); // Keep default as 'false'
-        currentCoins = sharedPreferences.getInt("currentCoins", 3000);
+        currentCoins = sharedPreferences.getInt("currentCoins", 5000);
         toolsCostMap = new HashMap<>() {{
             put("standardToolsUndoCost", 125);
             put("standardToolsSmashTileCost", 150);
@@ -445,7 +445,7 @@ public class GameActivity extends AppCompatActivity implements
         }
 
         // Check if current coins count is greater than the highest most coins count
-        int mostCoins = sharedPreferences.getInt("mostCoins", 3000);
+        int mostCoins = sharedPreferences.getInt("mostCoins", 5000);
         if (this.currentCoins >= mostCoins + 1000) {
             sharedPreferences.edit().putInt("mostCoins", this.currentCoins).apply();
             gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_coins_leaderboard), this.currentCoins);
@@ -507,8 +507,8 @@ public class GameActivity extends AppCompatActivity implements
             multiMergeComboBar.setProgress(multiMergeComboBarProgress);
             multiMergeComboBar.setProgressDrawable(getDrawable(R.drawable.combo_bar_progress_segment1));
 
-            // Added 5 coins to the total
-            int rewardAmountCoins = 10;
+            // Added 20 coins to the total
+            int rewardAmountCoins = 20;
             updateCoins(this.currentCoins + rewardAmountCoins);
             Toast.makeText(GameActivity.this, "Cheers \uD83E\uDD17 Rewarded +" + rewardAmountCoins
                     + " Coins", Toast.LENGTH_LONG).show();
