@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -52,6 +53,9 @@ import com.example.gameside2048champs.fragments.SwapTilesFragment;
 import com.example.gameside2048champs.manager.GameManager;
 import com.example.gameside2048champs.manager.ReviveGameManager;
 import com.example.gameside2048champs.manager.UndoManager;
+import com.google.android.gms.games.leaderboard.ScoreSubmissionData;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -448,7 +452,19 @@ public class GameActivity extends AppCompatActivity implements
         int mostCoins = sharedPreferences.getInt("mostCoins", 5000);
         if (this.currentCoins >= mostCoins + 1000) {
             sharedPreferences.edit().putInt("mostCoins", this.currentCoins).apply();
-            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_coins_leaderboard), this.currentCoins);
+            gameManager.getLeaderboardsClient().submitScoreImmediate(getString(R.string.leaderboard_coins_leaderboard),
+                    this.currentCoins).addOnCompleteListener(new OnCompleteListener<ScoreSubmissionData>() {
+                @Override
+                public void onComplete(@NonNull Task<ScoreSubmissionData> task) {
+                    if (task.isSuccessful()) {
+                        // Score was submitted to the leaderboard
+                    } else {
+                        // Error submitting the score, so we use submitScore() method
+                        gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_coins_leaderboard),
+                                GameActivity.this.currentCoins);
+                    }
+                }
+            });
         }
     }
 
@@ -555,8 +571,19 @@ public class GameActivity extends AppCompatActivity implements
 
         // Submitting the score to leaderboards if the current score is the high score
         if (isCurrentScoreTheBest && submitScore) {
-            gameManager.getLeaderboardsClient().submitScore(getString(currentGameMode.getLeaderboardStringResourceId()),
-                    bestScore);
+            gameManager.getLeaderboardsClient().submitScoreImmediate(getString(currentGameMode.getLeaderboardStringResourceId()),
+                    bestScore).addOnCompleteListener(new OnCompleteListener<ScoreSubmissionData>() {
+                @Override
+                public void onComplete(@NonNull Task<ScoreSubmissionData> task) {
+                    if (task.isSuccessful()) {
+                        // Score was submitted to the leaderboard
+                    } else {
+                        // Error submitting the score, so we use submitScore() method
+                        gameManager.getLeaderboardsClient().submitScore(getString(currentGameMode.getLeaderboardStringResourceId()),
+                                bestScore);
+                    }
+                }
+            });
         }
     }
 
@@ -995,8 +1022,20 @@ public class GameActivity extends AppCompatActivity implements
                         updateCoins(currentCoins);
                         // Update the count of tool use
                         if (gameManager.getAchievementsManager().incrementUndoToolUseCount()) {
-                            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_undo_tool_masters),
-                                    gameManager.getAchievementsManager().getUndoToolCurrentUseCount());
+                            gameManager.getLeaderboardsClient().submitScoreImmediate(getString(R.string.leaderboard_undo_tool_masters),
+                                    gameManager.getAchievementsManager().getUndoToolCurrentUseCount())
+                                .addOnCompleteListener(new OnCompleteListener<ScoreSubmissionData>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<ScoreSubmissionData> task) {
+                                        if (task.isSuccessful()) {
+                                            // Score was submitted to the leaderboard
+                                        } else {
+                                            // Error submitting the score, so we use submitScore() method
+                                            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_undo_tool_masters),
+                                                    gameManager.getAchievementsManager().getUndoToolCurrentUseCount());
+                                        }
+                                    }
+                                });
                         }
                     }
                 }.start();
@@ -1390,8 +1429,20 @@ public class GameActivity extends AppCompatActivity implements
                     updateCoins(currentCoins);
                     // Update the count of tool use
                     if (gameManager.getAchievementsManager().incrementReviveGameToolUseCount()) {
-                        gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_revive_game_tool_masters),
-                                gameManager.getAchievementsManager().getReviveGameToolCurrentUseCount());
+                        gameManager.getLeaderboardsClient().submitScoreImmediate(getString(R.string.leaderboard_revive_game_tool_masters),
+                                gameManager.getAchievementsManager().getReviveGameToolCurrentUseCount())
+                            .addOnCompleteListener(new OnCompleteListener<ScoreSubmissionData>() {
+                                @Override
+                                public void onComplete(@NonNull Task<ScoreSubmissionData> task) {
+                                    if (task.isSuccessful()) {
+                                        // Score was submitted to the leaderboard
+                                    } else {
+                                        // Error submitting the score, so we use submitScore() method
+                                        gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_revive_game_tool_masters),
+                                                gameManager.getAchievementsManager().getReviveGameToolCurrentUseCount());
+                                    }
+                                }
+                            });
                     }
                 }
             }.start();
@@ -1532,8 +1583,20 @@ public class GameActivity extends AppCompatActivity implements
         // Final set of actions
             // Update the count of tool use
         if (gameManager.getAchievementsManager().incrementSmashTileToolUseCount()) {
-            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_smash_tile_tool_masters),
-                    gameManager.getAchievementsManager().getSmashTileToolCurrentUseCount());
+            gameManager.getLeaderboardsClient().submitScoreImmediate(getString(R.string.leaderboard_smash_tile_tool_masters),
+                    gameManager.getAchievementsManager().getSmashTileToolCurrentUseCount())
+                .addOnCompleteListener(new OnCompleteListener<ScoreSubmissionData>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ScoreSubmissionData> task) {
+                        if (task.isSuccessful()) {
+                            // Score was submitted to the leaderboard
+                        } else {
+                            // Error submitting the score, so we use submitScore() method
+                            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_smash_tile_tool_masters),
+                                    gameManager.getAchievementsManager().getSmashTileToolCurrentUseCount());
+                        }
+                    }
+                });
         }
         saveGameState(false);
         handleGoalCompletionStatus();
@@ -1590,8 +1653,20 @@ public class GameActivity extends AppCompatActivity implements
         // Final set of actions
             // Update the count of tool use
         if (gameManager.getAchievementsManager().incrementSwapTilesToolUseCount()) {
-            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_swap_tiles_tool_masters),
-                    gameManager.getAchievementsManager().getSwapTilesToolCurrentUseCount());
+            gameManager.getLeaderboardsClient().submitScoreImmediate(getString(R.string.leaderboard_swap_tiles_tool_masters),
+                    gameManager.getAchievementsManager().getSwapTilesToolCurrentUseCount())
+                .addOnCompleteListener(new OnCompleteListener<ScoreSubmissionData>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ScoreSubmissionData> task) {
+                        if (task.isSuccessful()) {
+                            // Score was submitted to the leaderboard
+                        } else {
+                            // Error submitting the score, so we use submitScore() method
+                            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_swap_tiles_tool_masters),
+                                    gameManager.getAchievementsManager().getSwapTilesToolCurrentUseCount());
+                        }
+                    }
+                });
         }
         saveGameState(false);
         onBackPressed();
@@ -1635,8 +1710,20 @@ public class GameActivity extends AppCompatActivity implements
         // Final set of actions
             // Update the count of tool use
         if (gameManager.getAchievementsManager().incrementChangeValueToolUseCount()) {
-            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_change_value_tool_masters),
-                    gameManager.getAchievementsManager().getChangeValueToolCurrentUseCount());
+            gameManager.getLeaderboardsClient().submitScoreImmediate(getString(R.string.leaderboard_change_value_tool_masters),
+                    gameManager.getAchievementsManager().getChangeValueToolCurrentUseCount())
+                .addOnCompleteListener(new OnCompleteListener<ScoreSubmissionData>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ScoreSubmissionData> task) {
+                        if (task.isSuccessful()) {
+                            // Score was submitted to the leaderboard
+                        } else {
+                            // Error submitting the score, so we use submitScore() method
+                            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_change_value_tool_masters),
+                                    gameManager.getAchievementsManager().getChangeValueToolCurrentUseCount());
+                        }
+                    }
+                });
         }
         saveGameState(false);
         handleGoalCompletionStatus();
@@ -1695,8 +1782,20 @@ public class GameActivity extends AppCompatActivity implements
         // Final set of actions
             // Update the count of tool use
         if (gameManager.getAchievementsManager().incrementEliminateValueToolUseCount()) {
-            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_eliminate_value_tool_masters),
-                    gameManager.getAchievementsManager().getEliminateValueToolCurrentUseCount());
+            gameManager.getLeaderboardsClient().submitScoreImmediate(getString(R.string.leaderboard_eliminate_value_tool_masters),
+                    gameManager.getAchievementsManager().getEliminateValueToolCurrentUseCount())
+                .addOnCompleteListener(new OnCompleteListener<ScoreSubmissionData>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ScoreSubmissionData> task) {
+                        if (task.isSuccessful()) {
+                            // Score was submitted to the leaderboard
+                        } else {
+                            // Error submitting the score, so we use submitScore() method
+                            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_eliminate_value_tool_masters),
+                                    gameManager.getAchievementsManager().getEliminateValueToolCurrentUseCount());
+                        }
+                    }
+                });
         }
         saveGameState(false);
         handleGoalCompletionStatus();
@@ -1755,8 +1854,20 @@ public class GameActivity extends AppCompatActivity implements
         // Final set of actions
             // Update the count of tool use
         if (gameManager.getAchievementsManager().incrementDestroyAreaToolUseCount()) {
-            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_destroy_area_tool_masters),
-                    gameManager.getAchievementsManager().getDestroyAreaToolCurrentUseCount());
+            gameManager.getLeaderboardsClient().submitScoreImmediate(getString(R.string.leaderboard_destroy_area_tool_masters),
+                    gameManager.getAchievementsManager().getDestroyAreaToolCurrentUseCount())
+                .addOnCompleteListener(new OnCompleteListener<ScoreSubmissionData>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ScoreSubmissionData> task) {
+                        if (task.isSuccessful()) {
+                            // Score was submitted to the leaderboard
+                        } else {
+                            // Error submitting the score, so we use submitScore() method
+                            gameManager.getLeaderboardsClient().submitScore(getString(R.string.leaderboard_destroy_area_tool_masters),
+                                    gameManager.getAchievementsManager().getDestroyAreaToolCurrentUseCount());
+                        }
+                    }
+                });
         }
         saveGameState(false);
         handleGoalCompletionStatus();
