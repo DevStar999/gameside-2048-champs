@@ -19,6 +19,10 @@
         <meta-data
             android:name="com.google.android.gms.games.APP_ID"
             android:value="@string/game_services_project_id" />
+        <!-- AdMob app ID: ca-app-pub-4247468904518611~7012519655 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4247468904518611~7012519655" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

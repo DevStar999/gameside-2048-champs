@@ -63,6 +63,9 @@ dependencies {
     // For Qonversion
     implementation 'io.qonversion.android.sdk:sdk:3.4.1'
 
+    // For AdMob
+    implementation 'com.google.android.gms:play-services-ads:21.5.0'
+
     // In-App Updates dependency
     implementation 'com.google.android.play:app-update:2.0.1'
 
