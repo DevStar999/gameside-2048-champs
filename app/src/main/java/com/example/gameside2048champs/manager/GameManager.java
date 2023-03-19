@@ -40,6 +40,7 @@ public class GameManager {
     private boolean hasMoveBeenCompleted;
     private boolean hasGoalBeenCompleted;
     private List<List<Long>> gameMatrix;
+    private GameProgressionManager gameProgressionManager;
     private UndoManager undoManager;
     private List<List<Boolean>> areAllAnimationsDone; // Boolean matrix to check if all animations are done
     private GameStates currentGameState;
@@ -55,6 +56,7 @@ public class GameManager {
         hasMoveBeenCompleted = true;
 
         gameMatrix = new ArrayList<>();
+        gameProgressionManager = new GameProgressionManager(parentActivity, currentGameMode);
         undoManager = new UndoManager();
         areAllAnimationsDone = new ArrayList<>();
         for (int row = 0; row < this.currentGameMode.getRows(); row++) {
@@ -80,7 +82,8 @@ public class GameManager {
         // Assigning some random start values to play with at start
         Random random = new Random();
         for (int currentCell = 0; currentCell < numberOfCellsToAdd; currentCell++) {
-            long randomStartValue = (random.nextInt(1000) < 900) ? 2L : 4L;
+            long randomStartValue = (random.nextInt(1000) < 900) ?
+                    gameProgressionManager.getLowestTileValue() : 2L * gameProgressionManager.getLowestTileValue();
             int randomRow, randomColumn;
             do {
                 randomRow = random.nextInt(currentGameMode.getRows());
@@ -408,5 +411,36 @@ public class GameManager {
 
         // GAME_OVER otherwise
         currentGameState = GameStates.GAME_OVER;
+    }
+
+    public boolean checkGameLevelledUp() {
+        boolean result;
+
+        // First, we find the value of the highest value tile in the 'gameMatrix'
+        long highestValueInGameMatrix = -100L; // Any value less than -1 is fine.
+        for (int currentRow = 0; currentRow < gameMatrix.size(); currentRow++) {
+            for (int currentColumn = 0; currentColumn < gameMatrix.get(currentRow).size(); currentColumn++) {
+                highestValueInGameMatrix = Math.max(gameMatrix.get(currentRow).get(currentColumn), highestValueInGameMatrix);
+            }
+        }
+
+        // Here, we now go to the gameProgressionManager to check if the game has levelled up or not
+        result = (gameProgressionManager.hasGameLevelledUp(highestValueInGameMatrix, currentGameMode));
+
+        return result;
+    }
+
+    // The following method is used to bring about the effects of Game Level Up
+    public void removeLowerValueTiles() {
+        for (int currentRow = 0; currentRow < gameMatrix.size(); currentRow++) {
+            for (int currentColumn = 0; currentColumn < gameMatrix.get(currentRow).size(); currentColumn++) {
+                long currentCellValue = gameMatrix.get(currentRow).get(currentColumn);
+                if (currentCellValue > 0) { // So, the cell is neither a block cell (value = -1) nor an empty cell (value = 0)
+                    if (currentCellValue < gameProgressionManager.getLowestTileValue()) {
+                        gameMatrix.get(currentRow).set(currentColumn, 0L); // Removing the value out, so now we have an empty cell
+                    }
+                }
+            }
+        }
     }
 }

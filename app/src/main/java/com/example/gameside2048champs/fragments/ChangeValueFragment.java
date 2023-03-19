@@ -37,6 +37,7 @@ import java.util.List;
            current fixed 5 options of 2, 4, 8, 16 & 32 (After implementing a progression system in the game)
 */
 public class ChangeValueFragment extends Fragment {
+    public static final String LOWEST_TILE_VALUE = "lowestTileValue";
     private Context context;
     private OnChangeValueFragmentInteractionListener mListener;
     private AppCompatImageView backButton;
@@ -50,6 +51,7 @@ public class ChangeValueFragment extends Fragment {
     private LinearLayout changeValueOptionsLinearLayout;
     private LinearLayout changeValueOptionsFirstRow;
     private LinearLayout changeValueOptionsSecondRow;
+    private long lowestTileValue;
     private List<Long> optionValues;
     private List<AppCompatTextView> valueOptionTextViews;
     private List<AppCompatImageView> valueOptionSelectionImageViews;
@@ -64,9 +66,20 @@ public class ChangeValueFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public static ChangeValueFragment newInstance(long lowestTileValue) {
+        ChangeValueFragment fragment = new ChangeValueFragment();
+        Bundle args = new Bundle();
+        args.putLong(LOWEST_TILE_VALUE, lowestTileValue);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            this.lowestTileValue = getArguments().getLong(LOWEST_TILE_VALUE);
+        }
     }
 
     private int dpToPx(int dp) {
@@ -166,7 +179,13 @@ public class ChangeValueFragment extends Fragment {
         changeValueOptionsLinearLayout = view.findViewById(R.id.change_value_options_change_value_fragment_linear_layout);
         changeValueOptionsFirstRow = view.findViewById(R.id.change_value_options_first_row_change_value_fragment_linear_layout);
         changeValueOptionsSecondRow = view.findViewById(R.id.change_value_options_second_row__change_value_fragment_linear_layout);
-        optionValues = new ArrayList<>() {{ add(2L); add(4L); add(8L); add(16L); add(32L); }};
+        optionValues = new ArrayList<>() {{
+            add(ChangeValueFragment.this.lowestTileValue);
+            add(2L * ChangeValueFragment.this.lowestTileValue);
+            add(4L * ChangeValueFragment.this.lowestTileValue);
+            add(8L * ChangeValueFragment.this.lowestTileValue);
+            add(16L * ChangeValueFragment.this.lowestTileValue);
+        }};
         valueOptionTextViews = new ArrayList<>();
         valueOptionSelectionImageViews = new ArrayList<>();
         isFirstClickDone = true;

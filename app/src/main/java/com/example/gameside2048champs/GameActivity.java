@@ -334,6 +334,10 @@ public class GameActivity extends AppCompatActivity implements
                         gameManager.updateGameState();
                         updateScore(gameManager.getCurrentScore());
                         updateMultiMergeComboBar(swipeUtility.getMergePositionsCount());
+                        /* TODO -> Both condition i.e. Goal done & Game over can happen in the same move as well, so correct
+                                   this logic and the condition checks in the if-else block below.
+                                   (This can be done by sequential display of dialogs)
+                        */
                         if (gameManager.isHasGoalBeenCompleted() && !goalDone) {
                             goalDone = true;
                             int greenTickEmojiUnicode = 0x2705;
@@ -348,6 +352,12 @@ public class GameActivity extends AppCompatActivity implements
                             handleGameOverProcess();
                         }
                         cancel();
+
+                        // Here, we check if the game has levelled up or not
+                        if (gameManager.checkGameLevelledUp()) { // Game has indeed levelled up
+                            handleGameLevelUpProcess();
+                        }
+
                         // If there are still moves to execute then go on and execute them
                         if (movesQueue.size() > 0) {
                             executeMove();
@@ -360,6 +370,25 @@ public class GameActivity extends AppCompatActivity implements
                 }
             }.start();
         }
+    }
+
+    private void handleGameLevelUpProcess() {
+        // TODO -> The following is a temp code and soon should be replaced
+        /* First, we need to remove the tiles having value lower than the 'lowestTileValue' in gameProgressionManager from
+           the gameMatrix
+        */
+        gameManager.removeLowerValueTiles();
+
+        // Simply, we sync the UI of the new game board state where we have removed the lower value tiles
+        updateBoardOnUndo();
+
+        /* Calling the following method, so user cannot make an undo move exactly after the move in which the process of
+           'Game Level Up' happened
+        */
+        gameManager.getUndoManager().undoToPreviousState();
+
+        // Temp toast message to show the process for game level up was done
+        Toast.makeText(GameActivity.this, "The process of 'Game Level Up' done", Toast.LENGTH_LONG).show();
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -523,8 +552,8 @@ public class GameActivity extends AppCompatActivity implements
             multiMergeComboBar.setProgress(multiMergeComboBarProgress);
             multiMergeComboBar.setProgressDrawable(getDrawable(R.drawable.combo_bar_progress_segment1));
 
-            // Added 20 coins to the total
-            int rewardAmountCoins = 20;
+            // Added 25 coins to the total
+            int rewardAmountCoins = 25;
             updateCoins(this.currentCoins + rewardAmountCoins);
             Toast.makeText(GameActivity.this, "Cheers \uD83E\uDD17 Rewarded +" + rewardAmountCoins
                     + " Coins", Toast.LENGTH_LONG).show();
@@ -557,6 +586,8 @@ public class GameActivity extends AppCompatActivity implements
                 currentGameMode.getDimensions(), multiMergeComboBarProgress).apply();
         sharedPreferences.edit().putLong("currentScore" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), currentScore).apply();
+        sharedPreferences.edit().putInt("gameProgressionManagerLowestTilePowerOfTwo" + " " + currentGameMode.getMode()
+                + " " + currentGameMode.getDimensions(), gameManager.getGameProgressionManager().getLowestTilePowerOfTwo()).apply();
         sharedPreferences.edit().putString("undoManager" + " " + currentGameMode.getMode()
                 + " " + currentGameMode.getDimensions(), gson.toJson(gameManager.getUndoManager())).apply();
         sharedPreferences.edit().putBoolean("goalDone" + " " + currentGameMode.getMode()
@@ -593,6 +624,7 @@ public class GameActivity extends AppCompatActivity implements
         goalDone = false;
         gameManager.setHasGoalBeenCompleted(false);
         gameManager.setCurrentGameState(GameStates.GAME_START);
+        gameManager.getGameProgressionManager().resetGameProgress(currentGameMode);
         saveGameState(false);
 
         if (flag) {
@@ -1044,7 +1076,7 @@ public class GameActivity extends AppCompatActivity implements
             }
         } else { // Undo was used, so we need to show a message here
             String undoMessageText = (gameManager.getCurrentGameState() == GameStates.GAME_ONGOING) ?
-                    "'UNDO' tool was already used" : "No move has been made yet";
+                    "'UNDO' tool cannot be used just yet" : "No move has been made yet";
             new ToolUseProhibitedDialog(this, undoMessageText).show();
         }
     }
@@ -1303,7 +1335,7 @@ public class GameActivity extends AppCompatActivity implements
 
             // Initiate the tool entry transition
             ToolAnimationsUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
-            ChangeValueFragment fragment = new ChangeValueFragment();
+            ChangeValueFragment fragment = ChangeValueFragment.newInstance(gameManager.getGameProgressionManager().getLowestTileValue());
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.setCustomAnimations(R.anim.tool_fragment_entry, R.anim.tool_fragment_exit,
