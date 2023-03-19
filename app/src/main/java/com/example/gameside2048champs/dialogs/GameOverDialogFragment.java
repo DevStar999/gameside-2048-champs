@@ -27,7 +27,7 @@ public class GameOverDialogFragment extends Fragment implements
         GameSummaryFragment.OnGameSummaryFragmentInteractionListener {
     private static final String CURRENT_SCORE = "currentScore";
     private static final String BEST_SCORE = "bestScore";
-    public static final String CURRENT_COINS = "currentCoins";
+    private static final String CURRENT_COINS = "currentCoins";
     private long currentScore;
     private long bestScore;
     private int currentCoins;
