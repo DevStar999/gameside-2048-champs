@@ -47,6 +47,7 @@ import com.example.gameside2048champs.enums.GameStates;
 import com.example.gameside2048champs.fragments.ChangeValueFragment;
 import com.example.gameside2048champs.fragments.DestroyAreaFragment;
 import com.example.gameside2048champs.fragments.EliminateValueFragment;
+import com.example.gameside2048champs.fragments.GameLevelUpFragment;
 import com.example.gameside2048champs.fragments.ShopFragment;
 import com.example.gameside2048champs.fragments.SmashTileFragment;
 import com.example.gameside2048champs.fragments.SwapTilesFragment;
@@ -70,6 +71,7 @@ import java.util.Queue;
 public class GameActivity extends AppCompatActivity implements
         ShopFragment.OnShopFragmentInteractionListener,
         GameOverDialogFragment.OnGameOverDialogFragmentInteractionListener,
+        GameLevelUpFragment.OnGameLevelUpFragmentInteractionListener,
         SmashTileFragment.OnSmashTileFragmentInteractionListener,
         SwapTilesFragment.OnSwapTilesFragmentInteractionListener,
         ChangeValueFragment.OnChangeValueFragmentInteractionListener,
@@ -353,10 +355,13 @@ public class GameActivity extends AppCompatActivity implements
                         }
                         cancel();
 
+                        /*
                         // Here, we check if the game has levelled up or not
-                        if (gameManager.checkGameLevelledUp()) { // Game has indeed levelled up
+                        if (gameManager.checkGameLevelledUp() && gameManager.getCurrentGameState() != GameStates.GAME_OVER) {
+                            // Game has indeed levelled up
                             handleGameLevelUpProcess();
                         }
+                        */
 
                         // If there are still moves to execute then go on and execute them
                         if (movesQueue.size() > 0) {
@@ -372,7 +377,33 @@ public class GameActivity extends AppCompatActivity implements
         }
     }
 
+    private void openGameLevelUpFragment() {
+        // If GameLevelUpFragment was opened and is currently on top, then return
+        int countOfFragments = getSupportFragmentManager().getFragments().size();
+        if (countOfFragments > 0) {
+            Fragment topMostFragment = getSupportFragmentManager().getFragments().get(countOfFragments - 1);
+            if (topMostFragment != null && topMostFragment.getTag() != null && !topMostFragment.getTag().isEmpty()
+                    && topMostFragment.getTag().equals("GAME_LEVEL_UP_FRAGMENT")) {
+                return;
+            }
+        }
+
+        ToolAnimationsUtility.toolsBackgroundAppearAnimation(backgroundFilmImageView, 300);
+        long newHigherTileUnlockedValue = gameManager.getGameProgressionManager().getHighestTileValue();
+        long oldLowerTileRemovedValue = gameManager.getGameProgressionManager().getLowestTileValue() / 2L;
+        GameLevelUpFragment fragment = GameLevelUpFragment.newInstance(newHigherTileUnlockedValue, oldLowerTileRemovedValue);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.tool_fragment_entry, R.anim.tool_fragment_exit,
+                R.anim.tool_fragment_entry, R.anim.tool_fragment_exit);
+        transaction.addToBackStack(null);
+        transaction.add(R.id.tool_use_game_activity_fragment_container,
+                fragment, "GAME_LEVEL_UP_FRAGMENT").commit();
+    }
+
     private void handleGameLevelUpProcess() {
+        // openGameLevelUpFragment();
+
         // TODO -> The following is a temp code and soon should be replaced
         /* First, we need to remove the tiles having value lower than the 'lowestTileValue' in gameProgressionManager from
            the gameMatrix
@@ -388,7 +419,7 @@ public class GameActivity extends AppCompatActivity implements
         gameManager.getUndoManager().undoToPreviousState();
 
         // Temp toast message to show the process for game level up was done
-        Toast.makeText(GameActivity.this, "The process of 'Game Level Up' done", Toast.LENGTH_LONG).show();
+        Toast.makeText(GameActivity.this, "The game has levelled up!", Toast.LENGTH_LONG).show();
     }
 
     @SuppressLint("ClickableViewAccessibility")
