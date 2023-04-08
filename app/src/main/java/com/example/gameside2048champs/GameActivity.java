@@ -336,10 +336,7 @@ public class GameActivity extends AppCompatActivity implements
                         gameManager.updateGameState();
                         updateScore(gameManager.getCurrentScore());
                         updateMultiMergeComboBar(swipeUtility.getMergePositionsCount());
-                        /* TODO -> Both condition i.e. Goal done & Game over can happen in the same move as well, so correct
-                                   this logic and the condition checks in the if-else block below.
-                                   (This can be done by sequential display of dialogs)
-                        */
+
                         if (gameManager.isHasGoalBeenCompleted() && !goalDone) {
                             goalDone = true;
                             int greenTickEmojiUnicode = 0x2705;
@@ -404,7 +401,6 @@ public class GameActivity extends AppCompatActivity implements
     private void handleGameLevelUpProcess() {
         // openGameLevelUpFragment();
 
-        // TODO -> The following is a temp code and soon should be replaced
         /* First, we need to remove the tiles having value lower than the 'lowestTileValue' in gameProgressionManager from
            the gameMatrix
         */
@@ -574,11 +570,7 @@ public class GameActivity extends AppCompatActivity implements
         } else if (givenMultiMergeComboBarProgress >= 43 && givenMultiMergeComboBarProgress <= 48) {
             multiMergeComboBar.setProgressDrawable(getDrawable(R.drawable.combo_bar_progress_segment8));
         } else { // Over 48 i.e. 49 which is the limit, so the bar is completely filled now and it is time to reset it
-            /* TODO -> Add the following animations/sounds at this stage of the game -
-                       (1) Reset the progress of the Multi-Merge Progress Bar in an animated way
-                       (2) Add the +10 coins to the total coins tally in an animated way (With Sound)
-                       (3) Remove the old toast message 
-            */
+
             multiMergeComboBarProgress = 1;
             multiMergeComboBar.setProgress(multiMergeComboBarProgress);
             multiMergeComboBar.setProgressDrawable(getDrawable(R.drawable.combo_bar_progress_segment1));
@@ -1054,7 +1046,6 @@ public class GameActivity extends AppCompatActivity implements
 
     public void specialToolsDestroyArea(View view) {
         // new ArrivingToolDialog(this).show();
-        /* TODO -> Implement the Destroy Area tool and uncomment the following line */
         destroyAreaProcess();
     }
 
@@ -1417,9 +1408,6 @@ public class GameActivity extends AppCompatActivity implements
     }
 
     private void destroyAreaProcess() {
-        /* TODO -> After the implementation of the this tool is done at the very end of the process of this tool, remember to
-                   add code to increment the tool use count (Refer to other tools if required)
-        */
         movesQueue.clear();
         if (gameManager.findGameTilesCurrentlyOnBoard(gameManager.getGameMatrix()) < 1) {
             String destroyAreaMessage = "Atleast 1 game tile is required to use the \"DESTROY AREA\" tool";
@@ -1567,7 +1555,6 @@ public class GameActivity extends AppCompatActivity implements
     public void onGameOverDialogFragmentInteractionSpecialToolsDestroyAreaClicked() {
         onBackPressed();
         // new ArrivingToolDialog(GameActivity.this).show();
-        /* TODO -> Implement the Destroy Area tool and uncomment the following line */
         destroyAreaProcess();
     }
 

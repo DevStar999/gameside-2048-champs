@@ -112,17 +112,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:paddingStart="8dp"
+            android:button="@drawable/check_box_selector"
             android:checked="false"
+            android:paddingStart="8dp"
             android:text="Select a tile to choose an area of 2x2 tiles"
             android:textColor="@color/text_color"
             android:textSize="16sp"
             android:textStyle="normal"
-            android:button="@drawable/check_box_selector"
-            app:theme="@style/CustomCheckBox"
             app:layout_constraintBottom_toTopOf="@id/first_click_hint_message_destroy_area_fragment_text_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tool_title_destroy_area_fragment_linear_layout" />
+            app:layout_constraintTop_toBottomOf="@id/tool_title_destroy_area_fragment_linear_layout"
+            app:theme="@style/CustomCheckBox" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/first_click_hint_message_destroy_area_fragment_text_view"
@@ -146,34 +146,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:paddingStart="8dp"
+            android:button="@drawable/check_box_selector"
             android:checked="false"
+            android:paddingStart="8dp"
             android:text="Confirm the selection of area to destroy"
             android:textColor="@color/text_color"
             android:textSize="16sp"
             android:textStyle="normal"
-            android:button="@drawable/check_box_selector"
-            app:theme="@style/CustomCheckBox"
             app:layout_constraintBottom_toTopOf="@id/go_boom_destroy_area_fragment_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/first_click_hint_message_destroy_area_fragment_text_view" />
+            app:layout_constraintTop_toBottomOf="@id/first_click_hint_message_destroy_area_fragment_text_view"
+            app:theme="@style/CustomCheckBox" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/go_boom_destroy_area_fragment_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
             android:layout_gravity="center_horizontal"
-            android:visibility="gone"
             android:background="@drawable/click_button"
+            android:paddingHorizontal="16dp"
             android:text="GO BOOM !!"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/second_click_destroy_area_fragment_check_box"/>
+            app:layout_constraintTop_toBottomOf="@id/second_click_destroy_area_fragment_check_box" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

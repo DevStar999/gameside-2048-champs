@@ -31,7 +31,7 @@ import com.google.android.gms.games.PlayGames;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-// TODO -> Add option in ShopFragment to earn coins for free by watching Ad when ad has loaded
+
 public class MainActivity extends AppCompatActivity implements PreGameFragment.OnPreGameFragmentInteractionListener {
     private GamesSignInClient gamesSignInClient;
     private boolean isUserSignedIn;
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements PreGameFragment.O
                     isUserSignedIn = true;
                     gpgsSignInStatusTextView.setText("Google Play Games Sign In Status : Signed In ✅");
                     gpgsSignInImageView.setVisibility(View.GONE);
-                    /* TODO -> Un-comment the following code when we want to make use of playerId of the GPGS signed in user
+                    /*
                     PlayGames.getPlayersClient(MainActivity.this).getCurrentPlayer()
                             .addOnCompleteListener(new OnCompleteListener<Player>() {
                         @Override
@@ -137,9 +137,6 @@ public class MainActivity extends AppCompatActivity implements PreGameFragment.O
                     gpgsSignInImageView.setVisibility(View.VISIBLE);
                     if (isSignInAttemptManual) {
                         if (isInternetConnected()) {
-                            /* TODO -> Replace this toast with something better like a dialog etc. and more descriptive
-                                       (Sign In feature)
-                            */
                             Toast.makeText(MainActivity.this, "Download the 'Google Play Games' app and " +
                                     "select an account to play this game", Toast.LENGTH_LONG).show();
                         } else { // Internet is NOT connected

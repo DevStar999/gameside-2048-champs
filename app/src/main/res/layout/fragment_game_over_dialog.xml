@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/dialog_background_film"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dialog_background_film"
     android:clickable="true"
     android:focusable="true"
     tools:context=".dialogs.GameOverDialogFragment">
@@ -14,35 +14,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.11"/>
+        app:layout_constraintGuide_percent="0.11" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical_guide_right_game_over_dialog_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.89"/>
+        app:layout_constraintGuide_percent="0.89" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontal_guide_top_game_over_dialog_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15"/>
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontal_guide_bottom_game_over_dialog_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.85"/>
+        app:layout_constraintGuide_percent="0.85" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/navigation_arrow_left_game_over_dialog_fragment_image_view"
         android:layout_width="28dp"
         android:layout_height="28dp"
-        android:layout_marginBottom="34dp"
         android:layout_marginEnd="4dp"
+        android:layout_marginBottom="34dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/main_container_game_over_dialog_fragment_constraint_layout"
@@ -53,8 +53,8 @@
         android:id="@+id/navigation_arrow_right_game_over_dialog_fragment_image_view"
         android:layout_width="28dp"
         android:layout_height="28dp"
-        android:layout_marginBottom="34dp"
         android:layout_marginStart="4dp"
+        android:layout_marginBottom="34dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/main_container_game_over_dialog_fragment_constraint_layout"
@@ -100,24 +100,24 @@
                 android:id="@+id/first_page_dot_game_over_dialog_fragment_image_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="2dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="2dp"
                 app:srcCompat="@drawable/dialog_page_selected" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/second_page_dot_game_over_dialog_fragment_image_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="2dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="2dp"
                 app:srcCompat="@drawable/dialog_page_not_selected" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/third_page_dot_game_over_dialog_fragment_image_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="2dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="2dp"
                 app:srcCompat="@drawable/dialog_page_not_selected" />
 
         </LinearLayout>

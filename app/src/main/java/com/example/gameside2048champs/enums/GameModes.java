@@ -7,10 +7,6 @@ import java.util.List;
 
 import lombok.Getter;
 
-/* TODO -> ## Bug ## : The sizes are all traversed using 'dimensions' string for a question mark
-           string like '? X ?' so when call to getGameModeEnum() method is made this mode better be
-           covered in the last else block, or else the app will crash
-*/
 @Getter
 public enum GameModes {
     SQUARE_4X4(4, 4, 16, "4 X 4", "SQUARE", false,
