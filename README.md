@@ -1,3 +1,3 @@
 # GameSide 2048 Champs
 
-This is practise project for working on the GameActivity side of the main project of '2048 Champs'.
+Android project for experiments/new features etc. for the GameActivity of the 2048 Champs project
